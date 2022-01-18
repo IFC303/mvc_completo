@@ -24,6 +24,7 @@
             $this->datos['usuarios'] = $usuarios;
 
             $this->vista('usuarios/inicio',$this->datos);
+            // $this->vista('usuarios/inicioVue',$this->datos);
         }
 
 
@@ -96,28 +97,19 @@
 
 
         public function borrar($id){
-            $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
-
-            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol,$this->datos['rolesPermitidos'])) {
-                redireccionar('/usuarios');
-            }
-
-            //obtenemos información del usuario desde del modelo
-            $usuario = $this->usuarioModelo->obtenerUsuarioId($id);
-
-            $this->datos['id_usuario'] = $usuario->id_usuario;
-            $this->datos['nombre'] = $usuario->nombre;
-            $this->datos['email'] = $usuario->email;
-            $this->datos['telefono'] = $usuario->telefono;
-
+            
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($this->usuarioModelo->borrarUsuario($id)){
                     redireccionar('/usuarios');
                 } else {
                     die('Algo ha fallado!!!');
                 }
+            } else {
+                //obtenemos información del usuario desde del modelo
+                $this->datos['usuario'] = $this->usuarioModelo->obtenerUsuarioId($id);
+
+                $this->vista('usuarios/borrar',$this->datos);
             }
-            $this->vista('usuarios/borrar',$this->datos);
         }
 
         
