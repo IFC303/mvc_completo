@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS `crud_mvc`;
-CREATE DATABASE `crud_mvc`;
-USE `crud_mvc`;
+DROP DATABASE IF EXISTS `tragamillas`;
+CREATE DATABASE `tragamillas`;
+USE `tragamillas`;
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
@@ -19,7 +19,7 @@ SET
   /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
   /*!40101 SET NAMES utf8mb4 */;
 --
-  -- Base de datos: `crud_mvc`
+  -- Base de datos: `tragamillas`
   --
   -- --------------------------------------------------------
   --
