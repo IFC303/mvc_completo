@@ -10,10 +10,11 @@ class LoginModelo
     }
 
 
-    public function loginEmail($email)
+    public function loginEmail($email, $passw)
     {
-        $this->db->query("SELECT * FROM usuarios WHERE email = :email");
+        $this->db->query("SELECT * FROM usuarios WHERE email = :email AND passw = :passw");
         $this->db->bind(':email', $email);
+        $this->db->bind(':passw', $passw);
 
         return $this->db->registro();
     }

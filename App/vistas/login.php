@@ -12,6 +12,10 @@
       <input type="email" name="email" class="form-control" id="floatingInput" placeholder="" required>
       <label for="floatingInput">Email address</label>
     </div>
+    <div class="form-floating mb-3">
+      <input type="password" name="passw" class="form-control" id="passw" placeholder="" required>
+      <label for="passw">Password</label>
+    </div>
     <input type="submit" class="btn btn-success" value="Login">
 
   </form>
@@ -29,7 +33,7 @@
         <use xlink:href="#exclamation-triangle-fill" />
       </svg>
       <div>
-        Intentelo de nuevo. <strong>El Email no existe!!!</strong>
+        Intentelo de nuevo. <strong>El Email y la contraseña no coinciden</strong>
       </div>
     </div>
 

@@ -12,7 +12,8 @@ class Login extends Controlador
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->datos['email'] = trim($_POST['email']);
-            $usuarioSesion = $this->loginModelo->loginEmail($this->datos['email']);
+            $this->datos['passw'] = trim($_POST['passw']);
+            $usuarioSesion = $this->loginModelo->loginEmail($this->datos['email'], $this->datos['passw']);
             if (isset($usuarioSesion) && !empty($usuarioSesion)) {       // si tiene datos el objeto devuelto entramos
                 Sesion::crearSesion($usuarioSesion);
                 $this->loginModelo->registroSesion($usuarioSesion->id_usuario);               // registro el login en DDBB

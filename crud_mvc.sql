@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS `crud_mvc`;
+CREATE DATABASE `crud_mvc`;
+USE `crud_mvc`;
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
@@ -316,6 +319,7 @@ VALUES
     `id_usuario` int(11) NOT NULL,
     `nombre` varchar(100) NOT NULL,
     `email` varchar(120) NOT NULL,
+    `passw` varchar(120) NOT NULL,
     `telefono` varchar(20) NOT NULL,
     `id_rol` int(11) NOT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -327,6 +331,7 @@ INSERT INTO
     `id_usuario`,
     `nombre`,
     `email`,
+    `passw`,
     `telefono`,
     `id_rol`
   )
@@ -335,14 +340,23 @@ VALUES
     2,
     'Martaaa Garcíaa',
     'mgarciaf@cpifpbajoaragon.com',
+    'mgarciaf',
     '6534667435',
     3
   ),
-  (10, 'Fede', 'feder@gmail.com', '5555554445', 2),
+  (
+    10,
+    'Fede',
+    'feder@gmail.com',
+    'feder',
+    '5555554445',
+    2
+  ),
   (
     11,
     'Jonatan',
     'jsegurana@cpifpbajoparagon.com',
+    'jsegurana',
     '649556432',
     1
   );
