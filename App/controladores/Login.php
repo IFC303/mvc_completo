@@ -29,6 +29,7 @@ class Login extends Controlador
             $this->datos['error'] = $error;
 
             $this->vista('login', $this->datos);
+            // $this->vista('login2', $this->datos);
         }
     }
 
