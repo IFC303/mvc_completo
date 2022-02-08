@@ -30,6 +30,7 @@ class Login extends Controlador
 
             $this->vista('login', $this->datos);
             // $this->vista('login2', $this->datos);
+            // $this->vista('login3', $this->datos);
         }
     }
 
