@@ -1,6 +1,3 @@
-
-
-
 <div class="container">
   <div class="jumbotron">
     <h1>Login</h1>
