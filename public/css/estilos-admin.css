@@ -1,0 +1,60 @@
+/*body{
+    background-color: #F5F5F5;
+}
+
+
+
+#logo{
+    width: 200px;
+}
+
+#titulo{
+    text-align: center;
+    color: #023EF9;
+    font: bold;
+}
+#usuColor:hover{
+    background-color:#FFBF1C
+ }*/
+
+.caja, p{
+    cursor:pointer;
+}
+
+p[id^="p"] {
+    border: solid; 
+    color: #023EF9; 
+    font-weight:bold; 
+    height: 100%; 
+    width: 200px;
+    cursor:pointer;
+}
+
+td[id^="m"] {
+    font-size: 25px;
+    letter-spacing: 3px;
+    font-family: 'Anton', sans-serif;
+    font-family: 'Doppio One', sans-serif;
+    border: #023EF9 solid; 
+    color: #000000;  
+    height: 75px; 
+    width: 100%;
+    cursor:pointer;
+}
+td[id^="m"]:hover {
+   background-color: #FFBF1C;
+}
+
+
+DIV[id^="color"] {
+    height: 100%; 
+    width: 200px;
+}
+
+.alto400 {
+    height: 400px;
+}
+a:link, a:hover, a:visited, a:active {
+    text-decoration:none;
+    color: #000000; 
+}
