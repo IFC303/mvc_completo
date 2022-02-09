@@ -2,13 +2,10 @@
 
 class Inicio extends Controlador
 {
-
-
     public function __construct()
     {
         $this->loginModelo = $this->modelo('LoginModelo');
     }
-
 
     public function index($error = '')
     {
@@ -24,7 +21,6 @@ class Inicio extends Controlador
                 redireccionar('/login/index/error_1');
             }
         } else {
-
             if (Sesion::sesionCreada($this->datos)) {    // si ya estamos logueados redirecciona a la raiz
                 if ($this->datos['usuarioSesion']->id_rol == 1) {
                     $this->vista('administradores/inicio', $this->datos);
