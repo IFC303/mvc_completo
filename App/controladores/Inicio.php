@@ -28,6 +28,8 @@ class Inicio extends Controlador
                     $this->vista('/entrenadores/inicio', $this->datos);
                 } elseif ($this->datos['usuarioSesion']->id_rol == 3) {
                     $this->vista('/socios/inicio', $this->datos);
+                } elseif ($this->datos['usuarioSesion']->id_rol == 4) {
+                    $this->vista('/tiendas/inicio', $this->datos);
                 }
             } else {
                 $this->datos['error'] = $error;
