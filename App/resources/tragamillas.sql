@@ -36,8 +36,9 @@ INSERT INTO
   `roles` (`id_rol`, `rol`)
 VALUES
   (1, 'Administrador'),
-  (2, 'Profesor'),
-  (3, 'Alumno');
+  (2, 'Entrenador'),
+  (3, 'Socio'),
+  (4, 'Tienda');
 -- --------------------------------------------------------
   --
   -- Estructura de tabla para la tabla `sesiones`
@@ -359,6 +360,14 @@ VALUES
     'jsegurana',
     '649556432',
     1
+  ),
+  (
+    12,
+    'Tienda',
+    'tienda@gmail.com',
+    'tienda',
+    '123456789',
+    2
   );
 --
   -- Índices para tablas volcadas
