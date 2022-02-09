@@ -1,6 +1,5 @@
-<?php require_once RUTA_APP . '/vistas/inc/header_no_logueado.php' ?>
 
-<a href=".." class="btn btn-light"><i class="bi bi-chevron-double-left"></i>Volver</a>
+
 
 <div class="container">
   <div class="jumbotron">
