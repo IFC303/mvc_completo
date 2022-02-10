@@ -23,13 +23,13 @@ class Inicio extends Controlador
         } else {
             if (Sesion::sesionCreada($this->datos)) {    // si ya estamos logueados redirecciona a la raiz
                 if ($this->datos['usuarioSesion']->id_rol == 1) {
-                    $this->vista('administradores/inicio', $this->datos);
+                    redireccionar('/admin');
                 } elseif ($this->datos['usuarioSesion']->id_rol == 2) {
-                    $this->vista('/entrenadores/inicio', $this->datos);
+                    redireccionar('/entrenador');
                 } elseif ($this->datos['usuarioSesion']->id_rol == 3) {
-                    $this->vista('/socios/inicio', $this->datos);
+                    redireccionar('/socio');
                 } elseif ($this->datos['usuarioSesion']->id_rol == 4) {
-                    $this->vista('/tiendas/inicio', $this->datos);
+                    redireccionar('/tienda');
                 }
             } else {
                 $this->datos['error'] = $error;

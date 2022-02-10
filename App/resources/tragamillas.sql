@@ -367,7 +367,7 @@ VALUES
     'tienda@gmail.com',
     'tienda',
     '123456789',
-    2
+    4
   );
 --
   -- Índices para tablas volcadas
