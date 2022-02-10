@@ -25,7 +25,7 @@
     <body style="background-color: #F5F5F5;">
         <div class="container-fluid min-vh-100" style="border: solid;">
             <header class="p-5 row">
-                <div class="col-3"><img id="logo" src="img/logo_tragamillas.png" width="150"></div>
+                <div class="col-3"><img id="logo" src="img/fotos/logo_tragamillas.png" width="150"></div>
                 <div class="col-7 text-center">
                     <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
                 </div>
@@ -71,7 +71,7 @@
                         </tr>
                     </table>
                     <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
-                        <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="img/logo_tragamillas.png">
+                        <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="img/fotos/logo_tragamillas.png">
                     </div>
                 </div>
 

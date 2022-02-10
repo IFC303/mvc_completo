@@ -22,7 +22,7 @@
 <body style="background-color: #F5F5F5;">
     <div class="container-fluid min-vh-100" style="border: solid; height: 100%;">
         <header class="p-5 row"> 
-            <div class="col-3" ><img id="logo" src="img/logo_tragamillas.png" width="150"></div>
+            <div class="col-3" ><img id="logo" src="img/fotos/logo_tragamillas.png" width="150"></div>
             <div class="col-7 text-center"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA SOCIO</h1></div>
             <div class="col-2 text-center"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/></svg></div>
         </header>
