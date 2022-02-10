@@ -6,7 +6,7 @@
                 <!-- MODIFICAR DATOS -->
                 <div class="col-xs-12 col-md-6 col-xl-4">
                     <div>
-                        <div onclick="location.href='<?php RUTA_APP?>/modificarDatos.php';" id="colorDatos" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>editar.svg" width="100" height="100"></div>
+                        <a href="<?php echo RUTA_URL ?>/socios/modificarDatos"><div id="colorDatos" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>editar.svg" width="100" height="100"></div></a>
                         <p id="pDatos" class="mx-auto" >MODIFICAR DATOS</p>                      
                     </div>
                 </div>
