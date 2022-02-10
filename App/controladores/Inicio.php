@@ -7,6 +7,8 @@ class Inicio extends Controlador
         $this->loginModelo = $this->modelo('LoginModelo');
     }
 
+    
+
     public function index($error = '')
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
