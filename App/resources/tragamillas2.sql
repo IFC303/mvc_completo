@@ -6,7 +6,7 @@ CREATE TABLE ROL(
   nombre varchar(30) not null
 );
 CREATE TABLE USUARIO(
-  id_usuario int primary key,
+  id_usuario int AUTO_INCREMENT,
   dni varchar(11) unique,
   nombre varchar(20) not null,
   apellidos varchar(30) not null,
@@ -19,6 +19,7 @@ CREATE TABLE USUARIO(
   foto varchar(800),
   activado boolean not null,
   id_rol int,
+  primary key (id_usuario),
   constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
 );
 CREATE TABLE TEMPORADA(
