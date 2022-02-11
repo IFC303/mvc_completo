@@ -10,6 +10,8 @@ class Entrenador extends Controlador
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
+
+        $this->testModelo = $this->modelo('Test');
     }
 
 
@@ -24,6 +26,11 @@ class Entrenador extends Controlador
 
 
     public function test(){
+        
+        $test = $this->testModelo->obtenerTest();
+
+        $this->datos['usuarios'] = $test;
+
         $this->vista('entrenadores/test', $this->datos);
     }
 
