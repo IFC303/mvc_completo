@@ -21,22 +21,21 @@
     <title><?php echo NOMBRE_SITIO ?></title>
 </head>
 
-<body style="background-color: #F5F5F5;">
+<body">
     <div class="container-fluid min-vh-100" style="border: solid;">
 
         <header class="p-4 row">
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
-
+            <br><br><br><br>
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
                 <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
 
                 <ol class="breadcrumb v1 justify-content-center">
-                    <li class="breadcrumb-level"><a href="">Level 1</a></li>
-                    <li class="breadcrumb-level"><a href="">Level 2</a></li>
-                    <li class="breadcrumb-level"><a>Level 3</a></li>
+                    <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
+                    <li class="breadcrumb-level"><a>ADMIN</a></li>
                 </ol>
             </div>
-
+            <br><br><br><br>
             <div class="d-flex col-6 col-md-2 justify-content-end order-2 order-md-3 text-center">
                 <div class="col-12">
                     <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
