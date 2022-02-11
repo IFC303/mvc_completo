@@ -26,7 +26,7 @@ class Usuarios extends Controlador
 
         $this->datos['usuarios'] = $usuarios;
 
-        $this->vista('usuarios/inicio', $this->datos);
+        $this->vista('usuarios/login', $this->datos);
         // $this->vista('usuarios/inicioVue',$this->datos);
     }
 

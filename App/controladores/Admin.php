@@ -12,8 +12,14 @@ class Admin extends Controlador
         }
     }
 
+    
     public function index()
     {
         $this->vista('administradores/inicio', $this->datos);
     }
+
+
+    
+
+
 }

@@ -12,7 +12,7 @@ class LoginModelo
 
     public function loginEmail($email, $passw)
     {
-        $this->db->query("SELECT * FROM usuarios WHERE email = :email AND passw = :passw");
+        $this->db->query("SELECT * FROM USUARIO WHERE email = :email AND passw = :passw");
         $this->db->bind(':email', $email);
         $this->db->bind(':passw', $passw);
 
@@ -20,7 +20,7 @@ class LoginModelo
     }
 
 
-    public function registroSesion($id_usuario)
+    /*public function registroSesion($id_usuario)
     {
         $this->db->query("INSERT INTO sesiones (id_sesion, id_usuario, fecha_inicio) 
                                         VALUES (:id_sesion, :id_usuario, NOW())");
@@ -49,5 +49,5 @@ class LoginModelo
         } else {
             return false;
         }
-    }
+    }*/
 }
