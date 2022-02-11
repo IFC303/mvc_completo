@@ -25,10 +25,13 @@
         </div>
         <table>
             <tr>
-                <td id="mUsu">ADMIN</td>
+                <td id="mUsu"><a href="<?php echo RUTA_URL ?>/admin/crud_admin">
+                        <div>ADMIN</div>
+                    </a>
+                </td>
             </tr>
             <tr>
-                <td id="mUsu"><a href="<?php echo RUTA_URL ?>/vistas/administradores/crudEntrenador.php">
+                <td id="mUsu"><a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores">
                         <div>ENTRENADORES</div>
                     </a>
                 </td>
@@ -146,6 +149,16 @@
 
     <!-- FACTURACION  MENU-->
     <div class="offcanvas offcanvas-start" id="menuFac">
+
+        <!-- <div class="offcanvas-header">
+            <div class="container-fluid" style="padding: 0;">
+                <div class="row d-flex w-100 justify-content-end"><button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+                <div class="row d-flex w-100 justify-content-center">
+                    <div class="col-2"><img src="<?php //echo RUTA_Icon ?>euro.svg" width="50" height="50"></div>
+                    <div class="col-10"><h1 class="offcanvas-title">FACTURACION</h1></div>
+                </div>
+            </div>
+        </div> -->
         <div class="offcanvas-header">
             <img src="<?php echo RUTA_Icon ?>euro.svg" width="50" height="50">
             <h1 class="offcanvas-title">FACTURACION</h1>
