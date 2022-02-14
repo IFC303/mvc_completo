@@ -2,15 +2,28 @@ body{
     background-color: #F5F5F5;
 }
 
+#imgMenu{
+    float: left;
+    margin-left: 20px;
+}
+
+#fotoMenu{
+    padding: 50px;
+    padding-bottom: 0;
+    cursor:pointer;
+}
+
 @media (max-width: 600px) {
     #logo{width: 100px;}
+    #fotoMenu{padding: 10px;padding-bottom: 0;}
 }
 
 .caja, p{
     cursor:pointer;
 }
 
-p[id^="p"] {
+
+p[id^="p"]{
     border: solid; 
     color: #023EF9; 
     font-weight:bold; 
@@ -29,9 +42,40 @@ td[id^="m"] {
     height: 75px; 
     width: 100%;
     cursor:pointer;
+    text-align: center;
 }
 td[id^="m"]:hover {
    background-color: #FFBF1C;
+}
+
+ul[id^="m"]{
+    text-decoration: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li[id^="m"], li[id^="s"]{
+    text-decoration: none;
+    font-size: 25px;
+    letter-spacing: 3px;
+    font-family: 'Anton', sans-serif;
+    font-family: 'Doppio One', sans-serif;
+    border: #023EF9 solid 2px; 
+    color: #000000;  
+    cursor:pointer;
+    text-align: center;
+}
+
+li[id^="s"]{
+    margin-left: 2%;
+    margin-right: 2%;
+    background-color: #E6E6E6;
+}
+
+li:hover[id^="m"], li:hover[id^="s"]{
+   background-color: #FFBF1C;
+   color: #000000;
 }
 
 
@@ -47,6 +91,18 @@ a:link, a:hover, a:visited, a:active {
     text-decoration:none;
     color: #000000; 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* MIGA DE PAN */
 .breadcrumb {
