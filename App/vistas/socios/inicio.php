@@ -1,12 +1,12 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio.php' ?>
 
         
-        <div class="row text-center" style="font-family: 'Doppio One', sans-serif; "> 
+        <div  class="row text-center inicio" style="font-family: 'Doppio One', sans-serif; "> 
                 
                 <!-- MODIFICAR DATOS -->
                 <div class="col-xs-12 col-md-6 col-xl-4">
                     <div>
-                        <a href="<?php echo RUTA_URL ?>/socios/modificarDatos"><div id="colorDatos" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>editar.svg" width="100" height="100"></div></a>
+                        <a href="<?php echo RUTA_URL ?>/socio/modificarDatos"><div id="colorDatos" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>editar.svg" width="100" height="100"></div></a>
                         <p id="pDatos" class="mx-auto" >MODIFICAR DATOS</p>                      
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                 <!-- VER MARCAS -->
                 <div class="col-xs-12 col-md-6 col-xl-4">
                     <div>
-                        <div id="colorMarcas" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>cronometro.svg" width="100" height="100"></div>
+                        <a href="<?php echo RUTA_URL ?>/socio/verMarcas"><div id="colorMarcas" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>cronometro.svg" width="100" height="100"></div></a>
                         <p id="pMarcas" class="mx-auto" >VER MARCAS</p>
                     </div>
                 </div>

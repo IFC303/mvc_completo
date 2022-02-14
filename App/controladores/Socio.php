@@ -16,4 +16,19 @@ class Socio extends Controlador
     {
         $this->vista('socios/inicio', $this->datos);
     }
+
+    public function modificarDatos()
+    {
+        $this->vista('socios/modificarDatos', $this->datos);
+    }
+
+    public function verMarcas()
+    {
+        $marcas = $this->marcasModelo->obtenerMarcas();
+        $this->datos['usuarios']=$marcas;
+
+        $this->vista('socios/verMarcas', $this->datos);
+    }
+
+
 }

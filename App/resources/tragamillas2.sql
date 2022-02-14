@@ -29,6 +29,8 @@ INSERT INTO
 VALUES
   (4, 'tienda');
 
+
+
 CREATE TABLE USUARIO(
   id_usuario int AUTO_INCREMENT,
   dni varchar(11) unique,
@@ -292,10 +294,12 @@ CREATE TABLE LICENCIA(
 );
 
 CREATE TABLE PRUEBA(
-  id_prueba int primary key,
+  id_prueba int primary key AUTO_INCREMENT,
   nombre varchar(30) not null,
-  tipo varchar(40) not null
+  tipo varchar(40) not null,
+  observaciones varchar(400)
 );
+
 
 CREATE TABLE PRUEBA_SOCIO(
   id_prueba int,
@@ -307,7 +311,10 @@ CREATE TABLE PRUEBA_SOCIO(
   constraint FK_id_usuario_prueba_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
 );
 
-CREATE TABLE TEST(id_test int primary key);
+CREATE TABLE TEST(
+  id_test int primary key AUTO_INCREMENT,
+  nombre varchar (30) not null  
+);
 
 CREATE TABLE TEST_PRUEBA(
   id_test int,
