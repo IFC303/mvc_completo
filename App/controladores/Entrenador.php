@@ -64,10 +64,9 @@ class Entrenador extends Controlador
 
 
    public function borrar($id){
-       
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->testModelo->borrarTest($id)) {
-                redireccionar('/entrenador');
+                redireccionar('/entrenador/test');
             } else {
                 die('Algo ha fallado!!!');
             }

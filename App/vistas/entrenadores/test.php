@@ -72,10 +72,7 @@
 
                         <?php foreach($datos['usuarios'] as $test): ?>
                         <tr>
-                            <?php var_dump($test); 
-                             ?>
-                          
-                            
+                                                       
                             <td><?php echo $test->id_test?></td>
                             <td><?php echo $test->Nombre?></td>
                       
@@ -168,9 +165,10 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                    <a href="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>">Borrar</a>
-
+                                                <form action="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>" method="post">
+                                                    <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
+                                                    <button type="submit">Borrar</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
