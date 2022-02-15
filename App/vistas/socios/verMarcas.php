@@ -29,10 +29,10 @@
             <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">MARCAS PERSONALES</h1></div>
         </header>
                   
- 
-    <div class="row"> 
-
-        <table class="table table-striped text-center">
+    
+    
+        <div  style="border:solid 1px #023ef9; height: 1%">
+        <table class="table table-striped text-center" style = "margin: 0px;"> 
             <thead class="cabezera">
                 <tr>
                         <th scope="col">#</th>
@@ -46,7 +46,7 @@
             </thead>
             <tbody>
                 
-                <?php $contador = 0;
+                <?php $contador = 0 ;
                 foreach ($datos['usuarios'] as $marcas) : ?>
                     <?php $contador = $contador +1; ?>
                     <tr>
@@ -57,22 +57,19 @@
                         <td scope="col"><?php echo $marcas->fecha ?></td>
                         <td scope="col"><?php echo $marcas->nombreTest ?></td>
                     </tr>
+                    
                 <?php endforeach ?>
+                
             </tbody>
-        </table>
-    </div>
-
-        <div id="volverMarcas"><a href="<?php echo RUTA_URL ?>/socio/index"><input type="button" id="volver" name="volver" value="VOLVER"></a></div>
-        
-        
-    </div>
-
-    
             
+        </table>
     
+        </div>
+        
 
+        
+    </div>
 
     
 </body>
 </html>
-

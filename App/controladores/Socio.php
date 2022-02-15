@@ -12,6 +12,7 @@ class Socio extends Controlador
         }
 
         $this->marcasModelo = $this->modelo('Marcas');
+      
     }
 
     public function index()
@@ -26,11 +27,15 @@ class Socio extends Controlador
 
     public function verMarcas()
     {
-        $marcas = $this->marcasModelo->obtenerMarcas();
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $marcas = $this->marcasModelo->obtenerMarcasId($idUsuarioSesion);
         $this->datos['usuarios']=$marcas;
 
         $this->vista('socios/verMarcas', $this->datos);
     }
+
+    
 
 
 }
