@@ -21,11 +21,21 @@ class Admin extends Controlador
 
     public function crud_admin()
     {
-        $this->vista('administradores/crudAdmin', $this->datos);
+        $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
     public function crud_entrenadores()
     {
-        $this->vista('administradores/crudEntrenador', $this->datos);
+        $this->vista('administradores/cruds/crudEntrenador', $this->datos);
+    }
+
+    public function crud_socios()
+    {
+        $this->vista('administradores/cruds/crudSocios', $this->datos);
+    }
+
+    public function crud_tiendas()
+    {
+        $this->vista('administradores/cruds/crudTiendas', $this->datos);
     }
 }
