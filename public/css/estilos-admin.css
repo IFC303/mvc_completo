@@ -10,7 +10,6 @@ body{
 #fotoMenu{
     padding: 50px;
     padding-bottom: 0;
-    cursor:pointer;
 }
 
 @media (max-width: 600px) {
@@ -91,7 +90,9 @@ a:link, a:hover, a:visited, a:active {
     text-decoration:none;
     color: #000000; 
 }
-
+.nav-link:focus, .nav-link:hover {
+    color: #000000;
+}
 
 
 
