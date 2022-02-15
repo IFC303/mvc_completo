@@ -40,7 +40,7 @@ CREATE TABLE USUARIO(
   fecha_nacimiento varchar (20),
   telefono int not null,
   CCC varchar(25) not null,
-  passw varchar(20),
+  passw varchar(50),
   talla varchar(5) not null,
   foto varchar(800),
   activado boolean not null,
@@ -75,7 +75,7 @@ VALUES
     '1/1/2000',
     11,
     '',
-    'admin',
+    '21232f297a57a5a743894a0e4a801fc3',
     'l',
     '',
     1,
@@ -108,7 +108,7 @@ VALUES
     '1/1/2000',
     22,
     '',
-    'entrenador',
+    'a990ba8861d2b344810851e7e6b49104',
     'm',
     '',
     1,
@@ -141,7 +141,7 @@ VALUES
     '1/1/2000',
     33,
     '',
-    'socio',
+    '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
     1,
@@ -174,7 +174,7 @@ VALUES
     '1/1/2000',
     44,
     '',
-    'tienda',
+    '1a07afe7fc2c54d466d12569f05fb391',
     'xl',
     '',
     1,
@@ -315,6 +315,29 @@ CREATE TABLE TEST(
   id_test int primary key AUTO_INCREMENT,
   nombre varchar (30) not null  
 );
+
+INSERT INTO
+  `TEST` (
+    `id_test`,
+    `nombre`
+  )
+VALUES
+  (
+    1,
+    'test primavera'
+  );
+
+INSERT INTO
+  `TEST` (
+    `id_test`,
+    `nombre`
+  )
+VALUES
+  (
+    2,
+    'test invierno'
+  );
+
 
 CREATE TABLE TEST_PRUEBA(
   id_test int,

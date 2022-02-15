@@ -341,7 +341,7 @@ VALUES
     2,
     'Martaaa Garcíaa',
     'mgarciaf@cpifpbajoaragon.com',
-    'mgarciaf',
+    'e50b9e6664885dea1bf7c59b425ebcf6',
     '6534667435',
     3
   ),
@@ -349,7 +349,7 @@ VALUES
     10,
     'Fede',
     'feder@gmail.com',
-    'feder',
+    'fb4c98695ea089b603ac5250782eca17',
     '5555554445',
     2
   ),
@@ -357,7 +357,7 @@ VALUES
     11,
     'Jonatan',
     'jsegurana@cpifpbajoparagon.com',
-    'jsegurana',
+    'f140a21baceaef5f2ae99b597ce9d459',
     '649556432',
     1
   ),
@@ -365,7 +365,7 @@ VALUES
     12,
     'Tienda',
     'tienda@gmail.com',
-    'tienda',
+    '1a07afe7fc2c54d466d12569f05fb391',
     '123456789',
     4
   );
