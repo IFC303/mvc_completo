@@ -319,8 +319,8 @@ INSERT INTO
   )
 VALUES
   (
-    '1',
-    'test primavera',
+    1,
+    'test primavera'
   );
 
 INSERT INTO
@@ -330,8 +330,8 @@ INSERT INTO
   )
 VALUES
   (
-    '2',
-    'test invierno',
+    2,
+    'test invierno'
   );
 
 
