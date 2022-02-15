@@ -30,75 +30,46 @@
         </header>
                   
  
-        
+    <div class="row"> 
 
         <table class="table table-striped text-center">
-    <thead>
-        <tr>
-                <th scope="col">#</th>
-                <th scope="col">Prueba</th>
-                <th scope="col">Marca</option></th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Tipo Test</th>
-        
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($datos['usuarios'] as $marcas) : ?>
-            <tr>
-                <td><?php echo $marcas->id_prueba ?></td>
-                <td><?php echo $marcas->nombre ?></td>
-                <td><?php echo $marcas->tipo ?></td>
-                <td><?php echo $marcas->observaciones ?></td>
-    
-            </tr>
-        <?php endforeach ?>
-    </tbody>
-</table>
-<!--
-    <div class="row">   
-
-
-        <table class="table table-striped text-center" >
-        
             <thead class="cabezera">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Prueba</th>
-                    <th scope="col">Marca</option></th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Tipo Test</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Prueba</th>
+                        <th scope="col">Tipo prueba</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Tipo Test</th>
+                
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                        <td>100 metros lisos</td>
-                        <td>10'50 segundos</td>
-                        <td>25/01/2022</td>
-                        <td>Test Primavera</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                        <td>Salto de altura</td>
-                        <td>1'95 metros</td>
-                        <td>01/02/2022</td>
-                        <td>Test Invierno</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                        <td>400 metros lisos</td>
-                        <td>50 segundos</td>
-                        <td>14/02/2022</td>
-                        <td>-</td>
-                </tr>
+                
+                <?php $contador = 0;
+                foreach ($datos['usuarios'] as $marcas) : ?>
+                    <?php $contador = $contador +1; ?>
+                    <tr>
+                        <td scope="row"><?php echo $contador ?></td>
+                        <td scope="col"><?php echo $marcas->nombre ?></td>
+                        <td scope="col"><?php echo $marcas->tipo ?></td>
+                        <td scope="col"><?php echo $marcas->marca ?></td>
+                        <td scope="col"><?php echo $marcas->fecha ?></td>
+                        <td scope="col"><?php echo $marcas->nombreTest ?></td>
+                    </tr>
+                <?php endforeach ?>
             </tbody>
         </table>
-        
-        <a id="volverMarcas" href="<?php echo RUTA_URL ?>/socio/index"><input type="button" id="volver" name="volver" value="VOLVER"></a>
-            -->
-        </div>
     </div>
+
+        <div id="volverMarcas"><a href="<?php echo RUTA_URL ?>/socio/index"><input type="button" id="volver" name="volver" value="VOLVER"></a></div>
+        
+        
+    </div>
+
+    
+            
+    
 
 
     

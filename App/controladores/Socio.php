@@ -10,6 +10,8 @@ class Socio extends Controlador
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
+
+        $this->marcasModelo = $this->modelo('Marcas');
     }
 
     public function index()
