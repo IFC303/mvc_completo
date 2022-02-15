@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <H1>crud_entrenadores</H1>
+<?php foreach ($datos['usuAdmin'] as $admins) : ?>
+        <p><?php echo $admins->dni ?></p>
+        <p><?php echo $admins->nombre ?></p>
+<?php endforeach ?>
 </body>
 </html>

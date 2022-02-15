@@ -10,8 +10,9 @@ class Admin extends Controlador
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
-    }
 
+        $this->AdminModelo = $this->modelo('AdminModelo');
+    }
     
     public function index()
     {
@@ -21,11 +22,15 @@ class Admin extends Controlador
 
     public function crud_admin()
     {
+        $verUsu = $this->AdminModelo->obtenerUsuarios(1);
+        $this->datos['usuAdmin'] = $verUsu;
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
     public function crud_entrenadores()
     {
+        $verUsu = $this->AdminModelo->obtenerUsuarios(2);
+        $this->datos['usuAdmin'] = $verUsu;
         $this->vista('administradores/cruds/crudEntrenador', $this->datos);
     }
 
