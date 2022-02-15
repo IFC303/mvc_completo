@@ -12,6 +12,7 @@ class Socio extends Controlador
         }
 
         $this->marcasModelo = $this->modelo('Marcas');
+        $this->datosModelo = $this->modelo('Datos');
       
     }
 
@@ -22,6 +23,11 @@ class Socio extends Controlador
 
     public function modificarDatos()
     {
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $datosUser = $this->datosModelo->obtenerDatosSocioId($idUsuarioSesion);
+        $this->datos['usuarios']=$datosUser;
+
         $this->vista('socios/modificarDatos', $this->datos);
     }
 
