@@ -39,7 +39,32 @@ class Admin extends Controlador
 
     public function nuevoUsuario()
     {
-       
+        $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $testNuevo = [
+                'id_test' => trim($_POST['id_test']),
+                'nombre' => trim($_POST['nombre'])
+            ];
+
+            if ($this->testModelo->agregarTest($testNuevo)) {
+                redireccionar('/entrenador');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        } else {
+            $this->datos['test'] = (object) [
+                'id_test' => '',
+                'nombre' => '',
+            ];
+            $this->datos['listaTest'] = $this->testModelo->obtenerTest();
+            
+        }$this->vista('/login/logout', $this->datos);
     }
 
     public function crud_entrenadores()

@@ -19,7 +19,7 @@
                 </thead>
 
 
-                <tbody class="table-light">
+                <tbody class="table-light"> 
 
                         <?php foreach ($datos['usuAdmin'] as $usuarios) : ?>
                                 <tr>
