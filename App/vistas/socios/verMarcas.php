@@ -94,7 +94,7 @@
                     <?php $contador = $contador +1; ?>
                     <tr>
                         <td scope="row"><?php echo $contador ?></td>
-                        <td scope="col"><?php if ($marcas->nombrePrueba==''){echo '';}else {echo $marcas->nombrePrueba;}?></td>
+                        <td scope="col"><?php if ($marcas->nombrePrueba==''){echo '-';}else {echo $marcas->nombrePrueba;}?></td>
                         <td scope="col"><?php if ($marcas->tipo==''){echo '-';}else {echo $marcas->tipo;}?></td>
                         <td scope="col"><?php if ($marcas->marca==''){echo '-';}else {echo $marcas->marca;}?></td>
                         <td scope="col"><?php if ($marcas->fecha==''){echo '-';}else {echo $marcas->fecha;}?></td>

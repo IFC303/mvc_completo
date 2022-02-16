@@ -37,7 +37,7 @@ CREATE TABLE USUARIO(
   nombre varchar(20) not null,
   apellidos varchar(30) not null,
   email varchar(40) not null,
-  fecha_nacimiento varchar (20),
+  fecha_nacimiento date,
   telefono int not null,
   CCC varchar(25) not null,
   passw varchar(50),

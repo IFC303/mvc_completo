@@ -1,3 +1,24 @@
+<?php 
+
+    if (isset($_POST['guardar'])) {
+        $nuevoDni = $_POST['dni'];
+        $nuevoNombre = $_POST["nombre"];
+        $nuevoApellido = $_POST["apellidos"];
+        $nuevafechaNac = $_POST["fechaNac"];
+        $nuevoTelefono = $_POST["telefono"];
+        $nuevoEmail = $_POST["email"];
+        $nuevoCCC = $_POST["ccc"];
+        $nuevaContra = $_POST["passw"];
+        $nuevaTalla = $_POST["talla"];
+    
+    
+        echo $nuevoDni;
+    }
+ 
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,7 +53,7 @@
             <div class="col-4 text-center">
                 <div class="row" style="height: 100%;">
                     <div class="col-12"><img src="<?php echo RUTA_Icon?>usuario.svg" width="350" height="450" style="border: solid; color: #023EF9;"></div>
-                    <div class="col-12"><label for="editarFoto" class="editarFoto">EDITAR FOTO</label><label class="editarFoto" style="margin-left: 5px;">GUARDAR</label><br><input type="file" style="visibility:hidden;" id="editarFoto" name="editarFoto"> </div>
+                    <div class="col-12"><label for="editarFoto" class="editarFoto">EDITAR FOTO</label><br><input type="file" style="visibility:hidden;" id="editarFoto" name="editarFoto"> </div>
                 </div> 
             
             </div>
@@ -47,24 +68,24 @@
                     <div class="datos col-12" >CCC</div>
                     <div class="datos col-12" >CONTRASEÑA</div>
                     <div class="datos col-12" >TALLA CAMISETA</div>
-                    <div class="datos col-12"><input type="button" id="guardar" name="guardar" value="GUARDAR"></div>
+               
                 </div>
             </div>
             <div class="col-4">
                 <div class="row" style="height: 100%; font-family: 'Inter', sans-serif;">
-                    <form method="post">
+                    <form method="POST" action="modificarDatos">
                         <?php foreach ($datos['usuarios'] as $datosUser) : ?>
                         
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->dni=="") {echo 'DNI';} else {echo $datosUser->dni;}?>" name="dni"></div>
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->nombre=="") {echo 'NOMBRE';} else {echo $datosUser->nombre;}?>" name="nombre"></div>            
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->apellidos=="") {echo 'APELLIDOS';} else {echo $datosUser->apellidos;}?>" name="apellidos"></div>      
-                        <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->fecha_nacimiento=="") {echo 'FECHA NACIMIENTO';} else {echo $datosUser->fecha_nacimiento;}?>" name="fechaNac"></div>                    
+                        <div class="datos col-12" > <input type="date" size="30" placeholder="<?php if ($datosUser->fecha_nacimiento=="") {echo 'FECHA NACIMIENTO';} else {echo $datosUser->fecha_nacimiento;}?>" name="fechaNac"></div>                    
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->telefono=="") {echo 'TELEFONO';} else {echo $datosUser->telefono;}?>" name="telefono"></div>          
-                        <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->email=="") {echo 'CORREO';} else {echo $datosUser->email;}?>" name="correo"></div>         
+                        <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->email=="") {echo 'EMAIL';} else {echo $datosUser->email;}?>" name="email"></div>         
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->CCC=="") {echo 'CCC';} else {echo $datosUser->CCC;}?>" name="ccc"></div>
                         <div class="datos col-12" > <input type="password" size="30" placeholder="CONTRASEÑA" name="passw"></div>
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->talla=="") {echo 'TALLA CAMISETA';} else {echo $datosUser->talla;}?>" name="talla"></div>                      
-                        <div class="datos col-12" style="padding-left: 273px"><a href="<?php echo RUTA_URL ?>/socio"><input type="button" id="volver" name="volver" value="VOLVER"></a></div>
+                        <div class="datos col-12"><input type="submit" id="guardar" name="guardar" value="GUARDAR"></div>
                         <?php endforeach ?>
                     </form>
                     </div>
@@ -74,8 +95,7 @@
         </div>
     </div>
 
-
-    
 </body>
 </html>
+
 
