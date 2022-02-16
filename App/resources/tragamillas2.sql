@@ -29,6 +29,8 @@ INSERT INTO
 VALUES
   (4, 'tienda');
 
+
+
 CREATE TABLE USUARIO(
   id_usuario int AUTO_INCREMENT,
   dni varchar(11) unique,
@@ -292,10 +294,12 @@ CREATE TABLE LICENCIA(
 );
 
 CREATE TABLE PRUEBA(
-  id_prueba int primary key,
+  id_prueba int primary key AUTO_INCREMENT,
   nombre varchar(30) not null,
-  tipo varchar(40) not null
+  tipo varchar(40) not null,
+  observaciones varchar(400)
 );
+
 
 CREATE TABLE PRUEBA_SOCIO(
   id_prueba int,
@@ -308,9 +312,9 @@ CREATE TABLE PRUEBA_SOCIO(
 );
 
 CREATE TABLE TEST(
-  id_test int primary key,
-  Nombre varchar (30)
-  );
+  id_test int primary key AUTO_INCREMENT,
+  nombre varchar (30) not null  
+);
 
 INSERT INTO
   `TEST` (

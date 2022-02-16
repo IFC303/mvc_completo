@@ -1,0 +1,51 @@
+.inicio{
+    padding-top: 200px;
+}
+
+p[id^="p"] {
+    color:  #023EF9;
+    border: solid;
+    width: 200px;
+    height: 100%;
+}
+
+div[id^="color"]{
+    width: 200px;
+    height: 100%;
+}
+
+#guardar{
+    background-color: #023EF9;
+    border: solid #023EF9;
+    color: #FFFFFF;
+}
+
+#volver{
+    
+    border: solid #023EF9;
+    color: #023EF9;
+}
+
+
+.datos{
+    height: 70px;
+}
+
+.editarFoto{
+    border:solid;
+    padding: 10px;
+    color: #023EF9;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+
+.cabezera{
+    background-color: #023EF9;
+    color: white;
+
+}   
+
+#volverMarcas{
+    text-align: center;
+    padding-top: 2%;
+}
