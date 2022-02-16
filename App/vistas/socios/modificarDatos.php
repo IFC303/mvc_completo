@@ -1,22 +1,3 @@
-<?php 
-
-    if (isset($_POST['guardar'])) {
-        $nuevoDni = $_POST['dni'];
-        $nuevoNombre = $_POST["nombre"];
-        $nuevoApellido = $_POST["apellidos"];
-        $nuevafechaNac = $_POST["fechaNac"];
-        $nuevoTelefono = $_POST["telefono"];
-        $nuevoEmail = $_POST["email"];
-        $nuevoCCC = $_POST["ccc"];
-        $nuevaContra = $_POST["passw"];
-        $nuevaTalla = $_POST["talla"];
-    
-    
-        echo $nuevoDni;
-    }
- 
-
-?>
 
 
 <!DOCTYPE html>
@@ -52,8 +33,9 @@
         <div class="row">
             <div class="col-4 text-center">
                 <div class="row" style="height: 100%;">
-                    <div class="col-12"><img src="<?php echo RUTA_Icon?>usuario.svg" width="350" height="450" style="border: solid; color: #023EF9;"></div>
-                    <div class="col-12"><label for="editarFoto" class="editarFoto">EDITAR FOTO</label><br><input type="file" style="visibility:hidden;" id="editarFoto" name="editarFoto"> </div>
+                
+                    <div class="col-12"><img id="output" src="<?php echo RUTA_Icon?>usuario.svg" width="350" height="450" style="border: solid; color: #023EF9;"></div>
+                    <div class="col-12"><label for="editarFoto" class="editarFoto">EDITAR FOTO</label><br><input  accept="image/*" type="file"  onchange="loadFile(event)" style="visibility:hidden;" id="editarFoto" name="editarFoto"> </div>
                 </div> 
             
             </div>
@@ -62,7 +44,6 @@
                     <div class="datos col-12" >DNI</div>
                     <div class="datos col-12" >NOMBRE</div>
                     <div class="datos col-12" >APELLIDOS</div>   
-                    <div class="datos col-12" >FECHA NACIMIENTO</div> 
                     <div class="datos col-12" >TELÉFONO</div>
                     <div class="datos col-12" >CORREO</div>
                     <div class="datos col-12" >CCC</div>
@@ -75,11 +56,46 @@
                 <div class="row" style="height: 100%; font-family: 'Inter', sans-serif;">
                     <form method="POST" action="modificarDatos">
                         <?php foreach ($datos['usuarios'] as $datosUser) : ?>
+
+
+                            <?php 
+
+
+
+if (isset($_POST['guardar'])) {
+
+
+
+    
+    if ($_POST['dni']=="") {
+        $nuevoDni = $datosUser->dni;
+    }else {
+        $nuevoDni = $_POST['dni'];
+    } 
+    if ($_POST['nombre']=="") {
+        $nuevoNombre = $datosUser->nombre;
+    }else {
+        $nuevoNombre = $_POST['nombre'];
+    } 
+    $nuevoNombre = $_POST["nombre"];
+    $nuevoApellido = $_POST["apellidos"];
+    $nuevoTelefono = $_POST["telefono"];
+    $nuevoEmail = $_POST["email"];
+    $nuevoCCC = $_POST["ccc"];
+    $nuevaContra = $_POST["passw"];
+    $nuevaTalla = $_POST["talla"];
+
+    echo $nuevoDni;
+    echo $nuevoNombre;
+
+}
+
+
+?>
                         
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->dni=="") {echo 'DNI';} else {echo $datosUser->dni;}?>" name="dni"></div>
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->nombre=="") {echo 'NOMBRE';} else {echo $datosUser->nombre;}?>" name="nombre"></div>            
-                        <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->apellidos=="") {echo 'APELLIDOS';} else {echo $datosUser->apellidos;}?>" name="apellidos"></div>      
-                        <div class="datos col-12" > <input type="date" size="30" placeholder="<?php if ($datosUser->fecha_nacimiento=="") {echo 'FECHA NACIMIENTO';} else {echo $datosUser->fecha_nacimiento;}?>" name="fechaNac"></div>                    
+                        <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->apellidos=="") {echo 'APELLIDOS';} else {echo $datosUser->apellidos;}?>" name="apellidos"></div>                     
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->telefono=="") {echo 'TELEFONO';} else {echo $datosUser->telefono;}?>" name="telefono"></div>          
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->email=="") {echo 'EMAIL';} else {echo $datosUser->email;}?>" name="email"></div>         
                         <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->CCC=="") {echo 'CCC';} else {echo $datosUser->CCC;}?>" name="ccc"></div>
@@ -88,8 +104,9 @@
                         <div class="datos col-12"><input type="submit" id="guardar" name="guardar" value="GUARDAR"></div>
                         <?php endforeach ?>
                     </form>
-                    </div>
-
+                </div>
+            
+               
             </div>
             
         </div>
@@ -98,4 +115,12 @@
 </body>
 </html>
 
-
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src)
+    }
+  };
+</script>

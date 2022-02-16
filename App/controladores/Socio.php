@@ -28,6 +28,8 @@ class Socio extends Controlador
         $datosUser = $this->datosModelo->obtenerDatosSocioId($idUsuarioSesion);
         $this->datos['usuarios']=$datosUser;
 
+        
+
         $this->vista('socios/modificarDatos', $this->datos);
     }
 
