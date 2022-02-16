@@ -11,7 +11,7 @@ class Prueba
 
 
     public function obtenerPruebas(){
-        $this->db->query("SELECT tipo,nombre FROM PRUEBA");
+        $this->db->query("SELECT tipo,nombrePrueba FROM PRUEBA");
         return $this->db->registros();
     }
 

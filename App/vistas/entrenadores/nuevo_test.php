@@ -29,8 +29,8 @@
                     echo '<br>';
                     echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
                 } ?>
-                <input type="checkbox" value="<?php echo $prueba->nombre?>">
-                 <?php echo $prueba->nombre.'&nbsp;&nbsp;&nbsp;';
+                <input type="checkbox" value="<?php echo $prueba->nombrePrueba?>">
+                 <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
              endforeach ?>
         </div>
 

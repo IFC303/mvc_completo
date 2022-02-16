@@ -53,7 +53,7 @@ class Entrenador extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $testNuevo = [
                 'id_test' => trim($_POST['id_test']),
-                'nombre' => trim($_POST['nombre'])
+                'nombre' => trim($_POST['nombretest'])
             ];
             if ($this->testModelo->agregarTest($testNuevo)) {
                 redireccionar('/entrenador/test');
@@ -63,7 +63,7 @@ class Entrenador extends Controlador
         } else {
             $this->datos['test'] = (object) [
                 'id_test' => '',
-                'nombre' => '',
+                'nombreTest' => '',
             ];
             //obtenemos los test
             $this->datos['listaTest'] = $this->testModelo->obtenerTest();

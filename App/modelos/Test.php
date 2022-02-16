@@ -19,10 +19,10 @@ class Test
 
 
     public function agregarTest($datos){
-        $this->db->query("INSERT INTO TEST (id_test,nombre) VALUES (:id_test, :nombre)");
+        $this->db->query("INSERT INTO TEST (id_test,nombreTest) VALUES (:id_test, :nombre)");
 
         $this->db->bind(':id_test',$datos['id_test']);
-        $this->db->bind(':nombre', $datos['nombre']);
+        $this->db->bind(':nombre', $datos['nombreTest']);
 
         if ($this->db->execute()) {
             return true;

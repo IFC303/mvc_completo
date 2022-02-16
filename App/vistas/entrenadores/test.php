@@ -74,7 +74,7 @@
                         <tr>
                                                        
                             <td><?php echo $test->id_test?></td>
-                            <td><?php echo $test->Nombre?></td>
+                            <td><?php echo $test->nombreTest?></td>
                       
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
