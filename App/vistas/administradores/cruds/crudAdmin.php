@@ -126,13 +126,13 @@
 
                                                         <!-- MODAL BORRAR -->
 
-                                                        <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_test ?>" href="<?php echo RUTA_URL ?>/entrenador/borrar/<?php echo $usuarios->id_test ?>">
+                                                        <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php echo $usuarios->id_usuario ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>papelera.svg" width="20" height="20"></img>
 
                                                         </a>
 
                                                         <!-- VENTANA -->
-                                                        <div class="modal" id="ModalBorrar_<?php echo $usuarios->id_test ?>">
+                                                        <div class="modal" id="ModalBorrar_<?php echo $usuarios->id_usuario ?>">
                                                                 <div class="modal-dialog modal-dialog-centered">
                                                                         <div class="modal-content">
 
@@ -143,12 +143,12 @@
 
                                                                                 <!-- Modal body -->
                                                                                 <div class="modal-body">
-                                                                                        <p>Seguro que quiere borrar el test con identificador <?php echo $usuarios->id_test ?></p>
+                                                                                        <p>Seguro que quiere borrar el usuario con identificador <?php echo $usuarios->id_usuario ?> y nombre <?php echo $usuarios->nombre ?></p>
                                                                                 </div>
 
                                                                                 <!-- Modal footer -->
                                                                                 <div class="modal-footer">
-                                                                                        <form action="<?php echo RUTA_URL ?>/entrenador/borrar/<?php echo $usuarios->id_test ?>" method="post">
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php echo $usuarios->id_usuario ?>" method="post">
                                                                                                 <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
                                                                                                 <button type="submit">Borrar</button>
                                                                                         </form>
@@ -167,7 +167,7 @@
 
         <!-- AÑADIR-->
         <div class="col text-center">
-                <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL ?>/entrenador/nuevo_test/">Añadir</a>
+                <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL ?>/admin/nuevoUsuario/">Añadir</a>
         </div>
         <br>
 

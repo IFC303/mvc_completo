@@ -27,6 +27,21 @@ class Admin extends Controlador
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
+    public function borrarUsuario($idUsu){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrarUsuario($idUsu)) {
+                redireccionar('/admin/crud_admin');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function nuevoUsuario()
+    {
+       
+    }
+
     public function crud_entrenadores()
     {
         $verUsu = $this->AdminModelo->obtenerUsuarios(2);
