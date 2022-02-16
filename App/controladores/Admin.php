@@ -42,7 +42,7 @@ class Admin extends Controlador
         $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/');
+            redireccionar('/usuarios');
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -63,8 +63,8 @@ class Admin extends Controlador
                 'nombre' => '',
             ];
             $this->datos['listaTest'] = $this->testModelo->obtenerTest();
-            
-        }$this->vista('/login/logout', $this->datos);
+            $this->vista('entrenadores/nuevo_test', $this->datos);
+        }
     }
 
     public function crud_entrenadores()
