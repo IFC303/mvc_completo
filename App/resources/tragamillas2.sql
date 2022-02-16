@@ -294,12 +294,35 @@ CREATE TABLE LICENCIA(
 );
 
 CREATE TABLE PRUEBA(
-  id_prueba int primary key AUTO_INCREMENT,
-  nombre varchar(30) not null,
-  tipo varchar(40) not null,
-  observaciones varchar(400)
+  id_prueba int primary key,
+  nombrePrueba varchar(30) not null,
+  tipo varchar(40) not null
 );
 
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (1,'60 m','Velocidad');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (2,'80 m','Velocidad');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (3,'100 m','Velocidad');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (4,'200 m','Velocidad');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (5,'400 m','Velocidad');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (6,'600 m','Medio fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (7,'800 m ','Medio fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (8,'1500 m ','Medio fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (9,'Milla','Medio fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (10,'5000 m ','Fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (11,'10000 m','Fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (12,'Media maraton','Fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (13,'Maraton','Fondo');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (14,'60','Obstaculos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (15,'80','Obstaculos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (16,'110','Obstaculos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (17,'3000','Obstaculos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (18,'Longitud','Concursos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (19,'Altura','Concursos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (20,'Triple salto','Concursos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (21,'Pertiga','Concursos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (22,'Peso','Concursos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (23,'Martillo','Concursos');
+INSERT INTO `PRUEBA` (`id_prueba`,`nombrePrueba`,`tipo`) VALUES (24,'Jabalina','Concursos');
 
 CREATE TABLE PRUEBA_SOCIO(
   id_prueba int,
@@ -312,14 +335,14 @@ CREATE TABLE PRUEBA_SOCIO(
 );
 
 CREATE TABLE TEST(
-  id_test int primary key AUTO_INCREMENT,
-  nombre varchar (30) not null  
-);
+  id_test int primary key,
+  nombreTest varchar (30)
+  );
 
 INSERT INTO
   `TEST` (
     `id_test`,
-    `nombre`
+    `nombreTest`
   )
 VALUES
   (
@@ -330,7 +353,7 @@ VALUES
 INSERT INTO
   `TEST` (
     `id_test`,
-    `nombre`
+    `nombreTest`
   )
 VALUES
   (

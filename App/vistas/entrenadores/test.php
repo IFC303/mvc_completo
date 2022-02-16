@@ -70,7 +70,7 @@
 
                     <tbody class="table-light">
 
-                        <?php foreach($datos['usuarios'] as $test): ?>
+                        <?php foreach($datos['test'] as $test): ?>
                         <tr>
                                                        
                             <td><?php echo $test->id_test?></td>
@@ -98,7 +98,7 @@
 
 
 
-                                <!-- MODAL EDITAR -->
+                                <!-- MODAL  -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar" href="<?php echo RUTA_URL?>/entrenador/editar/<?php echo $uruario->id_test ?>">
                                   <img src="<?php echo RUTA_Icon?>editar.svg" width="20" height="20"></img>
@@ -181,8 +181,7 @@
 
             </table>
 
-
-                    <!-- AÑADIR-->
+                    <!--AÑADIR-->
                     <div class="col text-center">
                         <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/entrenador/nuevo_test/">Añadir</a>
                     </div>
