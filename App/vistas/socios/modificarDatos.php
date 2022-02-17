@@ -72,21 +72,50 @@ if (isset($_POST['guardar'])) {
     }else {
         $nuevoDni = $_POST['dni'];
     } 
+
     if ($_POST['nombre']=="") {
         $nuevoNombre = $datosUser->nombre;
     }else {
         $nuevoNombre = $_POST['nombre'];
     } 
-    $nuevoNombre = $_POST["nombre"];
-    $nuevoApellido = $_POST["apellidos"];
-    $nuevoTelefono = $_POST["telefono"];
-    $nuevoEmail = $_POST["email"];
-    $nuevoCCC = $_POST["ccc"];
-    $nuevaContra = $_POST["passw"];
-    $nuevaTalla = $_POST["talla"];
+    
+    if ($_POST["apellidos"]=="") {
+        $nuevoApellido = $datosUser->apellidos; 
+    }else {
+        $nuevoApellido = $_POST["apellidos"];
+    }
+    
+    if ($_POST["telefono"]=="") {
+        $nuevoTelefono = $datosUser->telefono;
+    }else {
+        $nuevoTelefono = $_POST["telefono"];
+    }
+    
+    if ($_POST["email"]=="") {
+        $nuevoEmail = $datosUser->email;
+    }else {
+        $nuevoEmail = $_POST["email"];
+    }
+    
+    if ($_POST["ccc"]=="") {
+        $nuevoCCC = $datosUser->CCC;
+    }else {
+        $nuevoCCC = $_POST["ccc"];
+    }
 
-    echo $nuevoDni;
-    echo $nuevoNombre;
+    if ($_POST["passw"]=="") {
+        $nuevaContra = $datosUser->passw;
+    }else {
+        $nuevaContra = $_POST["passw"];
+    }
+    
+    if ($_POST["talla"]=="") {
+        $nuevaTalla = $datosUser->talla;
+    }else {
+        $nuevaTalla = $_POST["talla"];
+    }
+
+    echo $nuevoDni.'-'.$nuevoNombre.'-'.$nuevoApellido.'-'.$nuevoTelefono.'-'.$nuevoEmail.'-'.$nuevoCCC.'-'.$nuevaContra.'-'.$nuevaTalla;
 
 }
 
