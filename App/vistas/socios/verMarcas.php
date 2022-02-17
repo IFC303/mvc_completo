@@ -41,7 +41,7 @@
                 <!--MENU MODIFICAR DATOS-->
                 <ul id="mInicioDatos">
                     <li id="mInicioDatos">
-                        <a href="<?php echo RUTA_URL ?>/socio/modificarDatos" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/socio/modificarDatos" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon?>editar.svg" width="35" height="35"></div>
                             <div class="col-12">MODIFICAR DATOS</div>
                         </a>
@@ -51,7 +51,7 @@
                 <!--MENU LICENCIAS-->
                 <ul id="mInicioLic">
                     <li id="mInicioLic">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/socio/subirLicencias" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>licencias.svg" width="35" height="35"></div>
                             <div class="col-12">SUBIR LICENCIAS</div>
                         </a>
@@ -61,7 +61,7 @@
                 <!--MENU VER MARCAS-->
                 <ul id="mInicioMarcas">
                     <li id="mInicioMarcas">
-                        <a href="<?php echo RUTA_URL ?>/socio/verMarcas" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/socio/verMarcas" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon?>cronometro.svg" width="35" height="35"></div>
                             <div class="col-12">VER MARCAS</div>
                         </a>
