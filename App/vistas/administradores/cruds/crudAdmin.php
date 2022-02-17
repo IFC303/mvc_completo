@@ -19,7 +19,7 @@
                 </thead>
 
 
-                <tbody class="table-light"> 
+                <tbody class="table-light">
 
                         <?php foreach ($datos['usuAdmin'] as $usuarios) : ?>
                                 <tr>
@@ -37,55 +37,9 @@
                                                         </a>
 
 
-                                                        <!-- MODAL EDITAR -->
-
-                                                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                                        <a data-bs-toggle="modal" data-bs-target="#ModalEditar" href="<?php echo RUTA_URL ?>/entrenador/editar/<?php echo $uruario->id_test ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>editar.svg" width="20" height="20"></img>
                                                         </a>
-                                                        <!-- The Modal -->
-                                                        <div class="modal" id="myModal">
-                                                                <div class="modal-dialog modal-lg">
-                                                                        <div class="modal-content">
-
-                                                                                <!-- Modal Header -->
-                                                                                <div class="modal-header">
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                                                </div>
-
-                                                                                <!-- Modal body -->
-                                                                                <div class="modal-body">
-                                                                                        <div class="row">
-                                                                                                <div class="col-3"><img src="<?php echo RUTA_Foto ?>foto_carnet.jpg" width="150" height="150"></div>
-
-                                                                                                <div class="col-9">
-                                                                                                        <div class="col-12">
-                                                                                                                <label for="">NOMBRE: <input type="text" placeholder="<?php echo $usuarios->nombre ?>"></label>
-                                                                                                                 
-                                                                                                        </div>
-
-                                                                                                        <div class="col-12">
-                                                                                                                APELLIDOS: <?php echo $usuarios->nombre ?>
-                                                                                                        </div>
-
-                                                                                                        <div class="col-12">
-                                                                                                                EMAIL: <?php echo $usuarios->nombre ?>
-                                                                                                        </div>
-
-                                                                                                        <div class="col-12">
-                                                                                                                DNI: <?php echo $usuarios->nombre ?>
-                                                                                                        </div>
-
-                                                                                                        <div class="col-12">
-                                                                                                                FECHA NACIMIENTO: <?php echo $usuarios->nombre ?>
-                                                                                                        </div>
-                                                                                                </div>
-
-                                                                                        </div>
-                                                                                </div>
-
-                                                                        </div>
-                                                                </div>
-                                                        </div>
 
                                                         <!-- VENTANA -->
                                                         <div class="modal" id="ModalEditar">

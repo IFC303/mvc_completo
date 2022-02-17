@@ -13,7 +13,7 @@ class Admin extends Controlador
 
         $this->AdminModelo = $this->modelo('AdminModelo');
     }
-    
+
     public function index()
     {
         $this->vista('administradores/inicio', $this->datos);
@@ -27,7 +27,8 @@ class Admin extends Controlador
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
-    public function borrarUsuario($idUsu){
+    public function borrarUsuario($idUsu)
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->borrarUsuario($idUsu)) {
                 redireccionar('/admin/crud_admin');
@@ -47,23 +48,25 @@ class Admin extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $testNuevo = [
-                'id_test' => trim($_POST['id_test']),
-                'nombre' => trim($_POST['nombre'])
+            $anaUsu = [
+                'dniUsuAna' => trim($_POST["dni"]),
+                'nomUsuAna' => trim($_POST["nombre"]),
+                'apelUsuAna' => trim($_POST["apellidos"]),
+                'fecUsuAna' => trim($_POST["fecha"]),
+                'telUsuAna' => trim($_POST["telf"]),
+                'emaUsuAna' => trim($_POST["email"]),
+                'passUsuAna' => trim($_POST["pass"]),
             ];
 
-            if ($this->testModelo->agregarTest($testNuevo)) {
-                redireccionar('/entrenador');
+            if ($this->AdminModelo->anadirUsuario($anaUsu)) {
+                $verUsu = $this->AdminModelo->obtenerUsuarios(1);
+                $this->datos['usuAdmin'] = $verUsu;
+                $this->vista('administradores/cruds/crudAdmin', $this->datos);
             } else {
                 die('Algo ha fallado!!!');
             }
         } else {
-            $this->datos['test'] = (object) [
-                'id_test' => '',
-                'nombre' => '',
-            ];
-            $this->datos['listaTest'] = $this->testModelo->obtenerTest();
-            $this->vista('entrenadores/nuevo_test', $this->datos);
+            $this->vista('administradores/cruds/nuevoUsuario', $this->datos);
         }
     }
 
