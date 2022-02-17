@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-    <title><?php echo NOMBRE_SITIO ?></title>
+    <title><?php echo NOMBRE_SITIO ?> - Entrenador</title>
 
 </head>
 

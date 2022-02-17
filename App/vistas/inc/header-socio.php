@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
 
 
-    <title>SOCIO</title>
+    <title><?php echo NOMBRE_SITIO ?> - Socio</title>
 </head>
 <body style="background-color: #F5F5F5;">
     <div class="container-fluid min-vh-100" style="border: solid; height: 100%;">
