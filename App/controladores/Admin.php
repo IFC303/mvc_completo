@@ -70,6 +70,38 @@ class Admin extends Controlador
         }
     }
 
+    public function editarAdmin()
+    {
+        /*$this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $anaUsu = [
+                'dniUsuAna' => trim($_POST["dni"]),
+                'nomUsuAna' => trim($_POST["nombre"]),
+                'apelUsuAna' => trim($_POST["apellidos"]),
+                'fecUsuAna' => trim($_POST["fecha"]),
+                'telUsuAna' => trim($_POST["telf"]),
+                'emaUsuAna' => trim($_POST["email"]),
+                'passUsuAna' => trim($_POST["pass"]),
+            ];
+
+            if ($this->AdminModelo->anadirUsuario($anaUsu)) {
+                $verUsu = $this->AdminModelo->obtenerUsuarios(1);
+                $this->datos['usuAdmin'] = $verUsu;
+                $this->vista('administradores/cruds/crudAdmin', $this->datos);
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        } else {
+            $this->vista('administradores/cruds/nuevoUsuario', $this->datos);
+        }*/
+    }
+
     public function crud_entrenadores()
     {
         $verUsu = $this->AdminModelo->obtenerUsuarios(2);
