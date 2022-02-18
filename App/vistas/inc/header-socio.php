@@ -22,5 +22,19 @@
         <header class="p-5 row"> 
             <div class="col-3" ><img id="logo" src="<?php echo RUTA_Foto?>logo_tragamillas.png" width="150"></div>
             <div class="col-7 text-center"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA SOCIO</h1></div>
-            <div class="col-2 text-center"><a href="<?php echo RUTA_URL ?>/login/logout"><img src="<?php echo RUTA_Icon?>salirUsu.svg" width="50" height="50"></a><br><?php echo $datos['usuarioSesion']->nombre ?></div>
+            <div class="d-flex col-2 text-center">
+                <div class="col-12">
+                    <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
+                        <img src="<?php echo RUTA_Icon ?>salirUsu.svg" width="50" height="50">
+                    </a>
+                    <br>
+                    <?php echo $datos['usuarioSesion']->nombre ?>
+                    <script type="text/javascript">
+                        var d = new Date();
+                        var minutes = d.getMinutes();
+                        minutes = minutes > 9 ? minutes : '0' + minutes;
+                        document.write(d.getHours() + ":" + minutes);
+                    </script>
+                </div>
+            </div>
         </header>

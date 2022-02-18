@@ -48,4 +48,27 @@ class Datos
             return false;
         }
     }
+
+    public function obtenerMarcas()
+    {
+        $this->db->query("SELECT * FROM PRUEBA P, PRUEBA_SOCIO PS , TEST T , TEST_PRUEBA TP where P.id_prueba = PS.id_prueba AND P.id_prueba = TP.id_prueba AND TP.id_test = T.id_test ORDER BY P.id_prueba");
+
+        return $this->db->registros();
+    }
+
+
+    public function obtenerMarcasId($idUsuarioSesion)
+    {
+        $this->db->query("SELECT * FROM PRUEBA P, PRUEBA_SOCIO PS , TEST T , TEST_PRUEBA TP  where '$idUsuarioSesion' = PS.id_usuario AND P.id_prueba = PS.id_prueba AND P.id_prueba = TP.id_prueba AND TP.id_test = T.id_test ORDER BY P.id_prueba");
+
+        return $this->db->registros();
+    }
+
+    public function obtenerLicenciasId($idUsuarioSesion)
+    {
+        $this->db->query("SELECT * FROM LICENCIA L where '$idUsuarioSesion' = L.id_usuario  ORDER BY L.id_licencia");
+
+        return $this->db->registros();
+    }
+
 }
