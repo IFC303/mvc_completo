@@ -8,14 +8,16 @@
 <div class="card bg-light mt-5 w-75 card-center" style=" margin: auto;">
     <h2 class="card-header">Nuevo Test</h2>
 
+
+    <!--FORMULARIO AÑADIR-->
     <form method="post" class="card-body">
         <div class="mt-3 mb-3">
             <label for="id_test">Id de test: <sup>*</sup></label>
             <input type="text" name="id_test" id="id_test" class="form-control form-control-lg">
         </div>
         <div class="mt-3 mb-3">
-            <label for="nombre">Nombre de test: <sup>*</sup></label>
-            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+            <label for="nombreTest">Nombre de test: <sup>*</sup></label>
+            <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg">
         </div>
 
         <div class="mt-3 mb-3">
@@ -29,15 +31,16 @@
                     echo '<br>';
                     echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
                 } ?>
-                <input type="checkbox" value="<?php echo $prueba->nombrePrueba?>">
+                 <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>">  
                  <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
              endforeach ?>
         </div>
 
-
-
         <input type="submit" class="btn btn-success" value="Confirmar">
     </form>
+
+
+    
 
 </div>
 
