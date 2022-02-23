@@ -55,8 +55,9 @@
 
                                                                                 <!-- Modal body -->
                                                                                 <div class="modal-body">
-                                                                                        <form method="post" class="card-body">
+                                                                                        <form method="post" class="card-body" autocomplete="off">
                                                                                                 <div class="row">
+                                                                                                        <p style="color: #023EF9;">*Si dejas un campo vacio se guardara el dato anterior</p>
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editDni">dni: <sup>*</sup></label>
                                                                                                                 <input type="text" name="editDni" id="editDni" class="form-control form-control-lg" placeholder="<?php echo $usuarios->dni ?>">
@@ -74,11 +75,11 @@
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editEmail">Email: <sup>*</sup></label>
-                                                                                                                <input type="email" name="editEmail" id="editEmail" class="form-control form-control-lg" placeholder="<?php echo $usuarios->email ?>">
+                                                                                                                <input autocomplete="false" type="email" name="editEmail" id="editEmail" class="form-control form-control-lg" placeholder="<?php echo $usuarios->email ?>">
                                                                                                         </div>
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editFecha">Fecha Nacimiento: <sup>*</sup></label>
-                                                                                                                <input type="text" name="editFecha" id="editFecha" class="form-control form-control-lg" placeholder="<?php echo $usuarios->fecha_nacimiento ?>">
+                                                                                                                <input type="date" name="editFecha" id="editFecha" class="form-control form-control-lg" placeholder="<?php echo $usuarios->fecha_nacimiento ?>">
                                                                                                         </div>
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -93,7 +94,7 @@
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editPas">Contraseña: <sup>*</sup></label>
-                                                                                                                <input type="password" name="editPas" id="editPas" class="form-control form-control-lg">
+                                                                                                                <input autocomplete="false" type="password" name="editPas" id="editPas" class="form-control form-control-lg">
                                                                                                         </div>
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
