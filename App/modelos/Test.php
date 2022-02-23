@@ -74,46 +74,71 @@ class Test
     }
 
 
-    public function modificarTest($testModificado,$datos){
+    public function modificarTest(){
         
         //actualizamos tabla TEST
-          $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
-          $this->db->bind(':id_test',$testModificado['id_test']);
-          $this->db->bind(':nombreTest', $testModificado['nombreTest']);
-
-       
-          if ($this->db->execute()) {
-
-                foreach($datos['test_prueba'] as $idPrueba){  
-                    foreach($testModificado['id_prueba'] as $modificado){
-                        if(!$idPrueba=$modificado){
-                        $this->datos['eliminar']=$idPrueba;
-
-                        $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test AND id_prueba=:id_prueba");
-                        $this->db->bind(':id_test',$testModificado['id_test']);
-                        $this->db->bind(':id_prueba', $this->datos['eliminar']);
-                        return $this->db->registros();
-                        }
-                    }
-                }
+        //   $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
+        //   $this->db->bind(':id_test',$testModificado['id_test']);
+        //   $this->db->bind(':nombreTest', $testModificado['nombreTest']);
 
 
-                foreach($testModificado['id_prueba'] as $modificado){  
-                    foreach($datos['test_prueba'] as $idPrueba){
-                        if(!$modificado=$idPrueba){
-                            $this->datos['insertar']=$modificado;
+         //array de BBDD
+         
 
-                            $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
-                            $this->db->bind(':id_test',$testModificado['id_test']);
-                            $this->db->bind(':id_prueba', $this->datos['insertar']);
-                            return $this->db->registros();
-                        }
-                    }
-                }
-                return true;
-            }else{
-                return false;
-            }
+
+
+            //$this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
+            //$this->db->bind(':id_test',$testModificado['id_test']);
+            //$this->db->bind(':id_prueba', $this->datos['coincidencia']);
+            //$this->db->registros();
+
+
+
+            // foreach($testModificado['id_prueba'] as $modificado){  
+            //     if (!in_array($modificado,$this->datos['coincidencia'])){
+            //        $this->datos['insertar']=$modificado;
+            //         return true;
+            //     }else{
+            //         return false;
+            //     }
+            //    }
+
+          //if ($this->db->execute()) {
+          
+            
+
+            //}
+
+                // foreach($datos['test_prueba'] as $idPrueba){  
+                //     foreach($testModificado['id_prueba'] as $modificado){
+                //         if(!$idPrueba=$modificado){
+                //         $this->datos['eliminar']=$idPrueba;
+
+                //         $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test AND id_prueba=:id_prueba");
+                //         $this->db->bind(':id_test',$testModificado['id_test']);
+                //         $this->db->bind(':id_prueba', $this->datos['eliminar']);
+                //         return $this->db->registros();
+                //         }
+                //     }
+                // }
+
+
+                // foreach($testModificado['id_prueba'] as $modificado){  
+                //     foreach($datos['test_prueba'] as $idPrueba){
+                //         if(!$modificado=$idPrueba){
+                //             $this->datos['insertar']=$modificado;
+
+                //             $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
+                //             $this->db->bind(':id_test',$testModificado['id_test']);
+                //             $this->db->bind(':id_prueba', $this->datos['insertar']);
+                //             return $this->db->registros();
+                //         }
+                //     }
+                // }
+                // return true;
+            //}else{
+             //   return false;
+           // }
 
 
     }
