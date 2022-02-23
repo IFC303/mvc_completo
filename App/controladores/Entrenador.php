@@ -106,28 +106,48 @@ class Entrenador extends Controlador
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $testModificado = [
-                'id_test' => trim($_POST['id_test']),
-                'nombreTest' => trim($_POST['nombreTest']),
-                'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
-            ];
+                $testModificado = [
+                    'id_test' => trim($_POST['id_test']),
+                    'nombreTest' => trim($_POST['nombreTest']),
+                    'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
+                ];
            
-                $this->datos['test_prueba'] = $this->testModelo->obtenerTestPrueba($id);
-                
+                $datos['test_prueba'] = $this->testModelo->obtenerTestPrueba($id);
+  
 
-                if ($this->testModelo->modificarTest($testModificado,$this->datos)) {
+                if ($this->testModelo->modificarTest()) {
                     redireccionar('/entrenador/test');
                 } else {
-                    var_dump($this->datos['test_prueba']);
+                    echo "ARRAY BBDD ";
+                    var_dump($datos['test_prueba']);
+                    echo '<br>';
+                    echo "ARRAY MODIFICADO ";
                     var_dump($testModificado['id_prueba']);
-                    die('Algo ha fallado!!!');    
-                }
+
+                   
+                     foreach($datos['test_prueba'] as $idPrueba){  
+                        echo '<br>';
+                        echo "variable";
+                        var_dump($idPrueba->id_prueba);
+                      
+                        if (in_array($idPrueba->id_prueba,$testModificado['id_prueba'])){
+                            $eliminar[] = [$idPrueba]; 
+                        }
+
+                    // }
+        
+                    //die('Algo ha fallado!!!');    
+                    }
+                    echo '<br>';
+                    echo "ARRAY ELIMINAR";
+                    var_dump($eliminar);
+
         }
 
 
     }
 
-
+    }
 
     // FUNCIONES MENU MENSAJERIA
     public function mensajeria(){
