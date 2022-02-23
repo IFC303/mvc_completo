@@ -20,26 +20,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
     <title><?php echo NOMBRE_SITIO?></title>
-    
+
     <style>
          .modal{
-            /* 
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
+            /*
+            display: none;
+            position: fixed;
+            z-index: 1;
             padding: 100px 100px 0px 100px;
             left: 0;
             top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
             background-color: rgba(0,0,0,0.4); */
-        } 
+        }
 
         a{
             color:black;
-            text-decoration: none; 
+            text-decoration: none;
         }
 
     </style>
@@ -53,14 +53,14 @@
            <div class="tabla" style="border:solid 1px #023ef9">
 
             <table class="table table-hover" >
-                    
+
 
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr style="background-color:#023ef9; color:white">
                             <th>Nº TEST</th>
                             <th>NOMBRE</th>
-                     
+
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
                             <th>Acciones</th>
                             <?php endif ?>
@@ -70,12 +70,13 @@
 
                     <tbody class="table-light">
 
-                        <?php foreach($datos['test'] as $test): ?>
+                        <?php
+                        foreach($datos['test'] as $test): ?>
                         <tr>
-                                                       
+
                             <td><?php echo $test->id_test?></td>
                             <td><?php echo $test->nombreTest?></td>
-                      
+
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
                             <td>
@@ -84,7 +85,7 @@
                                 <div id="miModal" class="modal">
                                     <div class="modal-content">
                                         <span class="close">X</span>
-                                        <h2>prueba de modal</h2>  
+                                        <h2>prueba de modal</h2>
                                     </div>
                                 </div>
 
@@ -98,39 +99,67 @@
 
 
 
-                                <!-- MODAL  -->
+                                <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar" href="<?php echo RUTA_URL?>/entrenador/editar/<?php echo $uruario->id_test ?>">
+                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $test->id_test ?>" >
+                                 
                                   <img src="<?php echo RUTA_Icon?>editar.svg" width="20" height="20"></img>
                                 </a>
 
-                                    <!-- VENTANA -->
-                                    <div class="modal" id="ModalEditar">
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalEditar_<?php echo $test->id_test ?>">
                                     <div class="modal-dialog modal-xl modal-dialog-centered">
                                         <div class="modal-content">
 
-                                            <!-- Modal Header -->
+                                            <!-- Header -->
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edicion de Test</h4>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
-                                            <!-- Modal body -->
+                                            <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" class="card-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/editarTest/<?php echo $test->id_test ?>" class="card-body">
+                                                    <!-- id test -->
                                                     <div class="mt-3 mb-3">
-                                                        <label for="nombre">Id Test: <sup>*</sup></label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $datos['usuarios']->id_test ?>">
+                                                        <label for="id_test">Id de test: <sup>*</sup></label>
+                                                        <input type="text" name="id_test" id="id_test" class="form-control form-control-lg" value="<?php echo $test->id_test?>">
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="email">Nombre: <sup>*</sup></label>
-                                                        <input type="email" name="email" id="email" class="form-control form-control-lg" value="<?php echo $datos['usuarios']->Nombre ?>">
+                                                    <!-- nombre test -->
+                                                    <div class="mt-3 mb-3">
+                                                        <label for="nombreTest">Nombre de test: <sup>*</sup></label>
+                                                        <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>">
+                                                    </div>
+
+                                                    <div class="mt-3 mb-3">
+                                                        <p>Selecciona las pruebas que quieres incluir en el test:</p>
+                                                        <?php $tipo="";
+
+                                                            $tipo="";
+                                                            foreach($datos['pruebas'] as $prueba):
+                                                                if ($tipo!=$prueba->tipo){
+                                                                    $tipo=$prueba->tipo;
+                                                                    echo '<br>';
+                                                                    echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
+                                                                } 
+
+                                                                    $seleccionado="";
+                                                                    foreach($test->pruebas as $pruebaTest):
+                                                                        if ($pruebaTest->id_prueba==$prueba->id_prueba){
+                                                                            $seleccionado = "checked";
+                                                                        }
+                                                                    endforeach;
+                                                            ?>
+                                                                <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> >    
+                                                                <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
+                                                            endforeach; ?>   
+                                                    
                                                     </div>
                                                     <input type="submit" class="btn btn-success" value="Confirmar">
                                                 </form>
-                                            </div>
 
-                                            <!-- Modal footer -->
+                                            </div>
+                                            <!-- Footer -->
                                             <div class="modal-footer">
                                                 <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
                                             </div>
@@ -141,11 +170,11 @@
 
 
 
+
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $test->id_test ?>" href="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>">
                                   <img src="<?php echo RUTA_Icon?>papelera.svg" width="20" height="20"></img>
-                    
                                 </a>
 
                                     <!-- VENTANA -->
@@ -192,7 +221,7 @@
 
 
             <script>
-               
+
                     var modal=document.getElementById("miModal");
                     var boton=document.getElementById("btnModal");
                     var span=document.getElementsByClassName("close")[0];
@@ -207,6 +236,6 @@
                         modal.style.display="none";
                         body.style.overflow="visible";
                     }
-                
+
             </script>
 
