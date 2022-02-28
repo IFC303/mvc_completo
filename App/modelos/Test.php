@@ -51,7 +51,7 @@ class Test
 
 
     public function obtenerTestPrueba($id){
-        $this->db->query("SELECT * FROM TEST_PRUEBA WHERE id_test = :id");
+        $this->db->query("SELECT id_prueba FROM TEST_PRUEBA WHERE id_test = :id");
         $this->db->bind(':id', $id);
         return $this->db->registros();
     }
@@ -74,73 +74,34 @@ class Test
     }
 
 
-    public function modificarTest(){
+    public function modificarTest($eliminar,$insertar,$testModificado){
         
-        //actualizamos tabla TEST
-        //   $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
-        //   $this->db->bind(':id_test',$testModificado['id_test']);
-        //   $this->db->bind(':nombreTest', $testModificado['nombreTest']);
+                //actualizamos tabla TEST (nombre)
+                    $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
+                    $this->db->bind(':id_test',$testModificado['id_test']);
+                    $this->db->bind(':nombreTest', $testModificado['nombreTest']);
+                    $this->db->execute();
 
-
-         //array de BBDD
-         
-
-
-
-            //$this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
-            //$this->db->bind(':id_test',$testModificado['id_test']);
-            //$this->db->bind(':id_prueba', $this->datos['coincidencia']);
-            //$this->db->registros();
-
-
-
-            // foreach($testModificado['id_prueba'] as $modificado){  
-            //     if (!in_array($modificado,$this->datos['coincidencia'])){
-            //        $this->datos['insertar']=$modificado;
-            //         return true;
-            //     }else{
-            //         return false;
-            //     }
-            //    }
-
-          //if ($this->db->execute()) {
-          
-            
-
-            //}
-
-                // foreach($datos['test_prueba'] as $idPrueba){  
-                //     foreach($testModificado['id_prueba'] as $modificado){
-                //         if(!$idPrueba=$modificado){
-                //         $this->datos['eliminar']=$idPrueba;
-
-                //         $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test AND id_prueba=:id_prueba");
-                //         $this->db->bind(':id_test',$testModificado['id_test']);
-                //         $this->db->bind(':id_prueba', $this->datos['eliminar']);
-                //         return $this->db->registros();
-                //         }
-                //     }
-                // }
-
-
-                // foreach($testModificado['id_prueba'] as $modificado){  
-                //     foreach($datos['test_prueba'] as $idPrueba){
-                //         if(!$modificado=$idPrueba){
-                //             $this->datos['insertar']=$modificado;
-
-                //             $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
-                //             $this->db->bind(':id_test',$testModificado['id_test']);
-                //             $this->db->bind(':id_prueba', $this->datos['insertar']);
-                //             return $this->db->registros();
-                //         }
-                //     }
-                // }
-                // return true;
-            //}else{
-             //   return false;
-           // }
-
-
+                //INSERTAMOS en tabla TEST_PRUEBA
+                foreach($insertar as $insert){  
+                    $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
+                    $this->db->bind(':id_test',$testModificado['id_test']);
+                    $this->db->bind(':id_prueba', $insert);
+                        if(!$this->db->execute()){
+                            return false;
+                        }
+                    }   
+                    
+               //ELIMINAMOS en tabla TEST_PRUEBA
+                foreach($eliminar as $elim){  
+                    $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test and id_prueba=:id_prueba");
+                    $this->db->bind(':id_test',$testModificado['id_test']);
+                    $this->db->bind(':id_prueba', $elim);
+                        if(!$this->db->execute()){
+                            return false;
+                        }
+                    }  
+             
     }
 
 

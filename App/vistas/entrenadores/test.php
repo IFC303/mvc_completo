@@ -1,5 +1,5 @@
 
-<?php require_once RUTA_APP.'/vistas/inc/header_entrenador.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/header_entrenador_miga.php' ?>
 
 
 
@@ -22,8 +22,8 @@
     <title><?php echo NOMBRE_SITIO?></title>
 
     <style>
-         .modal{
-            /*
+         .modalVer{
+            
             display: none;
             position: fixed;
             z-index: 1;
@@ -34,7 +34,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4); */
+            background-color: rgba(0,0,0,0.4); 
         }
 
         a{
@@ -67,7 +67,6 @@
                         </tr>
                     </thead>
 
-
                     <tbody class="table-light">
 
                         <?php
@@ -81,28 +80,64 @@
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
                             <td>
 
-                                <button id="btnModal">Modal</button>
-                                <div id="miModal" class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">X</span>
-                                        <h2>prueba de modal</h2>
-                                    </div>
-                                </div>
+                                <!--MODAL VER (javascript)-->
+                                    <img id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir();" ></img>
 
-                                &nbsp;&nbsp;&nbsp;
-                                <a href="<?php echo RUTA_URL?>/usuarios/ver/<?php echo $uruario->id_usuario ?>">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                    </svg>
-                                </a>
+                                    <div id="miModal_<?php echo $test->id_test ?>" class="modalVer">
+                                        <div class="modal-content">
+
+                                            <div id="headerVer">
+                                                <h2 style="text-align:center">ver test</h2>
+                                            </div>
+
+                                            <div id="bodyVer">
+                                                <label for="id_test">Id de test: <sup>*</sup></label>
+                                                <input type="text" name="id_test" id="id_test" class="form-control form-control-lg" value="<?php echo $test->id_test?>" readonly>
+                                                <label for="nombreTest">Nombre de test: <sup>*</sup></label>
+                                                <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>" readonly>      
+                                                
+                                                <div class="mt-3 mb-3">
+                                                        <p>Selecciona las pruebas que quieres incluir en el test:</p>
+                                                        <?php $tipo="";
+
+                                                            $tipo="";
+                                                            foreach($datos['pruebas'] as $prueba):
+                                                                if ($tipo!=$prueba->tipo){
+                                                                    $tipo=$prueba->tipo;
+                                                                    echo '<br>';
+                                                                    echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
+                                                                } 
+
+                                                                    $seleccionado="";
+                                                                    foreach($test->pruebas as $pruebaTest):
+                                                                        if ($pruebaTest->id_prueba==$prueba->id_prueba){
+                                                                            $seleccionado = "checked";
+                                                                        }
+                                                                    endforeach;
+                                                            ?>
+                                                                <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled>    
+                                                                <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
+                                                            endforeach; ?>   
+                                                    
+                                                    </div>
+
+
+
+
+                                            </div>
+                                            
+                                            <div id="footerVer">
+                                                <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $test->id_test ?>" class="close" onclick="cerrar();" value="cerrar" >
+                                            </div>
+                                        
+                                        </div>  
+                                    </div> 
 
 
 
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $test->id_test ?>" >
-                                 
                                   <img src="<?php echo RUTA_Icon?>editar.svg" width="20" height="20"></img>
                                 </a>
 
@@ -130,7 +165,7 @@
                                                         <label for="nombreTest">Nombre de test: <sup>*</sup></label>
                                                         <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>">
                                                     </div>
-
+                                                    <!-- pruebas seleccionadas -->
                                                     <div class="mt-3 mb-3">
                                                         <p>Selecciona las pruebas que quieres incluir en el test:</p>
                                                         <?php $tipo="";
@@ -220,22 +255,22 @@
         </div>
 
 
+
             <script>
 
-                    var modal=document.getElementById("miModal");
-                    var boton=document.getElementById("btnModal");
-                    var span=document.getElementsByClassName("close")[0];
-                    var body=document.getElementsByTagName("body")[0];
-
-                    boton.onclick=function(){
-                        modal.style.display="block";
-                        body.style.overflow="hidden";
+                    function abrir(){
+                         var modal=document.getElementById("miModal_<?php echo $test->id_test ?>");
+                         var body=document.getElementsByTagName("body")[0];
+                         modal.style.display="block";
+                         body.style.overflow="hidden";
                     }
 
-                    span.onclick=function(){
-                        modal.style.display="none";
-                        body.style.overflow="visible";
-                    }
+                   function cerrar(){
+                         var modal=document.getElementById("miModal_<?php echo $test->id_test ?>");
+                         var body=document.getElementsByTagName("body")[0];
+                         modal.style.display="none";
+                         body.style.overflow="visible";
+                     }
 
             </script>
 
