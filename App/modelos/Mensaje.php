@@ -11,7 +11,7 @@ class Mensaje
 
 
     public function obtenerEmail(){
-        $this->db->query("SELECT nombre,apellidos,email FROM usuario");
+        $this->db->query("SELECT nombre,apellidos,email FROM USUARIO");
         return $this->db->registros();
     }
 

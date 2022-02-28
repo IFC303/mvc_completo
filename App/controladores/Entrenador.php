@@ -104,13 +104,15 @@ class Entrenador extends Controlador{
                 }
 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
                         //recogemos los datos modificados y guardamos en $testModificado
                         $testModificado = [
                             'id_test' => trim($_POST['id_test']),
                             'nombreTest' => trim($_POST['nombreTest']),
                             'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
                         ];
-                        //recogemos los datos de la BBDD (aray de objetos) y guardamos en $bd 
+
+                        //recogemos los datos de la BBDD (array de objetos) y guardamos en $bd 
                         $bbdd = $this->testModelo->obtenerTestPrueba($id);
                         foreach ($bbdd as $objeto){
                             $bd[]=$objeto->id_prueba;
@@ -149,19 +151,30 @@ class Entrenador extends Controlador{
             public function mensajeria(){
                 $this->datos['mensaje']=$this->mensajeModelo->obtenerEmail();
 
-             $this->vista('entrenadores/mensajeria', $this->datos );
+                 if($_SERVER['REQUEST_METHOD']=='POST'){
+                     $this->datos['emailsEnvio']= $_POST['seleccionados'];
+                 } 
 
+             $this->vista('entrenadores/mensajeria', $this->datos );
 
             }
 
 
             public function enviar(){
+
+                if($_SERVER['REQUEST_METHOD']=='POST'){
+
                     $mail = new PHPMailer();
-                    $destinatario = ($_POST['destinatario']);
+
+
+                    //me llega un string y lo paso a array con explode
+                    $destinatario = explode(",",($_POST['destinatario']));
+                    //echo print_r($destinatario);   
+
                     $asunto = ($_POST['asunto']);
                     $mensaje =($_POST['mensaje']);
             
-                try {
+                    try {
                     //  Configuracion SMTP
                         $mail->SMTPDebug =2;
                         $mail->isSMTP();                                       // Activar envio SMTP
@@ -174,15 +187,26 @@ class Entrenador extends Controlador{
                         
                     // CONFIGURACION CORREO
                         $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
-                        $mail->addAddress($destinatario);  // Email destinatario
+
+                        foreach($destinatario as $correo){
+                            echo $correo ."<br>";
+                             $mail->addAddress($correo); // Email destinatario
+                        }
+                          
                         $mail->isHTML(true);
                         $mail->Subject = $asunto;
                         $mail->Body  = $mensaje;
                         $mail->send();
+
+                        
+                        redireccionar('/entrenador/mensajeria');
                         echo 'El mensaje se ha enviado';
-                } catch (Exception $e) {
+                    } catch (Exception $e) {
                         echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+                    }
+
                 }
+                    
             }
 
 
