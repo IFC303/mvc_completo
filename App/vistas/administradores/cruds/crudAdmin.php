@@ -22,7 +22,6 @@
                 <tbody class="table-light">
 
                         <?php foreach ($datos['usuAdmin'] as $usuarios) : ?>
-                                <?php print_r($usuarios); ?>
                                 <tr>
                                         <td><?php echo $usuarios->id_usuario ?></td>
                                         <td><?php echo $usuarios->nombre ?></td>
@@ -33,16 +32,83 @@
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
                                                 <td>
 
-                                                        <a>
-                                                                <img src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20">
-                                                        </a>
+                                                        <!--MODAL VER (javascript)-->
+                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir();"></img>
+
+                                                        <div id="miModal_<?php echo $usuarios->id_usuario ?>" class="modalVer">
+                                                                <div class="modal-content">
+
+                                                                        <div id="headerVer">
+                                                                                <div class="col-12" style="text-align:right"><input type="button" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="btn-close" onclick="cerrar();"></div>
+                                                                                <h2 style="text-align:center">Ver Usuario</h2>
+                                                                        </div>
+
+                                                                        <div id="bodyVer" class="row m-3">
 
 
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verDni">dni: </label>
+                                                                                        <label name="verDni" class="form-control form-control-lg"><?php echo $usuarios->dni ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verDni">Nombre: </label>
+                                                                                        <label name="verDni" class="form-control form-control-lg"><?php echo $usuarios->nombre ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verApel">Apellidos: </label>
+                                                                                        <label name="verApel" class="form-control form-control-lg"><?php echo $usuarios->apellidos ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verEmail">Email: </label>
+                                                                                        <label name="verEmail" class="form-control form-control-lg"><?php echo $usuarios->email ?></label>
+                                                                                </div>
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verFecha">Fecha Nacimiento: </label>
+                                                                                        <label name="verFecha" class="form-control form-control-lg"><?php echo $usuarios->fecha_nacimiento ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verTlf">Telefono: </label>
+                                                                                        <label name="verTlf" class="form-control form-control-lg"><?php echo $usuarios->telefono ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verCCC">CCC: </label>
+                                                                                        <label name="verCCC" class="form-control form-control-lg"><?php echo $usuarios->CCC ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verTalla">Talla: </label>
+                                                                                        <label name="verTalla" class="form-control form-control-lg"><?php echo $usuarios->talla ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verAct">Activado: </label>
+                                                                                        <label name="verAct" class="form-control form-control-lg"><?php echo $usuarios->activado ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verRol">Rol: </label>
+                                                                                        <label name="verRol" class="form-control form-control-lg"><?php echo $usuarios->id_rol ?></label>
+                                                                                </div>
+
+                                                                        </div>
+
+                                                                        <div id="footerVer">
+                                                                                <input type="button" style="background-color: #023ef9; color:white" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="close" onclick="cerrar();" value="cerrar">
+                                                                        </div>
+
+                                                                </div>
+                                                        </div>
+
+
+                                                        <!-- VENTANA -->
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalEditar<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/editarAdmin/<?php echo $uruario->id_usuario ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>editar.svg" width="20" height="20"></img>
                                                         </a>
-
-                                                        <!-- VENTANA -->
                                                         <div class="modal" id="ModalEditar<?php echo $usuarios->id_usuario ?>">
                                                                 <div class="modal-dialog modal-xl modal-dialog-centered">
                                                                         <div class="modal-content">
@@ -55,7 +121,7 @@
 
                                                                                 <!-- Modal body -->
                                                                                 <div class="modal-body">
-                                                                                        <form method="post" class="card-body" autocomplete="off">
+                                                                                        <form method="post" class="card-body" autocomplete="off" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php echo $usuarios->id_usuario ?>">
                                                                                                 <div class="row">
                                                                                                         <p style="color: #023EF9;">*Si dejas un campo vacio se guardara el dato anterior</p>
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -100,11 +166,6 @@
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editTalla">Talla: <sup>*</sup></label>
                                                                                                                 <input type="text" name="editTalla" id="editTalla" class="form-control form-control-lg" placeholder="<?php echo $usuarios->talla ?>">
-                                                                                                                <select>
-                                                                                                                        <option>L</option>
-                                                                                                                        <option>M</option>
-                                                                                                                        <option>S</option>
-                                                                                                                </select>
                                                                                                         </div>
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -119,7 +180,30 @@
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editRol">Rol: <sup>*</sup></label>
-                                                                                                                <input type="text" name="editRol" id="editRol" class="form-control form-control-lg" placeholder="<?php echo $usuarios->id_rol ?>">
+                                                                                                                <select name="editRol" id="editRol" class="form-control form-control-lg">
+                                                                                                                        <?php if ($usuarios->id_rol == 1) { ?>
+                                                                                                                                <option selected value="1">Admin</option>
+                                                                                                                                <option value="2">Socio</option>
+                                                                                                                                <option value="3">Entrenador</option>
+                                                                                                                                <option value="4">Tienda</option>
+                                                                                                                        <?php } elseif ($usuarios->id_rol == 2) { ?>
+                                                                                                                                <option value="1">Admin</option>
+                                                                                                                                <option selected value="2">Socio</option>
+                                                                                                                                <option value="3">Entrenador</option>
+                                                                                                                                <option value="4">Tienda</option>
+                                                                                                                        <?php } elseif ($usuarios->id_rol == 3) { ?>
+                                                                                                                                <option value="1">Admin</option>
+                                                                                                                                <option value="2">Socio</option>
+                                                                                                                                <option selected value="3">Entrenador</option>
+                                                                                                                                <option value="4">Tienda</option>
+                                                                                                                        <?php } elseif ($usuarios->id_rol == 4) { ?>
+                                                                                                                                <option value="1">Admin</option>
+                                                                                                                                <option value="2">Socio</option>
+                                                                                                                                <option value="3">Entrenador</option>
+                                                                                                                                <option selected value="4">Tienda</option>
+                                                                                                                        <?php } ?>
+
+                                                                                                                </select>
                                                                                                         </div>
                                                                                                 </div>
                                                                                                 <input type="submit" class="btn btn-success" value="Confirmar">
@@ -188,5 +272,20 @@
 </div>
 
 
+<script>
+        function abrir() {
+                var modal = document.getElementById("miModal_<?php echo $usuarios->id_usuario ?>");
+                var body = document.getElementsByTagName("body")[0];
+                modal.style.display = "block";
+                body.style.overflow = "hidden";
+        }
+
+        function cerrar() {
+                var modal = document.getElementById("miModal_<?php echo $usuarios->id_usuario ?>");
+                var body = document.getElementsByTagName("body")[0];
+                modal.style.display = "none";
+                body.style.overflow = "visible";
+        }
+</script>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
