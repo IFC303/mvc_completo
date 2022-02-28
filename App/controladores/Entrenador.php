@@ -1,157 +1,191 @@
 <?php
 
-class Entrenador extends Controlador
-{
-    public function __construct()
-    {
-        Sesion::iniciarSesion($this->datos);
-        $this->datos['rolesPermitidos'] = [2];          // Definimos los roles que tendran acceso
+        use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\Exception;
+        use PHPMailer\PHPMailer\SMTP;
 
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/');
-        }
-
-        $this->testModelo = $this->modelo('Test');
-        $this->pruebaModelo = $this->modelo('Prueba');
-    }
+        require_once RUTA_APP.'/librerias/PHPMailer/Exception.php';
+        require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
+        require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
 
 
-
-    // MENU INICIO
-    public function index(){
-        $this->vista('entrenadores/inicio', $this->datos);
-    }
+class Entrenador extends Controlador{
 
 
+        // *********** CONSTRUCTOR ***********  
 
-
-    // FUNCIONES MENU GRUPOS
-    public function grupos(){
-        $this->vista('entrenadores/grupos', $this->datos);
-    }
-
-
-
-    // FUNCIONES MENU TEST -> PRUEBAS
-    public function test(){  
- 
-            $this->datos['test'] = $this->testModelo->obtenerTest();
-
-            $this->datos['pruebas']=$this->pruebaModelo->obtenerPruebas();
-
-            for($i = 0 ;$i<count($this->datos['test']); $i++){
-                $this->datos['test'][$i]->pruebas = $this->pruebaModelo->obtenerPruebasTest($this->datos['test'][$i]->id_test);
+            public function __construct(){
+                Sesion::iniciarSesion($this->datos);
+                $this->datos['rolesPermitidos'] = [2];          // Definimos los roles que tendran acceso
+                if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                    redireccionar('/');
+                }
+                $this->testModelo = $this->modelo('Test');
+                $this->pruebaModelo = $this->modelo('Prueba');
+                $this->mensajeModelo = $this->modelo('Mensaje');
             }
 
-            $this->vista('entrenadores/test', $this->datos);
-    }
 
-   
+        // *********** PAGINA PRINCIPAL ENTRENADOR ***********  
 
-    public function nuevo_test()
-    {
-        $this->datos['rolesPermitidos'] = [2];         
-
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
-
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $testNuevo = [
-                'id_test' => trim($_POST['id_test']),
-                'nombreTest' => trim($_POST['nombreTest']),
-            ];
-            if ($this->testModelo->agregarTest($testNuevo,$_POST['id_prueba'])) {
-                redireccionar('/entrenador/test');
-            } else {
-                die('Algo ha fallado!!!');
+            public function index(){
+                $this->vista('entrenadores/inicio', $this->datos);
             }
-        } else {
-            $this->datos['test'] = (object) [
-                'id_test' => '',
-                'nombreTest' => '',
-            ];
-            //obtenemos los test
-            $this->datos['listaTest'] = $this->testModelo->obtenerTest();
-            //obtenemos las pruebas y lo guardamos en datos['pruebas']
-            $prueba = $this->pruebaModelo->obtenerPruebas();
-            $this->datos['pruebas'] = $prueba;
 
-            $this->vista('entrenadores/nuevo_test', $this->datos);
-        }
-    }
+        // *********** SUBMENU: GRUPOS (funciones) ***********  
 
-
-
-   public function borrar($id){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->testModelo->borrarTest($id)) {
-                redireccionar('/entrenador/test');
-            } else {
-                die('Algo ha fallado!!!');
+            public function grupos(){
+                $this->vista('entrenadores/grupos', $this->datos);
             }
-        } else {
-            $this->datos['test'] = $this->testModelo->obtenerTestId($id);
-            $this->vista('entrenadores/test', $this->datos);
-        }
-    }
 
 
-    public function editarTest($id)
-    {
-        $this->datos['rolesPermitidos'] = [2];          
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
+        // *********** SUBMENU: TEST/PRUEBAS (funciones) ***********  
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $testModificado = [
-                    'id_test' => trim($_POST['id_test']),
-                    'nombreTest' => trim($_POST['nombreTest']),
-                    'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
-                ];
-           
-                $datos['test_prueba'] = $this->testModelo->obtenerTestPrueba($id);
-  
+            public function test(){  
+                    $this->datos['test'] = $this->testModelo->obtenerTest();
+                    $this->datos['pruebas']=$this->pruebaModelo->obtenerPruebas();
+                    for($i = 0 ;$i<count($this->datos['test']); $i++){
+                        $this->datos['test'][$i]->pruebas = $this->pruebaModelo->obtenerPruebasTest($this->datos['test'][$i]->id_test);
+                    }
+                    $this->vista('entrenadores/test', $this->datos);
+            }
 
-                if ($this->testModelo->modificarTest()) {
-                    redireccionar('/entrenador/test');
-                } else {
-                    echo "ARRAY BBDD ";
-                    var_dump($datos['test_prueba']);
-                    echo '<br>';
-                    echo "ARRAY MODIFICADO ";
-                    var_dump($testModificado['id_prueba']);
 
-                   
-                     foreach($datos['test_prueba'] as $idPrueba){  
-                        echo '<br>';
-                        echo "variable";
-                        var_dump($idPrueba->id_prueba);
-                      
-                        if (in_array($idPrueba->id_prueba,$testModificado['id_prueba'])){
-                            $eliminar[] = [$idPrueba]; 
+            public function nuevo_test(){
+                    $this->datos['rolesPermitidos'] = [2];         
+                    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                        redireccionar('/usuarios');
+                    }
+
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $testNuevo = [
+                            'id_test' => trim($_POST['id_test']),
+                            'nombreTest' => trim($_POST['nombreTest']),
+                        ];
+                        if ($this->testModelo->agregarTest($testNuevo,$_POST['id_prueba'])) {
+                            redireccionar('/entrenador/test');
+                        }else{
+                            die('Algo ha fallado!!!');
+                        }
+                    } else{
+                        $this->datos['test'] = (object) [
+                            'id_test' => '',
+                            'nombreTest' => '',
+                        ];
+                        //obtenemos los test
+                        $this->datos['listaTest'] = $this->testModelo->obtenerTest();
+                        //obtenemos las pruebas y lo guardamos en datos['pruebas']
+                        $prueba = $this->pruebaModelo->obtenerPruebas();
+                        $this->datos['pruebas'] = $prueba;
+                        $this->vista('entrenadores/nuevo_test', $this->datos);
+                    }
+            }
+
+
+            public function borrar($id){
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        if ($this->testModelo->borrarTest($id)) {
+                            redireccionar('/entrenador/test');
+                        }else{
+                            die('Algo ha fallado!!!');
+                        }
+                    }else{
+                        $this->datos['test'] = $this->testModelo->obtenerTestId($id);
+                        $this->vista('entrenadores/test', $this->datos);
+                    }
+            }
+
+
+            public function editarTest($id){
+
+                $this->datos['rolesPermitidos'] = [2];          
+                if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                    redireccionar('/usuarios');
+                }
+
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        //recogemos los datos modificados y guardamos en $testModificado
+                        $testModificado = [
+                            'id_test' => trim($_POST['id_test']),
+                            'nombreTest' => trim($_POST['nombreTest']),
+                            'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
+                        ];
+                        //recogemos los datos de la BBDD (aray de objetos) y guardamos en $bd 
+                        $bbdd = $this->testModelo->obtenerTestPrueba($id);
+                        foreach ($bbdd as $objeto){
+                            $bd[]=$objeto->id_prueba;
+                        }
+                
+                        $eliminar=[];
+                        $insertar=[];
+
+                        foreach($bd as $idPrueba){  
+                            //comparacion BBDD con MODIFICADO
+                            if (!in_array($idPrueba,$testModificado['id_prueba'])){
+                                $eliminar[]=$idPrueba;
+                            }
                         }
 
-                    // }
-        
-                    //die('Algo ha fallado!!!');    
-                    }
-                    echo '<br>';
-                    echo "ARRAY ELIMINAR";
-                    var_dump($eliminar);
-
-        }
+                        foreach($testModificado['id_prueba'] as $idPruebaM){  
+                            //comparacion MODIFICADO con BBDD
+                            if (!in_array($idPruebaM,$bd)){
+                                $insertar[]=$idPruebaM;
+                            }
+                        }
+            
+                        if ($this->testModelo->modificarTest($eliminar,$insertar,$testModificado)) {
+                            redireccionar('/entrenador/test');
+                        }else{
+                            die('Algo ha fallado!!!');
+                        }
+            }
 
 
     }
 
-    }
+    
+        // *********** SUBMENU: MENSAJERIA (funciones) ***********  
 
-    // FUNCIONES MENU MENSAJERIA
-    public function mensajeria(){
-        $this->vista('entrenadores/mensajeria', $this->datos);
-    }
+            public function mensajeria(){
+                $this->datos['mensaje']=$this->mensajeModelo->obtenerEmail();
+
+             $this->vista('entrenadores/mensajeria', $this->datos );
+
+
+            }
+
+
+            public function enviar(){
+                    $mail = new PHPMailer();
+                    $destinatario = ($_POST['destinatario']);
+                    $asunto = ($_POST['asunto']);
+                    $mensaje =($_POST['mensaje']);
+            
+                try {
+                    //  Configuracion SMTP
+                        $mail->SMTPDebug =2;
+                        $mail->isSMTP();                                       // Activar envio SMTP
+                        $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
+                        $mail->SMTPAuth  = true;                               // Identificacion SMTP
+                        $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
+                        $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port  = 587;
+                        
+                    // CONFIGURACION CORREO
+                        $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
+                        $mail->addAddress($destinatario);  // Email destinatario
+                        $mail->isHTML(true);
+                        $mail->Subject = $asunto;
+                        $mail->Body  = $mensaje;
+                        $mail->send();
+                        echo 'El mensaje se ha enviado';
+                } catch (Exception $e) {
+                        echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+                }
+            }
+
+
+
 
 }
