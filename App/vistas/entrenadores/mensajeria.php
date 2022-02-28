@@ -28,6 +28,7 @@
             <label class="form-check-label" for="todos">SOCIOS</label>
         </div>
 
+
                         
         <!--VENTANA MODAL-->
         <div class="modal" id="ventanaModal">
@@ -35,46 +36,47 @@
                 <div class="modal-content">
                 
                     <div class="header">
-                        <h4 class="modal-title">Modal Heading</h4>
+                        <h4 class="modal-title">Modal</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                  
+
                     <div class="modal-body">
-                        <form method="post" action="<?php echo RUTA_URL?>/entrenador/mensajeria" class="card-body">
+                            <input type="checkbox" id="todos" onClick="marcar_desmarcar(this);"> <label for="todos">Seleccionar todos</label>    
 
-                                <input type="checkbox" id="todos" onClick="marcar_desmarcar(this);"> <label for="todos">Seleccionar todos</label>    
+                            <div class="mt-3 mb-3">
+                                    <?php 
+                                    foreach($datos['mensaje'] as $objeto){ 
 
-                                <div class="mt-3 mb-3">
+                                        ?> 
+                                        <input type="checkbox" name="seleccionados" id="<?php echo $objeto->nombre ?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
 
-                                        <?php 
-                                          foreach($datos['mensaje'] as $objeto){ 
+                                    <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
+                                            echo '<br>';
 
-                                            ?> 
-                                            <input type="checkbox" name="seleccionados[]" id="<?php echo $objeto->nombre ?>" value="<?php echo $objeto->email?>">
-
-                                        <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
-                                               echo '<br>';
-       
-                                          }?>     
-
-                                </div>
-
-                                <input type="text" id="destinatarios" name="destinatarios"  hidden>
-                                <input type="submit" class="btn btn-success" value="Confirmar">
-                        </form>
+                                    }?>     
+                            </div>
                     </div>
+
+
+
+                    <div class="footer">
+                        <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
+                    </div>    
+                      
+                    
                 </div>
             </div>
         </div> 
-       
+
+
 
                 <div class="card bg-light mt-5 w-75 card-center" style=" margin: auto;">
                     <form method="post" action="<?php echo RUTA_URL?>/entrenador/enviar"class="card-body">
 
                             <div class="mt-3 mb-3">
                                 <label for="destinatario">Email destinatario: </label>
-                                <input type="email" name="destinatario" id="destinatario" class="form-control form-control-lg" value="<?php print_r($_POST['seleccionados']) ?>">
+                                <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="">                               
                             </div>
                             <div class="mt-3 mb-3">
                                 <label for="asunto">Asunto: </label>
@@ -96,29 +98,48 @@
 
             <script>
 
-                function marcar_desmarcar(todos){
-                    todos.setAttribute("checked","true");   
-                   
-                    var mails = [];
-                    casillas=document.getElementsByTagName('input');
-
-                     for(i=0;i<casillas.length;i++){
-                         if(casillas[i].type == "checkbox"){    
-                             todos.setAttribute("checked","true"); 
-                             if (casillas[i].checked=todos.checked) {
-                                mails.push(casillas[i].value);  
-                             } else{
-                                 mails.splice(mails.length)
-                             }           
-                         }  
-                     } 
-                    mails.shift();
-                    console.log(mails);
+                    function marcar_desmarcar(todos){
+                        todos.setAttribute("checked","true");   
                     
-                     
-                }
-            
-                   
+                        var mails =[];
+                        casillas=document.getElementsByTagName('input');
+                        
+                        //correos="";  
+                        for(i=0;i<casillas.length;i++){
+                            if(casillas[i].type == "checkbox"){    
+                                todos.setAttribute("checked","true");
+                                if(casillas[i].checked=todos.checked){
+                                    mails.push(casillas[i].value);
+                                    //correos=correos+casillas[i].value+",";
+                                } else{
+                                     mails.splice(mails.length) 
+                                }                 
+                             }   
+                      
+                        }
+                        mails.shift(); 
+                        document.getElementById('destinatario').setAttribute('value',mails) 
+                        console.log(mails); 
+                         
+                    } 
+
+
+
+                     function seleccionados(seleccionado){
+                        seleccionado.setAttribute("checked","true");
+                        var correos = [];
+                        casillas=document.getElementsByTagName('input');
+
+                        for(i=0;i<casillas.length;i++){
+                            if((casillas[i].type=="checkbox") & (casillas[i].checked==true)){
+                                correos.push(casillas[i].value);
+                            }
+                        }
+                        
+                          console.log(correos); 
+                          document.getElementById('destinatario').setAttribute('value',correos);
+                     }
+
 
 
             </script>
