@@ -11,7 +11,6 @@ class Socio extends Controlador
             redireccionar('/');
         }
 
-        $this->marcasModelo = $this->modelo('Marcas');
         $this->datosModelo = $this->modelo('Datos');
       
     }
@@ -28,6 +27,8 @@ class Socio extends Controlador
         $datosUser = $this->datosModelo->obtenerDatosSocioId($idUsuarioSesion);
         $this->datos['usuarios']=$datosUser;
 
+        
+
         $this->vista('socios/modificarDatos', $this->datos);
     }
 
@@ -35,12 +36,21 @@ class Socio extends Controlador
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $marcas = $this->marcasModelo->obtenerMarcasId($idUsuarioSesion);
+        $marcas = $this->datosModelo->obtenerMarcasId($idUsuarioSesion);
         $this->datos['usuarios']=$marcas;
 
         $this->vista('socios/verMarcas', $this->datos);
     }
 
+    public function subirLicencias(){
+
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $licencias = $this->datosModelo->obtenerLicenciasId($idUsuarioSesion);
+        $this->datos['usuarios']=$licencias;
+
+        $this->vista('socios/subirLicencias', $this->datos);
+    }
     
 
 

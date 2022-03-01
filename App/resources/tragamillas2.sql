@@ -22,22 +22,23 @@ INSERT INTO
 VALUES
   (4, 'tienda');
 CREATE TABLE USUARIO(
-    id_usuario int AUTO_INCREMENT,
-    dni varchar(11) unique,
-    nombre varchar(20) not null,
-    apellidos varchar(30) not null,
-    email varchar(40) not null,
-    fecha_nacimiento varchar (20),
-    telefono int not null,
-    CCC varchar(25) not null,
-    passw varchar(50),
-    talla varchar(5) not null,
-    foto varchar(800),
-    activado boolean not null,
-    id_rol int,
-    primary key (id_usuario),
-    constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
-  );
+  id_usuario int AUTO_INCREMENT,
+  dni varchar(11) unique,
+  nombre varchar(20) not null,
+  apellidos varchar(30) not null,
+  email varchar(40) not null,
+  fecha_nacimiento date,
+  telefono int not null,
+  CCC varchar(25) not null,
+  passw varchar(50),
+  talla varchar(5) not null,
+  foto varchar(800),
+  activado boolean not null,
+  id_rol int,
+  primary key (id_usuario),
+  constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
+);
+
 INSERT INTO
   `USUARIO` (
     `id_usuario`,

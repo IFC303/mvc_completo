@@ -14,11 +14,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
+    
 
 
-    <title>VER MARCAS</title>
+    <title>SUBIR LICENCIAS</title>
 </head>
 <body style="background-color: #F5F5F5;">
 
@@ -42,7 +43,7 @@
                     </script>
                 </div>
             </div>
-            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">MARCAS PERSONALES</h1></div>
+            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">SUBIR LICENCIAS</h1></div>
 
             <!--MENU-->
             <div class="offcanvas offcanvas-start" id="menu1">
@@ -86,33 +87,35 @@
                     <a href="<?php echo RUTA_URL ?>/socio"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></a>
                 </div>
             </div>
-        </header>    
+        </header>
     
         <div  style="border:solid 1px #023ef9; height: 1%">
         <table class="table table-striped text-center" style = "margin: 0px;"> 
             <thead class="cabezera">
                 <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Prueba</th>
-                        <th scope="col">Tipo prueba</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Tipo Test</th>
+                        <th scope="col">Num Licencia</th>
+                        <th scope="col">Tipo Licencia</th>
+                        <th scope="col">Dorsal</th>
+                        <th scope="col">Regional/Nacional</th>
+                        <th scope="col">Fecha Caducidad</th>
+                        <th scope="col">Imagen</th>
                 
                 </tr>
             </thead>
             <tbody>
                 
                 <?php $contador = 0 ;
-                foreach ($datos['usuarios'] as $marcas) : ?>
+                foreach ($datos['usuarios'] as $licencias) : ?>
                     <?php $contador = $contador +1; ?>
                     <tr>
                         <td scope="row"><?php echo $contador ?></td>
-                        <td scope="col"><?php if ($marcas->nombrePrueba==''){echo '-';}else {echo $marcas->nombrePrueba;}?></td>
-                        <td scope="col"><?php if ($marcas->tipo==''){echo '-';}else {echo $marcas->tipo;}?></td>
-                        <td scope="col"><?php if ($marcas->marca==''){echo '-';}else {echo $marcas->marca;}?></td>
-                        <td scope="col"><?php if ($marcas->fecha==''){echo '-';}else {echo $marcas->fecha;}?></td>
-                        <td scope="col"><?php if ($marcas->nombreTest==''){echo '-';}else {echo $marcas->nombreTest;}?></td>
+                        <td scope="col"><?php if ($licencias->num_licencia==''){echo '-';}else {echo $licencias->num_licencia;}?></td>
+                        <td scope="col"><?php if ($licencias->tipo==''){echo '-';}else {echo $licencias->tipo;}?></td>
+                        <td scope="col"><?php if ($licencias->dorsal==''){echo '-';}else {echo $licencias->dorsal;}?></td>
+                        <td scope="col"><?php if ($licencias->regional_nacional==''){echo '-';}else {echo $licencias->regional_nacional;}?></td>
+                        <td scope="col"><?php if ($licencias->fecha_cad==''){echo '-';}else {echo $licencias->fecha_cad;}?></td>
+                        <td scope="col"><?php if ($licencias->imagen==''){echo '-';}else {echo $licencias->imagen;}?></td>
                     </tr>
                     
                 <?php endforeach ?>
@@ -120,13 +123,19 @@
             </tbody>
             
         </table>
-    
+        
+        <!-- AÑADIR -->
+        <div class="col text-center">
+                <a class="btn" style="background-color: #023ef9; color:white; margin-top: 0.5cm;" href="<?php echo RUTA_URL ?>/socios/añadirLiciencia">Añadir</a>
+        </div>
+        <br>
+
         </div>
         
 
-        
+
     </div>
 
-    
+
 </body>
 </html>
