@@ -123,7 +123,13 @@
             </tbody>
             
         </table>
-    
+        
+        <!-- AÑADIR -->
+        <div class="col text-center">
+                <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL ?>/admin/nuevoUsuario/">Añadir</a>
+        </div>
+        <br>
+
         </div>
         
 
