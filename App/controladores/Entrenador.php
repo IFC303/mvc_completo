@@ -112,28 +112,36 @@ class Entrenador extends Controlador{
                             'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
                         ];
 
+                        $bd = [];
                         //recogemos los datos de la BBDD (array de objetos) y guardamos en $bd 
                         $bbdd = $this->testModelo->obtenerTestPrueba($id);
                         foreach ($bbdd as $objeto){
                             $bd[]=$objeto->id_prueba;
+                            
                         }
                 
                         $eliminar=[];
                         $insertar=[];
 
+                        
                         foreach($bd as $idPrueba){  
-                            //comparacion BBDD con MODIFICADO
-                            if (!in_array($idPrueba,$testModificado['id_prueba'])){
+                            if($testModificado['id_prueba']!=null){
+                                //comparacion BBDD con MODIFICADO
+                                if (!in_array($idPrueba,$testModificado['id_prueba'])){
                                 $eliminar[]=$idPrueba;
                             }
-                        }
+                            }  
+                          }
 
-                        foreach($testModificado['id_prueba'] as $idPruebaM){  
+                        if($testModificado['id_prueba']!=null){
+                            foreach($testModificado['id_prueba'] as $idPruebaM){  
                             //comparacion MODIFICADO con BBDD
                             if (!in_array($idPruebaM,$bd)){
                                 $insertar[]=$idPruebaM;
                             }
                         }
+                        }
+                        
             
                         if ($this->testModelo->modificarTest($eliminar,$insertar,$testModificado)) {
                             redireccionar('/entrenador/test');

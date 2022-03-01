@@ -81,9 +81,9 @@
                             <td>
 
                                 <!--MODAL VER (javascript)-->
-                                    <img id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir();" ></img>
+                                    <img id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $test->id_test ?>);" ></img>
 
-                                    <div id="miModal_<?php echo $test->id_test ?>" class="modalVer">
+                                    <div id="<?php echo $test->id_test ?>" class="modalVer">
                                         <div class="modal-content">
 
                                             <div id="headerVer">
@@ -127,7 +127,7 @@
                                             </div>
                                             
                                             <div id="footerVer">
-                                                <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $test->id_test ?>" class="close" onclick="cerrar();" value="cerrar" >
+                                                <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $test->id_test ?>" class="close" onclick="cerrar(<?php echo $test->id_test ?>);" value="cerrar" >
                                             </div>
                                         
                                         </div>  
@@ -258,15 +258,16 @@
 
             <script>
 
-                    function abrir(){
-                         var modal=document.getElementById("miModal_<?php echo $test->id_test ?>");
+                    function abrir(idModal){
+                        var modal=document.getElementById(idModal);
+                         console.log(idModal);
                          var body=document.getElementsByTagName("body")[0];
                          modal.style.display="block";
                          body.style.overflow="hidden";
                     }
 
-                   function cerrar(){
-                         var modal=document.getElementById("miModal_<?php echo $test->id_test ?>");
+                   function cerrar(idModal){
+                         var modal=document.getElementById(idModal);
                          var body=document.getElementsByTagName("body")[0];
                          modal.style.display="none";
                          body.style.overflow="visible";
