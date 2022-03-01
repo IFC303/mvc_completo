@@ -97,7 +97,7 @@
                     </li>
                     <ul class="collapse nav flex-column " id="submenuSol" data-bs-parent="#menu">
                         <li id="sInicio">
-                            <a href="#" class="nav-link">SOCIOS</a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
                         </li>
                         <li id="sInicio">
                             <a href="#" class="nav-link ">GRUPOS</a>

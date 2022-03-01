@@ -61,7 +61,7 @@
         </div>
         <ul id="mSol">
             <li id="mUsu">
-                <a href="#" class="nav-link">SOCIOS</a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
             </li>
             <li id="mUsu">
                 <a href="#" class="nav-link ">GRUPOS</a>
