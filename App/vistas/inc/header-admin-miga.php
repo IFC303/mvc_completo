@@ -30,8 +30,8 @@
 
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
-                    <li class="breadcrumb-level"><a><?php if($this->datos['idTengo']=="1"){echo "ADMIN";}elseif($this->datos['idTengo']=="2"){echo "ENTRENADORES";
-                    }elseif($this->datos['idTengo']=="3"){echo "SOCIOS";}elseif($this->datos['idTengo']=="4"){echo "TIENDAS";} ?></a></li>
+                    <li class="breadcrumb-level"><a><?php if(isset($this->datos['idTengo'])){if($this->datos['idTengo']=="1"){echo "ADMIN";}elseif($this->datos['idTengo']=="2"){echo "ENTRENADORES";
+                    }elseif($this->datos['idTengo']=="3"){echo "SOCIOS";}elseif($this->datos['idTengo']=="4"){echo "TIENDAS";}}else{echo "FALTA ACABAR";} ?></a></li>
                 </ol>
             </div>
             <br><br><br><br>
