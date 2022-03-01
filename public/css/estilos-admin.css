@@ -21,7 +21,6 @@ body{
     cursor:pointer;
 }
 
-
 p[id^="p"]{
     border: solid; 
     color: #023EF9; 
@@ -94,8 +93,32 @@ a:link, a:hover, a:visited, a:active {
     color: #000000;
 }
 
+sup{
+    color: #023EF9;
+    font-weight: bold;
+    font-size: small;
+}
 
+/* modal ver */
+.modalVer{
+            
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding: 100px 100px 0px 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+}
 
+a{
+    color:black;
+    text-decoration: none;
+}
 
 
 
