@@ -54,6 +54,7 @@ ul[id^="m"]{
 }
 
 li[id^="m"], li[id^="s"]{
+    list-style: none;
     text-decoration: none;
     font-size: 25px;
     letter-spacing: 3px;

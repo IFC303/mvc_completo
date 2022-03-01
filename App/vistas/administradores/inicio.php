@@ -23,26 +23,20 @@
             <h1 class="offcanvas-title">USUARIOS</h1>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
-        <table>
-            <tr>
-                <td id="mUsu"><a href="<?php echo RUTA_URL ?>/admin/crud_admin">
-                        <div>ADMIN</div>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td id="mUsu"><a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores">
-                        <div>ENTRENADORES</div>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td id="mUsu">SOCIOS</td>
-            </tr>
-            <tr>
-                <td id="mUsu">TIENDAS</td>
-            </tr>
-        </table>
+        <ul id="mUsu">
+            <li id="mUsu">
+                <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="nav-link">ADMIN</a>
+            </li>
+            <li id="mUsu">
+                <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link ">ENTRENADORES</a>
+            </li>
+            <li id="mUsu">
+                <a href="<?php echo RUTA_URL ?>/admin/crud_socios" class="nav-link ">SOCIOS</a>
+            </li>
+            <li id="mUsu">
+                <a href="<?php echo RUTA_URL ?>/admin/crud_tiendas" class="nav-link ">TIENDAS</a>
+            </li>
+        </ul>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
             <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
         </div>
@@ -65,25 +59,17 @@
             <h1 class="offcanvas-title">SOLICITUDES</h1>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
-        <table>
-            <tr>
-                <td id="mUsu"><a href="#">
-                        <div>SOCIOS</div>
-                    </a></td>
-            </tr>
-
-            <tr>
-                <td id="mUsu"><a href="#">
-                        <div>GRUPOS</div>
-                    </a></td>
-            </tr>
-
-            <tr>
-                <td id="mUsu"><a href="#">
-                        <div>EVENTOS</div>
-                    </a></td>
-            </tr>
-        </table>
+        <ul id="mSol">
+            <li id="mUsu">
+                <a href="#" class="nav-link">SOCIOS</a>
+            </li>
+            <li id="mUsu">
+                <a href="#" class="nav-link ">GRUPOS</a>
+            </li>
+            <li id="mUsu">
+                <a href="#" class="nav-link ">EVENTOS</a>
+            </li>
+        </ul>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
     </div>
 
@@ -154,7 +140,8 @@
             <div class="container-fluid" style="padding: 0;">
                 <div class="row d-flex w-100 justify-content-end"><button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button></div>
                 <div class="row d-flex w-100 justify-content-center">
-                    <div class="col-2"><img src="<?php //echo RUTA_Icon ?>euro.svg" width="50" height="50"></div>
+                    <div class="col-2"><img src="<?php //echo RUTA_Icon 
+                                                    ?>euro.svg" width="50" height="50"></div>
                     <div class="col-10"><h1 class="offcanvas-title">FACTURACION</h1></div>
                 </div>
             </div>

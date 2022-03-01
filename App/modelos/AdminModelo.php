@@ -128,7 +128,7 @@ class AdminModelo
         $this->db->bind(':tallUsu', ""/*$usuAnadir['tallUsuAna']*/);
         $this->db->bind(':fotUsu', ""/*$usuAnadir['fotUsuAna']*/);
         $this->db->bind(':actUsu', "1"/*$usuAnadir['actUsuAna']*/);
-        $this->db->bind(':idRolUsu', "1"/*$usuAnadir['idRolUsuAna']*/);
+        $this->db->bind(':idRolUsu', $usuAnadir['rolUsuAna']);
 
         if ($this->db->execute()) {
             return true;

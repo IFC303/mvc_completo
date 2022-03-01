@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="<?php echo RUTA_URL ?>/admin/nuevoUsuario/" method="post">
+    <form action="<?php echo RUTA_URL ?>/admin/nuevoUsuario/<?php echo $datos['idTengo']?>" method="post">
         <label for="">DNI </label><input type="text" value="" id="dni" name="dni" style="text-transform:uppercase;">
         <br><br>
         <label for="">Nombre </label><input type="text" value="" id="nombre" name="nombre" required onkeypress="return Solo_Texto(event);">

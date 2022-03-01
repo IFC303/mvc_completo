@@ -33,13 +33,13 @@
                                                 <td>
 
                                                         <!--MODAL VER (javascript)-->
-                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir();"></img>
+                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir(usuarios->id_usuario)"></img> 
 
                                                         <div id="miModal_<?php echo $usuarios->id_usuario ?>" class="modalVer">
                                                                 <div class="modal-content">
 
                                                                         <div id="headerVer">
-                                                                                <div class="col-12" style="text-align:right"><input type="button" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="btn-close" onclick="cerrar();"></div>
+                                                                                <div class="col-12" style="text-align:right"><input type="button" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="btn-close" onclick="cerrar(this);"></div>
                                                                                 <h2 style="text-align:center">Ver Usuario</h2>
                                                                         </div>
 
@@ -98,7 +98,7 @@
                                                                         </div>
 
                                                                         <div id="footerVer">
-                                                                                <input type="button" style="background-color: #023ef9; color:white" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="close" onclick="cerrar();" value="cerrar">
+                                                                                <input type="button" style="background-color: #023ef9; color:white" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="close" onclick="cerrar(this);" value="cerrar">
                                                                         </div>
 
                                                                 </div>
@@ -223,7 +223,7 @@
 
                                                         <!-- MODAL BORRAR -->
 
-                                                        <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php echo $usuarios->id_usuario ?>">
+                                                        <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_usuario ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>papelera.svg" width="20" height="20"></img>
 
                                                         </a>
@@ -247,7 +247,7 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php echo $usuarios->id_usuario ?>" method="post">
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php $idUsuTengo= $datos['idTengo']."-".$usuarios->id_usuario; echo $idUsuTengo ?>" method="post">
                                                                                                 <button type="submit">Borrar</button>
                                                                                         </form>
                                                                                 </div>
@@ -265,23 +265,22 @@
 
         <!-- AÑADIR-->
         <div class="col text-center">
-                <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL ?>/admin/nuevoUsuario/">Añadir</a>
+                <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL ?>/admin/nuevoUsuario/<?php echo $datos['idTengo'] ?>">Añadir</a>
         </div>
         <br>
 
 </div>
-
-
 <script>
-        function abrir() {
-                var modal = document.getElementById("miModal_<?php echo $usuarios->id_usuario ?>");
+        function abrir(idAbrir) {
+                console.log(idAbrir);
+                //var modal = document.getElementById("miModal_<?php //echo $idAbrir ?>");
                 var body = document.getElementsByTagName("body")[0];
-                modal.style.display = "block";
+                idAbrir.style.display = "block";
                 body.style.overflow = "hidden";
         }
 
-        function cerrar() {
-                var modal = document.getElementById("miModal_<?php echo $usuarios->id_usuario ?>");
+        function cerrar(idCerrar) {
+                var modal = document.getElementById("miModal_<?php echo $idCerrar?>");
                 var body = document.getElementsByTagName("body")[0];
                 modal.style.display = "none";
                 body.style.overflow = "visible";
