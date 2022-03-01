@@ -76,9 +76,10 @@ class Admin extends Controlador
         }
     }
 
-    public function editarUsuario($idEdit)
+    public function editarUsuario($idEditTengo)
     {
-        
+        $idEdit=(substr($idEditTengo, strpos($idEditTengo,'-')+strlen('-')));
+        $usuVer=(substr($idEditTengo, 0, strpos($idEditTengo,'-')));
         
         $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
 
@@ -105,9 +106,17 @@ class Admin extends Controlador
             ];
 
             if ($this->AdminModelo->editarUsuario($ediUsu)) {
-                $verUsu = $this->AdminModelo->obtenerUsuarios(1);
-                $this->datos['usuAdmin'] = $verUsu;
-                $this->vista('administradores/cruds/crudAdmin', $this->datos);
+                if($usuVer=="1"){
+                    redireccionar('/admin/crud_admin');
+                }elseif($usuVer=="2"){
+                    redireccionar('/admin/crud_entrenadores');
+                }elseif($usuVer=="3"){
+                    redireccionar('/admin/crud_socios');
+                }elseif($usuVer=="4"){
+                    redireccionar('/admin/crud_tiendas');
+                }else{
+                    redireccionar('/');
+                }
             } else {
                 die('Algo ha fallado!!!');
             }
