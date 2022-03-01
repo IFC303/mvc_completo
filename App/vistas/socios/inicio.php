@@ -14,7 +14,7 @@
                 <!-- SUBIR LICENCIAS -->
                 <div class="col-xs-12 col-md-6 col-xl-4">
                     <div>
-                        <a href="<?php echo RUTA_URL ?>/socio/subirLicencias"><div id="colorLicen" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>licencias.svg" width="100" height="100"></div></a>
+                        <a href="<?php echo RUTA_URL ?>/socio/licencias"><div id="colorLicen" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>licencias.svg" width="100" height="100"></div></a>
                         <p id="pLicen" class="mx-auto" >SUBIR LICENCIAS</p>
                     </div>
                 </div>

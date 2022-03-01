@@ -42,14 +42,47 @@ class Socio extends Controlador
         $this->vista('socios/verMarcas', $this->datos);
     }
 
-    public function subirLicencias(){
+    public function licencias(){
 
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
         $licencias = $this->datosModelo->obtenerLicenciasId($idUsuarioSesion);
         $this->datos['usuarios']=$licencias;
 
-        $this->vista('socios/subirLicencias', $this->datos);
+        $this->vista('socios/licencias', $this->datos);
+    }
+
+    public function agregarLicencia()
+    {
+        /*$this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $anaUsu = [
+                'd niUsuAna' => trim($_POST["dni"]),
+                'nomUsuAna' => trim($_POST["nombre"]),
+                'apelUsuAna' => trim($_POST["apellidos"]),
+                'fecUsuAna' => trim($_POST["fecha"]),
+                'telUsuAna' => trim($_POST["telf"]),
+                'emaUsuAna' => trim($_POST["email"]),
+                'passUsuAna' => trim($_POST["pass"]),
+            ];
+
+            if ($this->AdminModelo->anadirUsuario($anaUsu)) {
+                $verUsu = $this->AdminModelo->obtenerUsuarios(1);
+                $this->datos['usuAdmin'] = $verUsu;
+                $this->vista('administradores/cruds/crudAdmin', $this->datos);
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        } else {
+            $this->vista('socios/agregarLicencia', $this->datos);
+        }*/
+        $this->vista('socios/agregarLicencia', $this->datos);
     }
     
 
