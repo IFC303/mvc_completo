@@ -24,6 +24,7 @@ class Admin extends Controlador
     {
         $verUsu = $this->AdminModelo->obtenerUsuarios(1);
         $this->datos['usuAdmin'] = $verUsu;
+        $this->datos['idTengo'] = "1";
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
@@ -31,6 +32,7 @@ class Admin extends Controlador
     {
         $verUsu = $this->AdminModelo->obtenerUsuarios(2);
         $this->datos['usuAdmin'] = $verUsu;
+        $this->datos['idTengo'] = "2";
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
@@ -38,6 +40,7 @@ class Admin extends Controlador
     {
         $verUsu = $this->AdminModelo->obtenerUsuarios(3);
         $this->datos['usuAdmin'] = $verUsu;
+        $this->datos['idTengo'] = "3";
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
@@ -45,14 +48,28 @@ class Admin extends Controlador
     {
         $verUsu = $this->AdminModelo->obtenerUsuarios(4);
         $this->datos['usuAdmin'] = $verUsu;
+        $this->datos['idTengo'] = "4";
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
-    public function borrarUsuario($idUsu)
+    public function borrarUsuario($idUsuTengo)
     {
+        $idUsu=(substr($idUsuTengo, strpos($idUsuTengo,'-')+strlen('-')));
+        $usuVer=(substr($idUsuTengo, 0, strpos($idUsuTengo,'-')));
+  
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->borrarUsuario($idUsu)) {
-                redireccionar('/admin/crud_admin');
+                if($usuVer=="1"){
+                    redireccionar('/admin/crud_admin');
+                }elseif($usuVer=="2"){
+                    redireccionar('/admin/crud_entrenadores');
+                }elseif($usuVer=="3"){
+                    redireccionar('/admin/crud_socios');
+                }elseif($usuVer=="4"){
+                    redireccionar('/admin/crud_tiendas');
+                }else{
+                    redireccionar('/');
+                }
             } else {
                 die('Algo ha fallado!!!');
             }
@@ -99,10 +116,9 @@ class Admin extends Controlador
         }
     }
 
-    public function nuevoUsuario()
+    public function nuevoUsuario($usuVer)
     {
         $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
-
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
         }
@@ -117,16 +133,26 @@ class Admin extends Controlador
                 'telUsuAna' => trim($_POST["telf"]),
                 'emaUsuAna' => trim($_POST["email"]),
                 'passUsuAna' => trim($_POST["pass"]),
+                'rolUsuAna'=> trim($usuVer),
             ];
 
             if ($this->AdminModelo->anadirUsuario($anaUsu)) {
-                $verUsu = $this->AdminModelo->obtenerUsuarios(1);
-                $this->datos['usuAdmin'] = $verUsu;
-                $this->vista('administradores/cruds/crudAdmin', $this->datos);
+                if($usuVer=="1"){
+                    redireccionar('/admin/crud_admin');
+                }elseif($usuVer=="2"){
+                    redireccionar('/admin/crud_entrenadores');
+                }elseif($usuVer=="3"){
+                    redireccionar('/admin/crud_socios');
+                }elseif($usuVer=="4"){
+                    redireccionar('/admin/crud_tiendas');
+                }else{
+                    redireccionar('/');
+                }
             } else {
                 die('Algo ha fallado!!!');
             }
         } else {
+            $this->datos["idTengo"]=$usuVer;
             $this->vista('administradores/cruds/nuevoUsuario', $this->datos);
         }
     }
