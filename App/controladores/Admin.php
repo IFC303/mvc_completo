@@ -52,6 +52,14 @@ class Admin extends Controlador
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
     }
 
+    public function crud_solicitudes_socios()
+    {
+        $verUsu = $this->AdminModelo->obtenerSolicitudes(1);
+        //$this->datos['usuAdmin'] = $verUsu;
+        //$this->datos['idTengo'] = "1";
+        $this->vista('administradores/solicitudes/solicitud', $this->datos);
+    }
+
     public function borrarUsuario($idUsuTengo)
     {
         $idUsu=(substr($idUsuTengo, strpos($idUsuTengo,'-')+strlen('-')));

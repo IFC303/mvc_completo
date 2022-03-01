@@ -62,7 +62,7 @@ VALUES
     'admin',
     'admin',
     'admin@admin.com',
-    '1/1/2000',
+    '2000-1-1',
     11,
     '',
     '21232f297a57a5a743894a0e4a801fc3',
@@ -94,7 +94,7 @@ VALUES
     'entrenador',
     'entrenador',
     'entrenador@entrenador.com',
-    '1/1/2000',
+    '2000-1-1',
     22,
     '',
     'a990ba8861d2b344810851e7e6b49104',
@@ -126,7 +126,7 @@ VALUES
     'socio',
     'socio',
     'socio@socio.com',
-    '1/1/2000',
+    '2000-1-1',
     33,
     '',
     '1b1844daa452df42c6f9123857ca686c',
@@ -158,7 +158,7 @@ VALUES
     'tienda',
     'tienda',
     'tienda@tienda.com',
-    '1/1/2000',
+    '2000-1-1',
     44,
     '',
     '1a07afe7fc2c54d466d12569f05fb391',
@@ -228,7 +228,10 @@ CREATE TABLE SOLICITUD_SOCIO(
     CCC varchar(25) not null,
     talla varchar(5) not null,
     fecha_nacimiento date not null,
-    email varchar(40) not null
+    email varchar(40) not null,
+    telefono int not null,
+    direccion varchar(40) not null,
+    es_socio boolean not null
   );
 CREATE TABLE SOLICITUD_EXT_SOLO_SI_SOCIO(
     id_solicitud_soc int,
