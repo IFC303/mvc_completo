@@ -33,13 +33,13 @@
                                                 <td>
 
                                                         <!--MODAL VER (javascript)-->
-                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir(usuarios->id_usuario)"></img> 
+                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $usuarios->id_usuario ?>)"></img> 
 
-                                                        <div id="miModal_<?php echo $usuarios->id_usuario ?>" class="modalVer">
+                                                        <div id="<?php echo $usuarios->id_usuario ?>" class="modalVer">
                                                                 <div class="modal-content">
 
                                                                         <div id="headerVer">
-                                                                                <div class="col-12" style="text-align:right"><input type="button" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="btn-close" onclick="cerrar(this);"></div>
+                                                                                <div class="col-12" style="text-align:right"><input type="button" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="btn-close" onclick="cerrar(<?php echo $usuarios->id_usuario ?>);"></div>
                                                                                 <h2 style="text-align:center">Ver Usuario</h2>
                                                                         </div>
 
@@ -98,7 +98,7 @@
                                                                         </div>
 
                                                                         <div id="footerVer">
-                                                                                <input type="button" style="background-color: #023ef9; color:white" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="close" onclick="cerrar(this);" value="cerrar">
+                                                                                <input type="button" style="background-color: #023ef9; color:white" id="cerrar_<?php echo $usuarios->id_usuario ?>" class="close" onclick="cerrar(<?php echo $usuarios->id_usuario ?>);" value="cerrar">
                                                                         </div>
 
                                                                 </div>
@@ -121,7 +121,7 @@
 
                                                                                 <!-- Modal body -->
                                                                                 <div class="modal-body">
-                                                                                        <form method="post" class="card-body" autocomplete="off" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php echo $usuarios->id_usuario ?>">
+                                                                                        <form method="post" class="card-body" autocomplete="off" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php $idEditTengo= $datos['idTengo']."-".$usuarios->id_usuario; echo $idEditTengo ?>">
                                                                                                 <div class="row">
                                                                                                         <p style="color: #023EF9;">*Si dejas un campo vacio se guardara el dato anterior</p>
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -183,23 +183,23 @@
                                                                                                                 <select name="editRol" id="editRol" class="form-control form-control-lg">
                                                                                                                         <?php if ($usuarios->id_rol == 1) { ?>
                                                                                                                                 <option selected value="1">Admin</option>
-                                                                                                                                <option value="2">Socio</option>
-                                                                                                                                <option value="3">Entrenador</option>
+                                                                                                                                <option value="2">Entrenador</option>
+                                                                                                                                <option value="3">Socio</option>
                                                                                                                                 <option value="4">Tienda</option>
                                                                                                                         <?php } elseif ($usuarios->id_rol == 2) { ?>
                                                                                                                                 <option value="1">Admin</option>
-                                                                                                                                <option selected value="2">Socio</option>
-                                                                                                                                <option value="3">Entrenador</option>
+                                                                                                                                <option selected value="2">Entrenador</option>
+                                                                                                                                <option value="3">Socio</option>
                                                                                                                                 <option value="4">Tienda</option>
                                                                                                                         <?php } elseif ($usuarios->id_rol == 3) { ?>
                                                                                                                                 <option value="1">Admin</option>
-                                                                                                                                <option value="2">Socio</option>
-                                                                                                                                <option selected value="3">Entrenador</option>
+                                                                                                                                <option value="2">Entrenador</option>
+                                                                                                                                <option selected value="3">Socio</option>
                                                                                                                                 <option value="4">Tienda</option>
                                                                                                                         <?php } elseif ($usuarios->id_rol == 4) { ?>
                                                                                                                                 <option value="1">Admin</option>
-                                                                                                                                <option value="2">Socio</option>
-                                                                                                                                <option value="3">Entrenador</option>
+                                                                                                                                <option value="2">Entrenador</option>
+                                                                                                                                <option value="3">Socio</option>
                                                                                                                                 <option selected value="4">Tienda</option>
                                                                                                                         <?php } ?>
 
@@ -273,14 +273,14 @@
 <script>
         function abrir(idAbrir) {
                 console.log(idAbrir);
-                //var modal = document.getElementById("miModal_<?php //echo $idAbrir ?>");
+                var modal = document.getElementById(idAbrir);
                 var body = document.getElementsByTagName("body")[0];
-                idAbrir.style.display = "block";
+                modal.style.display = "block"; 
                 body.style.overflow = "hidden";
         }
 
         function cerrar(idCerrar) {
-                var modal = document.getElementById("miModal_<?php echo $idCerrar?>");
+                var modal = document.getElementById(idCerrar);
                 var body = document.getElementsByTagName("body")[0];
                 modal.style.display = "none";
                 body.style.overflow = "visible";
