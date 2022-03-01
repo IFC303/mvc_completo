@@ -89,12 +89,14 @@
 
     <!-- GRUPOS -->
     <div class=" col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorGrup" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                <img src="<?php echo RUTA_Icon ?>grupos.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminGrupos">
+            <div>
+                <div id="colorGrup" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                    <img src="<?php echo RUTA_Icon ?>grupos.svg" width="100" height="100">
+                </div>
+                <p id="pGrupo" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">GRUPOS</p>
             </div>
-            <p id="pGrupo" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">GRUPOS</p>
-        </div>
+        </a>
     </div>
 
     <!-- EVENTOS -->
