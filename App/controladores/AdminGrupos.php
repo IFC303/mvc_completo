@@ -69,8 +69,8 @@ class AdminGrupos extends Controlador
 
 }
 
-        public function participantes(){
-
+        public function participantes($id_grupo){
+            $this->datos['participantes'] = $this->grupoModelo->obtenerEntrenador();
             $this->vista('administradores/crudGrupos/participantes',$this->datos);
         }
 

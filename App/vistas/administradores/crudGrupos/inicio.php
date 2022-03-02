@@ -80,7 +80,61 @@
                                 
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <td>
+                                   
+                                
+
+
+                            <!--MODAL VER (javascript)-->
+                            <img id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $test->id_test ?>);" ></img>
+
+                        <div id="<?php echo $grupo->id_grupo ?>" class="modalVer">
+                            <div class="modal-content">
+
+                                <div id="headerVer">
+                                    <h2 style="text-align:center">ver grupo</h2>
+                                </div>
+
+                                <div id="bodyVer">
+                                    <label for="id_grupo">Id de grupo: <sup>*</sup></label>
+                                    <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>" readonly>
+                                    <label for="nombreGrupo">Nombre de grupo: <sup>*</sup></label>
+                                    <input type="text" name="nombreGrupo" id="nombreGrupo" class="form-control form-control-lg" value="<?php echo $grupo->nombreGrupo?>" readonly>      
                                     
+                        
+
+
+
+
+                                </div>
+                                
+                                <div id="footerVer">
+                                    <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $grupo->id_grupo ?>" class="close" onclick="cerrar(<?php echo $test->id_test ?>);" value="cerrar" >
+                                </div>
+                            
+                            </div>  
+                        </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                        
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
