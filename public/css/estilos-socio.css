@@ -49,3 +49,7 @@ div[id^="color"]{
     text-align: center;
     padding-top: 2%;
 }
+
+#agregarLic{
+    width: 300px;
+}

@@ -43,7 +43,7 @@
                     </script>
                 </div>
             </div>
-            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">SUBIR LICENCIAS</h1></div>
+            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">LICENCIAS</h1></div>
 
             <!--MENU-->
             <div class="offcanvas offcanvas-start" id="menu1">
@@ -66,7 +66,7 @@
                 <!--MENU LICENCIAS-->
                 <ul id="mInicioLic">
                     <li id="mInicioLic">
-                        <a href="<?php echo RUTA_URL ?>/socio/subirLicencias" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/socio/licencias" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>licencias.svg" width="35" height="35"></div>
                             <div class="col-12">SUBIR LICENCIAS</div>
                         </a>
@@ -126,7 +126,7 @@
         
         <!-- AÑADIR -->
         <div class="col text-center">
-                <a class="btn" style="background-color: #023ef9; color:white; margin-top: 0.5cm;" href="<?php echo RUTA_URL ?>/socios/añadirLiciencia">Añadir</a>
+                <a class="btn" style="background-color: #023ef9; color:white; margin-top: 0.5cm;" href="<?php echo RUTA_URL ?>/socio/agregarLicencia">Añadir</a>
         </div>
         <br>
 
