@@ -23,6 +23,11 @@ class Grupo
         return $this->db->registro();
     }
 
+    public function obtenerEntrenador(){
+        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=2");
+        return $this->db->registros();
+    }
+
 
     public function agregarGrupo($grupoNuevo){
         
@@ -53,5 +58,10 @@ class Grupo
 
 
     }
+
+
+  
+
+
 
 }
