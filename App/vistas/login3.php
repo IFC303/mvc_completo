@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Login</title>
-    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/assets/css/Login-Form-Dark.css">
-    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/assets/css/styles.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/css/Login-Form-Dark.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/css/styles.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
             <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Log In</button></div><a class="forgot" href="#">Forgot your email or password?</a>
         </form>
     </section>
-    <script src="<?php echo RUTA_URL ?>/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo RUTA_URL ?>/public/assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

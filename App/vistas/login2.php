@@ -2,7 +2,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo RUTA_URL ?>/css/estilos-login.css">
+<link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos-login.css">
 
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
@@ -27,6 +27,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-<script src="<?php echo RUTA_URL ?>/js/main-login.js"></script>
+<script src="<?php echo RUTA_URL ?>/public/js/main-login.js"></script>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

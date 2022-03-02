@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/css/estilos-admin.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos-admin.css">
     <title><?php echo NOMBRE_SITIO ?> - Administrador</title>
 </head>
 
