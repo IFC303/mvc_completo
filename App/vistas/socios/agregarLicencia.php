@@ -19,39 +19,130 @@
     
 
 
-    <title>SUBIR LICENCIAS</title>
+    <title>AGREGAR LICENCIAS</title>
 </head>
 
-<body>  
-    <form name="form" method="post">
-        <label for="">Num Licencia</label><input type="text" value="" id="numLicencia" name="NumLicencia">
-        <br><br>
-        <label for="">Tipo Licencia</label>
-            <select name="tipoLicencia" id="tipoLicencia" onchange="cargarFederativas();">
-                <option selected value="0">Elige una opción</option>
-                <option value="1">Federativa</option>
-                <option value="2">Escolar</option>
-            </select>
+<body style="background-color: #F5F5F5;">  
+
+    <div class="container-fluid min-vh-100 " style="border: solid; height: 100%;">
+        <header class="p-5 row text-center">
+            <div class="col-2" style="padding-left: 50px;"><div style="width: 50px; height: 50px; cursor:pointer;"  data-bs-toggle="offcanvas" data-bs-target="#menu1"><img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50"></div></div>
+            <div class="col-8"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto?>corredor.png" width="150"><img src="<?php echo RUTA_Foto?>letras.png" width="200" ></a></div>
+            <div class="d-flex col-2 text-center">
+                <div class="col-12">
+                    <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
+                        <img src="<?php echo RUTA_Icon ?>salirUsu.svg" width="50" height="50">
+                    </a>
+                    <br>
+                    <?php echo $datos['usuarioSesion']->nombre ?>
+                    <script type="text/javascript">
+                        var d = new Date();
+                        var minutes = d.getMinutes();
+                        minutes = minutes > 9 ? minutes : '0' + minutes;
+                        document.write(d.getHours() + ":" + minutes);
+                    </script>
+                </div>
+            </div>
+            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">AGREGAR LICENCIAS</h1></div>
+
+                <!--MENU-->
+                <div class="offcanvas offcanvas-start" id="menu1">
+                    <div class="offcanvas-header">
+                        <a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
+                        <a href="<?php echo RUTA_URL ?>/socio"><h1 class="offcanvas-title">INICIO</h1></a>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+
+                    <!--MENU MODIFICAR DATOS-->
+                    <ul id="mInicioDatos">
+                        <li id="mInicioDatos">
+                            <a href="<?php echo RUTA_URL ?>/socio/modificarDatos" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon?>editar.svg" width="35" height="35"></div>
+                                <div class="col-12">MODIFICAR DATOS</div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--MENU LICENCIAS-->
+                    <ul id="mInicioLic">
+                        <li id="mInicioLic">
+                            <a href="<?php echo RUTA_URL ?>/socio/licencias" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>licencias.svg" width="35" height="35"></div>
+                                <div class="col-12">SUBIR LICENCIAS</div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!--MENU VER MARCAS-->
+                    <ul id="mInicioMarcas">
+                        <li id="mInicioMarcas">
+                            <a href="<?php echo RUTA_URL ?>/socio/verMarcas" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon?>cronometro.svg" width="35" height="35"></div>
+                                <div class="col-12">VER MARCAS</div>
+                            </a>
+                        </li>
+                    </ul>
+
+                <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
+                    <a href="<?php echo RUTA_URL ?>/socio"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></a>
+                </div>
+            </div>
+        </header>
 
 
-        <select name="federativas"> 
-            <option value="">
-        </select>
+
+        <div class="row">
+            <div class="col-4"></div>
+
+            <div class="col-2">
+                <div class="row text-right" style="font-family: 'Inter', sans-serif;">
+                    <div class="datos col-12" >NUMERO LICENCIA</div>
+                    <div class="datos col-12" >TIPO LICENCIA</div>
+                    <div class="datos col-12" >DORSAL</div>   
+                    <div class="datos col-12" >FECHA CADUCIDAD</div>
+                    <div class="datos col-12" >IAMGEN LICENCIA</div>               
+                </div>
+            </div>
+
+            
+            <div class="col-2">
+                <div class="row float-right" style="font-family: 'Inter', sans-serif;">
+                    <form name="form" method="post">
+                        <div class="datos col-12" ><input type="text" value="" id="agregarLic" name="NumLicencia"></div>
+
+                        <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();">
+                            <option selected value="0">Elige una opción</option>
+                            <option value="1">Federativa</option>
+                            <option value="2">Escolar</option>
+                        </select>
+
+                        <select id="agregarLic" name="federativas"> 
+                            <option value="">
+                        </select></div>
+                        
+                        <div class="datos col-12" ><input type="number" min="0" value="" id="agregarLic" name="Dorsal"></div>
+                        
+                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad"></div>
+                        
+                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia"></div>
+
+                </div>
+            </div>
+                        <div class="text-center"><input type="submit" id="guardar" name ="enviar" value="AGREGAR LICENCIA"></div>
+                    </form>
+
+        </div>
+
+    </div>
+  
+</body>
+
+</html>
+
+
         
-        <br><br>
-        <label for="">Dorsal</label><input type="number" min="0" value="" id="dorsal" name="Dorsal">
-        <br><br>
-        <label for="">Fecha Caducidad</label><input type="date" value="" id="fechaCaducidad" name="FechaCaducidad">
-        <br><br>
-        <label for="">Imagen Licencia</label><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia">
-        <br><br>
-       
+<?php 
         
-        <input type="submit" name ="enviar" value="AGREGAR LICENCIA">
-    </form>
-
-    <?php 
-    
         if (isset($_POST['enviar'])) {
             $numLicencia = $_POST['NumLicencia'];
             echo $numLicencia.'<br>';
@@ -85,10 +176,8 @@
         }
     
     ?>
-  
-</body>
 
-</html>
+
 <script>
     var licencia1=new Array("Elige...","Nacional","Regional");
     var licencia2=new Array("");

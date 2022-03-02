@@ -43,7 +43,7 @@
                     </script>
                 </div>
             </div>
-            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">SUBIR LICENCIAS</h1></div>
+            <div class="col-12"><h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #2B2B2B; font: bold; letter-spacing: 5px;">LICENCIAS</h1></div>
 
             <!--MENU-->
             <div class="offcanvas offcanvas-start" id="menu1">
