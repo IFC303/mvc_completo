@@ -1,3 +1,5 @@
+<?php print_r($datos) ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -91,7 +93,7 @@
 
 
 
-        <div class="row">
+        <div class="row" style="padding-top: 1.5cm;">
             <div class="col-4"></div>
 
             <div class="col-2">
@@ -140,8 +142,8 @@
 </html>
 
 
-        
-<?php 
+       
+<?php /*
         
         if (isset($_POST['enviar'])) {
             $numLicencia = $_POST['NumLicencia'];
@@ -174,7 +176,7 @@
             echo $imagenLicencia.'<br>';
             
         }
-    
+    */
     ?>
 
 

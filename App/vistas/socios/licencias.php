@@ -126,7 +126,7 @@
         
         <!-- AÑADIR -->
         <div class="col text-center">
-                <a class="btn" style="background-color: #023ef9; color:white; margin-top: 0.5cm;" href="<?php echo RUTA_URL ?>/socio/agregarLicencia">Añadir</a>
+                <a class="btn" style="background-color: #023ef9; color:white; margin-top: 0.5cm;" href="<?php echo RUTA_URL ?>/socio/nuevaLicencia">Añadir</a>
         </div>
         <br>
 

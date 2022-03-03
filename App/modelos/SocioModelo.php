@@ -1,6 +1,6 @@
 <?php
 
-class Datos
+class SocioModelo
 {
     private $db;
 
@@ -69,6 +69,26 @@ class Datos
         $this->db->query("SELECT * FROM LICENCIA L where '$idUsuarioSesion' = L.id_usuario  ORDER BY L.id_licencia");
 
         return $this->db->registros();
+    }
+
+    public function agregarLicencia($licAgregar, $idUsuarioSesion)
+    {
+        $this->db->query("INSERT INTO LICENCIA (id_usuario, imagen, num_licencia, fecha_cad, tipo, dorsal, regional_nacional) 
+        VALUES (:id_usuario, :imagen, :num_licencia, :fecha_cad, :tipo, :dorsal, :regional_nacional);");
+
+        $this->db->bind(':id_usuario', $idUsuarioSesion);
+        $this->db->bind(':imagen', $licAgregar['imagenLicencia']);
+        $this->db->bind(':num_licencia', $licAgregar['numLicencia']);
+        $this->db->bind(':fecha_cad', $licAgregar['fechaCaducidad']);
+        $this->db->bind(':tipo', $licAgregar['tipoLicencia']);
+        $this->db->bind(':dorsal', $licAgregar['dorsal']);
+        $this->db->bind(':regional_nacional', $licAgregar['federativas']);
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

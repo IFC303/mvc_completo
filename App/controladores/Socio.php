@@ -11,7 +11,7 @@ class Socio extends Controlador
             redireccionar('/');
         }
 
-        $this->datosModelo = $this->modelo('Datos');
+        $this->SocioModelo = $this->modelo('SocioModelo');
       
     }
 
@@ -24,7 +24,7 @@ class Socio extends Controlador
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $datosUser = $this->datosModelo->obtenerDatosSocioId($idUsuarioSesion);
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
         $this->datos['usuarios']=$datosUser;
 
         
@@ -36,7 +36,7 @@ class Socio extends Controlador
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $marcas = $this->datosModelo->obtenerMarcasId($idUsuarioSesion);
+        $marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
         $this->datos['usuarios']=$marcas;
 
         $this->vista('socios/verMarcas', $this->datos);
@@ -46,15 +46,15 @@ class Socio extends Controlador
 
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $licencias = $this->datosModelo->obtenerLicenciasId($idUsuarioSesion);
+        $licencias = $this->SocioModelo->obtenerLicenciasId($idUsuarioSesion);
         $this->datos['usuarios']=$licencias;
 
         $this->vista('socios/licencias', $this->datos);
     }
 
-    public function agregarLicencia()
+    public function nuevaLicencia()
     {
-        /*$this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
@@ -62,27 +62,25 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $anaUsu = [
-                'd niUsuAna' => trim($_POST["dni"]),
-                'nomUsuAna' => trim($_POST["nombre"]),
-                'apelUsuAna' => trim($_POST["apellidos"]),
-                'fecUsuAna' => trim($_POST["fecha"]),
-                'telUsuAna' => trim($_POST["telf"]),
-                'emaUsuAna' => trim($_POST["email"]),
-                'passUsuAna' => trim($_POST["pass"]),
+            $agreLic = [
+                'numLicencia' => trim($_POST['NumLicencia']),
+                'tipoLicencia' => trim($_POST['tipoLicencia']),
+                'federativas' => trim($_POST['federativas']),
+                'dorsal' => trim($_POST['Dorsal']),
+                'fechaCaducidad' => trim($_POST['FechaCaducidad']),
+                'imagenLicencia' => trim($_POST['ImagenLicencia']),
             ];
 
-            if ($this->AdminModelo->anadirUsuario($anaUsu)) {
-                $verUsu = $this->AdminModelo->obtenerUsuarios(1);
-                $this->datos['usuAdmin'] = $verUsu;
-                $this->vista('administradores/cruds/crudAdmin', $this->datos);
+            if ($this->SocioModelo->agregarLicencia($agreLic)) {
+                $this->vista('socios/licencias', $this->datos);
             } else {
                 die('Algo ha fallado!!!');
             }
+
         } else {
             $this->vista('socios/agregarLicencia', $this->datos);
-        }*/
-        $this->vista('socios/agregarLicencia', $this->datos);
+        }
+        
     }
     
 
