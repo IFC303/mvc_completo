@@ -85,54 +85,88 @@
 
 
                             <!--MODAL VER (javascript)-->
-                            <img id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $test->id_test ?>);" ></img>
+                            <img id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $grupo->id_grupo ?>);" ></img>
 
-                        <div id="<?php echo $grupo->id_grupo ?>" class="modalVer">
-                            <div class="modal-content">
+                            <div id="<?php echo $grupo->id_grupo ?>" class="modalVer">
+                                <div class="modal-content">
 
-                                <div id="headerVer">
-                                    <h2 style="text-align:center">ver grupo</h2>
-                                </div>
+                                    <div id="headerVer">
+                                        <h2 style="text-align:center">ver grupo</h2>
+                                    </div>
 
-                                <div id="bodyVer">
-                                    <label for="id_grupo">Id de grupo: <sup>*</sup></label>
-                                    <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>" readonly>
-                                    <label for="nombreGrupo">Nombre de grupo: <sup>*</sup></label>
-                                    <input type="text" name="nombreGrupo" id="nombreGrupo" class="form-control form-control-lg" value="<?php echo $grupo->nombreGrupo?>" readonly>      
+                                    <div id="bodyVer">
+                                        <label for="id_grupo">Id de grupo: </label>
+                                        <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>" readonly>
+                                        <label for="nombreGrupo">Nombre de grupo: </label>
+                                        <input type="text" name="nombreGrupo" id="nombreGrupo" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>" readonly>      
+                                        <label for="fecha_ini">fecha inicio: </label>
+                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>" readonly>
+                                        <label for="fecha_fin">Fecha fin: </label>
+                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>" readonly>      
+                                    </div>
                                     
-                        
-
-
-
-
-                                </div>
+                                    <div id="footerVer">
+                                        <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $grupo->id_grupo ?>" class="close" onclick="cerrar(<?php echo $grupo->id_grupo ?>);" value="cerrar" >
+                                    </div>
                                 
-                                <div id="footerVer">
-                                    <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $grupo->id_grupo ?>" class="close" onclick="cerrar(<?php echo $test->id_test ?>);" value="cerrar" >
-                                </div>
+                                </div>  
+                            </div> 
+
+
+
+                                  <!-- MODAL EDITAR -->
+                                &nbsp;&nbsp;&nbsp;
+                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $grupo->id_grupo ?>" >
+                                  <img src="<?php echo RUTA_Icon?>editar.svg" width="20" height="20"></img>
+                                </a>
+
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalEditar_<?php echo $grupo->id_grupo ?>">
+                                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                                        <div class="modal-content">
+
+                                            <!-- Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edicion de grupo</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Body -->
+                                            <div class="modal-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/grupo/editarGrupo/<?php echo $grupo->id_grupo?>" class="card-body">
+                                                    <!-- id test -->
+                                                    <div class="mt-3 mb-3">
+                                                        <label for="id_grupo">Id de grupo: <sup>*</sup></label>
+                                                        <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>">
+                                                    </div>
+                                                    <!-- nombre test -->
+                                                    <div class="mt-3 mb-3">
+                                                        <label for="nombre_grupo">Nombre de grupo: <sup>*</sup></label>
+                                                        <input type="text" name="nombre_grupo" id="nombre_grupo" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>">     
+                                                    </div>
+                                                     <!-- fecha inicio -->
+                                                     <div class="mt-3 mb-3">
+                                                        <label for="fecha_ini">fecha inicio: </label>
+                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>">   
+                                                    </div>
+                                                     <!-- fecha fin -->
+                                                     <div class="mt-3 mb-3">
+                                                        <label for="fecha_fin">Fecha fin: </label>
+                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>">    
+                                                    </div>
                             
-                            </div>  
-                        </div> 
+                                                    <input type="submit" class="btn btn-success" value="Confirmar">
+                                                </form>
 
+                                            </div>
+                                            <!-- Footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                        </div>
+                                    </div>
+                                    </div>  
 
 
                        
@@ -167,6 +201,9 @@
                                         </div>
                                     </div>
                                     </div>
+
+                                    <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/adminGrupos/participantes/">Gestion participantes</a>
+
                             </td>
                             <?php endif ?>
                         </tr>
@@ -178,7 +215,28 @@
                     <!--CREAR NUEVO GRUPO Y AÑADIR PARTICIPANTES-->
                     <div class="col text-center">
                         <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/adminGrupos/nuevo_grupo/">Crear grupo</a>
-                        <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/adminGrupos/participantes/">Gestion participantes</a>
                     </div>
             </div>
         </div>
+
+
+
+     
+<script>
+
+            function abrir(idModal){
+                var modal=document.getElementById(idModal);
+                console.log(idModal);
+                var body=document.getElementsByTagName("body")[0];
+                modal.style.display="block";
+                body.style.overflow="hidden";
+            }
+
+            function cerrar(idModal){
+                var modal=document.getElementById(idModal);
+                var body=document.getElementsByTagName("body")[0];
+                modal.style.display="none";
+                body.style.overflow="visible";
+            }
+
+</script>   
