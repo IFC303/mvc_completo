@@ -111,7 +111,7 @@
                 <!--MENU GRUPOS-->
                 <ul id="mInicioGru">
                     <li id="mInicioGru">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminGrupos" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="35" height="35"></div>
                             <div class="col-12">GRUPOS</div>
                         </a>
@@ -121,7 +121,7 @@
                 <!--MENU EVENTOS-->
                 <ul id="mInicioEve">
                     <li id="mInicioEve">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminEventos" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>eventos.svg" width="35" height="35"></div>
                             <div class="col-12">EVENTOS</div>
                         </a>
@@ -131,7 +131,7 @@
                 <!--MENU LICENCIAS-->
                 <ul id="mInicioLic">
                     <li id="mInicioLic">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>licencias.svg" width="35" height="35"></div>
                             <div class="col-12">LICENCIAS</div>
                         </a>
@@ -141,7 +141,7 @@
                 <!--MENU ENTIDADES-->
                 <ul id="mInicioEnt">
                     <li id="mInicioEnt">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>entidad.svg" width="35" height="35"></div>
                             <div class="col-12">ENTIDADES</div>
                         </a>
@@ -151,7 +151,7 @@
                 <!--MENU TEMPORADAS-->
                 <ul id="mInicioTem">
                     <li id="mInicioTem">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>temporadas.svg" width="35" height="35"></div>
                             <div class="col-12">TEMPORADAS</div>
                         </a>
@@ -179,7 +179,7 @@
                 <!--MENU MENSAJERIA-->
                 <ul id="mInicioMen">
                     <li id="mInicioMen">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
                             <div class="col-12">MENSAJERIA</div>
                         </a>

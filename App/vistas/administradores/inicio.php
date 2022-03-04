@@ -87,12 +87,14 @@
 
     <!-- EVENTOS -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminEventos">
+            <div>
+                <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                    <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
+                </div>
+                <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
             </div>
-            <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
-        </div>
+        </a>
     </div>
 
     <!-- LICENCIAS -->

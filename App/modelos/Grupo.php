@@ -29,6 +29,12 @@ class Grupo
     }
 
 
+    public function obtenerAlumnos(){
+        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=3");
+        return $this->db->registros();
+    }
+
+
     public function agregarGrupo($grupoNuevo){
         
         $this->db->query("INSERT INTO GRUPO (id_grupo,nombre,fecha_ini,fecha_fin) VALUES (:idGrupo, :nombre, :fechaInicio, :fechaFin)");
@@ -56,6 +62,16 @@ class Grupo
             return false;
         }
 
+
+    }
+
+    public function editarGrupo($grupo_modificado){
+        $this->db->query("UPDATE GRUPO SET nombre=:nombre_grupo, fecha_ini=:fecha_ini, fecha_fin=:fecha_fin WHERE id_grupo = :id_grupo");
+        $this->db->bind(':id_grupo',$grupo_modificado['id_grupo']);
+        $this->db->bind(':nombre_grupo', $grupo_modificado['nombre_grupo']);
+        $this->db->bind(':fecha_ini',$grupo_modificado['fecha_ini']);
+        $this->db->bind(':fecha_fin', $grupo_modificado['fecha_fin']);
+        $this->db->execute();
 
     }
 

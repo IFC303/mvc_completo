@@ -67,10 +67,45 @@ class AdminGrupos extends Controlador
         }
 
 
+    }
+
+
+    public function editarGrupo($id){
+
+        $this->datos['rolesPermitidos'] = [1];          
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                //recogemos los datos modificados y guardamos en $grupo_modificado
+                $grupo_modificado = [
+                    'id_grupo' => trim($_POST['id_grupo']),
+                    'nombre_grupo' => trim($_POST['nombre_grupo']),
+                    'fecha_ini' => trim($_POST['fecha_ini']),
+                    'fecha_fin' => trim($_POST['fecha_fin']),   
+                ];
+   
+    
+                if ($this->grupoModelo->editarGrupo($grupo_modificado)) {
+                    redireccionar('/adminGrupo');
+                }else{
+                    die('Algo ha fallado!!!');
+                }
+    }
+
+
 }
 
+
+
+
+
+
         public function participantes($id_grupo){
-            $this->datos['participantes'] = $this->grupoModelo->obtenerEntrenador();
+            $this->datos['entrenadores'] = $this->grupoModelo->obtenerEntrenador();
+            $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos();
             $this->vista('administradores/crudGrupos/participantes',$this->datos);
         }
 
