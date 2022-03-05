@@ -109,7 +109,7 @@
 
     <!-- ENTIDADES -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <a href="<?php echo RUTA_URL ?>/adminEventos">
+        <a href="<?php echo RUTA_URL ?>/adminEntidades">
             <div>
                 <div id="colorEnti" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
                     <img src="<?php echo RUTA_Icon ?>entidad.svg" width="100" height="100">

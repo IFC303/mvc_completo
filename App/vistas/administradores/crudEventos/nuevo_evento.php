@@ -1,53 +1,113 @@
 <?php require_once RUTA_APP.'/vistas/inc/header-admin-miga.php' ?>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo RUTA_URL?>/public/css/estilos.css">
+    <!-- <link rel="stylesheet" href="css/estilos.css"> -->
 
-<a href=".." class="btn btn-light"><i class="bi bi-chevron-double-left"></i>Volver</a>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <title><?php echo NOMBRE_SITIO?></title>
+
+    <style>
+ 
+        #ventana{
+            margin: auto;
+        }
+
+        label, h2{
+           color:#023ef9;
+        }
+      
+        .btn{
+            background-color: #023ef9; 
+            color:white;
+        }
+
+        #botonVolver{
+            background-color:white; 
+            color:#023ef9;
+            border-color:#023ef9;
+        }
+
+  
+    </style>
 
 
-<div class="card bg-light mt-5 w-75 card-center" style=" margin: auto;">
-    <h2 class="card-header">Nuevo evento</h2>
+<div id="ventana" class="card bg-light w-50 card-cente">
+    
+        <h2 class="card-header">Nueva evento</h2>
 
 
     <!--FORMULARIO AÑADIR-->
     <form method="post" class="card-body">
-        <div class="mt-3 mb-3">
-            <label for="id_evento">Numero de evento: <sup>*</sup></label>
-            <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg">
-        </div>
-        <div class="mt-3 mb-3">
-            <label for="id_usuario">Entrenador: <sup>*</sup></label>
-            <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg">
+
+        <div class="row">
+            <div class="col-6 mt-3 mb-3">
+                <label for="id_evento">Numero de evento<sup>*</sup></label>
+                <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg">
+            </div>
+
+            <div class="col-6 mt-3 mb-3">
+                <label for="id_usuario">Entrenador<sup>*</sup></label>
+                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg">
+            </div>
         </div>
 
-        <div class="mt-3 mb-3">
-            <label for="nombre">Nombre del evento: <sup>*</sup></label>
-            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
-        </div>
-        <div class="mt-3 mb-3">
-            <label for="tipo">Tipo: <sup>*</sup></label>
-            <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
-        </div>
-        <div class="mt-3 mb-3">
-            <label for="precio">Precio: <sup>*</sup></label>
-            <input type="text" name="precio" id="precio" class="form-control form-control-lg">
-        </div>
-        <div class="mt-3 mb-3">
-            <label for="descuento">Descuento: <sup>*</sup></label>
-            <input type="text" name="descuento" id="descuento" class="form-control form-control-lg">
+        <div class="row">
+            <div class="col-6 mt-3 mb-3">
+                <label for="nombre">Nombre del evento<sup>*</sup></label>
+                <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+            </div>
+
+            <div class="col-6 mt-3 mb-3">
+                <label for="tipo">Tipo<sup>*</sup></label>
+                <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
+            </div>
         </div>
 
-        <div class="mt-3 mb-3">
-            <label for="fecha_ini">Fecha inicio: <sup>*</sup></label>
-            <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg">
+        <div class="row">
+            <div class="col-6 mt-3 mb-3">
+                <label for="precio">Precio<sup>*</sup></label>
+                <input type="text" name="precio" id="precio" class="form-control form-control-lg">
+            </div>
+
+            <div class="col-6 mt-3 mb-3">
+                <label for="descuento">Descuento<sup>*</sup></label>
+                <input type="text" name="descuento" id="descuento" class="form-control form-control-lg">
+            </div>
         </div>
 
-        <div class="mt-3 mb-3">
-            <label for="fecha_fin">Fecha fin: <sup>*</sup></label>
-            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
-        </div>
+        <div class="row">
+            <div class="col-6 mt-3 mb-3">
+                <label for="fecha_ini">Fecha inicio<sup>*</sup></label>
+                <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg">
+            </div>
 
-        <input type="submit" class="btn btn-success" value="Confirmar">
+            <div class="col-6 mt-3 mb-3">
+                <label for="fecha_fin">Fecha fin<sup>*</sup></label>
+                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
+            </div>
+        </div>
+        <br>
+        <input type="submit" class="btn" value="Confirmar">
+    
     </form>  
+
+        <a href="<?php echo RUTA_URL?>/adminEventos">
+                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="volver">  
+        </a>
+            
+        </br>
 
 </div>
 
