@@ -76,7 +76,7 @@
             text-align:center;
         }
 
-        .datos_tabla, .icono{
+        .datos_tabla{
             text-align:center;
         }
 
