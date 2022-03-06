@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="container-fluid min-vh-100" style="border: solid;">
+    <div class="container-fluid min-vh-100">
 
         <header class="p-4 row">
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
@@ -166,12 +166,12 @@
                             <div class="col-12">FACTURACION</div>
                         </a>
                     </li>
-                    <ul class="collapse nav flex-column " id="submenuFac" data-bs-parent="#menu">
+                    <ul class=" collapse nav flex-column " id="submenuFac" data-bs-parent="#menu">
                         <li id="sInicio">
-                            <a href="#" class="nav-link">INGRESOS</a>
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="nav-link">INGRESOS</a>
                         </li>
                         <li id="sInicio">
-                            <a href="#" class="nav-link ">GASTOS</a>
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="nav-link ">GASTOS</a>
                         </li>
                     </ul>
                 </ul>

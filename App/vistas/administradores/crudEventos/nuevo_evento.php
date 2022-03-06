@@ -45,69 +45,66 @@
 
 <div id="ventana" class="card bg-light w-50 card-cente">
     
-        <h2 class="card-header">Nueva evento</h2>
+        <h2 class="card-header">Nuevo evento</h2>
 
+        <!--FORMULARIO AÑADIR-->
+        <form method="post" class="card-body">
 
-    <!--FORMULARIO AÑADIR-->
-    <form method="post" class="card-body">
+            <div class="row">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="id_evento">Numero de evento<sup>*</sup></label>
+                    <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg">
+                </div>
 
-        <div class="row">
-            <div class="col-6 mt-3 mb-3">
-                <label for="id_evento">Numero de evento<sup>*</sup></label>
-                <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="id_usuario">Entrenador<sup>*</sup></label>
+                    <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg">
+                </div>
             </div>
 
-            <div class="col-6 mt-3 mb-3">
-                <label for="id_usuario">Entrenador<sup>*</sup></label>
-                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg">
-            </div>
-        </div>
+            <div class="row">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="nombre">Nombre<sup>*</sup></label>
+                    <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+                </div>
 
-        <div class="row">
-            <div class="col-6 mt-3 mb-3">
-                <label for="nombre">Nombre del evento<sup>*</sup></label>
-                <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
-            </div>
-
-            <div class="col-6 mt-3 mb-3">
-                <label for="tipo">Tipo<sup>*</sup></label>
-                <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6 mt-3 mb-3">
-                <label for="precio">Precio<sup>*</sup></label>
-                <input type="text" name="precio" id="precio" class="form-control form-control-lg">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="tipo">Tipo<sup>*</sup></label>
+                    <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
+                </div>
             </div>
 
-            <div class="col-6 mt-3 mb-3">
-                <label for="descuento">Descuento<sup>*</sup></label>
-                <input type="text" name="descuento" id="descuento" class="form-control form-control-lg">
-            </div>
-        </div>
+            <div class="row">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="precio">Precio<sup>*</sup></label>
+                    <input type="text" name="precio" id="precio" class="form-control form-control-lg">
+                </div>
 
-        <div class="row">
-            <div class="col-6 mt-3 mb-3">
-                <label for="fecha_ini">Fecha inicio<sup>*</sup></label>
-                <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="descuento">Descuento<sup>*</sup></label>
+                    <input type="text" name="descuento" id="descuento" class="form-control form-control-lg">
+                </div>
             </div>
 
-            <div class="col-6 mt-3 mb-3">
-                <label for="fecha_fin">Fecha fin<sup>*</sup></label>
-                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
-            </div>
-        </div>
-        <br>
-        <input type="submit" class="btn" value="Confirmar">
-    
-    </form>  
+            <div class="row">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="fecha_ini">Fecha inicio<sup>*</sup></label>
+                    <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg">
+                </div>
 
-        <a href="<?php echo RUTA_URL?>/adminEventos">
-                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="volver">  
-        </a>
+                <div class="col-6 mt-3 mb-3">
+                    <label for="fecha_fin">Fecha fin<sup>*</sup></label>
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
+                </div>
+            </div>
+
+            <input type="submit" class="btn" value="Confirmar">
+
+            <a href="<?php echo RUTA_URL?>/adminEventos">
+                <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
+            </a>
             
-        </br>
+        </form>  
 
 </div>
 

@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="<?php echo RUTA_URL?>/public/css/estilos.css">
     <!-- <link rel="stylesheet" href="css/estilos.css"> -->
-
+   
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,6 +39,7 @@
             border-color:#023ef9;
         }
 
+      
   
     </style>
 
@@ -46,7 +47,7 @@
 
 <div id="ventana" class="card bg-light w-50 card-cente">
     
-        <h2 class="card-header">Nueva grupo</h2>
+        <h2 class="card-header">Nuevo grupo</h2>
 
 
     <!--FORMULARIO AÑADIR-->
@@ -62,27 +63,39 @@
                 <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
             </div>
 
-            <div class="mt-3 mb-3">
-                <label for="nombreTest">Fecha inicio<sup>*</sup></label>
-                <input type="text" name="fecha_inicio" id="fecha_inicio" class="form-control form-control-lg">
-            </div>
+            <div class="row">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="nombreTest">Fecha inicio<sup>*</sup></label>
+                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control form-control-lg">
+                </div>
 
-            <div class="mt-3 mb-3">
-                <label for="nombreTest">Fecha fin<sup>*</sup></label>
-                <input type="text" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="nombreTest">Fecha fin<sup>*</sup></label>
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
+                </div>
             </div>
 
             <input type="submit" class="btn" value="Confirmar">
 
-    </form>  
-
             <a href="<?php echo RUTA_URL?>/adminGrupos">
                     <input class="col-1 btn m-3" type="button" id="botonVolver" value="volver">  
             </a>
-            
+
+    </form>  
+
             </br>
 
 </div>
+
+
+
+
+  
+  
+  
+  
+
+
 
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

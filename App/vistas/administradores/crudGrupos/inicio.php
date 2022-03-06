@@ -42,7 +42,7 @@
         }
 
         #modalEditar{
-            width:50%;
+            width:60%;
             margin: auto;
         }
 
@@ -93,7 +93,7 @@
             background-color: #023ef9; 
             color:white;
         }
-
+      
 
     </style>
 
@@ -137,13 +137,12 @@
                                 <td>
                                    
                                 
-
-
                             <!--MODAL VER (javascript)-->
                             <img id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $grupo->id_grupo ?>);" ></img>
 
                             <!--Ventana-->
                             <div id="<?php echo $grupo->id_grupo ?>" class="modalVer">
+
                                 <div class="modal-content">
 
                                     <!--Header-->
@@ -156,25 +155,25 @@
                                     <!--Body-->
                                     <div id="bodyVer" class="row m-3">
                                             <div class="col-12">
-                                                <label for="id_grupo">Id de grupo: </label>
+                                                <label for="id_grupo">Identificador</label>
                                                 <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>" readonly>
                                                 <br>
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="nombreGrupo">Nombre de grupo: </label>
+                                                <label for="nombreGrupo">Nombre</label>
                                                 <input type="text" name="nombreGrupo" id="nombreGrupo" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>" readonly>
                                                 <br>
                                             </div>
                                         
                                             <div class="col-12">
-                                                <label for="fecha_ini">fecha inicio: </label>
+                                                <label for="fecha_ini">Fecha inicio</label>
                                                 <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>" readonly>
                                                 <br>
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="fecha_fin">Fecha fin: </label>
+                                                <label for="fecha_fin">Fecha fin</label>
                                                 <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>" readonly>
                                                 <br>
                                             </div>    
@@ -184,8 +183,9 @@
                                     <!-- <div id="footerVer">
                                         <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $grupo->id_grupo ?>" class="close" onclick="cerrar(<?php echo $grupo->id_grupo ?>);" value="cerrar" >
                                     </div> -->
-                                
+                                <br>
                                 </div>  
+                                
                             </div> 
 
 
@@ -277,7 +277,13 @@
                                     </div>
                                     </div>
 
-                                    <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/adminGrupos/participantes/">Gestion participantes</a>
+
+                                <!-- PARTICIPANTES -->
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/?>">
+                                  <img src="<?php echo RUTA_Icon?>grupos.svg"></img>
+                                </a>
+                                  
 
                             </td>
                             <?php endif ?>

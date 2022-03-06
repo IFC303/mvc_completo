@@ -97,6 +97,15 @@
             color:white;
         }
 
+        #añadir{
+            color:white;
+        }
+
+        #titulo{
+            font-family: 'Anton',sans-serif; 
+            color: #023ef9; 
+            letter-spacing: 5px;"
+        }
 
     </style>
 
@@ -104,7 +113,12 @@
 <body>
 
 
+
         <div class="container">
+            <div class="row" style="text-align:center">
+                <div class="col-12"><h4 id="titulo">Gestion de entidades</h4></div>
+            </div>
+            
            <div class="tabla">
             <table class="table table-hover" >
 
@@ -147,7 +161,7 @@
 
                                             <!--Header-->
                                             <div id="headerVer" class="row">
-                                                    <h2 class="col-11">Visualizacion de entidad</h2>
+                                                    <h2 class="col-11">Datos de la entidad</h2>
                                                     <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $entidad->id_entidad ?>" onclick="cerrar(<?php echo $entidad->id_entidad ?>);">                                              
                                             </div>
                                             <hr>
@@ -198,7 +212,7 @@
 
                                             <!-- Header -->
                                             <div class="modal-header">
-                                                <h2 class="modal-title">Edicion de entidad</h2>
+                                                <h2 class="modal-title">Edicion de la entidad</h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
@@ -255,7 +269,7 @@
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <h6>Seguro que quiere borrar la entidad con identificador <?php echo $entidad->id_entidad ?> ?</h6>
+                                                <h6>Seguro que quiere borrar la entidad <?php echo $entidad->nombre?> ?</h6>
                                             </div>
 
                                             <!-- Modal footer -->
@@ -276,7 +290,7 @@
 
                     <!--AÑADIR-->
                     <div class="col text-center">
-                        <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/adminEntidades/nueva_entidad/">Añadir</a>
+                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminEntidades/nueva_entidad/">Nueva entidad</a>
                     </div>
                     <br>
 
