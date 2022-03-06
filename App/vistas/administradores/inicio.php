@@ -159,16 +159,21 @@
         </div>
         <table>
             <tr>
-                <td id="mUsu"><a href="#">
+                <td id="mUsu">
+                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos">
                         <div>INGRESOS</div>
-                    </a></td>
+                    </a>
+                </td>
             </tr>
 
             <tr>
-                <td id="mUsu"><a href="#">
+                <td id="mUsu">
+                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos">
                         <div>GASTOS</div>
-                    </a></td>
+                    </a>
+                </td>
             </tr>
+
         </table>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
     </div>

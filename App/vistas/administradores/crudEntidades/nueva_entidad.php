@@ -65,18 +65,15 @@
                     <label for="tipo">Tipo<sup>*</sup></label>
                     <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
                 </div>
-                <br>
-            
+               
                 <input type="submit" class="btn" value="Confirmar"> 
-                    
-        </form> 
 
                 <a href="<?php echo RUTA_URL?>/adminEntidades">
-                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="volver">  
+                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
                 </a>
+                    
+        </form>     
             
-            </br>
-
 </div>
 
 
