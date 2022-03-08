@@ -7,7 +7,7 @@
 
                 <!--CABECERA TABLA-->
                 <thead>
-                        <tr style="background-color:#023ef9; color:white;">
+                        <tr style="background-color:#023ef9; color:white; text-align: center;">
                                 <th>ID</th>
                                 <th>NOMBRE</th>
                                 <th>APELLIDOS</th>
@@ -24,7 +24,7 @@
                 <tbody class="table-light">
 
                         <?php foreach ($datos['soliSocio'] as $usuarios) : ?>
-                                <tr>
+                                <tr style="text-align: center;">
                                         <td><?php echo $usuarios->id_solicitud_soc ?></td>
                                         <td><?php echo $usuarios->nombre ?></td>
                                         <td><?php echo $usuarios->apellidos ?></td>
@@ -34,8 +34,18 @@
 
 
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td>
-                                                        hola
+                                                <td style="text-align: center;">
+                                                        <a data-bs-toggle="modal" data-bs-target="#ModalEditar<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/editarAdmin/<?php echo $uruario->id_usuario ?>">
+                                                                <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30" ></img>
+                                                        </a>
+                                                        &nbsp;
+                                                        <a data-bs-toggle="modal" data-bs-target="#ModalEditar<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/editarAdmin/<?php echo $uruario->id_usuario ?>">
+                                                                <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30" ></img>
+                                                        </a>
+                                                        &nbsp;
+                                                        <a data-bs-toggle="modal" data-bs-target="#ModalEditar<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/editarAdmin/<?php echo $uruario->id_usuario ?>">
+                                                                <img src="<?php echo RUTA_Icon ?>ojo.svg" width="30" height="30" ></img>
+                                                        </a>
                                                 </td>
                                         <?php endif ?>
                                 </tr>
