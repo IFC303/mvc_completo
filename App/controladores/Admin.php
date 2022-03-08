@@ -60,6 +60,38 @@ class Admin extends Controlador
         $this->vista('administradores/solicitudes/solicitud', $this->datos);
     }
 
+    public function crud_solicitudes_grupos()
+    {
+        $verSoli = $this->AdminModelo->obtenerSolicitudesGrupos();
+        $this->datos['soliSocioGrupos'] = $verSoli;
+        //$this->datos['idTengo'] = "1";
+        $this->vista('administradores/solicitudes/grupos', $this->datos);
+    }
+
+    public function borrar_solicitudes_grupos($idBorrar)
+    {
+        $idUsu=(substr($idBorrar, strpos($idBorrar,'-')+strlen('-')));
+        $usuVer=(substr($idBorrar, 0, strpos($idBorrar,'-')));
+  
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrarUsuario($idUsu)) {
+                if($usuVer=="1"){
+                    redireccionar('/admin/crud_admin');
+                }elseif($usuVer=="2"){
+                    redireccionar('/admin/crud_entrenadores');
+                }elseif($usuVer=="3"){
+                    redireccionar('/admin/crud_socios');
+                }elseif($usuVer=="4"){
+                    redireccionar('/admin/crud_tiendas');
+                }else{
+                    redireccionar('/');
+                }
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
     public function borrarUsuario($idUsuTengo)
     {
         $idUsu=(substr($idUsuTengo, strpos($idUsuTengo,'-')+strlen('-')));
