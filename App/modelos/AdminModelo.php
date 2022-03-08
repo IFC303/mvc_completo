@@ -21,6 +21,12 @@ class AdminModelo
         return $this->db->registros();
     }
 
+    public function obtenerSolicitudesGrupos()
+    {
+        $this->db->query("SELECT s.id_grupo, s.id_usuario, s.fecha_inscripcion, u.nombre as nombre_usuario, g.nombre as nombre_grupo FROM `SOCIO_GRUPO` s, `SOCIO` so, `USUARIO` u, `GRUPO` g WHERE s.id_grupo=g.id_grupo and s.id_usuario=so.id_socio and u.id_usuario=so.id_socio and s.acepatado= 0");
+        return $this->db->registros();
+    }
+
     public function borrarUsuario($idUsuario)
     {
         $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
