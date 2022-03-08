@@ -96,10 +96,10 @@
             </div>
 
 
-            <form action="post">
+            <form method="post" action="<?php Ruta_App?>/adminGrupos" >
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual">
                 <input type="hidden" id="alumnosActuales" name="alumnosActuales">
-                <input type="submit" class="btn btn-success" id="enviar" name="enviar">
+                <input type="submit" class="btn btn-success" id="enviar" name="enviar" value="Confirmar">
             </form>
 
 
@@ -181,9 +181,11 @@
                 caja.appendChild(document.getElementById(dato));   
                 particip.push(dato);
                 //para que no mande string
+                console.log(particip);
                 var participa = JSON.stringify(particip); 
                 var part=document.getElementById("alumnosActuales");
                 part.setAttribute("value",participa);
+
            }else{
                alert("No se puede añadir mas de un entrenador a un grupo");
            }  

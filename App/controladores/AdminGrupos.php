@@ -33,14 +33,34 @@ class AdminGrupos extends Controlador
                 'id_grupo' => trim($_POST['id_grupo']),
                 'nombre' => trim($_POST['nombre']),
                 'fecha_inicio' => trim($_POST['fecha_inicio']),
-                'fecha_fin'=> trim($_POST['fecha_fin']),
+                'fecha_fin'=> trim($_POST['fecha_fin'])    
             ];
 
-            if($this->grupoModelo->agregarGrupo($grupoNuevo)){
-                redireccionar('/adminGrupos');
-            }else{
-                die('Añgo ha fallado!!');
-            }
+            
+            $lunes = (object) [
+                'id_horario' =>($_POST['id_horario']),
+                'dia'=>$_POST['lunesDia'],
+                'ini'=>$_POST['lunesIni'],
+                'fin'=>$_POST['lunesFin']
+            ];
+
+            $martes = (object) [
+                'id_horario' =>($_POST['id_horario']),
+                'dia'=>$_POST['martesDia'],
+                'ini'=>$_POST['martesIni'],
+                'fin'=>$_POST['martesFin']
+            ];
+            
+      
+            $grupoNuevo[] = $lunes;
+            var_dump($grupoNuevo);
+
+
+            // if($this->grupoModelo->agregarGrupo($grupoNuevo)){
+            //     redireccionar('/adminGrupos');
+            // }else{
+            //     die('Añgo ha fallado!!');
+            // }
 
         }else{
             $this->datos['grupo'] = (object)[
@@ -48,6 +68,12 @@ class AdminGrupos extends Controlador
                 'nombre'=>'',
                 'fecha_inicio'=>'',
                 'fecha_fin'=>'',
+                'id_horario' =>'',
+                'lunes' => '',
+                'martes' =>'',
+                'miercoles' => '',
+                'jueves' =>'',
+                'viernes' =>''
             ];
             $this->vista('administradores/crudGrupos/nuevo_grupo',$this->datos);
         }
@@ -99,6 +125,11 @@ class AdminGrupos extends Controlador
 }
 
 
+        public function horario($id_grupo){
+            $this->datos['entrenadores'] = $this->grupoModelo->obtenerEntrenador();
+            $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos();
+            $this->vista('administradores/crudGrupos/participantes',$this->datos);
+        }
 
 
 
@@ -110,6 +141,14 @@ class AdminGrupos extends Controlador
         }
 
 
+        public function nueva_clase(){
+            $this->datos['rolesPermitidos'] = [1];         
+            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                redireccionar('/usuarios');
+            }
+
+
+        }
 
 
 

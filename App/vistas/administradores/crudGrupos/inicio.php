@@ -280,8 +280,14 @@
 
                                 <!-- PARTICIPANTES -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/?>">
+                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/">
                                   <img src="<?php echo RUTA_Icon?>grupos.svg"></img>
+                                </a>
+
+                                 <!-- HORARIO -->
+                                 &nbsp;&nbsp;&nbsp;
+                                <a href="<?php echo RUTA_URL?>/adminGrupos/horario/">
+                                  <img src="<?php echo RUTA_Icon?>reloj.svg"></img>
                                 </a>
                                   
 
