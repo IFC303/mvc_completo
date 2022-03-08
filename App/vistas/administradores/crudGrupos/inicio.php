@@ -73,10 +73,6 @@
             text-align:center;
         }
 
-        .datos_tabla{
-            text-align:center;
-        }
-
         .icono{
             width:20px;
             height:20px;
@@ -128,17 +124,17 @@
                             ?>
 
                             <tr>
-                                <td class="datos_tabla" ><?php echo $grupo->id_grupo?></td>
-                                <td class="datos_tabla" ><?php echo $grupo->nombre?></td>
-                                <td class="datos_tabla"><?php echo $grupo->fecha_ini?></td>
-                                <td class="datos_tabla"><?php echo $grupo->fecha_fin?></td>
+                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->id_grupo?></span></td>
+                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->nombre?></span></td>
+                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->fecha_ini?></span></td>
+                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->fecha_fin?></span></td>
                                 
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
-                                <td>
+                                <td><span class="d-flex justify-content-center">
                                    
                                 
                             <!--MODAL VER (javascript)-->
-                            <img id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $grupo->id_grupo ?>);" ></img>
+                            <img class="icono mt-1" id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $grupo->id_grupo ?>);" ></img>
 
                             <!--Ventana-->
                             <div id="<?php echo $grupo->id_grupo ?>" class="modalVer">
@@ -193,7 +189,7 @@
                                   <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $grupo->id_grupo ?>" >
-                                  <img src="<?php echo RUTA_Icon?>editar.svg"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
@@ -249,7 +245,7 @@
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $grupo->id_grupo ?>" href="<?php echo RUTA_URL?>/adminGrupos/borrar/<?php echo $grupo->id_grupo?>">
-                                  <img src="<?php echo RUTA_Icon?>papelera.svg"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
@@ -281,16 +277,10 @@
                                 <!-- PARTICIPANTES -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/">
-                                  <img src="<?php echo RUTA_Icon?>grupos.svg"></img>
-                                </a>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>grupos.svg"></img>
+                                </a>  
 
-                                 <!-- HORARIO -->
-                                 &nbsp;&nbsp;&nbsp;
-                                <a href="<?php echo RUTA_URL?>/adminGrupos/horario/">
-                                  <img src="<?php echo RUTA_Icon?>reloj.svg"></img>
-                                </a>
-                                  
-
+                                </span> 
                             </td>
                             <?php endif ?>
                         </tr>

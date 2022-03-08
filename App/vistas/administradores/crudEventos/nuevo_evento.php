@@ -98,11 +98,16 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn" value="Confirmar">
 
-            <a href="<?php echo RUTA_URL?>/adminEventos">
-                <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
-            </a>
+            <div class="row">
+                <div class="col-3">
+                    <input type="submit" class="btn" value="Confirmar">
+                    <a href="<?php echo RUTA_URL?>/adminEventos">
+                        <input type="button" class="btn" id="botonVolver" value="Volver">  
+                    </a>
+                </div>
+            </div>
+          
             
         </form>  
 

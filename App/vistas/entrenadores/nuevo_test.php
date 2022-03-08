@@ -78,11 +78,16 @@
              endforeach ?>
         </div>
 
-        <input type="submit" class="btn" value="Confirmar">
-    
-        <a href="<?php echo RUTA_URL?>/entrenador/test">
-                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
-        </a>
+
+        <div class="row">
+                <div class="col-3">
+                    <input type="submit" class=" btn" value="Confirmar">
+                    <a href="<?php echo RUTA_URL?>/entrenador/test">
+                        <input class="btn" type="button" id="botonVolver" value="Volver">  
+                    </a>
+                </div>
+          </div>
+
     </form>
 
 
