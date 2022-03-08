@@ -20,9 +20,9 @@
 
     <style>
  
-        #ventana{
+         #ventana{
             margin: auto;
-        }
+        } 
 
         label, h2,p{
            color:#023ef9;
@@ -43,7 +43,7 @@
 
 
 
-<div id="ventana" class="card bg-light w-50 card-cente">
+<div id="ventana" class="card bg-light w-50">
     
         <h2 class="card-header">Nuevo grupo</h2>
 
@@ -53,9 +53,9 @@
 
             <div class="row">
 
-                    <div class="col-4">
+                    <div class="col-md-5 px-4">
                         
-                        <input type="text" name="id_grupo" id="id_grupo" hidden>
+                        <!-- <input type="text" name="id_grupo" id="id_grupo" > -->
                         
                         <div class="row mt-3 mb-3">
                             <label for="nombreTest">Nombre<sup>*</sup></label>
@@ -72,11 +72,12 @@
                     </div>
 
 
-                    <div class="col-6"> 
+                    <div class="col-md-7 px-5"> 
                         <br>  
                         
-                        <input type="text" name="id_horario" id="id_horario" hidden>
-                    
+                        
+                        <!-- //<input type="text" name="id_horario" id="id_horario" hidden> -->
+
                         <p>Selecciona dia, hora de inicio y hora de fin</p>
                         <div class="row">
                             <div class="col-3 mb-3">
@@ -104,50 +105,53 @@
                         </div>
                         <div class="row">
                             <div class="col-3 mb-3">
-                                <input type="checkbox" name="miercoles[]" value="Miercoles"> 
+                                <input type="checkbox" name="miercolesDia" value="Miercoles"> 
                                 <label for="Miercoles">Miercoles</label>
                             </div>  
                             <div class="col-3">
-                                <input type="time" name="miercoles[]" id="hora_ini" class="form-control form-control-sm">  
+                                <input type="time" name="miercolesIni" id="hora_ini" class="form-control form-control-sm">  
                             </div>   
                             <div class="col-3">   
-                                <input type="time" name="miercoles[]" id="hora_fin" class="form-control form-control-sm">
+                                <input type="time" name="miercolesFin" id="hora_fin" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3 mb-3">
-                                <input type="checkbox" name="jueves[]" value="Jueves"> 
+                                <input type="checkbox" name="juevesDia" value="Jueves"> 
                                 <label for="Jueves">Jueves</label>
                             </div>
                             <div class="col-3">
-                                <input type="time" name="jueves[]" id="hora_ini" class="form-control form-control-sm">  
+                                <input type="time" name="juevesIni" id="hora_ini" class="form-control form-control-sm">  
                             </div>   
                             <div class="col-3">   
-                                <input type="time" name="jueves[]" id="hora_fin" class="form-control form-control-sm">
+                                <input type="time" name="juevesFin" id="hora_fin" class="form-control form-control-sm">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3">
-                                <input type="checkbox" name="viernes[]" value="Viernes"> 
+                                <input type="checkbox" name="viernesDia" value="Viernes"> 
                                 <label for="Viernes">Viernes</label>
                             </div>  
                             <div class="col-3">
-                                <input type="time" name="viernes[]" id="hora_ini" class="form-control form-control-sm">  
+                                <input type="time" name="viernesIni" id="hora_ini" class="form-control form-control-sm">  
                             </div>   
                             <div class="col-3">   
-                                <input type="time" name="viernes[]" id="hora_fin" class="form-control form-control-sm">
+                                <input type="time" name="viernesFin" id="hora_fin" class="form-control form-control-sm">
                             </div>
                         </div> 
                     </div>
-
             </div>
-
-          
-                <input type="submit" class="btn" value="Confirmar">
-
-                <a href="<?php echo RUTA_URL?>/adminGrupos">
-                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
-                </a>
+            <br>
+          <div class="row">
+                <div class="col-3">
+                    <input type="submit" class=" btn" value="Confirmar">
+                    <a href="<?php echo RUTA_URL?>/adminGrupos">
+                        <input class="btn" type="button" id="botonVolver" value="Volver">  
+                    </a>
+                </div>
+          </div>
+          <br>
+               
   
     </form>  
 

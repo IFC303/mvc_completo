@@ -30,41 +30,79 @@ class AdminGrupos extends Controlador
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
             $grupoNuevo = [
-                'id_grupo' => trim($_POST['id_grupo']),
+                // 'id_grupo' => trim($_POST['id_grupo']),
                 'nombre' => trim($_POST['nombre']),
                 'fecha_inicio' => trim($_POST['fecha_inicio']),
                 'fecha_fin'=> trim($_POST['fecha_fin'])    
             ];
 
-            
-            $lunes = (object) [
-                'id_horario' =>($_POST['id_horario']),
-                'dia'=>$_POST['lunesDia'],
-                'ini'=>$_POST['lunesIni'],
-                'fin'=>$_POST['lunesFin']
-            ];
 
-            $martes = (object) [
-                'id_horario' =>($_POST['id_horario']),
+            
+            if(isset($_POST['lunesDia'])){
+                $lunes = (object) [
+                    // 'id_horario' =>($_POST['id_horario']),
+                    'dia'=>$_POST['lunesDia'],
+                    'ini'=>$_POST['lunesIni'],
+                    'fin'=>$_POST['lunesFin']
+                ];
+                    $grupoNuevo['lunes']=$lunes;
+            }
+
+
+            if(isset($_POST['martesDia'])){
+               $martes = (object) [
+                // 'id_horario' =>($_POST['id_horario']),
                 'dia'=>$_POST['martesDia'],
                 'ini'=>$_POST['martesIni'],
                 'fin'=>$_POST['martesFin']
-            ];
-            
-      
-            $grupoNuevo[] = $lunes;
+                ];
+                    $grupoNuevo['martes']=$martes;
+            }
+          
+
+           if(isset($_POST['miercolesDia'])){
+                $miercoles = (object) [
+                    // 'id_horario' =>($_POST['id_horario']),
+                    'dia'=>$_POST['miercolesDia'],
+                    'ini'=>$_POST['miercolesIni'],
+                    'fin'=>$_POST['miercolesFin']
+                ];
+                    $grupoNuevo['miercoles']=$miercoles;        
+            }
+           
+
+            if(isset($_POST['juevesDia'])){
+                $jueves = (object) [
+                    // 'id_horario' =>($_POST['id_horario']),
+                    'dia'=>$_POST['juevesDia'],
+                    'ini'=>$_POST['juevesIni'],
+                    'fin'=>$_POST['juevesFin']
+                ];
+                    $grupoNuevo['jueves']=$jueves;  
+            }
+          
+            if(isset($_POST['viernesDia'])){
+                $viernes = (object) [
+                    // 'id_horario' =>($_POST['id_horario']),
+                    'dia'=>$_POST['viernesDia'],
+                    'ini'=>$_POST['viernesIni'],
+                    'fin'=>$_POST['viernesFin']
+                ];
+                    $grupoNuevo['viernes']=$viernes;      
+            }
+
+
             var_dump($grupoNuevo);
-
-
-            // if($this->grupoModelo->agregarGrupo($grupoNuevo)){
-            //     redireccionar('/adminGrupos');
-            // }else{
-            //     die('Añgo ha fallado!!');
-            // }
+          
+            //  if($this->grupoModelo->agregarGrupo($grupoNuevo)){
+            //      redireccionar('/adminGrupos');
+            //  }else{
+            //      die('Añgo ha fallado!!');
+            //  }
 
         }else{
             $this->datos['grupo'] = (object)[
-                'id_grupo'=>'',
+                // 'id_grupo'=>'',
                 'nombre'=>'',
                 'fecha_inicio'=>'',
                 'fecha_fin'=>'',

@@ -194,7 +194,7 @@ CREATE TABLE G_PERSONAL (
     constraint FK_id_usuario_gpers foreign key (id_usuario) references ENTRENADOR (id_usuario) on delete cascade on update cascade
   );
 CREATE TABLE GRUPO(
-    id_grupo int primary key,
+    id_grupo int primary key AUTO_INCREMENT,
     nombre varchar (40),
     fecha_ini date,
     fecha_fin date
@@ -320,7 +320,7 @@ CREATE TABLE ENTRENADOR_GRUPO(
     constraint FK_id_usuario_entrena_grupo foreign key (id_usuario) references ENTRENADOR (id_usuario) on delete cascade on update cascade
   );
 CREATE TABLE HORARIO(
-    id_horario int primary key,
+    id_horario int primary key AUTO_INCREMENT,
     dia_sem varchar(20),
     hora_ini varchar(20),
     hora_fin varchar(20)

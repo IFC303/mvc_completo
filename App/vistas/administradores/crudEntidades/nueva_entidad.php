@@ -66,11 +66,15 @@
                     <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
                 </div>
                
-                <input type="submit" class="btn" value="Confirmar"> 
 
-                <a href="<?php echo RUTA_URL?>/adminEntidades">
-                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
-                </a>
+                <div class="row">
+                    <div class="col-3">
+                        <input type="submit" class="btn" value="Confirmar">
+                        <a href="<?php echo RUTA_URL?>/adminEntidades">
+                            <input type="button" class="btn" id="botonVolver" value="Volver">  
+                        </a>
+                    </div>
+                </div>
                     
         </form>     
             

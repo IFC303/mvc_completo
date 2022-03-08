@@ -102,7 +102,7 @@
         #titulo{
             font-family: 'Anton',sans-serif; 
             color: #023ef9; 
-            letter-spacing: 5px;"
+            letter-spacing: 5px;
         }
 
     </style>
@@ -150,7 +150,7 @@
                             <td>
 
                                 <!--MODAL VER (javascript)-->
-                                    <img id="btnModal_<?php echo $evento->id_evento ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $evento->id_evento ?>);" ></img>
+                                    <img class="icono" id="btnModal_<?php echo $evento->id_evento ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $evento->id_evento ?>);" ></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $evento->id_evento ?>" class="modalVer">
@@ -233,7 +233,7 @@
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $evento->id_evento ?>" >
-                                  <img src="<?php echo RUTA_Icon?>editar.svg" width="20" height="20"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
@@ -318,7 +318,7 @@
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $evento->id_evento ?>" href="<?php echo RUTA_URL?>/adminEventos/borrar/<?php echo $evento->id_evento ?>">
-                                  <img src="<?php echo RUTA_Icon?>papelera.svg" width="20" height="20"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->

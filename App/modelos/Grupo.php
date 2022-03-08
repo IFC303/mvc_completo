@@ -36,27 +36,31 @@ class Grupo
 
 
     public function agregarGrupo($grupoNuevo){
-        
-        $this->db->query("INSERT INTO GRUPO (id_grupo,nombre,fecha_ini,fecha_fin) VALUES (:idGrupo, :nombre, :fechaInicio, :fechaFin)");
-        $this->db->bind(':idGrupo',$grupoNuevo['id_grupo']);
+        $this->db->query("INSERT INTO GRUPO (nombre,fecha_ini,fecha_fin) VALUES (:nombre, :fechaInicio, :fechaFin)");
         $this->db->bind(':nombre', $grupoNuevo['nombre']);
         $this->db->bind(':fechaInicio',$grupoNuevo['fecha_inicio']);
         $this->db->bind(':fechaFin',$grupoNuevo['fecha_fin']);
+        $this->db->execute();
+       
+
+        foreach($grupoNuevo as $horario){  
+                $this->db->query("INSERT INTO HORARIO (dia_sem, hora_ini,hora_fin) VALUES (:diaSem, :hora_ini, :hora_fin)");
+                $this->db->bind(':diaSem', $horario->dia);
+                $this->db->bind(':hora_ini',$horario->ini);
+                $this->db->bind(':hora_fin',$horario->fin);
+                if ($this->db->execute()){
+                    return true;
+                }else{
+                    return false;
+                }
+            } 
 
 
-        $this->db->query("INSERT INTO HORARIO (id_horario,nombre,fecha_ini,fecha_fin) VALUES (:idGrupo, :nombre, :fechaInicio, :fechaFin)");
-        $this->db->bind(':idGrupo',$grupoNuevo['id_grupo']);
-        $this->db->bind(':nombre', $grupoNuevo['nombre']);
-        $this->db->bind(':fechaInicio',$grupoNuevo['fecha_inicio']);
-        $this->db->bind(':fechaFin',$grupoNuevo['fecha_fin']);
-        
-        if($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
 
     }
+
+
+    
 
 
     public function borrarGrupo($id){
