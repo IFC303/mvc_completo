@@ -1,5 +1,5 @@
 <?php
-
+//prueba casa
 // Ruta de la aplicacion
 define('RUTA_APP', dirname(dirname(__FILE__)));
 
