@@ -42,11 +42,16 @@
                     </a>
                     <br>
                     <?php echo $datos['usuarioSesion']->nombre ?>
+                    <p id="reloj"></p>
                     <script type="text/javascript">
-                        var d = new Date();
-                        var minutes = d.getMinutes();
-                        minutes = minutes > 9 ? minutes : '0' + minutes;
-                        document.write(d.getHours() + ":" + minutes);
+                        setInterval("verHora()", 500)
+                        function verHora() {
+                            let d = new Date();
+                            let minutes = d.getMinutes();
+                            minutes = minutes > 9 ? minutes : '0' + minutes;
+                            let reloj=d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML=reloj; 
+                        }
                     </script>
                 </div>
             </div>

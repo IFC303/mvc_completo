@@ -54,8 +54,8 @@ class Admin extends Controlador
 
     public function crud_solicitudes_socios()
     {
-        $verUsu = $this->AdminModelo->obtenerSolicitudes(1);
-        //$this->datos['usuAdmin'] = $verUsu;
+        $verSoli = $this->AdminModelo->obtenerSolicitudes();
+        $this->datos['soliSocio'] = $verSoli;
         //$this->datos['idTengo'] = "1";
         $this->vista('administradores/solicitudes/solicitud', $this->datos);
     }

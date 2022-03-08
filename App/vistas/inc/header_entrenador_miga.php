@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,32 +27,39 @@
                 
                 <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
 
-                <div class="col-xs-12 col-md-7 text-center order-3 order-md-2"style="z-index:1">
-                    </br>
-                    <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ENTRENADORES</h1>
-                    </br>
-                    <ol class="breadcrumb v1 justify-content-center">
-                        <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>">INICIO</a></li>
-                        <li class="breadcrumb-level"><a>ENTRENADOR</a></li>
-                    </ol>
-                </div>
-              
-                <div class="d-flex col-6 col-md-2 justify-content-end order-2 order-md-3 text-center">
-                    <div class="col-12">
-                        <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
-                            <img src="<?php echo RUTA_Icon ?>salirUsu.svg" width="50" height="50">
-                        </a>
-                        <br>
-                        <?php echo $datos['usuarioSesion']->nombre ?>
-                        <script type="text/javascript">
-                            var d = new Date();
-                            var minutes = d.getMinutes();
+            <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
+
+            <div class="col-xs-12 col-md-7 text-center order-3 order-md-2" style="z-index:1">
+                </br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ENTRENADORES</h1>
+                </br>
+                <ol class="breadcrumb v1 justify-content-center">
+                    <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>">INICIO</a></li>
+                    <li class="breadcrumb-level"><a>ENTRENADOR</a></li>
+                </ol>
+            </div>
+
+            <div class="d-flex col-6 col-md-2 justify-content-end order-2 order-md-3 text-center">
+                <div class="col-12">
+                    <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
+                        <img src="<?php echo RUTA_Icon ?>salirUsu.svg" width="50" height="50">
+                    </a>
+                    <br>
+                    <?php echo $datos['usuarioSesion']->nombre ?>
+                    <p id="reloj"></p>
+                    <script type="text/javascript">
+                        setInterval("verHora()", 500)
+                        function verHora() {
+                            let d = new Date();
+                            let minutes = d.getMinutes();
                             minutes = minutes > 9 ? minutes : '0' + minutes;
-                            document.write(d.getHours() + ":" + minutes);
-                        </script>
-                    </div>
+                            let reloj=d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML=reloj; 
+                        }
+                    </script>
                 </div>
-        </header> 
+            </div>
+        </header>
 
         <nav class="row">
             <!--BOTON MENU LATERAL-->
@@ -61,52 +69,44 @@
                 </div>
             </div>
         </nav>
-    
-            <div class="offcanvas offcanvas-start" id="menu1">
-                    <!--HEADER-->
-                    <div class="offcanvas-header">
-                        <a href="<?php echo RUTA_URL ?>/entrenador"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
-                        <a href="<?php echo RUTA_URL ?>/entrenador"><h1 class="offcanvas-title">INICIO</h1></a>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                    </div>
-                    <!--BODY-->
-                    <div class="offcanvas-body">
-                            
-                            <ul id="mInicioGru">
-                                <!--GRUPOS--> 
-                                <li id="mInicioGru">
-                                    <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link px-0 align-middle">
-                                        <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="35" height="35"></div>
-                                        <div class="col-12">GRUPOS</div>
-                                    </a>
-                                </li>
-                                <!--TEST-->
-                                <li id="mInicioTem">
-                                    <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link px-0 align-middle">
-                                        <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>cronometro.svg" width="35" height="35"></div>
-                                        <div class="col-12">TEST</div>
-                                    </a>
-                                </li>
-                                <!--MENSAJERIA-->
-                                <li id="mInicioMen">
-                                    <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link px-0 align-middle">
-                                        <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
-                                        <div class="col-12">MENSAJERIA</div>
-                                    </a>
-                            </ul>
-                    </div>
-                    <!--FOOTER-->
-                    <div class="d-flex offcanvas-footer justify-content-center align-items-end">
-                        <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">       
-                    </div>
-            </div>   
-        
 
+        <div class="offcanvas offcanvas-start" id="menu1">
+            <!--HEADER-->
+            <div class="offcanvas-header">
+                <a href="<?php echo RUTA_URL ?>/entrenador"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
+                <a href="<?php echo RUTA_URL ?>/entrenador">
+                    <h1 class="offcanvas-title">INICIO</h1>
+                </a>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <!--BODY-->
+            <div class="offcanvas-body">
 
-                 
-               
-   
-
-
-
-    
+                <ul id="mInicioGru">
+                    <!--GRUPOS-->
+                    <li id="mInicioGru">
+                        <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link px-0 align-middle">
+                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="35" height="35"></div>
+                            <div class="col-12">GRUPOS</div>
+                        </a>
+                    </li>
+                    <!--TEST-->
+                    <li id="mInicioTem">
+                        <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link px-0 align-middle">
+                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>cronometro.svg" width="35" height="35"></div>
+                            <div class="col-12">TEST</div>
+                        </a>
+                    </li>
+                    <!--MENSAJERIA-->
+                    <li id="mInicioMen">
+                        <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link px-0 align-middle">
+                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
+                            <div class="col-12">MENSAJERIA</div>
+                        </a>
+                </ul>
+            </div>
+            <!--FOOTER-->
+            <div class="d-flex offcanvas-footer justify-content-center align-items-end">
+                <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
+            </div>
+        </div>

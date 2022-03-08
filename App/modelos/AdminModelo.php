@@ -15,6 +15,12 @@ class AdminModelo
         return $this->db->registros();
     }
 
+    public function obtenerSolicitudes()
+    {
+        $this->db->query("SELECT * FROM SOLICITUD_SOCIO");
+        return $this->db->registros();
+    }
+
     public function borrarUsuario($idUsuario)
     {
         $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
