@@ -42,6 +42,13 @@ class Grupo
         $this->db->bind(':nombre', $grupoNuevo['nombre']);
         $this->db->bind(':fechaInicio',$grupoNuevo['fecha_inicio']);
         $this->db->bind(':fechaFin',$grupoNuevo['fecha_fin']);
+
+
+        $this->db->query("INSERT INTO HORARIO (id_horario,nombre,fecha_ini,fecha_fin) VALUES (:idGrupo, :nombre, :fechaInicio, :fechaFin)");
+        $this->db->bind(':idGrupo',$grupoNuevo['id_grupo']);
+        $this->db->bind(':nombre', $grupoNuevo['nombre']);
+        $this->db->bind(':fechaInicio',$grupoNuevo['fecha_inicio']);
+        $this->db->bind(':fechaFin',$grupoNuevo['fecha_fin']);
         
         if($this->db->execute()){
             return true;

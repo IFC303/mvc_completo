@@ -24,7 +24,7 @@
             margin: auto;
         }
 
-        label, h2{
+        label, h2,p{
            color:#023ef9;
         }
       
@@ -39,8 +39,6 @@
             border-color:#023ef9;
         }
 
-      
-  
     </style>
 
 
@@ -53,48 +51,109 @@
     <!--FORMULARIO AÑADIR-->
     <form method="post" class="card-body">
 
-            <div class="mt-3 mb-3">
-                <label for="id_test">Numero de grupo<sup>*</sup></label>
-                <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg">
-            </div>
-
-            <div class="mt-3 mb-3">
-                <label for="nombreTest">Nombre<sup>*</sup></label>
-                <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
-            </div>
-
             <div class="row">
-                <div class="col-6 mt-3 mb-3">
-                    <label for="nombreTest">Fecha inicio<sup>*</sup></label>
-                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control form-control-lg">
-                </div>
 
-                <div class="col-6 mt-3 mb-3">
-                    <label for="nombreTest">Fecha fin<sup>*</sup></label>
-                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
-                </div>
+                    <div class="col-4">
+                        
+                        <input type="text" name="id_grupo" id="id_grupo" hidden>
+                        
+                        <div class="row mt-3 mb-3">
+                            <label for="nombreTest">Nombre<sup>*</sup></label>
+                            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <label for="nombreTest">Fecha inicio<sup>*</sup></label>
+                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control form-control-lg">
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <label for="nombreTest">Fecha fin<sup>*</sup></label>
+                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
+                        </div>
+                    </div>
+
+
+                    <div class="col-6"> 
+                        <br>  
+                        
+                        <input type="text" name="id_horario" id="id_horario" hidden>
+                    
+                        <p>Selecciona dia, hora de inicio y hora de fin</p>
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <input type="checkbox" name="lunesDia" value="Lunes"> 
+                                <label for="Lunes">Lunes</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="time" name="lunesIni" id="hora_ini" class="form-control form-control-sm">  
+                            </div>   
+                            <div class="col-3">   
+                                <input type="time" name="lunesFin" id="hora_fin" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <input type="checkbox" name="martesDia" value="Martes"> 
+                                <label for="Martes">Martes</label>
+                            </div>  
+                            <div class="col-3">
+                                <input type="time" name="martesIni" id="hora_ini" class="form-control form-control-sm">  
+                            </div>   
+                            <div class="col-3">   
+                                <input type="time" name="martesFin" id="hora_fin" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <input type="checkbox" name="miercoles[]" value="Miercoles"> 
+                                <label for="Miercoles">Miercoles</label>
+                            </div>  
+                            <div class="col-3">
+                                <input type="time" name="miercoles[]" id="hora_ini" class="form-control form-control-sm">  
+                            </div>   
+                            <div class="col-3">   
+                                <input type="time" name="miercoles[]" id="hora_fin" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <input type="checkbox" name="jueves[]" value="Jueves"> 
+                                <label for="Jueves">Jueves</label>
+                            </div>
+                            <div class="col-3">
+                                <input type="time" name="jueves[]" id="hora_ini" class="form-control form-control-sm">  
+                            </div>   
+                            <div class="col-3">   
+                                <input type="time" name="jueves[]" id="hora_fin" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <input type="checkbox" name="viernes[]" value="Viernes"> 
+                                <label for="Viernes">Viernes</label>
+                            </div>  
+                            <div class="col-3">
+                                <input type="time" name="viernes[]" id="hora_ini" class="form-control form-control-sm">  
+                            </div>   
+                            <div class="col-3">   
+                                <input type="time" name="viernes[]" id="hora_fin" class="form-control form-control-sm">
+                            </div>
+                        </div> 
+                    </div>
+
             </div>
 
-            <input type="submit" class="btn" value="Confirmar">
+          
+                <input type="submit" class="btn" value="Confirmar">
 
-            <a href="<?php echo RUTA_URL?>/adminGrupos">
-                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="volver">  
-            </a>
-
+                <a href="<?php echo RUTA_URL?>/adminGrupos">
+                    <input class="col-1 btn m-3" type="button" id="botonVolver" value="Volver">  
+                </a>
+  
     </form>  
 
-            </br>
+
 
 </div>
-
-
-
-
-  
-  
-  
-  
-
 
 
 
