@@ -199,6 +199,118 @@ CREATE TABLE GRUPO(
     fecha_ini date,
     fecha_fin date
   );
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '1' ,
+    'ATLETISMO_GENERAL_BENJAMINES' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '2' ,
+    'ATLETISMO_GENERAL_ALEVINES' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '3' ,
+    'ATLETISMO_GENERAL_INFANTILES' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '4' ,
+    'PRUEBAS-VELOCIDAD' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '5' ,
+    'FONDO_Y_MEDIOFONDO' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '6' ,
+    'DIA_ENTRENAMIENTO' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
+INSERT INTO 
+    `GRUPO`(
+    `id_grupo` ,
+    `nombre` ,
+    `fecha_ini` ,
+    `fecha_fin`
+)
+
+VALUES
+    (
+    '7' ,
+    'ESCUELA_TRIATLON' ,
+    '2022/09/01' ,
+    '2022/09/30'
+);
+
 CREATE TABLE ENTRENADOR_GRUPO(
     fecha date,
     id_grupo int,
@@ -404,6 +516,59 @@ CREATE TABLE CATEGORIA(
     edad_min int not null,
     edad_max int not null
   );
+INSERT INTO 
+    `CATEGORIA` (
+    `id_categoria`, 
+    `nombre`, 
+    `edad_min`, 
+    `edad_max`
+    ) 
+VALUES 
+    (
+    '1', 
+    'BENJAMIN', 
+    '8', 
+    '9'
+    );
+INSERT INTO 
+    `CATEGORIA` (
+    `id_categoria`, 
+    `nombre`, 
+    `edad_min`, 
+    `edad_max`
+    ) 
+VALUES (
+    '2', 
+    'ALEVIN', 
+    '10', 
+    '11'
+    );
+INSERT INTO 
+    `CATEGORIA` (
+    `id_categoria`, 
+    `nombre`, 
+    `edad_min`, 
+    `edad_max`
+    ) 
+VALUES 
+    ('3', 
+    'INFANTILES', 
+    '12', 
+    '13');
+INSERT INTO 
+    `CATEGORIA` (
+    `id_categoria`, 
+    `nombre`, 
+    `edad_min`, 
+    `edad_max`
+    ) 
+VALUES (
+    '4', 
+    'ADULTO', 
+    '14', '
+    99'
+    );
+
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
     id_usuario int,
