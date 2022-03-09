@@ -24,12 +24,35 @@ class Socio extends Controlador
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-        $this->datos['usuarios']=$datosUser;
+
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $editarDatos = [
+                'dni' => trim($_POST["dni"]),
+                'nombre' => trim($_POST["nombre"]),
+                'apellidos' => trim($_POST["apellidos"]),
+                'telefono' => trim($_POST["telefono"]),
+                'email' => trim($_POST["email"]),
+                'ccc' => trim($_POST["ccc"]),
+                'passw' => trim($_POST["passw"]),
+                'talla' => trim($_POST["talla"]),
+            ];
+
+            if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion)) {
+                redireccionar('/socio/modificarDatos');
+
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        } else {
+            $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+            $this->datos['usuarios']=$datosUser;        
+
+            $this->vista('socios/modificarDatos', $this->datos);
+        }
 
         
-
-        $this->vista('socios/modificarDatos', $this->datos);
     }
 
     public function verMarcas()
@@ -63,6 +86,7 @@ class Socio extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $agreLic = [
+                'id_usuario' => trim($this->datos['usuarioSesion']->id_usuario),
                 'numLicencia' => trim($_POST['NumLicencia']),
                 'tipoLicencia' => trim($_POST['tipoLicencia']),
                 'federativas' => trim($_POST['federativas']),
@@ -72,7 +96,7 @@ class Socio extends Controlador
             ];
 
             if ($this->SocioModelo->agregarLicencia($agreLic)) {
-                $this->vista('socios/licencias', $this->datos);
+                redireccionar('/socio/licencias');
             } else {
                 die('Algo ha fallado!!!');
             }

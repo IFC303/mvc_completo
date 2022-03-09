@@ -25,21 +25,20 @@ class SocioModelo
         return $this->db->registros();
     }
 
-    public function actualizarUsuario($datos, $idUsuarioSesion){
+    public function actualizarUsuario($editarDatos, $idUsuarioSesion){
 
-        $this->db->query("UPDATE usuarios SET dni=:dni , nombre=:nombre, apellidos=:apellidos , email=:email, telefono=:telefono, CCC=:CCC , passw=:passw , talla=:talla, foto=:foto 
+        $this->db->query("UPDATE usuarios SET dni=:dni , nombre=:nombre, apellidos=:apellidos , email=:email, telefono=:telefono, CCC=:CCC , passw=MD5(:passw) , talla=:talla, foto=:foto 
                                                 WHERE id_usuario = '$idUsuarioSesion'");
 
         //vinculamos los valores
-        $this->db->bind(':dni', $datos['id_usuario']);
-        $this->db->bind(':nombre', $datos['nombre']);
-        $this->db->bind(':apellidos', $datos['apellidos']);
-        $this->db->bind(':email', $datos['email']);
-        $this->db->bind(':telefono', $datos['telefono']);
-        $this->db->bind(':CCC', $datos['CCC']);
-        $this->db->bind(':passw', $datos['passw']);
-        $this->db->bind(':talla', $datos['talla']);
-        $this->db->bind(':foto', $datos['foto']);
+        $this->db->bind(':dni', $editarDatos['dni']);
+        $this->db->bind(':nombre', $editarDatos['nombre']);
+        $this->db->bind(':apellidos', $editarDatos['apellidos']);
+        $this->db->bind(':email', $editarDatos['email']);
+        $this->db->bind(':telefono', $editarDatos['telefono']);
+        $this->db->bind(':CCC', $editarDatos['ccc']);
+        $this->db->bind(':passw', $editarDatos['passw']);
+        $this->db->bind(':talla', $editarDatos['talla']);
 
         //ejecutamos
         if ($this->db->execute()) {
@@ -71,18 +70,23 @@ class SocioModelo
         return $this->db->registros();
     }
 
-    public function agregarLicencia($licAgregar, $idUsuarioSesion)
+    public function agregarLicencia($agreLic)
     {
         $this->db->query("INSERT INTO LICENCIA (id_usuario, imagen, num_licencia, fecha_cad, tipo, dorsal, regional_nacional) 
         VALUES (:id_usuario, :imagen, :num_licencia, :fecha_cad, :tipo, :dorsal, :regional_nacional);");
 
-        $this->db->bind(':id_usuario', $idUsuarioSesion);
-        $this->db->bind(':imagen', $licAgregar['imagenLicencia']);
-        $this->db->bind(':num_licencia', $licAgregar['numLicencia']);
-        $this->db->bind(':fecha_cad', $licAgregar['fechaCaducidad']);
-        $this->db->bind(':tipo', $licAgregar['tipoLicencia']);
-        $this->db->bind(':dorsal', $licAgregar['dorsal']);
-        $this->db->bind(':regional_nacional', $licAgregar['federativas']);
+        $this->db->bind(':id_usuario', $agreLic['id_usuario']);
+        $this->db->bind(':imagen', $agreLic['imagenLicencia']);
+        $this->db->bind(':num_licencia', $agreLic['numLicencia']);
+        $this->db->bind(':fecha_cad', $agreLic['fechaCaducidad']);
+        $this->db->bind(':tipo', $agreLic['tipoLicencia']);
+        if ($agreLic['dorsal']=="") {
+            $this->db->bind(':dorsal', NULL);    
+        }else {
+            $this->db->bind(':dorsal', $agreLic['dorsal']);
+        }
+        
+        $this->db->bind(':regional_nacional', $agreLic['federativas']);
     
         if ($this->db->execute()) {
             return true;
