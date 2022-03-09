@@ -23,23 +23,28 @@ class Socio extends Controlador
     public function modificarDatos()
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
 
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $editarDatos = [
-                'dni' => trim($_POST["dni"]),
-                'nombre' => trim($_POST["nombre"]),
-                'apellidos' => trim($_POST["apellidos"]),
-                'telefono' => trim($_POST["telefono"]),
-                'email' => trim($_POST["email"]),
-                'ccc' => trim($_POST["ccc"]),
-                'passw' => trim($_POST["passw"]),
-                'talla' => trim($_POST["talla"]),
+                'dniEdit' => trim($_POST["dni"]),
+                'nombreEdit' => trim($_POST["nombre"]),
+                'apellidosEdit' => trim($_POST["apellidos"]),
+                'telefonoEdit' => trim($_POST["telefono"]),
+                'emailEdit' => trim($_POST["email"]),
+                'cccEdit' => trim($_POST["ccc"]),
+                'passwEdit' => trim($_POST["passw"]),
+                'tallaEdit' => trim($_POST["talla"]),
             ];
 
-            if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion)) {
+            if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
                 redireccionar('/socio/modificarDatos');
 
             } else {
@@ -77,6 +82,8 @@ class Socio extends Controlador
 
     public function nuevaLicencia()
     {
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -86,7 +93,6 @@ class Socio extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $agreLic = [
-                'id_usuario' => trim($this->datos['usuarioSesion']->id_usuario),
                 'numLicencia' => trim($_POST['NumLicencia']),
                 'tipoLicencia' => trim($_POST['tipoLicencia']),
                 'federativas' => trim($_POST['federativas']),
@@ -95,7 +101,7 @@ class Socio extends Controlador
                 'imagenLicencia' => trim($_POST['ImagenLicencia']),
             ];
 
-            if ($this->SocioModelo->agregarLicencia($agreLic)) {
+            if ($this->SocioModelo->agregarLicencia($agreLic, $idUsuarioSesion)) {
                 redireccionar('/socio/licencias');
             } else {
                 die('Algo ha fallado!!!');

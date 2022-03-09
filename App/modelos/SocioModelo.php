@@ -25,21 +25,62 @@ class SocioModelo
         return $this->db->registros();
     }
 
-    public function actualizarUsuario($editarDatos, $idUsuarioSesion){
+    public function actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser){
 
-        $this->db->query("UPDATE usuarios SET dni=:dni , nombre=:nombre, apellidos=:apellidos , email=:email, telefono=:telefono, CCC=:CCC , passw=MD5(:passw) , talla=:talla, foto=:foto 
-                                                WHERE id_usuario = '$idUsuarioSesion'");
+        $this->db->query("UPDATE USUARIO SET dni=:dni ,nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, CCC=:CCC, passw=:passw, talla=:talla
+                           WHERE id_usuario = '$idUsuarioSesion';");
 
+
+        
         //vinculamos los valores
-        $this->db->bind(':dni', $editarDatos['dni']);
-        $this->db->bind(':nombre', $editarDatos['nombre']);
-        $this->db->bind(':apellidos', $editarDatos['apellidos']);
-        $this->db->bind(':email', $editarDatos['email']);
-        $this->db->bind(':telefono', $editarDatos['telefono']);
-        $this->db->bind(':CCC', $editarDatos['ccc']);
-        $this->db->bind(':passw', $editarDatos['passw']);
-        $this->db->bind(':talla', $editarDatos['talla']);
+        if ($editarDatos['dniEdit']=="") {
+            $this->db->bind(':dni', $datosUser[0]->dni);
+        }else {
+            $this->db->bind(':dni', $editarDatos['dniEdit']);
+        }
 
+        if ($editarDatos['nombreEdit']=="") {
+            $this->db->bind(':nombre', $datosUser[0]->nombre);
+        }else {
+            $this->db->bind(':nombre', $editarDatos['nombreEdit']);
+        }
+        
+        if ($editarDatos['apellidosEdit']=="") {
+            $this->db->bind(':apellidos', $datosUser[0]->apellidos);
+        }else {
+            $this->db->bind(':apellidos', $editarDatos['apellidosEdit']);
+        }
+        
+        if ($editarDatos['emailEdit']=="") {
+            $this->db->bind(':email', $datosUser[0]->email);
+        }else {
+            $this->db->bind(':email', $editarDatos['emailEdit']);
+        }
+
+        if ($editarDatos['telefonoEdit']=="") {
+            $this->db->bind(':telefono', $datosUser[0]->telefono);
+        }else {
+            $this->db->bind(':telefono', $editarDatos['telefonoEdit']);
+        }
+
+        if ($editarDatos['cccEdit']=="") {
+            $this->db->bind(':CCC', $datosUser[0]->CCC);
+        }else {
+            $this->db->bind(':CCC', $editarDatos['cccEdit']);
+        }
+        
+        if ($editarDatos['passwEdit']=="") {
+            $this->db->bind(':passw', $datosUser[0]->passw);
+        }else {
+            $this->db->bind(':passw', MD5($editarDatos['passwEdit']));
+        }
+        
+        if ($editarDatos['tallaEdit']=="") {
+            $this->db->bind(':talla', $datosUser[0]->talla);
+        }else {
+            $this->db->bind(':talla', $editarDatos['tallaEdit']);
+        }
+        
         //ejecutamos
         if ($this->db->execute()) {
             return true;
@@ -70,12 +111,12 @@ class SocioModelo
         return $this->db->registros();
     }
 
-    public function agregarLicencia($agreLic)
+    public function agregarLicencia($agreLic, $idUsuarioSesion)
     {
         $this->db->query("INSERT INTO LICENCIA (id_usuario, imagen, num_licencia, fecha_cad, tipo, dorsal, regional_nacional) 
         VALUES (:id_usuario, :imagen, :num_licencia, :fecha_cad, :tipo, :dorsal, :regional_nacional);");
 
-        $this->db->bind(':id_usuario', $agreLic['id_usuario']);
+        $this->db->bind(':id_usuario', $idUsuarioSesion);
         $this->db->bind(':imagen', $agreLic['imagenLicencia']);
         $this->db->bind(':num_licencia', $agreLic['numLicencia']);
         $this->db->bind(':fecha_cad', $agreLic['fechaCaducidad']);
