@@ -91,7 +91,7 @@
 
 
 
-        <div class="row">
+        <div class="row" style="padding-top: 1.5cm;">
             <div class="col-4"></div>
 
             <div class="col-2">
@@ -108,9 +108,9 @@
             <div class="col-2">
                 <div class="row float-right" style="font-family: 'Inter', sans-serif;">
                     <form name="form" method="post">
-                        <div class="datos col-12" ><input type="text" value="" id="agregarLic" name="NumLicencia"></div>
+                        <div class="datos col-12" ><input type="text" value="" id="agregarLic" name="NumLicencia" required></div>
 
-                        <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();">
+                        <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();" required>
                             <option selected value="0">Elige una opción</option>
                             <option value="1">Federativa</option>
                             <option value="2">Escolar</option>
@@ -122,9 +122,9 @@
                         
                         <div class="datos col-12" ><input type="number" min="0" value="" id="agregarLic" name="Dorsal"></div>
                         
-                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad"></div>
+                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad" required></div>
                         
-                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia"></div>
+                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia" required></div>
 
                 </div>
             </div>
@@ -138,44 +138,6 @@
 </body>
 
 </html>
-
-
-        
-<?php 
-        
-        if (isset($_POST['enviar'])) {
-            $numLicencia = $_POST['NumLicencia'];
-            echo $numLicencia.'<br>';
-
-            $tipoLicencia = $_POST['tipoLicencia'];
-
-            if ($tipoLicencia == 0) {
-                $tipoLicencia = "";
-            }if ($tipoLicencia == 1) {
-                $tipoLicencia = "Federativa";
-            }if ($tipoLicencia == 2) {
-                $tipoLicencia = "Escolar";
-            }
-            echo $tipoLicencia.'<br>';
-
-            $federativas = $_POST['federativas'];
-            if ($federativas == "Elige...") {
-                $federativas = "";
-            }
-            echo $federativas;
-
-            $dorsal = $_POST['Dorsal'];
-            echo $dorsal.'<br>';
-
-            $fechaCaducidad = $_POST['FechaCaducidad'];
-            echo $fechaCaducidad.'<br>';
-
-            $imagenLicencia = $_POST['ImagenLicencia'];
-            echo $imagenLicencia.'<br>';
-            
-        }
-    
-    ?>
 
 
 <script>
