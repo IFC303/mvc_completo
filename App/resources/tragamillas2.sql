@@ -565,9 +565,8 @@ INSERT INTO
 VALUES (
     '4', 
     'ADULTO', 
-    '14', '
-    99'
-    );
+    '14',
+    '99');
 
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
