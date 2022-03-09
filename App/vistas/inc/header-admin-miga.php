@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="container-fluid min-vh-100" style="border: solid;">
+    <div class="container-fluid min-vh-100">
 
         <header class="p-4 row">
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
@@ -30,8 +30,19 @@
 
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
-                    <li class="breadcrumb-level"><a><?php if(isset($this->datos['idTengo'])){if($this->datos['idTengo']=="1"){echo "ADMIN";}elseif($this->datos['idTengo']=="2"){echo "ENTRENADORES";
-                    }elseif($this->datos['idTengo']=="3"){echo "SOCIOS";}elseif($this->datos['idTengo']=="4"){echo "TIENDAS";}}else{echo "FALTA ACABAR";} ?></a></li>
+                    <li class="breadcrumb-level"><a><?php if (isset($this->datos['idTengo'])) {
+                                                        if ($this->datos['idTengo'] == "1") {
+                                                            echo "ADMIN";
+                                                        } elseif ($this->datos['idTengo'] == "2") {
+                                                            echo "ENTRENADORES";
+                                                        } elseif ($this->datos['idTengo'] == "3") {
+                                                            echo "SOCIOS";
+                                                        } elseif ($this->datos['idTengo'] == "4") {
+                                                            echo "TIENDAS";
+                                                        }
+                                                    } else {
+                                                        echo "FALTA ACABAR";
+                                                    } ?></a></li>
                 </ol>
             </div>
             <br><br><br><br>
@@ -42,24 +53,32 @@
                     </a>
                     <br>
                     <?php echo $datos['usuarioSesion']->nombre ?>
+                    <p id="reloj"></p>
                     <script type="text/javascript">
-                        var d = new Date();
-                        var minutes = d.getMinutes();
-                        minutes = minutes > 9 ? minutes : '0' + minutes;
-                        document.write(d.getHours() + ":" + minutes);
+                        setInterval("verHora()", 500)
+
+                        function verHora() {
+                            let d = new Date();
+                            let minutes = d.getMinutes();
+                            minutes = minutes > 9 ? minutes : '0' + minutes;
+                            let reloj = d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML = reloj;
+                        }
                     </script>
                 </div>
             </div>
 
             <div class="col-12 order-4" id="fotoMenu">
-                <div style="width: 50px; height: 50px; cursor:pointer;"  data-bs-toggle="offcanvas" data-bs-target="#menu1"><img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50"></div>
+                <div style="width: 50px; height: 50px; cursor:pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu1"><img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50"></div>
             </div>
 
             <!--MENU-->
             <div class="offcanvas offcanvas-start" id="menu1">
                 <div class="offcanvas-header">
                     <a href="<?php echo RUTA_URL ?>/admin"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
-                    <a href="<?php echo RUTA_URL ?>/admin"><h1 class="offcanvas-title">INICIO</h1></a>
+                    <a href="<?php echo RUTA_URL ?>/admin">
+                        <h1 class="offcanvas-title">INICIO</h1>
+                    </a>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
                 </div>
 
@@ -100,7 +119,7 @@
                             <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
                         </li>
                         <li id="sInicio">
-                            <a href="#" class="nav-link ">GRUPOS</a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos">4</span></a>
                         </li>
                         <li id="sInicio">
                             <a href="#" class="nav-link ">EVENTOS</a>
@@ -111,7 +130,7 @@
                 <!--MENU GRUPOS-->
                 <ul id="mInicioGru">
                     <li id="mInicioGru">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminGrupos" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="35" height="35"></div>
                             <div class="col-12">GRUPOS</div>
                         </a>
@@ -121,7 +140,7 @@
                 <!--MENU EVENTOS-->
                 <ul id="mInicioEve">
                     <li id="mInicioEve">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminEventos" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>eventos.svg" width="35" height="35"></div>
                             <div class="col-12">EVENTOS</div>
                         </a>
@@ -131,7 +150,7 @@
                 <!--MENU LICENCIAS-->
                 <ul id="mInicioLic">
                     <li id="mInicioLic">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>licencias.svg" width="35" height="35"></div>
                             <div class="col-12">LICENCIAS</div>
                         </a>
@@ -141,7 +160,7 @@
                 <!--MENU ENTIDADES-->
                 <ul id="mInicioEnt">
                     <li id="mInicioEnt">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminEntidades" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>entidad.svg" width="35" height="35"></div>
                             <div class="col-12">ENTIDADES</div>
                         </a>
@@ -151,7 +170,7 @@
                 <!--MENU TEMPORADAS-->
                 <ul id="mInicioTem">
                     <li id="mInicioTem">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>temporadas.svg" width="35" height="35"></div>
                             <div class="col-12">TEMPORADAS</div>
                         </a>
@@ -166,12 +185,12 @@
                             <div class="col-12">FACTURACION</div>
                         </a>
                     </li>
-                    <ul class="collapse nav flex-column " id="submenuFac" data-bs-parent="#menu">
+                    <ul class=" collapse nav flex-column " id="submenuFac" data-bs-parent="#menu">
                         <li id="sInicio">
-                            <a href="#" class="nav-link">INGRESOS</a>
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="nav-link">INGRESOS</a>
                         </li>
                         <li id="sInicio">
-                            <a href="#" class="nav-link ">GASTOS</a>
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="nav-link ">GASTOS</a>
                         </li>
                     </ul>
                 </ul>
@@ -179,7 +198,7 @@
                 <!--MENU MENSAJERIA-->
                 <ul id="mInicioMen">
                     <li id="mInicioMen">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
                             <div class="col-12">MENSAJERIA</div>
                         </a>

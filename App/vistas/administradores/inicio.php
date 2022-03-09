@@ -64,7 +64,7 @@
                 <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
             </li>
             <li id="mUsu">
-                <a href="#" class="nav-link ">GRUPOS</a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS</a>
             </li>
             <li id="mUsu">
                 <a href="#" class="nav-link ">EVENTOS</a>
@@ -87,12 +87,14 @@
 
     <!-- EVENTOS -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminEventos">
+            <div>
+                <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                    <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
+                </div>
+                <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
             </div>
-            <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
-        </div>
+        </a>
     </div>
 
     <!-- LICENCIAS -->
@@ -107,12 +109,14 @@
 
     <!-- ENTIDADES -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorEnti" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                <img src="<?php echo RUTA_Icon ?>entidad.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminEntidades">
+            <div>
+                <div id="colorEnti" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                    <img src="<?php echo RUTA_Icon ?>entidad.svg" width="100" height="100">
+                </div>
+                <p id="pEnti" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">ENTIDADES</p>
             </div>
-            <p id="pEnti" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">ENTIDADES</p>
-        </div>
+        </a>
     </div>
 
     <!-- TEMPORADAS -->
@@ -155,16 +159,21 @@
         </div>
         <table>
             <tr>
-                <td id="mUsu"><a href="#">
+                <td id="mUsu">
+                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos">
                         <div>INGRESOS</div>
-                    </a></td>
+                    </a>
+                </td>
             </tr>
 
             <tr>
-                <td id="mUsu"><a href="#">
+                <td id="mUsu">
+                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos">
                         <div>GASTOS</div>
-                    </a></td>
+                    </a>
+                </td>
             </tr>
+
         </table>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
     </div>

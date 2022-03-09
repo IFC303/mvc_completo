@@ -22,8 +22,7 @@
     <title><?php echo NOMBRE_SITIO?></title>
 
     <style>
-         .modalVer{
-            
+         .modalVer{  
             display: none;
             position: fixed;
             z-index: 1;
@@ -37,10 +36,73 @@
             background-color: rgba(0,0,0,0.4); 
         }
 
+        .modal-content{
+            width:50%;
+            margin: auto;
+        }
+        .modal-title{
+            color:#023ef9;
+        }
+
+        #modalEditar{
+            width:70%;
+            margin: auto;
+        }
+
+        label{
+           color:#023ef9;
+        }
+
         a{
             color:black;
             text-decoration: none;
         }
+
+/*ESTILOS TABLA */
+
+        .tabla{
+            border:solid 1px #023ef9;
+            width:50%;   
+            margin:auto;
+        }
+        thead tr{
+            background-color:#023ef9; 
+            color:white;
+            text-align:center;
+        }
+
+        .datos_tabla{
+            text-align:center;
+        }
+
+        .icono{
+            width:20px;
+            height:20px;
+        }
+
+        #headerVer h2{
+            padding: 30px;
+            color:#023ef9;
+        }
+
+   
+
+        .btn{
+            background-color: #023ef9; 
+            color:white;
+        }
+
+        #añadir{
+            color:white;
+        }
+
+        #titulo{
+            font-family: 'Anton',sans-serif; 
+            color: #023ef9; 
+            letter-spacing: 5px;"
+        }
+
+
 
     </style>
 
@@ -50,56 +112,74 @@
 
         <div class="container">
 
-           <div class="tabla" style="border:solid 1px #023ef9">
-
+            <div class="row" style="text-align:center">
+                <div class="col-12"><h4 id="titulo">Gestion de test</h4></div>
+            </div>
+            
+           <div class="tabla">
             <table class="table table-hover" >
-
 
                     <!--CABECERA TABLA-->
                     <thead>
-                        <tr style="background-color:#023ef9; color:white">
+                        <tr>
                             <th>Nº TEST</th>
                             <th>NOMBRE</th>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
-                            <th>Acciones</th>
+                                <th>OPCIONES</th>
                             <?php endif ?>
                         </tr>
                     </thead>
 
+
+                    <!--BODY TABLA-->
                     <tbody class="table-light">
 
                         <?php
                         foreach($datos['test'] as $test): ?>
                         <tr>
 
-                            <td><?php echo $test->id_test?></td>
-                            <td><?php echo $test->nombreTest?></td>
+                            <td class="datos_tabla"><?php echo $test->id_test?></td>
+                            <td class="datos_tabla"><?php echo $test->nombreTest?></td>
 
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
                             <td>
 
                                 <!--MODAL VER (javascript)-->
-                                    <img id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $test->id_test ?>);" ></img>
+                                    <img  class="icono" id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $test->id_test ?>);"></img>
 
+                                    <!--Ventana-->
                                     <div id="<?php echo $test->id_test ?>" class="modalVer">
                                         <div class="modal-content">
 
-                                            <div id="headerVer">
-                                                <h2 style="text-align:center">ver test</h2>
+                                            <!--Header-->
+                                            <div id="headerVer" class="row">
+                                                    <h2 class="col-11">Datos del test</h2>
+                                                    <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $test->id_test ?>" onclick="cerrar(<?php echo $test->id_test ?>);">                                              
                                             </div>
+                                            <hr>
 
-                                            <div id="bodyVer">
-                                                <label for="id_test">Id de test: <sup>*</sup></label>
-                                                <input type="text" name="id_test" id="id_test" class="form-control form-control-lg" value="<?php echo $test->id_test?>" readonly>
-                                                <label for="nombreTest">Nombre de test: <sup>*</sup></label>
-                                                <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>" readonly>      
-                                                
+
+                                            <!--Body-->
+                                            <div id="bodyVer" class="row m-3">
+
+                                                <div class="col-12">
+                                                    <label for="id_test">Numero de test</label>
+                                                    <input type="text" name="id_test" id="id_test" class="form-control form-control-lg" value="<?php echo $test->id_test?>" readonly>
+                                                    <br>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="nombreTest">Nombre</label>
+                                                    <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>" readonly>      
+                                                    <br>
+                                                </div>
+
                                                 <div class="mt-3 mb-3">
-                                                        <p>Selecciona las pruebas que quieres incluir en el test:</p>
+                                                        <label for="pruebas">Pruebas incluidas</label>
+                                                        <br>
                                                         <?php $tipo="";
-
                                                             $tipo="";
                                                             foreach($datos['pruebas'] as $prueba):
                                                                 if ($tipo!=$prueba->tipo){
@@ -118,18 +198,17 @@
                                                                 <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled>    
                                                                 <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
                                                             endforeach; ?>   
-                                                    
                                                     </div>
-
-
-
-
                                             </div>
                                             
-                                            <div id="footerVer">
-                                                <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $test->id_test ?>" class="close" onclick="cerrar(<?php echo $test->id_test ?>);" value="cerrar" >
+                                            <!--Footer-->
+                                            <!-- <div id="footerVer">
+                                                <input class="btn" type="button" id="cerrar_<?php echo $test->id_test ?>" onclick="cerrar(<?php echo $test->id_test ?>);" value="Cerrar" >
+                                                <br>
+                                                <br>
                                             </div>
-                                        
+                                         -->
+
                                         </div>  
                                     </div> 
 
@@ -138,36 +217,38 @@
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $test->id_test ?>" >
-                                  <img src="<?php echo RUTA_Icon?>editar.svg" width="20" height="20"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
                                     <div class="modal" id="ModalEditar_<?php echo $test->id_test ?>">
                                     <div class="modal-dialog modal-xl modal-dialog-centered">
-                                        <div class="modal-content">
+                                        <div class="modal-content" id="modalEditar">
 
                                             <!-- Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Edicion de Test</h4>
+                                                <h2 class="modal-title">Edicion de Test</h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <!-- Body -->
                                             <div class="modal-body">
                                                 <form method="post" action="<?php echo RUTA_URL?>/entrenador/editarTest/<?php echo $test->id_test ?>" class="card-body">
-                                                    <!-- id test -->
+                                                   
+                                                     <div class="mt-3 mb-3">
+                                                        <label for="id_test">Id de test</label>
+                                                        <input type="text" name="id_test" id="id_test" class="form-control form-control-lg" value="<?php echo $test->id_test?>" readonly>
+                                                    </div> 
+                                                    
                                                     <div class="mt-3 mb-3">
-                                                        <label for="id_test">Id de test: <sup>*</sup></label>
-                                                        <input type="text" name="id_test" id="id_test" class="form-control form-control-lg" value="<?php echo $test->id_test?>">
-                                                    </div>
-                                                    <!-- nombre test -->
-                                                    <div class="mt-3 mb-3">
-                                                        <label for="nombreTest">Nombre de test: <sup>*</sup></label>
+                                                        <label for="nombreTest">Nombre</label>
                                                         <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>">
                                                     </div>
-                                                    <!-- pruebas seleccionadas -->
+                                                    
                                                     <div class="mt-3 mb-3">
-                                                        <p>Selecciona las pruebas que quieres incluir en el test:</p>
+                                                        <br>
+                                                        <label for="pruebas_selec">Selecciona las pruebas que quieres incluir en el test</label>
+                                                        <br>
                                                         <?php $tipo="";
 
                                                             $tipo="";
@@ -188,17 +269,13 @@
                                                                 <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> >    
                                                                 <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
                                                             endforeach; ?>   
-                                                    
+                                                            <br>
+                                                            <br>
                                                     </div>
-                                                    <input type="submit" class="btn btn-success" value="Confirmar">
+                                                    <input type="submit" class="btn" value="Confirmar">
                                                 </form>
 
                                             </div>
-                                            <!-- Footer -->
-                                            <div class="modal-footer">
-                                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                            </div>
-
                                         </div>
                                     </div>
                                     </div>
@@ -209,7 +286,7 @@
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $test->id_test ?>" href="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>">
-                                  <img src="<?php echo RUTA_Icon?>papelera.svg" width="20" height="20"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
@@ -224,14 +301,13 @@
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <p>Seguro que quiere borrar el test con identificador <?php echo $test->id_test ?></p>
+                                                <h6>Seguro que quiere borrar el test <?php echo $test->nombreTest ?> ?</h6>
                                             </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
                                                 <form action="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>" method="post">
-                                                    <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="submit">Borrar</button>
+                                                    <button type="submit" class="btn">Borrar</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -247,11 +323,14 @@
 
                     <!--AÑADIR-->
                     <div class="col text-center">
-                        <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/entrenador/nuevo_test/">Añadir</a>
+                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/entrenador/nuevo_test/">Nuevo test</a>
                     </div>
                     <br>
 
             </div>
+
+
+            
         </div>
 
 

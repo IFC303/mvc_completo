@@ -24,7 +24,7 @@
 <body>
     <div class="container-fluid min-vh-100">
 
-        <header class="p-4 row" style="height:200px; background: linear-gradient(to bottom, LightGrey, white)">
+        <header class="p-4 row" >
                 <!-- LOGO TRAGAMILLAS-->
                 <div class="col-6 col-md-3 order-1 order-md-1">
                     <img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150">
