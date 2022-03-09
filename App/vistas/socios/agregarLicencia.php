@@ -107,7 +107,7 @@
             
             <div class="col-2">
                 <div class="row float-right" style="font-family: 'Inter', sans-serif;">
-                    <form name="form" method="post">
+                    <form name="form"  ENCTYPE="multipart/form-data" method="post">
                         <div class="datos col-12" ><input type="text" value="" id="agregarLic" name="NumLicencia" required></div>
 
                         <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();" required>

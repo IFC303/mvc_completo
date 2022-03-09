@@ -84,6 +84,10 @@ class Socio extends Controlador
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
+     
+        
+
+
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -92,6 +96,11 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            $dir="/var/www/html/tragamillas/public/img/datosBBDD/";
+           
+            
+            move_uploaded_file($_FILES['ImagenLicencia']['tmp_name'], $dir.$_FILES['ImagenLicencia']['name']);
+           
             $agreLic = [
                 'numLicencia' => trim($_POST['NumLicencia']),
                 'tipoLicencia' => trim($_POST['tipoLicencia']),
@@ -106,7 +115,6 @@ class Socio extends Controlador
             } else {
                 die('Algo ha fallado!!!');
             }
-
         } else {
             $this->vista('socios/agregarLicencia', $this->datos);
         }
