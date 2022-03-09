@@ -103,7 +103,7 @@ class AdminModelo
         $es_socio=$datAceptar[10];
         
         $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `foto`, `activado`, `id_rol`) VALUES 
-        (:dni, :nombre, :apellidos, :email, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :dni, :dni, '1', '3');");
+        (:dni, :nombre, :apellidos, :email, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, :dni, '1', '3');");
         $this->db->bind(':dni', $dni);
         $this->db->bind(':nombre', $nombre);
         $this->db->bind(':apellidos', $apellidos);
