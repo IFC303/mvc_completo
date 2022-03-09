@@ -39,6 +39,89 @@ class AdminModelo
         }
     }
 
+    public function borrar_solicitudes_grupos($datBorrar)
+    {
+        $idUsu=$datBorrar[0];
+        $idGrupo=$datBorrar[1];
+        $fecha=$datBorrar[2];
+
+        $this->db->query("DELETE FROM `SOCIO_GRUPO` WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_grup', $idGrupo);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function borrar_solicitudes_socios($datBorrar)
+    {
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
+        $this->db->bind(':id_soli', $datBorrar);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function aceptar_solicitudes_grupos($datAceptar)
+    {
+        $idUsu=$datAceptar[0];
+        $idGrupo=$datAceptar[1];
+        $fecha=$datAceptar[2];
+
+        $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '1' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_grup', $idGrupo);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function aceptar_solicitudes_socios($datAceptar)
+    {
+        
+        $idSoli=$datAceptar[0];
+        $dni=$datAceptar[1];
+        $nombre=$datAceptar[2];
+        $apellidos=$datAceptar[3];
+        $CCC=$datAceptar[4];
+        $talla=$datAceptar[5];
+        $fecha_nacimiento=$datAceptar[6];
+        $email=$datAceptar[7];
+        $telefono=$datAceptar[8];
+        $direccion=$datAceptar[9];
+        $es_socio=$datAceptar[10];
+        
+        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `foto`, `activado`, `id_rol`) VALUES 
+        (:dni, :nombre, :apellidos, :email, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :dni, :dni, '1', '3');");
+        $this->db->bind(':dni', $dni);
+        $this->db->bind(':nombre', $nombre);
+        $this->db->bind(':apellidos', $apellidos);
+        $this->db->bind(':CCC', $CCC);
+        $this->db->bind(':talla', $talla);
+        $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
+        $this->db->bind(':email', $email);
+        $this->db->bind(':telefono', $telefono);
+        $this->db->bind(':direccion', $direccion);
+        $this->db->bind(':es_socio', $es_socio);
+        /*
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }*/
+    }
+
     public function editarUsuario($usuEditar)
     {
         $coma= 0;
