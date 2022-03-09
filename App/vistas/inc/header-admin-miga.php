@@ -56,7 +56,6 @@
                     <p id="reloj"></p>
                     <script type="text/javascript">
                         setInterval("verHora()", 500)
-                        setInterval("verNotificaciones()", 500)
 
                         function verHora() {
                             let d = new Date();
@@ -64,21 +63,6 @@
                             minutes = minutes > 9 ? minutes : '0' + minutes;
                             let reloj = d.getHours() + ":" + minutes
                             document.getElementById("reloj").innerHTML = reloj;
-                        }
-
-                        function verNotificaciones() {
-                            $.ajax({
-                                type: "POST",
-                                url: "includes/coloresUsuarios.php",
-                                data: {
-                                    codCentro: centro,
-                                    codClase: clase
-                                },
-                                dataType: "json",
-                                success: function(r) {
-                                    document.getElementById("notSoliGrupos").innerHTML = r;
-                                }
-                            });
                         }
                     </script>
                 </div>
