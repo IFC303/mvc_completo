@@ -30,8 +30,19 @@
 
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
-                    <li class="breadcrumb-level"><a><?php if(isset($this->datos['idTengo'])){if($this->datos['idTengo']=="1"){echo "ADMIN";}elseif($this->datos['idTengo']=="2"){echo "ENTRENADORES";
-                    }elseif($this->datos['idTengo']=="3"){echo "SOCIOS";}elseif($this->datos['idTengo']=="4"){echo "TIENDAS";}}else{echo "FALTA ACABAR";} ?></a></li>
+                    <li class="breadcrumb-level"><a><?php if (isset($this->datos['idTengo'])) {
+                                                        if ($this->datos['idTengo'] == "1") {
+                                                            echo "ADMIN";
+                                                        } elseif ($this->datos['idTengo'] == "2") {
+                                                            echo "ENTRENADORES";
+                                                        } elseif ($this->datos['idTengo'] == "3") {
+                                                            echo "SOCIOS";
+                                                        } elseif ($this->datos['idTengo'] == "4") {
+                                                            echo "TIENDAS";
+                                                        }
+                                                    } else {
+                                                        echo "FALTA ACABAR";
+                                                    } ?></a></li>
                 </ol>
             </div>
             <br><br><br><br>
@@ -45,26 +56,45 @@
                     <p id="reloj"></p>
                     <script type="text/javascript">
                         setInterval("verHora()", 500)
+                        setInterval("verNotificaciones()", 500)
+
                         function verHora() {
                             let d = new Date();
                             let minutes = d.getMinutes();
                             minutes = minutes > 9 ? minutes : '0' + minutes;
-                            let reloj=d.getHours() + ":" + minutes
-                            document.getElementById("reloj").innerHTML=reloj; 
+                            let reloj = d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML = reloj;
+                        }
+
+                        function verNotificaciones() {
+                            $.ajax({
+                                type: "POST",
+                                url: "includes/coloresUsuarios.php",
+                                data: {
+                                    codCentro: centro,
+                                    codClase: clase
+                                },
+                                dataType: "json",
+                                success: function(r) {
+                                    document.getElementById("notSoliGrupos").innerHTML = r;
+                                }
+                            });
                         }
                     </script>
                 </div>
             </div>
 
             <div class="col-12 order-4" id="fotoMenu">
-                <div style="width: 50px; height: 50px; cursor:pointer;"  data-bs-toggle="offcanvas" data-bs-target="#menu1"><img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50"></div>
+                <div style="width: 50px; height: 50px; cursor:pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu1"><img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50"></div>
             </div>
 
             <!--MENU-->
             <div class="offcanvas offcanvas-start" id="menu1">
                 <div class="offcanvas-header">
                     <a href="<?php echo RUTA_URL ?>/admin"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
-                    <a href="<?php echo RUTA_URL ?>/admin"><h1 class="offcanvas-title">INICIO</h1></a>
+                    <a href="<?php echo RUTA_URL ?>/admin">
+                        <h1 class="offcanvas-title">INICIO</h1>
+                    </a>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
                 </div>
 
@@ -105,7 +135,7 @@
                             <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
                         </li>
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS</a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"></span></a>
                         </li>
                         <li id="sInicio">
                             <a href="#" class="nav-link ">EVENTOS</a>
