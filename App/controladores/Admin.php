@@ -68,24 +68,26 @@ class Admin extends Controlador
         $this->vista('administradores/solicitudes/grupos', $this->datos);
     }
 
-    public function borrar_solicitudes_grupos($idBorrar)
+    public function borrar_solicitudes_grupos($datBorrar)
     {
-        $idUsu=(substr($idBorrar, strpos($idBorrar,'-')+strlen('-')));
-        $usuVer=(substr($idBorrar, 0, strpos($idBorrar,'-')));
-  
+        $datBorrar = explode ( '_', $datBorrar);
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->AdminModelo->borrarUsuario($idUsu)) {
-                if($usuVer=="1"){
-                    redireccionar('/admin/crud_admin');
-                }elseif($usuVer=="2"){
-                    redireccionar('/admin/crud_entrenadores');
-                }elseif($usuVer=="3"){
-                    redireccionar('/admin/crud_socios');
-                }elseif($usuVer=="4"){
-                    redireccionar('/admin/crud_tiendas');
-                }else{
-                    redireccionar('/');
-                }
+            if ($this->AdminModelo->borrar_solicitudes_grupos($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_grupos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_grupos($datAceptar)
+    {
+        $datAceptar = explode ( '_', $datAceptar);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->aceptar_solicitudes_grupos($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_grupos');
             } else {
                 die('Algo ha fallado!!!');
             }
