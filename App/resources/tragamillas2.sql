@@ -342,7 +342,7 @@ CREATE TABLE HORARIO_GRUPO(
     constraint FK_id_grupo_horario_grupo foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade
   );
 CREATE TABLE SOLICITUD_SOCIO(
-    id_solicitud_soc int primary key,
+    id_solicitud_soc int primary key AUTO_INCREMENT,
     DNI varchar (11) unique,
     nombre varchar(20) not null,
     apellidos varchar(30) not null,
@@ -574,8 +574,8 @@ INSERT INTO
 VALUES (
     '4', 
     'ADULTO', 
-    '14', '
-    99'
+    '14', 
+    '99'
     );
 
 CREATE TABLE CATEGORIA_SOCIO(

@@ -57,7 +57,7 @@ class Admin extends Controlador
         $verSoli = $this->AdminModelo->obtenerSolicitudes();
         $this->datos['soliSocio'] = $verSoli;
         //$this->datos['idTengo'] = "1";
-        $this->vista('administradores/solicitudes/solicitud', $this->datos);
+        $this->vista('administradores/solicitudes/socios', $this->datos);
     }
 
     public function crud_solicitudes_grupos()

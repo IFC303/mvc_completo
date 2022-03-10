@@ -102,8 +102,8 @@ class AdminModelo
         $direccion=$datAceptar[9];
         $es_socio=$datAceptar[10];
         
-        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `foto`, `activado`, `id_rol`) VALUES 
-        (:dni, :nombre, :apellidos, :email, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, :dni, '1', '3');");
+        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
+        (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
         $this->db->bind(':dni', $dni);
         $this->db->bind(':nombre', $nombre);
         $this->db->bind(':apellidos', $apellidos);
@@ -114,12 +114,26 @@ class AdminModelo
         $this->db->bind(':telefono', $telefono);
         $this->db->bind(':direccion', $direccion);
         $this->db->bind(':es_socio', $es_socio);
-        /*
+        $this->db->execute();
+
+        $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId and `nombre`= :nombreId and `apellidos`= :apellidosId and `email`= :emailId");
+        $this->db->bind(':dniId', $dni);
+        $this->db->bind(':nombreId', $nombre);
+        $this->db->bind(':apellidosId', $apellidos);
+        $this->db->bind(':emailId', $email);
+        $idUsu = $this->db->registros();
+        $idUsu = $idUsu[0]->id_usuario;
+
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
+        $this->db->execute();
+
+        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
+    
         if ($this->db->execute()) {
             return true;
         } else {
             return false;
-        }*/
+        }
     }
 
     public function editarUsuario($usuEditar)
@@ -203,15 +217,15 @@ class AdminModelo
 
     public function anadirUsuario($usuAnadir)
     {
-        $this->db->query("SELECT id_usuario FROM `USUARIO` ORDER BY `id_usuario` DESC LIMIT 1");
+        /*$this->db->query("SELECT id_usuario FROM `USUARIO` ORDER BY `id_usuario` DESC LIMIT 1");
         $idBDD = $this->db->registros();
         $idBDD = $idBDD[0]->id_usuario;
-        $idUsuAna = $idBDD + 1;
+        $idUsuAna = $idBDD + 1;*/
 
-        $this->db->query("INSERT INTO USUARIO (id_usuario, dni, nombre, apellidos, email, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
-        VALUES (:idUsu, :dniUsu, :nomUsu, :apelUsu, :emaUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
+        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
+        VALUES (:dniUsu, :nomUsu, :apelUsu, :emaUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
 
-        $this->db->bind(':idUsu', $idUsuAna);
+        //$this->db->bind(':idUsu', $idUsuAna);
         $this->db->bind(':dniUsu', $usuAnadir['dniUsuAna']);
         $this->db->bind(':nomUsu', $usuAnadir['nomUsuAna']);
         $this->db->bind(':apelUsu', $usuAnadir['apelUsuAna']);

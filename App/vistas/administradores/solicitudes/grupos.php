@@ -20,26 +20,22 @@
                 <tbody class="table-light">
 
                         <?php foreach ($datos['soliSocioGrupos'] as $usuarios) : ?>
-                                <tr style="text-align: center;">
+                                <tr>
                                         <td><?php echo $usuarios->nombre_usuario ?></td>
                                         <td><?php echo $usuarios->nombre_grupo ?></td>
                                         <td><?php echo $usuarios->fecha_inscripcion ?></td>
-                                        
-                                        
+
+
 
 
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td style="text-align: center;">
+                                                <td>
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_usuario ?>">
-                                                                <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30" ></img>
+                                                                <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                         </a>
                                                         &nbsp;
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalAceptar_<?php echo $usuarios->id_usuario ?>">
-                                                                <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30" ></img>
-                                                        </a>
-                                                        &nbsp;
-                                                        <a data-bs-toggle="modal" data-bs-target="#ModalEditar<?php echo $usuarios->id_usuario ?>" href="<?php echo RUTA_URL ?>/admin/editarAdmin/<?php echo $uruario->id_usuario ?>">
-                                                                <img src="<?php echo RUTA_Icon ?>ojo.svg" width="30" height="30" ></img>
+                                                                <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
                                                         </a>
 
                                                         <div class="modal" id="ModalBorrar_<?php echo $usuarios->id_usuario ?>">
@@ -60,7 +56,8 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrar_solicitudes_grupos/<?php $datBorrar= $usuarios->id_usuario."_".$usuarios->id_grupo."_".$usuarios->fecha_inscripcion; echo $datBorrar ?>" method="post">
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrar_solicitudes_grupos/<?php $datBorrar = $usuarios->id_usuario . "_" . $usuarios->id_grupo . "_" . $usuarios->fecha_inscripcion;
+                                                                                                                                                                echo $datBorrar ?>" method="post">
                                                                                                 <button type="submit">Borrar</button>
                                                                                         </form>
                                                                                 </div>
@@ -86,13 +83,15 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_grupos/<?php $datBorrar= $usuarios->id_usuario."_".$usuarios->id_grupo."_".$usuarios->fecha_inscripcion; echo $datBorrar ?>" method="post">
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_grupos/<?php $datBorrar = $usuarios->id_usuario . "_" . $usuarios->id_grupo . "_" . $usuarios->fecha_inscripcion;
+                                                                                                                                                                echo $datBorrar ?>" method="post">
                                                                                                 <button type="submit">Aceptar</button>
                                                                                         </form>
                                                                                 </div>
                                                                         </div>
                                                                 </div>
                                                         </div>
+
                                                 </td>
                                         <?php endif ?>
                                 </tr>
@@ -107,7 +106,7 @@
                 console.log(idAbrir);
                 var modal = document.getElementById(idAbrir);
                 var body = document.getElementsByTagName("body")[0];
-                modal.style.display = "block"; 
+                modal.style.display = "block";
                 body.style.overflow = "hidden";
         }
 
