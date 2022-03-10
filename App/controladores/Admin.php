@@ -57,7 +57,7 @@ class Admin extends Controlador
         $verSoli = $this->AdminModelo->obtenerSolicitudes();
         $this->datos['soliSocio'] = $verSoli;
         //$this->datos['idTengo'] = "1";
-        $this->vista('administradores/solicitudes/solicitud', $this->datos);
+        $this->vista('administradores/solicitudes/socios', $this->datos);
     }
 
     public function crud_solicitudes_grupos()
@@ -81,6 +81,17 @@ class Admin extends Controlador
         }
     }
 
+    public function borrar_solicitudes_socios($datBorrar)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrar_solicitudes_socios($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_socios');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
     public function aceptar_solicitudes_grupos($datAceptar)
     {
         $datAceptar = explode ( '_', $datAceptar);
@@ -88,6 +99,19 @@ class Admin extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->aceptar_solicitudes_grupos($datAceptar)) {
                 redireccionar('/admin/crud_solicitudes_grupos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_socios($datAceptar)
+    {
+        $datAceptar = explode ( '_', $datAceptar);
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->aceptar_solicitudes_socios($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_socios');
             } else {
                 die('Algo ha fallado!!!');
             }

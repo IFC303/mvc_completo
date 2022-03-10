@@ -27,6 +27,7 @@ CREATE TABLE USUARIO(
   nombre varchar(20) not null,
   apellidos varchar(30) not null,
   email varchar(40) not null,
+  direccion varchar(150) not null,
   fecha_nacimiento date,
   telefono int not null,
   CCC varchar(25) not null,
@@ -46,6 +47,7 @@ INSERT INTO
     `nombre`,
     `apellidos`,
     `email`,
+    `direccion`,
     `fecha_nacimiento`,
     `telefono`,
     `CCC`,
@@ -62,6 +64,7 @@ VALUES
     'admin',
     'admin',
     'admin@admin.com',
+    'dire',
     '2000-1-1',
     11,
     '',
@@ -78,6 +81,7 @@ INSERT INTO
     `nombre`,
     `apellidos`,
     `email`,
+    `direccion`,
     `fecha_nacimiento`,
     `telefono`,
     `CCC`,
@@ -94,6 +98,7 @@ VALUES
     'entrenador',
     'entrenador',
     'entrenador@entrenador.com',
+    'dire',
     '2000-1-1',
     22,
     '',
@@ -110,6 +115,7 @@ INSERT INTO
     `nombre`,
     `apellidos`,
     `email`,
+    `direccion`,
     `fecha_nacimiento`,
     `telefono`,
     `CCC`,
@@ -126,6 +132,7 @@ VALUES
     'socio',
     'socio',
     'socio@socio.com',
+    'dire',
     '2000-1-1',
     33,
     '',
@@ -142,6 +149,7 @@ INSERT INTO
     `nombre`,
     `apellidos`,
     `email`,
+    `direccion`,
     `fecha_nacimiento`,
     `telefono`,
     `CCC`,
@@ -158,6 +166,7 @@ VALUES
     'tienda',
     'tienda',
     'tienda@tienda.com',
+    'dire',
     '2000-1-1',
     44,
     '',
@@ -333,7 +342,7 @@ CREATE TABLE HORARIO_GRUPO(
     constraint FK_id_grupo_horario_grupo foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade
   );
 CREATE TABLE SOLICITUD_SOCIO(
-    id_solicitud_soc int primary key,
+    id_solicitud_soc int primary key AUTO_INCREMENT,
     DNI varchar (11) unique,
     nombre varchar(20) not null,
     apellidos varchar(30) not null,
@@ -565,8 +574,9 @@ INSERT INTO
 VALUES (
     '4', 
     'ADULTO', 
-    '14',
-    '99');
+    '14', 
+    '99'
+    );
 
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
