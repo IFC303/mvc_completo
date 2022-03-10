@@ -14,14 +14,26 @@ class Admin extends Controlador
         $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+    public function notificaciones()
+    {
+        $notGrupo = $this->AdminModelo->notGrupo();
+        return $notGrupo;
+    }
+
     public function index()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $this->vista('administradores/inicio', $this->datos);
     }
 
 
     public function crud_admin()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(1);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "1";
@@ -30,6 +42,9 @@ class Admin extends Controlador
 
     public function crud_entrenadores()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(2);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "2";
@@ -38,6 +53,9 @@ class Admin extends Controlador
 
     public function crud_socios()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(3);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "3";
@@ -46,6 +64,9 @@ class Admin extends Controlador
 
     public function crud_tiendas()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(4);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "4";
@@ -54,6 +75,9 @@ class Admin extends Controlador
 
     public function crud_solicitudes_socios()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $verSoli = $this->AdminModelo->obtenerSolicitudes();
         $this->datos['soliSocio'] = $verSoli;
         //$this->datos['idTengo'] = "1";
@@ -62,6 +86,9 @@ class Admin extends Controlador
 
     public function crud_solicitudes_grupos()
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $verSoli = $this->AdminModelo->obtenerSolicitudesGrupos();
         $this->datos['soliSocioGrupos'] = $verSoli;
         //$this->datos['idTengo'] = "1";
@@ -70,6 +97,9 @@ class Admin extends Controlador
 
     public function borrar_solicitudes_grupos($datBorrar)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $datBorrar = explode ( '_', $datBorrar);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -83,6 +113,9 @@ class Admin extends Controlador
 
     public function borrar_solicitudes_socios($datBorrar)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->borrar_solicitudes_socios($datBorrar)) {
                 redireccionar('/admin/crud_solicitudes_socios');
@@ -94,6 +127,9 @@ class Admin extends Controlador
 
     public function aceptar_solicitudes_grupos($datAceptar)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $datAceptar = explode ( '_', $datAceptar);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -107,6 +143,9 @@ class Admin extends Controlador
 
     public function aceptar_solicitudes_socios($datAceptar)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $datAceptar = explode ( '_', $datAceptar);
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -120,6 +159,9 @@ class Admin extends Controlador
 
     public function borrarUsuario($idUsuTengo)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $idUsu=(substr($idUsuTengo, strpos($idUsuTengo,'-')+strlen('-')));
         $usuVer=(substr($idUsuTengo, 0, strpos($idUsuTengo,'-')));
   
@@ -144,6 +186,9 @@ class Admin extends Controlador
 
     public function editarUsuario($idEditTengo)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $idEdit=(substr($idEditTengo, strpos($idEditTengo,'-')+strlen('-')));
         $usuVer=(substr($idEditTengo, 0, strpos($idEditTengo,'-')));
         
@@ -193,6 +238,9 @@ class Admin extends Controlador
 
     public function nuevoUsuario($usuVer)
     {
+        $notGrupo = $this->notificaciones();
+        $this->datos['notificaciones'] = $notGrupo;
+
         $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');

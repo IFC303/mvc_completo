@@ -9,6 +9,12 @@ class AdminModelo
         $this->db = new Base;
     }
 
+    public function notGrupo()
+    {
+        $this->db->query("SELECT * FROM `SOCIO_GRUPO`");
+        return $this->db->rowCount();
+    }
+
     public function obtenerUsuarios($rol)
     {
         $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
