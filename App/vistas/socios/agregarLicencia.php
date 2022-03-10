@@ -122,9 +122,9 @@
                         
                         <div class="datos col-12" ><input type="number" min="0" value="" id="agregarLic" name="Dorsal"></div>
                         
-                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad" required></div>
+                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad" ></div>
                         
-                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia" required></div>
+                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia" ></div>
 
                 </div>
             </div>

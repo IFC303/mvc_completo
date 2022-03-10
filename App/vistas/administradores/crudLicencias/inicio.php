@@ -1,4 +1,24 @@
+
 <?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo RUTA_URL?>/public/css/estilos.css">
+    <!-- <link rel="stylesheet" href="css/estilos.css"> -->
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <title><?php echo NOMBRE_SITIO?></title>
+
 
 <style>
 
@@ -94,7 +114,7 @@ thead tr{
 
         <div class="container">
             <div class="row" style="text-align:center">
-                <div class="col-12"><h4 id="titulo">Gestion de entidades</h4></div>
+                <div class="col-12"><h4 id="titulo">Gestion de licencias</h4></div>
             </div>
             
            <div class="tabla">
@@ -104,7 +124,6 @@ thead tr{
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr>
-                            <th>ID_LICENCIA</th>
                             <th>ID_USUARIO</th>
                             <th>NUM_LICENCIA</th>
                             <th>TIPO_LICENCIA</th>
@@ -127,14 +146,13 @@ thead tr{
                         foreach($datos['licencia'] as $licencia): ?>
                         <tr>
 
-                            <td class="datos_tabla"><?php echo $licencia->id_licencia?></td>
                             <td class="datos_tabla"><?php echo $licencia->id_usuario?></td>
                             <td class="datos_tabla"><?php echo $licencia->num_licencia?></td>
                             <td class="datos_tabla"><?php echo $licencia->tipo?></td>
-                            <td class="datos_tabla"><?php echo $licencia->regional_nacional?></td>
-                            <td class="datos_tabla"><?php echo $licencia->dorsal?></td>
-                            <td class="datos_tabla"><?php echo $licencia->fecha_cad?></td>
-                            <td class="datos_tabla"><?php echo $licencia->imagen?></td>
+                            <td class="datos_tabla"><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
+                            <td class="datos_tabla"><?php if ($licencia->dorsal==''){echo '-';}else {echo $licencia->dorsal;}?></td>
+                            <td class="datos_tabla"><?php if ($licencia->fecha_cad==''){echo '-';}else {echo $licencia->fecha_cad;}?></td>
+                            <td class="datos_tabla"><?php if ($licencia->imagen==''){echo '-';}else {?> <img width="30" height="30" src="<?php echo RUTA_ImgDatos. $licencia->imagen;}?>"></td>
      
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 
@@ -278,14 +296,14 @@ thead tr{
 
                     <!--AÑADIR-->
                     <div class="col text-center">
-                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminEntidades/nueva_entidad/">Nueva licencia</a>
+                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminLicencias/nueva_licencia/">Nueva licencia</a>
                     </div>
                     <br>
 
             </div>
         </div>
 
-
+<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
             <script>
 

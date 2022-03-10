@@ -112,7 +112,7 @@ class SocioModelo
 
     public function obtenerLicenciasId($idUsuarioSesion)
     {
-        $this->db->query("SELECT * FROM LICENCIA L where '$idUsuarioSesion' = L.id_usuario  ORDER BY L.id_licencia");
+        $this->db->query("SELECT * FROM LICENCIA L where '$idUsuarioSesion' = L.id_usuario");
 
         return $this->db->registros();
     }
@@ -125,8 +125,19 @@ class SocioModelo
         $this->db->bind(':id_usuario', $idUsuarioSesion);
         $this->db->bind(':imagen', $agreLic['imagenLicencia']);
         $this->db->bind(':num_licencia', $agreLic['numLicencia']);
-        $this->db->bind(':fecha_cad', $agreLic['fechaCaducidad']);
-        $this->db->bind(':tipo', $agreLic['tipoLicencia']);
+        
+        if ($agreLic['fechaCaducidad']=="") {
+            $this->db->bind(':fecha_cad', NULL);    
+        }else {
+            $this->db->bind(':fecha_cad', $agreLic['fechaCaducidad']);
+        }
+        
+        if ($agreLic['tipoLicencia']==1) {
+            $this->db->bind(':tipo', 'Federativa');
+        }elseif ($agreLic['tipoLicencia']==2) {
+            $this->db->bind(':tipo', 'Escolar');
+        }
+        
         if ($agreLic['dorsal']=="") {
             $this->db->bind(':dorsal', NULL);    
         }else {
