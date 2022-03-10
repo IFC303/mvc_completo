@@ -9,10 +9,26 @@ class AdminModelo
         $this->db = new Base;
     }
 
+    public function notSocio()
+    {
+        $this->db->query("SELECT * FROM `SOLICITUD_SOCIO`");
+        return $this->db->rowCount();
+    }
+
     public function notGrupo()
     {
         $this->db->query("SELECT * FROM `SOCIO_GRUPO`");
         return $this->db->rowCount();
+    }
+
+    public function notEventos()
+    {
+        $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
+        $notExter= $this->db->rowCount();
+        $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
+        $notSoci= $this->db->rowCount();
+        $not = $notExter + $notSoci;
+        return $not;
     }
 
     public function obtenerUsuarios($rol)
@@ -21,7 +37,7 @@ class AdminModelo
         return $this->db->registros();
     }
 
-    public function obtenerSolicitudes()
+    public function obtenerSolicitudesSocios()
     {
         $this->db->query("SELECT * FROM SOLICITUD_SOCIO");
         return $this->db->registros();
@@ -30,6 +46,18 @@ class AdminModelo
     public function obtenerSolicitudesGrupos()
     {
         $this->db->query("SELECT s.id_grupo, s.id_usuario, s.fecha_inscripcion, u.nombre as nombre_usuario, g.nombre as nombre_grupo FROM `SOCIO_GRUPO` s, `SOCIO` so, `USUARIO` u, `GRUPO` g WHERE s.id_grupo=g.id_grupo and s.id_usuario=so.id_socio and u.id_usuario=so.id_socio and s.acepatado= 0");
+        return $this->db->registros();
+    }
+
+    public function obtenerSolicitudesEvenExter()
+    {
+        $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
+        return $this->db->registros();
+    }
+
+    public function obtenerSolicitudesEvenSoci()
+    {
+        $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
         return $this->db->registros();
     }
 

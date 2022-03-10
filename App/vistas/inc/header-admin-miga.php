@@ -116,13 +116,13 @@
                     </li>
                     <ul class="collapse nav flex-column " id="submenuSol" data-bs-parent="#menu">
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones']);  ?></span></a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                            <a href="#" class="nav-link ">EVENTOS</a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
                         </li>
                     </ul>
                 </ul>
