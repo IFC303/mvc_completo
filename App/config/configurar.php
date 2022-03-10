@@ -11,7 +11,7 @@ define('NOMBRE_SITIO', 'Tragamillas');
 
 
 // Configuracion de la Base de Datos
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'mysql');
 define('DB_USUARIO', 'root');
 define('DB_PASSWORD', 'toor');
 define('DB_NOMBRE', 'tragamillas2');
