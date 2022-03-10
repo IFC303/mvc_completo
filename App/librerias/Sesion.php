@@ -39,7 +39,7 @@ class Sesion
 
     public static function cerrarSesion()
     {
-        session_start();                    // no seria necesaria esta linea, pero por asegurarnos en futuros usos
+        // session_start();                    // no seria necesaria esta linea, pero por asegurarnos en futuros usos
         setcookie(session_name(), '', time() - 3600, "/");
         session_unset();
         session_destroy();
