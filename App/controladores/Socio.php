@@ -33,6 +33,11 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            $directorio="/var/www/html/tragamillas/public/img/datosBBDD/";
+           
+            
+            move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$_FILES['foto']['name']);
+
             $editarDatos = [
                 'dniEdit' => trim($_POST["dni"]),
                 'nombreEdit' => trim($_POST["nombre"]),
@@ -42,6 +47,7 @@ class Socio extends Controlador
                 'cccEdit' => trim($_POST["ccc"]),
                 'passwEdit' => trim($_POST["passw"]),
                 'tallaEdit' => trim($_POST["talla"]),
+                'fotoEdit' => $_FILES['foto']['name'],
             ];
 
             if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
@@ -107,7 +113,7 @@ class Socio extends Controlador
                 'federativas' => trim($_POST['federativas']),
                 'dorsal' => trim($_POST['Dorsal']),
                 'fechaCaducidad' => trim($_POST['FechaCaducidad']),
-                'imagenLicencia' => trim($_POST['ImagenLicencia']),
+                'imagenLicencia' => $_FILES['ImagenLicencia']['name'],
             ];
 
             if ($this->SocioModelo->agregarLicencia($agreLic, $idUsuarioSesion)) {
