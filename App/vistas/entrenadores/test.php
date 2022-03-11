@@ -99,7 +99,7 @@
         #titulo{
             font-family: 'Anton',sans-serif; 
             color: #023ef9; 
-            letter-spacing: 5px;"
+            letter-spacing: 5px;
         }
 
 

@@ -18,6 +18,14 @@ class AdminGrupos extends Controlador
 
     public function index(){
         $this->datos['grupo'] = $this->grupoModelo->obtenerGrupos();
+        $this->datos['grupos_y_horarios'] = $this->grupoModelo->obtenerGruposHorarios();
+
+        foreach($this->datos['grupo'] as $info){
+            $id=$info->id_grupo;
+            $this->datos['horario'] = $this->grupoModelo->obtenerHorarioId($id); 
+        }
+        
+        
         $this->vista('administradores/crudGrupos/inicio',$this->datos);
     }
 
@@ -30,75 +38,82 @@ class AdminGrupos extends Controlador
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
             $grupoNuevo = [
-                // 'id_grupo' => trim($_POST['id_grupo']),
                 'nombre' => trim($_POST['nombre']),
                 'fecha_inicio' => trim($_POST['fecha_inicio']),
                 'fecha_fin'=> trim($_POST['fecha_fin'])    
             ];
+            $ultimoIndice=$this->grupoModelo->agregarGrupo($grupoNuevo);
+            $grupoNuevo['id_grupo']=$ultimoIndice;
+       
 
-
-            
             if(isset($_POST['lunesDia'])){
                 $lunes = (object) [
-                    // 'id_horario' =>($_POST['id_horario']),
                     'dia'=>$_POST['lunesDia'],
                     'ini'=>$_POST['lunesIni'],
                     'fin'=>$_POST['lunesFin']
                 ];
-                    $grupoNuevo['lunes']=$lunes;
+                
+                $ultimoIndice=$this->grupoModelo->agregarHorario($lunes); 
+                //$lunes->id_horario=$ultimoIndice;
+                $grupoNuevo['id_horario']=$ultimoIndice;
+                //var_dump($grupoNuevo);
+                $this->grupoModelo->agregarGrupoHorario($grupoNuevo);
+                //echo $grupoNuevo['lunes']->id_horario;
             }
 
 
             if(isset($_POST['martesDia'])){
                $martes = (object) [
-                // 'id_horario' =>($_POST['id_horario']),
                 'dia'=>$_POST['martesDia'],
                 'ini'=>$_POST['martesIni'],
                 'fin'=>$_POST['martesFin']
                 ];
-                    $grupoNuevo['martes']=$martes;
+
+                $ultimoIndice=$this->grupoModelo->agregarHorario($martes);
+                $grupoNuevo['id_horario']=$ultimoIndice;
+                $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
             }
           
 
            if(isset($_POST['miercolesDia'])){
                 $miercoles = (object) [
-                    // 'id_horario' =>($_POST['id_horario']),
                     'dia'=>$_POST['miercolesDia'],
                     'ini'=>$_POST['miercolesIni'],
                     'fin'=>$_POST['miercolesFin']
                 ];
-                    $grupoNuevo['miercoles']=$miercoles;        
+
+                $ultimoIndice=$this->grupoModelo->agregarHorario($miercoles);
+                $grupoNuevo['id_horario']=$ultimoIndice;
+                $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
             }
            
 
             if(isset($_POST['juevesDia'])){
                 $jueves = (object) [
-                    // 'id_horario' =>($_POST['id_horario']),
                     'dia'=>$_POST['juevesDia'],
                     'ini'=>$_POST['juevesIni'],
                     'fin'=>$_POST['juevesFin']
                 ];
-                    $grupoNuevo['jueves']=$jueves;  
+
+                $ultimoIndice=$this->grupoModelo->agregarHorario($jueves);
+                $grupoNuevo['id_horario']=$ultimoIndice;
+                $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
             }
           
             if(isset($_POST['viernesDia'])){
                 $viernes = (object) [
-                    // 'id_horario' =>($_POST['id_horario']),
                     'dia'=>$_POST['viernesDia'],
                     'ini'=>$_POST['viernesIni'],
                     'fin'=>$_POST['viernesFin']
                 ];
-                    $grupoNuevo['viernes']=$viernes;      
+
+                $ultimoIndice=$this->grupoModelo->agregarHorario($viernes);
+                $grupoNuevo['id_horario']=$ultimoIndice;
+                $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
             }
 
-
-            var_dump($grupoNuevo);
+                redireccionar('/adminGrupos');
           
-            //  if($this->grupoModelo->agregarGrupo($grupoNuevo)){
-            //      redireccionar('/adminGrupos');
-            //  }else{
-            //      die('Añgo ha fallado!!');
-            //  }
 
         }else{
             $this->datos['grupo'] = (object)[
@@ -119,19 +134,23 @@ class AdminGrupos extends Controlador
 
 
     public function borrar($id){
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->grupoModelo->borrarGrupo($id)) {
-                redireccionar('/adminGrupos');
-            }else{
-                die('Algo ha fallado!!!');
-            }
-        }else{
-            $this->datos['grupo'] = $this->grupoModelo->obtenerGrupoId($id);
-            $this->vista('administradores/crudGrupos/inicio', $this->datos);
+            $horarios = $this->grupoModelo->obtenerHorarioId($id);
+             //var_dump($horarios); //llega un array de objetos
+            if ($this->grupoModelo->borrarGrupo($id,$horarios)) {
+                  redireccionar('/adminGrupos');
+             }else{
+                 die('Algo ha fallado!!!');
+             }
+         }else{
+             $this->datos['grupo'] = $this->grupoModelo->obtenerGrupoId($id);
+             $this->datos['horarios'] = $this->grupoModelo->obtenerHorarioId($id);
+             $this->vista('administradores/crudGrupos/inicio', $this->datos);
         }
-
-
     }
+
+    
 
 
     public function editarGrupo($id){
@@ -145,18 +164,24 @@ class AdminGrupos extends Controlador
 
                 //recogemos los datos modificados y guardamos en $grupo_modificado
                 $grupo_modificado = [
-                    'id_grupo' => trim($_POST['id_grupo']),
-                    'nombre_grupo' => trim($_POST['nombre_grupo']),
-                    'fecha_ini' => trim($_POST['fecha_ini']),
-                    'fecha_fin' => trim($_POST['fecha_fin']),   
+                    'id_grupo'=>$id,
+                    'nombre_grupo' => trim($_POST['nombre']),
+                    'fecha_ini' => trim($_POST['fecha_inicio']),
+                    'fecha_fin' => trim($_POST['fecha_fin']), 
                 ];
-   
+
+                $this->grupoModelo->editarGrupo($grupo_modificado);
+                var_dump($_POST);
+                //var_dump($_POST['horario']);
+                //$this->grupoModelo->agregarHorario($_POST['horario']);
+
+                
     
-                if ($this->grupoModelo->editarGrupo($grupo_modificado)) {
-                    redireccionar('/adminGrupo');
-                }else{
-                    die('Algo ha fallado!!!');
-                }
+                // if ($this->grupoModelo->editarGrupo($grupo_modificado)) {
+                //     redireccionar('/adminGrupo');
+                // }else{
+                //     die('Algo ha fallado!!!');
+                // }
     }
 
 

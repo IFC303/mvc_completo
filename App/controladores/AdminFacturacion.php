@@ -14,15 +14,20 @@ class AdminFacturacion extends Controlador{
     }
 
 
-    // public function index(){
-    //     $this->datos['evento'] = $this->eventoModelo->obtenerEventos();
-    //     $this->vista('administradores/crudEventos/inicio',$this->datos);
-    // }
+      public function index(){
+         $this->vista('administradores/crudFacturacion',$this->datos);
+     }
 
 
     public function ingresos(){
-        $this->datos['ingresosCuotas'] = $this->facturacionModelo->obtenerIngresosCuotas();
-        $this->datos['ingresosOtros'] = $this->facturacionModelo->obtenerIngresosOtros();
+        $ingresos = [];
+        $ingresos = $this->facturacionModelo->obtenerIngresosCuotas();
+        $i=$this->facturacionModelo->obtenerIngresosOtros();
+        foreach($i as $info){
+          $ingresos[]=$info; 
+        }
+        
+        $this->datos['ingresos']=$ingresos;
         $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
 
     }
