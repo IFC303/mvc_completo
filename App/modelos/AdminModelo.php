@@ -9,6 +9,7 @@ class AdminModelo
         $this->db = new Base;
     }
 
+    //NOTIFICACIONES
     public function notSocio()
     {
         $this->db->query("SELECT * FROM `SOLICITUD_SOCIO`");
@@ -31,33 +32,10 @@ class AdminModelo
         return $not;
     }
 
+    //CRUDS USUARIOS
     public function obtenerUsuarios($rol)
     {
         $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
-        return $this->db->registros();
-    }
-
-    public function obtenerSolicitudesSocios()
-    {
-        $this->db->query("SELECT * FROM SOLICITUD_SOCIO");
-        return $this->db->registros();
-    }
-
-    public function obtenerSolicitudesGrupos()
-    {
-        $this->db->query("SELECT s.id_grupo, s.id_usuario, s.fecha_inscripcion, u.nombre as nombre_usuario, g.nombre as nombre_grupo FROM `SOCIO_GRUPO` s, `SOCIO` so, `USUARIO` u, `GRUPO` g WHERE s.id_grupo=g.id_grupo and s.id_usuario=so.id_socio and u.id_usuario=so.id_socio and s.acepatado= 0");
-        return $this->db->registros();
-    }
-
-    public function obtenerSolicitudesEvenExter()
-    {
-        $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
-        return $this->db->registros();
-    }
-
-    public function obtenerSolicitudesEvenSoci()
-    {
-        $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
         return $this->db->registros();
     }
 
@@ -65,103 +43,6 @@ class AdminModelo
     {
         $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
         $this->db->bind(':id_usu', $idUsuario);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function borrar_solicitudes_grupos($datBorrar)
-    {
-        $idUsu = $datBorrar[0];
-        $idGrupo = $datBorrar[1];
-        $fecha = $datBorrar[2];
-
-        $this->db->query("DELETE FROM `SOCIO_GRUPO` WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_grup', $idGrupo);
-        $this->db->bind(':id_fecha', $fecha);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function borrar_solicitudes_socios($datBorrar)
-    {
-        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
-        $this->db->bind(':id_soli', $datBorrar);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function aceptar_solicitudes_grupos($datAceptar)
-    {
-        $idUsu = $datAceptar[0];
-        $idGrupo = $datAceptar[1];
-        $fecha = $datAceptar[2];
-
-        $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '1' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_grup', $idGrupo);
-        $this->db->bind(':id_fecha', $fecha);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function aceptar_solicitudes_socios($datAceptar)
-    {
-
-        $idSoli = $datAceptar[0];
-        $dni = $datAceptar[1];
-        $nombre = $datAceptar[2];
-        $apellidos = $datAceptar[3];
-        $CCC = $datAceptar[4];
-        $talla = $datAceptar[5];
-        $fecha_nacimiento = $datAceptar[6];
-        $email = $datAceptar[7];
-        $telefono = $datAceptar[8];
-        $direccion = $datAceptar[9];
-        $es_socio = $datAceptar[10];
-
-        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
-        (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
-        $this->db->bind(':dni', $dni);
-        $this->db->bind(':nombre', $nombre);
-        $this->db->bind(':apellidos', $apellidos);
-        $this->db->bind(':CCC', $CCC);
-        $this->db->bind(':talla', $talla);
-        $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
-        $this->db->bind(':email', $email);
-        $this->db->bind(':telefono', $telefono);
-        $this->db->bind(':direccion', $direccion);
-        $this->db->bind(':es_socio', $es_socio);
-        $this->db->execute();
-
-        $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId and `nombre`= :nombreId and `apellidos`= :apellidosId and `email`= :emailId");
-        $this->db->bind(':dniId', $dni);
-        $this->db->bind(':nombreId', $nombre);
-        $this->db->bind(':apellidosId', $apellidos);
-        $this->db->bind(':emailId', $email);
-        $idUsu = $this->db->registros();
-        $idUsu = $idUsu[0]->id_usuario;
-
-        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
-        $this->db->execute();
-
-        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
 
         if ($this->db->execute()) {
             return true;
@@ -368,4 +249,169 @@ class AdminModelo
             return false;
         }
     }
+
+    //SOLICITUD SOCIOS
+    public function obtenerSolicitudesSocios()
+    {
+        $this->db->query("SELECT * FROM SOLICITUD_SOCIO");
+        return $this->db->registros();
+    }
+
+    public function borrar_solicitudes_socios($datBorrar)
+    {
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
+        $this->db->bind(':id_soli', $datBorrar);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function aceptar_solicitudes_socios($datAceptar)
+    {
+
+        $idSoli = $datAceptar[0];
+        $dni = $datAceptar[1];
+        $nombre = $datAceptar[2];
+        $apellidos = $datAceptar[3];
+        $CCC = $datAceptar[4];
+        $talla = $datAceptar[5];
+        $fecha_nacimiento = $datAceptar[6];
+        $email = $datAceptar[7];
+        $telefono = $datAceptar[8];
+        $direccion = $datAceptar[9];
+        $es_socio = $datAceptar[10];
+
+        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
+        (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
+        $this->db->bind(':dni', $dni);
+        $this->db->bind(':nombre', $nombre);
+        $this->db->bind(':apellidos', $apellidos);
+        $this->db->bind(':CCC', $CCC);
+        $this->db->bind(':talla', $talla);
+        $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
+        $this->db->bind(':email', $email);
+        $this->db->bind(':telefono', $telefono);
+        $this->db->bind(':direccion', $direccion);
+        $this->db->bind(':es_socio', $es_socio);
+        $this->db->execute();
+
+        $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId and `nombre`= :nombreId and `apellidos`= :apellidosId and `email`= :emailId");
+        $this->db->bind(':dniId', $dni);
+        $this->db->bind(':nombreId', $nombre);
+        $this->db->bind(':apellidosId', $apellidos);
+        $this->db->bind(':emailId', $email);
+        $idUsu = $this->db->registros();
+        $idUsu = $idUsu[0]->id_usuario;
+
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
+        $this->db->execute();
+
+        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //SOLICITUD GRUPOS
+    public function obtenerSolicitudesGrupos()
+    {
+        $this->db->query("SELECT s.id_grupo, s.id_usuario, s.fecha_inscripcion, u.nombre as nombre_usuario, g.nombre as nombre_grupo FROM `SOCIO_GRUPO` s, `SOCIO` so, `USUARIO` u, `GRUPO` g WHERE s.id_grupo=g.id_grupo and s.id_usuario=so.id_socio and u.id_usuario=so.id_socio and s.acepatado= 0");
+        return $this->db->registros();
+    }
+
+    public function borrar_solicitudes_grupos($datBorrar)
+    {
+        $idUsu = $datBorrar[0];
+        $idGrupo = $datBorrar[1];
+        $fecha = $datBorrar[2];
+
+        $this->db->query("DELETE FROM `SOCIO_GRUPO` WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_grup', $idGrupo);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function aceptar_solicitudes_grupos($datAceptar)
+    {
+        $idUsu = $datAceptar[0];
+        $idGrupo = $datAceptar[1];
+        $fecha = $datAceptar[2];
+
+        $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '1' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_grup', $idGrupo);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //SOLICITUD EVENTOS
+    public function obtenerSolicitudesEvenSoci()
+    {
+        $this->db->query("SELECT e.nombre as evento ,u.nombre, u.apellidos, s.fecha, s.id_usuario as id, s.id_evento FROM `SOLICITUD_SOCIO_EVENTO` s, `EVENTO` e, `USUARIO` u WHERE s.id_usuario= u.id_usuario and s.id_evento=e.id_evento");
+        return $this->db->registros();
+    }
+    
+    public function obtenerSolicitudesEvenExter()
+    {
+        $this->db->query("SELECT e.nombre as evento ,u.nombre, u.apellidos, s.fecha, s.id_externo as id, s.id_evento FROM `SOLICITUD_EXTER_EVENTO` s, `EVENTO` e, `EXTERNO` u WHERE s.id_externo= u.id_externo and s.id_evento=e.id_evento;");
+        return $this->db->registros();
+    }
+
+    
+
+    public function borrar_solicitudes_EvenSoci($datBorrar)
+    {
+        $idUsu = $datBorrar[0];
+        $idEvento = $datBorrar[1];
+        $fecha = $datBorrar[2];
+
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO` WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_even', $idEvento);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function borrar_solicitudes_EvenExter($datBorrar)
+    {
+        $idUsu = $datBorrar[0];
+        $idEvento = $datBorrar[1];
+        $fecha = $datBorrar[2];
+
+        $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_even', $idEvento);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 }

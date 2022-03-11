@@ -13,7 +13,7 @@ class Admin extends Controlador
 
         $this->AdminModelo = $this->modelo('AdminModelo');
     }
-
+    //NOTIFICACIONES
     public function notificaciones()
     {
         $notific[0] = $this->AdminModelo->notSocio();
@@ -30,7 +30,7 @@ class Admin extends Controlador
         $this->vista('administradores/inicio', $this->datos);
     }
 
-
+    //CRUDS USUARIOS
     public function crud_admin()
     {
         $notific = $this->notificaciones();
@@ -73,103 +73,6 @@ class Admin extends Controlador
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "4";
         $this->vista('administradores/cruds/crudAdmin', $this->datos);
-    }
-
-    public function crud_solicitudes_socios()
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $verSoli = $this->AdminModelo->obtenerSolicitudesSocios();
-        $this->datos['soliSocio'] = $verSoli;
-        
-        $this->vista('administradores/solicitudes/socios', $this->datos);
-    }
-
-    public function crud_solicitudes_grupos()
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $verSoli = $this->AdminModelo->obtenerSolicitudesGrupos();
-        $this->datos['soliSocioGrupos'] = $verSoli;
-        
-        $this->vista('administradores/solicitudes/grupos', $this->datos);
-    }
-
-    public function crud_solicitudes_eventos()
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $verSoliExter = $this->AdminModelo->obtenerSolicitudesEvenExter();
-        $verSoliSoci = $this->AdminModelo->obtenerSolicitudesEvenSoci();
-        $this->datos['soliExternoEventos'] = $verSoliExter;
-        $this->datos['soliSocioEventos'] = $verSoliSoci;
-        
-        $this->vista('administradores/solicitudes/eventos', $this->datos);
-    }
-
-    public function borrar_solicitudes_grupos($datBorrar)
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $datBorrar = explode ( '_', $datBorrar);
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->AdminModelo->borrar_solicitudes_grupos($datBorrar)) {
-                redireccionar('/admin/crud_solicitudes_grupos');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
-    }
-
-    public function borrar_solicitudes_socios($datBorrar)
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->AdminModelo->borrar_solicitudes_socios($datBorrar)) {
-                redireccionar('/admin/crud_solicitudes_socios');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
-    }
-
-    public function aceptar_solicitudes_grupos($datAceptar)
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $datAceptar = explode ( '_', $datAceptar);
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->AdminModelo->aceptar_solicitudes_grupos($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_grupos');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
-    }
-
-    public function aceptar_solicitudes_socios($datAceptar)
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $datAceptar = explode ( '_', $datAceptar);
-        
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->AdminModelo->aceptar_solicitudes_socios($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_socios');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
     }
 
     public function borrarUsuario($idUsuTengo)
@@ -294,5 +197,150 @@ class Admin extends Controlador
             $this->vista('administradores/cruds/nuevoUsuario', $this->datos);
         }
     }
+    
+    //SOLICITUD SOCIOS
+    public function crud_solicitudes_socios()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $verSoli = $this->AdminModelo->obtenerSolicitudesSocios();
+        $this->datos['soliSocio'] = $verSoli;
+        
+        $this->vista('administradores/solicitudes/socios', $this->datos);
+    }
+
+    public function borrar_solicitudes_socios($datBorrar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrar_solicitudes_socios($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_socios');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_socios($datAceptar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $datAceptar = explode ( '_', $datAceptar);
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->aceptar_solicitudes_socios($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_socios');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    //SOLICITUD GRUPOS
+    public function crud_solicitudes_grupos()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $verSoli = $this->AdminModelo->obtenerSolicitudesGrupos();
+        $this->datos['soliSocioGrupos'] = $verSoli;
+        
+        $this->vista('administradores/solicitudes/grupos', $this->datos);
+    }
+
+    public function borrar_solicitudes_grupos($datBorrar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $datBorrar = explode ( '_', $datBorrar);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrar_solicitudes_grupos($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_grupos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_grupos($datAceptar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $datAceptar = explode ( '_', $datAceptar);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->aceptar_solicitudes_grupos($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_grupos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    //SOLICITUD EVENTOS
+    public function crud_solicitudes_eventos()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $verSoliExter = $this->AdminModelo->obtenerSolicitudesEvenExter();
+        $verSoliSoci = $this->AdminModelo->obtenerSolicitudesEvenSoci();
+        $this->datos['soliEventos'] = $verSoliSoci;
+        $this->datos['radioCheck'] = "socio";
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if($_POST["opcion"]=="socio") {
+                $this->datos['soliEventos'] = $verSoliSoci;
+                $this->datos['radioCheck'] = "socio";
+            } elseif($_POST["opcion"]=="externo"){
+                $this->datos['soliEventos'] = $verSoliExter;
+                $this->datos['radioCheck'] = "externo";
+            }
+        }
+        
+        $this->vista('administradores/solicitudes/eventos', $this->datos);
+    }
+
+    public function borrar_solicitudes_EvenSoci($datBorrar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $datBorrar = explode ( '_', $datBorrar);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrar_solicitudes_EvenSoci($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_eventos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function borrar_solicitudes_EvenExter($datBorrar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $datBorrar = explode ( '_', $datBorrar);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->borrar_solicitudes_EvenExter($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_eventos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+   
+
+
 
 }
