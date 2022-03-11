@@ -346,15 +346,9 @@ class AdminModelo
 
     public function anadirUsuario($usuAnadir)
     {
-        /*$this->db->query("SELECT id_usuario FROM `USUARIO` ORDER BY `id_usuario` DESC LIMIT 1");
-        $idBDD = $this->db->registros();
-        $idBDD = $idBDD[0]->id_usuario;
-        $idUsuAna = $idBDD + 1;*/
-
         $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
         VALUES (:dniUsu, :nomUsu, :apelUsu, :emaUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
 
-        //$this->db->bind(':idUsu', $idUsuAna);
         $this->db->bind(':dniUsu', $usuAnadir['dniUsuAna']);
         $this->db->bind(':nomUsu', $usuAnadir['nomUsuAna']);
         $this->db->bind(':apelUsu', $usuAnadir['apelUsuAna']);
