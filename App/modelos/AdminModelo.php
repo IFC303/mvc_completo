@@ -17,16 +17,16 @@ class AdminModelo
 
     public function notGrupo()
     {
-        $this->db->query("SELECT * FROM `SOCIO_GRUPO`");
+        $this->db->query("SELECT * FROM `SOCIO_GRUPO` WHERE activo=0 and acepatado=0 ");
         return $this->db->rowCount();
     }
 
     public function notEventos()
     {
         $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
-        $notExter= $this->db->rowCount();
+        $notExter = $this->db->rowCount();
         $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
-        $notSoci= $this->db->rowCount();
+        $notSoci = $this->db->rowCount();
         $not = $notExter + $notSoci;
         return $not;
     }
@@ -75,9 +75,9 @@ class AdminModelo
 
     public function borrar_solicitudes_grupos($datBorrar)
     {
-        $idUsu=$datBorrar[0];
-        $idGrupo=$datBorrar[1];
-        $fecha=$datBorrar[2];
+        $idUsu = $datBorrar[0];
+        $idGrupo = $datBorrar[1];
+        $fecha = $datBorrar[2];
 
         $this->db->query("DELETE FROM `SOCIO_GRUPO` WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
         $this->db->bind(':id_usu', $idUsu);
@@ -105,9 +105,9 @@ class AdminModelo
 
     public function aceptar_solicitudes_grupos($datAceptar)
     {
-        $idUsu=$datAceptar[0];
-        $idGrupo=$datAceptar[1];
-        $fecha=$datAceptar[2];
+        $idUsu = $datAceptar[0];
+        $idGrupo = $datAceptar[1];
+        $fecha = $datAceptar[2];
 
         $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '1' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
         $this->db->bind(':id_usu', $idUsu);
@@ -123,19 +123,19 @@ class AdminModelo
 
     public function aceptar_solicitudes_socios($datAceptar)
     {
-        
-        $idSoli=$datAceptar[0];
-        $dni=$datAceptar[1];
-        $nombre=$datAceptar[2];
-        $apellidos=$datAceptar[3];
-        $CCC=$datAceptar[4];
-        $talla=$datAceptar[5];
-        $fecha_nacimiento=$datAceptar[6];
-        $email=$datAceptar[7];
-        $telefono=$datAceptar[8];
-        $direccion=$datAceptar[9];
-        $es_socio=$datAceptar[10];
-        
+
+        $idSoli = $datAceptar[0];
+        $dni = $datAceptar[1];
+        $nombre = $datAceptar[2];
+        $apellidos = $datAceptar[3];
+        $CCC = $datAceptar[4];
+        $talla = $datAceptar[5];
+        $fecha_nacimiento = $datAceptar[6];
+        $email = $datAceptar[7];
+        $telefono = $datAceptar[8];
+        $direccion = $datAceptar[9];
+        $es_socio = $datAceptar[10];
+
         $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
         (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
         $this->db->bind(':dni', $dni);
@@ -162,7 +162,7 @@ class AdminModelo
         $this->db->execute();
 
         $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
-    
+
         if ($this->db->execute()) {
             return true;
         } else {
@@ -172,75 +172,170 @@ class AdminModelo
 
     public function editarUsuario($usuEditar)
     {
-        $coma= 0;
-        $dniMet= false;$nomMet= false;$apeMet= false;$fecMet= false;$emaMet= false;$telMet= false;$passMet= false;$cccMet= false;$tallMet= false;$fotMet= false;$actMet= false;$rolMet= false;
-        $cad="UPDATE `USUARIO` SET ";
-        
-        if(($usuEditar['dniEdit']!="")&&($usuEditar['dniEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `dni` = :dniUsu";}else{$cad=$cad . " `dni` = :dniUsu";$coma=1;}
-            $dniMet= true;
+        $coma = 0;
+        $dniMet = false;
+        $nomMet = false;
+        $apeMet = false;
+        $fecMet = false;
+        $emaMet = false;
+        $telMet = false;
+        $passMet = false;
+        $cccMet = false;
+        $tallMet = false;
+        $fotMet = false;
+        $actMet = false;
+        $rolMet = false;
+        $cad = "UPDATE `USUARIO` SET ";
+
+        if (($usuEditar['dniEdit'] != "") && ($usuEditar['dniEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `dni` = :dniUsu";
+            } else {
+                $cad = $cad . " `dni` = :dniUsu";
+                $coma = 1;
+            }
+            $dniMet = true;
         }
-        if(($usuEditar['nomEdit']!="")&&($usuEditar['nomEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `nombre` = :nomUsu";}else{$cad=$cad . " `nombre` = :nomUsu";$coma=1;}
-            $nomMet= true;
+        if (($usuEditar['nomEdit'] != "") && ($usuEditar['nomEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `nombre` = :nomUsu";
+            } else {
+                $cad = $cad . " `nombre` = :nomUsu";
+                $coma = 1;
+            }
+            $nomMet = true;
         }
-        if(($usuEditar['apelEdit']!="")&&($usuEditar['apelEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `apellidos` = :apelUsu";}else{$cad=$cad . " `apellidos` = :apelUsu";$coma=1;}
-            $apeMet= true;
+        if (($usuEditar['apelEdit'] != "") && ($usuEditar['apelEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `apellidos` = :apelUsu";
+            } else {
+                $cad = $cad . " `apellidos` = :apelUsu";
+                $coma = 1;
+            }
+            $apeMet = true;
         }
-        if(($usuEditar['fecEdit']!="")&&($usuEditar['fecEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `fecha_nacimiento` = :fecUsu";}else{$cad=$cad . " `fecha_nacimiento` = :fecUsu";$coma=1;}
-            $fecMet= true;
+        if (($usuEditar['fecEdit'] != "") && ($usuEditar['fecEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `fecha_nacimiento` = :fecUsu";
+            } else {
+                $cad = $cad . " `fecha_nacimiento` = :fecUsu";
+                $coma = 1;
+            }
+            $fecMet = true;
         }
-        if(($usuEditar['telEdit']!="")&&($usuEditar['telEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `telefono` = :telUsu";}else{$cad=$cad . " `telefono` = :telUsu";$coma=1;}
-            $telMet= true;
+        if (($usuEditar['telEdit'] != "") && ($usuEditar['telEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `telefono` = :telUsu";
+            } else {
+                $cad = $cad . " `telefono` = :telUsu";
+                $coma = 1;
+            }
+            $telMet = true;
         }
-        if(($usuEditar['emaEdit']!="")&&($usuEditar['emaEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `email` = :emaUsu";}else{$cad=$cad . " `email` = :emaUsu";$coma=1;}
-            $emaMet= true;
+        if (($usuEditar['emaEdit'] != "") && ($usuEditar['emaEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `email` = :emaUsu";
+            } else {
+                $cad = $cad . " `email` = :emaUsu";
+                $coma = 1;
+            }
+            $emaMet = true;
         }
-        if(($usuEditar['passEdit']!="")&&($usuEditar['passEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `passw` = MD5(:passUsu)";}else{$cad=$cad . " `passw` = MD5(:passUsu)";$coma=1;}
-            $passMet= true;
+        if (($usuEditar['passEdit'] != "") && ($usuEditar['passEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `passw` = MD5(:passUsu)";
+            } else {
+                $cad = $cad . " `passw` = MD5(:passUsu)";
+                $coma = 1;
+            }
+            $passMet = true;
         }
-        if(($usuEditar['CCCEdit']!="")&&($usuEditar['CCCEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `CCC` = :cccUsu";}else{$cad=$cad . " `CCC` = :cccUsu";$coma=1;}
-            $cccMet= true;
+        if (($usuEditar['CCCEdit'] != "") && ($usuEditar['CCCEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `CCC` = :cccUsu";
+            } else {
+                $cad = $cad . " `CCC` = :cccUsu";
+                $coma = 1;
+            }
+            $cccMet = true;
         }
-        if(($usuEditar['TallaEdit']!="")&&($usuEditar['TallaEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `talla` = :tallUsu";}else{$cad=$cad . " `talla` = :tallUsu";$coma=1;}
-            $tallMet= true;
+        if (($usuEditar['TallaEdit'] != "") && ($usuEditar['TallaEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `talla` = :tallUsu";
+            } else {
+                $cad = $cad . " `talla` = :tallUsu";
+                $coma = 1;
+            }
+            $tallMet = true;
         }
-        if(($usuEditar['FotoEdit']!="")&&($usuEditar['FotoEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `foto` = :fotUsu";}else{$cad=$cad . " `foto` = :fotUsu";$coma=1;}
-            $fotMet= true;
+        if (($usuEditar['FotoEdit'] != "") && ($usuEditar['FotoEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `foto` = :fotUsu";
+            } else {
+                $cad = $cad . " `foto` = :fotUsu";
+                $coma = 1;
+            }
+            $fotMet = true;
         }
-        if(($usuEditar['ActEdit']!="")&&($usuEditar['ActEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `activado` = :actUsu";}else{$cad=$cad . " `activado` = :actUsu";$coma=1;}
-            $actMet= true;
+        if (($usuEditar['ActEdit'] != "") && ($usuEditar['ActEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `activado` = :actUsu";
+            } else {
+                $cad = $cad . " `activado` = :actUsu";
+                $coma = 1;
+            }
+            $actMet = true;
         }
-        if(($usuEditar['RolEdit']!="")&&($usuEditar['RolEdit']!=null)){
-            if($coma==1){$cad=$cad . ", `id_rol` = :idRolUsu";}else{$cad=$cad . " `id_rol` = idRolUsu:";$coma=1;}
-            $rolMet= true;
+        if (($usuEditar['RolEdit'] != "") && ($usuEditar['RolEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `id_rol` = :idRolUsu";
+            } else {
+                $cad = $cad . " `id_rol` = idRolUsu:";
+                $coma = 1;
+            }
+            $rolMet = true;
         }
 
-        $cad= $cad." WHERE `id_usuario` = :idUsu;";
-        
+        $cad = $cad . " WHERE `id_usuario` = :idUsu;";
+
         $this->db->query("$cad");
         $this->db->bind(':idUsu', $usuEditar['idEdit']);
-        if($dniMet== true){$this->db->bind(':dniUsu', $usuEditar['dniEdit']);}
-        if($nomMet== true){$this->db->bind(':nomUsu', $usuEditar['nomEdit']);}
-        if($apeMet== true){$this->db->bind(':apelUsu', $usuEditar['apelEdit']);}
-        if($fecMet== true){$this->db->bind(':fecUsu', $usuEditar['fecEdit']);}
-        if($emaMet== true){$this->db->bind(':emaUsu', $usuEditar['emaEdit']);}
-        if($telMet== true){$this->db->bind(':telUsu', $usuEditar['telEdit']);}
-        if($passMet== true){$this->db->bind(':passUsu', $usuEditar['passEdit']);}
-        if($cccMet== true){$this->db->bind(':cccUsu', $usuEditar['CCCEdit']);}
-        if($tallMet== true){$this->db->bind(':tallUsu', $usuEditar['TallaEdit']);}
-        if($fotMet== true){$this->db->bind(':fotUsu', $usuEditar['FotoEdit']);}
-        if($actMet== true){$this->db->bind(':actUsu', $usuEditar['ActEdit']);}
-        if($rolMet== true){$this->db->bind(':idRolUsu', $usuEditar['RolEdit']);}
+        if ($dniMet == true) {
+            $this->db->bind(':dniUsu', $usuEditar['dniEdit']);
+        }
+        if ($nomMet == true) {
+            $this->db->bind(':nomUsu', $usuEditar['nomEdit']);
+        }
+        if ($apeMet == true) {
+            $this->db->bind(':apelUsu', $usuEditar['apelEdit']);
+        }
+        if ($fecMet == true) {
+            $this->db->bind(':fecUsu', $usuEditar['fecEdit']);
+        }
+        if ($emaMet == true) {
+            $this->db->bind(':emaUsu', $usuEditar['emaEdit']);
+        }
+        if ($telMet == true) {
+            $this->db->bind(':telUsu', $usuEditar['telEdit']);
+        }
+        if ($passMet == true) {
+            $this->db->bind(':passUsu', $usuEditar['passEdit']);
+        }
+        if ($cccMet == true) {
+            $this->db->bind(':cccUsu', $usuEditar['CCCEdit']);
+        }
+        if ($tallMet == true) {
+            $this->db->bind(':tallUsu', $usuEditar['TallaEdit']);
+        }
+        if ($fotMet == true) {
+            $this->db->bind(':fotUsu', $usuEditar['FotoEdit']);
+        }
+        if ($actMet == true) {
+            $this->db->bind(':actUsu', $usuEditar['ActEdit']);
+        }
+        if ($rolMet == true) {
+            $this->db->bind(':idRolUsu', $usuEditar['RolEdit']);
+        }
 
         if ($this->db->execute()) {
             return true;
