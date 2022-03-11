@@ -400,7 +400,7 @@
                                                                 <input type="time" id="lunesIni" name="lunesIni" value="<?php echo $lunesIni?>" class="form-control form-control-sm">  
                                                             </div>   
                                                             <div class="col-3">   
-                                                                <input type="time" name="lunesFin" id="hora_fin" value="<?php echo $lunesFin?>" class="form-control form-control-sm">
+                                                                <input type="time" name="lunesFin" id="lunesFin" value="<?php echo $lunesFin?>" class="form-control form-control-sm">
                                                             </div>
                                                             <input type="hidden" name="horario[]" value="<?php echo $lunesId?>">
                                                         </div>
@@ -410,10 +410,10 @@
                                                             <label for="Martes">Martes</label>
                                                         </div>  
                                                         <div class="col-3">
-                                                            <input type="time" name="martesIni" id="hora_ini" value="<?php echo $martesIni?>" class="form-control form-control-sm">  
+                                                            <input type="time" name="martesIni" id="martesIni" value="<?php echo $martesIni?>" class="form-control form-control-sm">  
                                                         </div>   
                                                         <div class="col-3">   
-                                                            <input type="time" name="martesFin" id="hora_fin" value="<?php echo $martesFin?>" class="form-control form-control-sm">
+                                                            <input type="time" name="martesFin" id="martesFin" value="<?php echo $martesFin?>" class="form-control form-control-sm">
                                                         </div>
                                                         <input type="hidden" name="horario[]" value="<?php echo $martesId?>">
                                                     </div>
