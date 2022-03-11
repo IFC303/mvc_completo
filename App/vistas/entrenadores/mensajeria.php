@@ -110,7 +110,7 @@
 
 
                 <!--FORMULARIO-->
-                <div class="card bg-light mt-2 col-7" style=" ">
+                <div class="card bg-light mt-2 col-7">
                         <form method="post" action="<?php echo RUTA_URL?>/entrenador/enviar"class="card-body">
 
                                 <div class="mt-3 mb-3">
