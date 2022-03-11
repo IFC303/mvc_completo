@@ -354,15 +354,6 @@ CREATE TABLE SOLICITUD_SOCIO(
     direccion varchar(40) not null,
     es_socio boolean not null
   );
-CREATE TABLE SOLICITUD_EXT_SOLO_SI_SOCIO(
-    id_solicitud_soc int,
-    id_grupo int,
-    acepatado boolean,
-    fecha date,
-    primary key (id_solicitud_soc, id_grupo),
-    constraint FK_id_solicitud_soc_solicitud_ext_solo_si_socio foreign key (id_solicitud_soc) references SOLICITUD_SOCIO (id_solicitud_soc) on delete cascade on update cascade,
-    constraint FK_id_grupo_solicitud_ext_solo_si_socio foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade
-  );
 CREATE TABLE SOCIO(
     id_socio int primary key,
     familiar int,
@@ -638,27 +629,21 @@ CREATE TABLE EVENTO(
     descuento varchar (20),
     fecha_ini date not null,
     fecha_fin date not null,
+    fecha_ini_inscrip date not null,
+    fecha_fin_inscrip date not null,
     constraint FK_id_usuario_evento foreign key (id_usuario) references ENTRENADOR (id_usuario) on delete cascade on update cascade
-  );
-CREATE TABLE SOLICITUD_EVENTO(
-    id_solicitud_evento int primary key,
-    fecha_ini date not null,
-    fecha_fin date not null
   );
 CREATE TABLE SOLICITUD_SOCIO_EVENTO(
     id_usuario int,
     id_evento int,
-    id_solicitud_evento int,
     fecha date,
     primary key (
       id_usuario,
       id_evento,
-      id_solicitud_evento,
       fecha
     ),
     constraint FK_id_usuario_solicitud_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
-    constraint FK_id_evento_solicitud_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
-    constraint FK_id_solicitud_evento_solicitud_socio_evento foreign key (id_solicitud_evento) references SOLICITUD_EVENTO (id_solicitud_evento) on delete cascade on update cascade
+    constraint FK_id_evento_solicitud_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 CREATE TABLE SOCIO_EVENTO(
     id_usuario int,
@@ -685,17 +670,14 @@ CREATE TABLE EXTERNO(
 CREATE TABLE SOLICITUD_EXTER_EVENTO(
     id_externo int,
     id_evento int,
-    id_solicitud_evento int,
     fecha date,
     primary key (
       id_externo,
       id_evento,
-      id_solicitud_evento,
       fecha
     ),
     constraint FK_id_externo_solicitud_exter_evento foreign key (id_externo) references EXTERNO (id_externo) on delete cascade on update cascade,
-    constraint FK__id_eventosolicitud_exter_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
-    constraint FK_id_solicitud_evento_solicitud_exter_evento foreign key (id_solicitud_evento) references SOLICITUD_EVENTO (id_solicitud_evento) on delete cascade on update cascade
+    constraint FK__id_eventosolicitud_exter_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 CREATE TABLE ING_ACTIVIDADES(
     id_ingreso_actividades int primary key,
