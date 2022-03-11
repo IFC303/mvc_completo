@@ -170,10 +170,88 @@ class AdminGrupos extends Controlador
                     'fecha_fin' => trim($_POST['fecha_fin']), 
                 ];
 
+                //modificamos tabla GRUPO
                 $this->grupoModelo->editarGrupo($grupo_modificado);
+
+                //borramos en tabla HORARIO
+
+                //$horario=$_POST['horario'];
                 var_dump($_POST);
-                //var_dump($_POST['horario']);
-                //$this->grupoModelo->agregarHorario($_POST['horario']);
+
+            //    foreach($horario as $info){
+            //         if($info!=null){
+            //             //
+            //         }
+            //    }
+
+            //     if(isset($_POST['lunesDia'])){
+            //         $lunes = (object) [
+            //             'dia'=>$_POST['lunesDia'],
+            //             'ini'=>$_POST['lunesIni'],
+            //             'fin'=>$_POST['lunesFin']
+            //         ];
+            //         var_dump($lunes);
+            //         $ultimoIndice=$this->grupoModelo->agregarHorario($lunes); 
+            //         //$lunes->id_horario=$ultimoIndice;
+            //         $grupoNuevo['id_horario']=$ultimoIndice;
+            //         var_dump($grupoNuevo);
+            //         //$this->grupoModelo->agregarGrupoHorario($grupoNuevo);
+            //         //echo $grupoNuevo['lunes']->id_horario;
+            //     }
+    
+    
+            //     if(isset($_POST['martesDia'])){
+            //        $martes = (object) [
+            //         'dia'=>$_POST['martesDia'],
+            //         'ini'=>$_POST['martesIni'],
+            //         'fin'=>$_POST['martesFin']
+            //         ];
+            //         var_dump($martes);
+            //         $ultimoIndice=$this->grupoModelo->agregarHorario($martes);
+            //         $grupoNuevo['id_horario']=$ultimoIndice;
+            //         $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
+            //     }
+              
+    
+            //    if(isset($_POST['miercolesDia'])){
+            //         $miercoles = (object) [
+            //             'dia'=>$_POST['miercolesDia'],
+            //             'ini'=>$_POST['miercolesIni'],
+            //             'fin'=>$_POST['miercolesFin']
+            //         ];
+            //         var_dump($miercoles);
+            //         $ultimoIndice=$this->grupoModelo->agregarHorario($miercoles);
+            //         $grupoNuevo['id_horario']=$ultimoIndice;
+            //         $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
+            //     }
+               
+    
+            //     if(isset($_POST['juevesDia'])){
+            //         $jueves = (object) [
+            //             'dia'=>$_POST['juevesDia'],
+            //             'ini'=>$_POST['juevesIni'],
+            //             'fin'=>$_POST['juevesFin']
+            //         ];
+            //         var_dump($jueves);
+            //         $ultimoIndice=$this->grupoModelo->agregarHorario($jueves);
+            //         $grupoNuevo['id_horario']=$ultimoIndice;
+            //         $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
+            //     }
+              
+            //     if(isset($_POST['viernesDia'])){
+            //         $viernes = (object) [
+            //             'dia'=>$_POST['viernesDia'],
+            //             'ini'=>$_POST['viernesIni'],
+            //             'fin'=>$_POST['viernesFin']
+            //         ];
+            //         var_dump($viernes);
+            //         $ultimoIndice=$this->grupoModelo->agregarHorario($viernes);
+            //         $grupoNuevo['id_horario']=$ultimoIndice;
+            //         $this->grupoModelo->agregarGrupoHorario($grupoNuevo);  
+            //     }
+             
+              
+                //$this->grupoModelo->agregarHorario();
 
                 
     
