@@ -354,15 +354,6 @@ CREATE TABLE SOLICITUD_SOCIO(
     direccion varchar(40) not null,
     es_socio boolean not null
   );
-CREATE TABLE SOLICITUD_EXT_SOLO_SI_SOCIO(
-    id_solicitud_soc int,
-    id_grupo int,
-    acepatado boolean,
-    fecha date,
-    primary key (id_solicitud_soc, id_grupo),
-    constraint FK_id_solicitud_soc_solicitud_ext_solo_si_socio foreign key (id_solicitud_soc) references SOLICITUD_SOCIO (id_solicitud_soc) on delete cascade on update cascade,
-    constraint FK_id_grupo_solicitud_ext_solo_si_socio foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade
-  );
 CREATE TABLE SOCIO(
     id_socio int primary key,
     familiar int,
