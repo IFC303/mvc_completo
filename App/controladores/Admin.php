@@ -14,14 +14,28 @@ class Admin extends Controlador
         $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+    public function notificaciones()
+    {
+        $notific[0] = $this->AdminModelo->notSocio();
+        $notific[1] = $this->AdminModelo->notGrupo();
+        $notific[2] = $this->AdminModelo->notEventos();
+        return $notific;
+    }
+
     public function index()
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $this->vista('administradores/inicio', $this->datos);
     }
 
 
     public function crud_admin()
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(1);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "1";
@@ -30,6 +44,9 @@ class Admin extends Controlador
 
     public function crud_entrenadores()
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(2);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "2";
@@ -38,6 +55,9 @@ class Admin extends Controlador
 
     public function crud_socios()
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(3);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "3";
@@ -46,6 +66,9 @@ class Admin extends Controlador
 
     public function crud_tiendas()
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $verUsu = $this->AdminModelo->obtenerUsuarios(4);
         $this->datos['usuAdmin'] = $verUsu;
         $this->datos['idTengo'] = "4";
@@ -54,22 +77,44 @@ class Admin extends Controlador
 
     public function crud_solicitudes_socios()
     {
-        $verSoli = $this->AdminModelo->obtenerSolicitudes();
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $verSoli = $this->AdminModelo->obtenerSolicitudesSocios();
         $this->datos['soliSocio'] = $verSoli;
-        //$this->datos['idTengo'] = "1";
+        
         $this->vista('administradores/solicitudes/socios', $this->datos);
     }
 
     public function crud_solicitudes_grupos()
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $verSoli = $this->AdminModelo->obtenerSolicitudesGrupos();
         $this->datos['soliSocioGrupos'] = $verSoli;
-        //$this->datos['idTengo'] = "1";
+        
         $this->vista('administradores/solicitudes/grupos', $this->datos);
+    }
+
+    public function crud_solicitudes_eventos()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $verSoliExter = $this->AdminModelo->obtenerSolicitudesEvenExter();
+        $verSoliSoci = $this->AdminModelo->obtenerSolicitudesEvenSoci();
+        $this->datos['soliExternoEventos'] = $verSoliExter;
+        $this->datos['soliSocioEventos'] = $verSoliSoci;
+        
+        $this->vista('administradores/solicitudes/eventos', $this->datos);
     }
 
     public function borrar_solicitudes_grupos($datBorrar)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $datBorrar = explode ( '_', $datBorrar);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -83,6 +128,9 @@ class Admin extends Controlador
 
     public function borrar_solicitudes_socios($datBorrar)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->borrar_solicitudes_socios($datBorrar)) {
                 redireccionar('/admin/crud_solicitudes_socios');
@@ -94,6 +142,9 @@ class Admin extends Controlador
 
     public function aceptar_solicitudes_grupos($datAceptar)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $datAceptar = explode ( '_', $datAceptar);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -107,6 +158,9 @@ class Admin extends Controlador
 
     public function aceptar_solicitudes_socios($datAceptar)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $datAceptar = explode ( '_', $datAceptar);
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -120,6 +174,9 @@ class Admin extends Controlador
 
     public function borrarUsuario($idUsuTengo)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $idUsu=(substr($idUsuTengo, strpos($idUsuTengo,'-')+strlen('-')));
         $usuVer=(substr($idUsuTengo, 0, strpos($idUsuTengo,'-')));
   
@@ -144,6 +201,9 @@ class Admin extends Controlador
 
     public function editarUsuario($idEditTengo)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $idEdit=(substr($idEditTengo, strpos($idEditTengo,'-')+strlen('-')));
         $usuVer=(substr($idEditTengo, 0, strpos($idEditTengo,'-')));
         
@@ -193,6 +253,9 @@ class Admin extends Controlador
 
     public function nuevoUsuario($usuVer)
     {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');

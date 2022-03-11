@@ -212,21 +212,5 @@
 
 
 </div>
-<script>
-        function abrir(idAbrir) {
-                console.log(idAbrir);
-                var modal = document.getElementById(idAbrir);
-                var body = document.getElementsByTagName("body")[0];
-                modal.style.display = "block";
-                body.style.overflow = "hidden";
-        }
-
-        function cerrar(idCerrar) {
-                var modal = document.getElementById(idCerrar);
-                var body = document.getElementsByTagName("body")[0];
-                modal.style.display = "none";
-                body.style.overflow = "visible";
-        }
-</script>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
