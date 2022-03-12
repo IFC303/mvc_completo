@@ -96,7 +96,7 @@
             </div>
 
 
-            <form method="post" action="<?php Ruta_App?>/adminGrupos" >
+            <form method="post" action="<?php RUTA_APP?>/adminGrupos" >
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual">
                 <input type="hidden" id="alumnosActuales" name="alumnosActuales">
                 <input type="submit" class="btn btn-success" id="enviar" name="enviar" value="Confirmar">

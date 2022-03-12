@@ -679,7 +679,7 @@ CREATE TABLE SOLICITUD_EXTER_EVENTO(
     constraint FK_id_externo_solicitud_exter_evento foreign key (id_externo) references EXTERNO (id_externo) on delete cascade on update cascade,
     constraint FK__id_eventosolicitud_exter_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
-CREATE TABLE ING_ACTIVIDADES(
+CREATE TABLE I_ACTIVIDADES(
     id_ingreso_actividades int primary key,
     id_externo int,
     id_usuario int,
@@ -691,3 +691,20 @@ CREATE TABLE ING_ACTIVIDADES(
     constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
     constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
+
+
+
+
+
+create view GRUPOS_Y_HORARIOS as
+	select HORARIO_GRUPO.id_grupo,GRUPO.nombre,GRUPO.fecha_ini,GRUPO.fecha_fin,HORARIO_GRUPO.id_horario,HORARIO.dia_sem,HORARIO.hora_ini,HORARIO.hora_fin
+  from HORARIO_GRUPO,GRUPO,HORARIO
+  where HORARIO_GRUPO.id_grupo=GRUPO.id_grupo and HORARIO_GRUPO.id_horario=HORARIO.id_horario;
+
+
+create view INGRESOS as
+  select id_ingreso_actividades as id_ingreso, fecha, concepto, importe, 'actividades' as tipo from I_ACTIVIDADES
+  union all
+  select id_ingreso_cuota as id_ingreso, fecha, concepto, importe, 'cuotas' as tipo FROM I_CUOTAS
+  union all
+  select id_ingreso_otros as id_ingreso, fecha, concepto, importe, 'otros' as tipo  from I_OTROS;

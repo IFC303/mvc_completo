@@ -14,24 +14,59 @@ class AdminFacturacion extends Controlador{
     }
 
 
-    // public function index(){
-    //     $this->datos['evento'] = $this->eventoModelo->obtenerEventos();
-    //     $this->vista('administradores/crudEventos/inicio',$this->datos);
-    // }
+      public function index(){
+         $this->vista('administradores/crudFacturacion',$this->datos);
+     }
 
 
     public function ingresos(){
-        $this->datos['ingresosCuotas'] = $this->facturacionModelo->obtenerIngresosCuotas();
-        $this->datos['ingresosOtros'] = $this->facturacionModelo->obtenerIngresosOtros();
-        $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+            $ingresos = [];
+            $ingresos = $this->facturacionModelo->obtenerIngresos();
+            $this->datos['ingresos']=$ingresos;
+
+            if(isset($_POST['tipo'])){
+                $tipo=$_POST['tipo'];
+                $this->datos['tipoIngreso'] = $tipo;
+                
+                //$tipoIngreso=$this->facturacionModelo->obtenerIngresosTipo($tipo);
+                //var_dump($tipoIngreso);
+            }
+           
+            $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+
+            
+          
+         
+
+
+            // if(isset($_POST['tipo'])){
+            //     $tipo=$_POST['tipo'];
+                
+            //     if($tipo=="cuotas"){
+            //         $cuotas = [];
+            //         $cuotas = $this->facturacionModelo->obtenerCuotas();
+            //         $this->datos['cuotas']=$cuotas;
+            //         //var_dump($this->datos['cuotas']);
+            //         $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+            //     }else{
+            //         echo "actividades";
+            //     }
+            // }
+         
+          
+  
+        
+        
+     
+        
 
     }
 
-    public function gastos(){
-        $this->datos['gastosPersonal'] = $this->facturacionModelo->obtenerGastosPersonal();
-        $this->datos['gastosOtros'] = $this->facturacionModelo->obtenerGastosOtros();
-        $this->vista('administradores/crudFacturacion/gastos', $this->datos);
-    }
+    // public function gastos(){
+    //     $this->datos['gastosPersonal'] = $this->facturacionModelo->obtenerGastosPersonal();
+    //     $this->datos['gastosOtros'] = $this->facturacionModelo->obtenerGastosOtros();
+    //     $this->vista('administradores/crudFacturacion/gastos', $this->datos);
+    // }
 
   
 
