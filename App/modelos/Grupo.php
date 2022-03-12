@@ -60,17 +60,17 @@ class Grupo
     }
        
    
-    // public function agregarHorario($diaSemana){
-    //         $this->db->query("INSERT INTO HORARIO (dia_sem, hora_ini,hora_fin) VALUES (:diaSem, :hora_ini, :hora_fin)");
-    //         $this->db->bind(':diaSem', $diaSemana->dia);
-    //         $this->db->bind(':hora_ini',$diaSemana->ini);
-    //         $this->db->bind(':hora_fin',$diaSemana->fin);
-    //         if ($this->db->execute()){
-    //             return $this->db->ultimoIndice();
-    //         }else{
-    //             return false;
-    //         }
-    // }
+     public function agregarHorario($diaSemana){
+             $this->db->query("INSERT INTO HORARIO (dia_sem, hora_ini,hora_fin) VALUES (:diaSem, :hora_ini, :hora_fin)");
+             $this->db->bind(':diaSem', $diaSemana->dia);
+             $this->db->bind(':hora_ini',$diaSemana->ini);
+             $this->db->bind(':hora_fin',$diaSemana->fin);
+             if ($this->db->execute()){
+                 return $this->db->ultimoIndice();
+             }else{
+                 return false;
+             }
+    }
 
 
     public function agregarGrupoHorario($grupoNuevo){
@@ -83,6 +83,7 @@ class Grupo
             return false;
         }
     }
+
 
 
     public function borrarGrupo($id_grupo,$horario){
