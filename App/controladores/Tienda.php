@@ -16,13 +16,28 @@ class Tienda extends Controlador
 
     public function index()
     {
-        $this->vista('tienda/inicio', $this->datos);
+        redireccionar('/tienda/equipaciones');
     }
 
     public function equipaciones()
     {
-        $equipaciones = $this->equipacionesModelo->getEquipacionesUsuario();
-        $this->datos['equipaciones'] = $equipaciones;
+        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario();;
         $this->vista('tienda/equipaciones', $this->datos);
+    }
+
+    public function editarEquipacion($id)
+    {
+        $this->datos['rolesPermitidos'] = [4];
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/tienda');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->equipacionesModelo->updateUsuario(trim($_POST['id_usuario']), trim($_POST['activado']))) {
+                redireccionar('/tienda');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
     }
 }
