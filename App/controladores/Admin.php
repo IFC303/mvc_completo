@@ -339,8 +339,22 @@ class Admin extends Controlador
             }
         }
     }
-   
+    
+    public function aceptar_solicitudes_EvenExter($datAceptar)
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
 
+        $datAceptar = explode ( '_', $datAceptar);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->AdminModelo->aceptar_solicitudes_EvenExter($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_eventos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
 
 
 }

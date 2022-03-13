@@ -89,14 +89,14 @@
 
                                                                                 <!-- Modal body -->
                                                                                 <div class="modal-body">
-                                                                                        <p>Seguro que quiere aceptar la solicitud del usuario <?php echo $usuarios->id ?> del grupo <?php echo $usuarios->id_grupo ?></p>
+                                                                                        <p>Seguro que quiere aceptar la solicitud de <?php echo $usuarios->nombre." ".$usuarios->apellidos ?> del evento <?php echo $usuarios->evento ?></p>
                                                                                 </div>
 
                                                                                 <!-- Modal footer -->
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_grupos/<?php $datBorrar = $usuarios->id . "_" . $usuarios->id_grupo . "_" . $usuarios->fecha_inscripcion;
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_EvenExter/<?php $datBorrar = $usuarios->id . "_" . $usuarios->id_evento . "_" . $usuarios->fecha;
                                                                                                                                                                 echo $datBorrar ?>" method="post">
                                                                                                 <button type="submit">Aceptar</button>
                                                                                         </form>
