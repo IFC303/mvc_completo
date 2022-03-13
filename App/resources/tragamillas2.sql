@@ -141,6 +141,38 @@ VALUES
     '',
     1,
     3
+  ),
+  (
+    331,
+    '331',
+    'socio1',
+    'socio1',
+    'socio1@socio.com',
+    'dire',
+    '2000-1-1',
+    331,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    332,
+    '332',
+    'socio2',
+    'socio2',
+    'socio2@socio.com',
+    'dire',
+    '2000-1-1',
+    332,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
   );
 INSERT INTO
   `USUARIO` (
@@ -360,6 +392,12 @@ CREATE TABLE SOCIO(
     constraint FK_id_socio_socio foreign key (id_socio) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_familiar_socio foreign key (familiar) references SOCIO (id_socio) on delete cascade on update cascade
   );
+INSERT INTO
+  `tragamillas2`.`SOCIO` (`id_socio`, `familiar`)
+VALUES
+  (33, 33),
+  (331, 33),
+  (332, 33);
 CREATE TABLE SOCIO_GRUPO(
     id_grupo int,
     id_usuario int,
@@ -582,6 +620,10 @@ CREATE TABLE OTRAS_ENTIDADES(
     nombre varchar (40) not null,
     tipo varchar (30)
   );
+INSERT INTO
+  `tragamillas2`.`OTRAS_ENTIDADES` (`id_entidad`, `nombre`, `tipo`)
+VALUES
+  ('1', 'adidas', 'equipacion');
 CREATE TABLE I_OTROS(
     id_ingreso_otros int primary key,
     fecha date not null,
@@ -600,6 +642,33 @@ CREATE TABLE G_OTROS(
     constraint FK_id_usuario_g_otros foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
     constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
+INSERT INTO
+  `tragamillas2`.`G_OTROS` (
+    `id_gastos`,
+    `fecha`,
+    `concepto`,
+    `importe`,
+    `id_usuario`,
+    `id_entidad`
+  )
+VALUES
+  ('1', '2022-02-18', 'equipacion', '15', '33', '1'),
+  (
+    '2',
+    '2022-02-18',
+    'equipacion',
+    '15',
+    '331',
+    '1'
+  ),
+  (
+    '3',
+    '2022-02-18',
+    'equipacion',
+    '15',
+    '332',
+    '1'
+  );
 CREATE TABLE I_CUOTAS(
     id_ingreso_cuota int primary key,
     fecha date not null,
@@ -609,6 +678,19 @@ CREATE TABLE I_CUOTAS(
     id_usuario int,
     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
+INSERT INTO
+  `tragamillas2`.`I_CUOTAS` (
+    `id_ingreso_cuota`,
+    `fecha`,
+    `concepto`,
+    `importe`,
+    `tipo`,
+    `id_usuario`
+  )
+VALUES
+  ('1', '2022-02-18', 'socio', '25', 'socio', '33'),
+  ('2', '2022-02-18', 'socio', '25', 'socio', '331'),
+  ('3', '2022-02-18', 'socio', '25', 'socio', '332');
 CREATE TABLE EQUIPACION(
     id_equipacion int primary key,
     talla varchar(5) not null,
@@ -620,6 +702,19 @@ CREATE TABLE EQUIPACION(
     constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
   );
+INSERT INTO
+  `tragamillas2`.`EQUIPACION` (
+    `id_equipacion`,
+    `talla`,
+    `fecha_peticion`,
+    `id_usuario`,
+    `id_ingreso_cuota`,
+    `id_gastos`
+  )
+VALUES
+  ('1', 'xl', '2022-02-18', '33', '1', '1'),
+  ('2', 'xl', '2022-02-18', '331', '2', '2'),
+  ('3', 'xl', '2022-02-18', '332', '3', '3');
 CREATE TABLE EVENTO(
     id_evento int primary key,
     id_usuario int,

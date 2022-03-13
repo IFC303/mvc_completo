@@ -10,10 +10,19 @@ class Tienda extends Controlador
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
+
+        $this->equipacionesModelo = $this->modelo('EquipacionModelo');
     }
 
     public function index()
     {
-        $this->vista('tiendas/inicio', $this->datos);
+        $this->vista('tienda/inicio', $this->datos);
+    }
+
+    public function equipaciones()
+    {
+        $equipaciones = $this->equipacionesModelo->getEquipacionesUsuario();
+        $this->datos['equipaciones'] = $equipaciones;
+        $this->vista('tienda/equipaciones', $this->datos);
     }
 }
