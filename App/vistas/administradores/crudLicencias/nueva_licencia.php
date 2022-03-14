@@ -34,6 +34,21 @@
  <form method="post" class="card-body" ENCTYPE="multipart/form-data">
 
          <div class="mt-3 mb-3">
+            <label for="usuario">Usuario<sup>*</sup></label>
+            
+                  <select name="usuario" id="usuario" class="form-control form-control-lg">
+                  <option value="0">Elige un usuario...</option>
+                  <?php foreach ($datos['licencia'] as $usu) :?>
+                    
+                     <option value="<?php echo $usu->id_usuario ?>"><?php echo $usu->nombre ?></option>
+                  
+                  <?php endforeach ?>
+            </select>
+             
+         </div>
+
+
+         <div class="mt-3 mb-3">
             <label for="num_lic">Numero de licencia<sup>*</sup></label>
             <input type="text" name="num_lic" id="num_lic" class="form-control form-control-lg" required>
          </div>

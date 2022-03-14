@@ -125,7 +125,7 @@
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr>
-                            <th>ID_USUARIO</th>
+                            <th>USUARIO</th>
                             <th>NUM_LICENCIA</th>
                             <th>TIPO_LICENCIA</th>
                             <th>AUTONÓMICA/NACIONAL</th>
@@ -147,7 +147,7 @@
                         foreach($datos['licencia'] as $licencia): ?>
                         <tr>
 
-                            <td class="datos_tabla"><?php echo $licencia->id_usuario?></td>
+                            <td class="datos_tabla"><?php echo $licencia->nombre?></td>
                             <td class="datos_tabla"><?php echo $licencia->num_licencia?></td>
                             <td class="datos_tabla"><?php echo $licencia->tipo?></td>
                             <td class="datos_tabla"><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
@@ -161,36 +161,44 @@
                             <td>
 
                                 <!--MODAL VER (javascript)-->
-                                    <a><img class="icono" id="btnModal_<?php echo $licencia->num_licencia ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $licencia->num_licencia?>);"></img>
+                                    
+                                    <a data-bs-toggle="modal" data-bs-target="#ModalVer_<?php echo $licencia->num_licencia ?>">
+                                    <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"></img>
                                     </a>
 
-                                    <!--Ventana-->
-                                    <div id="<?php echo $licencia->num_licencia  ?>" class="modalVer">
+                                    <!-- VENTANA -->
+                                    <div class="modal" id="ModalVer_<?php echo $licencia->num_licencia ?>">
+                                    <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
 
                                             <!--Header-->
-                                            <div id="headerVer" class="row">
-                                                    <h2 class="col-11">Datos de la liciencia</h2>
-                                                    <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $licencia->num_licencia ?>" onclick="cerrar(<?php echo $licencia->num_licencia ?>);">                                              
+                                            <div class="modal-header">
+                                                    <h2 class="modal-title">Datos de la liciencia</h2>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>                             
                                             </div>
-                                            <hr>
+                                            
+                                            <!-- <div class="modal-header">
+                                                <h2 class="modal-title">Edicion de la licencia</h2>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div> -->
+
 
                                             <!--Body-->
                                             <div id="bodyVer" class="row m-3">
                                                 <div class="col-12">
-                                                    <label for="id_usuario">ID_USUARIO</label>
-                                                    <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $licencia->id_usuario ?>" readonly>
-                                                    <br>
+                                                    <label for="id_usuario">USUARIO</label>
+                                                    <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $licencia->nombre ?>" readonly>
+                                                    <br><br>
                                                 </div>
                                                 
                                                 <div class="col-12">
                                                     <label for="num_licencia">NUM_LICENCIA</label>
                                                     <input type="text" name="num_licencia" id="num_licencia" class="form-control form-control-lg" value="<?php echo $licencia->num_licencia?>" readonly> 
-                                                    <br>
+                                                    <br><br>
                                                 </div>
                                                 
                                                 <div class="col-12">
-                                                    <label for="tipo">Tipo TIPO_LICENCIA</label>
+                                                    <label for="tipo">TIPO_LICENCIA</label>
                                                     <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $licencia->tipo?>" readonly>    
                                                     <br><br>
                                                 </div>
@@ -214,18 +222,15 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <label for="imagen">IMÁGEN</label>
-                                                    <input type="text" name="imagen" id="imagen" class="form-control form-control-lg" value="<?php echo $licencia->imagen?>" readonly>    
+                                                    <label for="imagen">IMÁGEN</label><br>
+                                                    <img id="imagen" name="imagen" <?php if ($licencia->imagen=='') {?> width="100" height="100" src='<?php echo RUTA_Icon?>licencias.svg'<?php ;}else {?> width="150" height="150" src='<?php echo RUTA_ImgDatos.$licencia->imagen;} ?>' >   
                                                     <br><br>
                                                 </div>
                                             </div>
-                                            
-                                            
 
-                                        </div>  
-                                    </div> 
-
-
+                                        </div>
+                                    </div>
+                                    </div>
 
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
@@ -249,15 +254,15 @@
                                                 <form method="post" ENCTYPE="multipart/form-data" action="<?php echo RUTA_URL?>/adminLicencias/editarLicencia/<?php echo $licencia->num_licencia?>" class="card-body">
                                                     
                                                     <div class="col-12">
-                                                        <label for="id_usuario">ID_USUARIO</label>
-                                                        <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $licencia->id_usuario ?>" readonly>
-                                                        <br>
+                                                        <label for="id_usuario">USUARIO</label>
+                                                        <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $licencia->nombre ?>" readonly>
+                                                        <br><br>
                                                     </div>
                                                     
                                                     <div class="col-12">
                                                         <label for="num_licencia">NUM_LICENCIA</label>
                                                         <input type="text" name="num_licencia" id="num_licencia" class="form-control form-control-lg" value="<?php echo $licencia->num_licencia?>" required> 
-                                                        <br>
+                                                        <br><br>
                                                     </div>
                                                     
                                                     <div class="col-12">

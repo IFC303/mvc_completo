@@ -11,18 +11,30 @@ class Licencia
     }
 
 
+    public function obtenerNombreSocio()
+    {
+        $this->db->query("SELECT nombre, id_usuario FROM USUARIO ");
+
+        return $this->db->registros();
+    }
+
     public function obtenerLicencias(){
         $this->db->query("SELECT * FROM LICENCIA");
         return $this->db->registros();
     }
 
 
+    public function obtenerSocioLicencia(){
+        $this->db->query("SELECT * FROM LICENCIA, USUARIO WHERE USUARIO.id_usuario = LICENCIA.id_usuario");
+        return $this->db->registros();
+    }
+
     public function agregarLicencia($licenciaNueva){
         
         $this->db->query("INSERT INTO LICENCIA (id_usuario, tipo ,num_licencia,regional_nacional,dorsal,fecha_cad,imagen) VALUES 
         (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin)");
 
-        $this->db->bind(':id', 33);
+        $this->db->bind(':id', $licenciaNueva['usuario']);
         $this->db->bind(':tipo', 'Escolar');
         $this->db->bind(':num_lic',$licenciaNueva['num_lic']);
 
@@ -76,7 +88,14 @@ class Licencia
 
 
     public function editarLicencia($licencia_modificada){
-        $this->db->query("UPDATE LICENCIA SET num_licencia=:num_licencia, tipo=:tipo, num_licencia=:num_licencia, dorsal=:dorsal, fecha_cad=:fecha_cad, imagen=:imagen WHERE num_licencia = :num_licencia");
+        
+        if ($licencia_modificada['imagen']=="") {
+            $this->db->query("UPDATE LICENCIA SET num_licencia=:num_licencia, tipo=:tipo, num_licencia=:num_licencia, dorsal=:dorsal, fecha_cad=:fecha_cad WHERE num_licencia = :num_licencia");
+        }else {
+            $this->db->query("UPDATE LICENCIA SET num_licencia=:num_licencia, tipo=:tipo, num_licencia=:num_licencia, dorsal=:dorsal, fecha_cad=:fecha_cad, imagen=:imagen WHERE num_licencia = :num_licencia");
+        }
+
+        
         
         
         $this->db->bind(':num_licencia',$licencia_modificada['num_licencia']);
@@ -109,11 +128,7 @@ class Licencia
             $this->db->bind(':fecha_cad', $licencia_modificada['fecha_cad']);
         }
  
-        if ($licencia_modificada['imagen']=="") {
-            $this->db->bind(':imagen',NULL);
-        }else {
-            $this->db->bind(':imagen',$licencia_modificada['imagen']);
-        }
+        $this->db->bind(':imagen',$licencia_modificada['imagen']);
                
         
         if ($this->db->execute()){
