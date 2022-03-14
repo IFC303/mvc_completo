@@ -172,6 +172,118 @@ VALUES
     '',
     1,
     3
+  ),
+  (
+    333,
+    '333',
+    'socio3',
+    'socio3',
+    'socio3@socio.com',
+    'dire',
+    '2000-1-1',
+    333,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    334,
+    '334',
+    'socio4',
+    'socio4',
+    'socio4@socio.com',
+    'dire',
+    '2000-1-1',
+    334,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    335,
+    '335',
+    'socio5',
+    'socio5',
+    'socio5@socio.com',
+    'dire',
+    '2000-1-1',
+    335,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    336,
+    '336',
+    'socio6',
+    'socio6',
+    'socio6@socio.com',
+    'dire',
+    '2000-1-1',
+    336,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    337,
+    '337',
+    'socio7',
+    'socio7',
+    'socio7@socio.com',
+    'dire',
+    '2000-1-1',
+    337,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    338,
+    '338',
+    'socio8',
+    'socio8',
+    'socio8@socio.com',
+    'dire',
+    '2000-1-1',
+    338,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    339,
+    '339',
+    'socio9',
+    'socio9',
+    'socio9@socio.com',
+    'dire',
+    '2000-1-1',
+    339,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
   );
 INSERT INTO
   `USUARIO` (
@@ -382,7 +494,14 @@ INSERT INTO
 VALUES
   (33, 33),
   (331, 33),
-  (332, 33);
+  (332, 33),
+  (333, 33),
+  (334, 33),
+  (335, 33),
+  (336, 33),
+  (337, 33),
+  (338, 33),
+  (339, 33);
 CREATE TABLE SOCIO_GRUPO(
     id_grupo int,
     id_usuario int,
@@ -547,12 +666,7 @@ INSERT INTO
     `edad_max`
   )
 VALUES
-  (
-    '1',
-    'BENJAMIN',
-    '8',
-    '9'
-  );
+  ('1', 'BENJAMIN', '8', '9');
 INSERT INTO
   `CATEGORIA` (
     `id_categoria`,
@@ -561,12 +675,7 @@ INSERT INTO
     `edad_max`
   )
 VALUES
-  (
-    '2',
-    'ALEVIN',
-    '10',
-    '11'
-  );
+  ('2', 'ALEVIN', '10', '11');
 INSERT INTO
   `CATEGORIA` (
     `id_categoria`,
@@ -584,12 +693,7 @@ INSERT INTO
     `edad_max`
   )
 VALUES
-  (
-    '4',
-    'ADULTO',
-    '14',
-    '99'
-  );
+  ('4', 'ADULTO', '14', '99');
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
     id_usuario int,
@@ -697,7 +801,13 @@ INSERT INTO
 VALUES
   ('1', 'xl', '2022-02-18', '33', '1', '1'),
   ('2', 'xl', '2022-02-18', '331', '2', '2'),
-  ('3', 'xl', '2022-02-18', '332', '3', '3');
+  ('3', 'xl', '2022-02-18', '332', '3', '3'),
+  ('4', 'xl', '2022-02-18', '333', '3', '3'),
+  ('5', 'xl', '2022-02-18', '334', '3', '3'),
+  ('6', 'xl', '2022-02-18', '335', '3', '3'),
+  ('7', 'xl', '2022-02-18', '335', '3', '3'),
+  ('8', 'xl', '2022-02-18', '335', '3', '3'),
+  ('9', 'xl', '2022-02-18', '335', '3', '3');
 CREATE TABLE EVENTO(
     id_evento int primary key,
     id_usuario int,
