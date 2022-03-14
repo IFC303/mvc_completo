@@ -457,11 +457,9 @@
                                                         <input type="hidden" name="horario[]" value="<?php echo $viernesId?>">
                                                     </div> 
                                                 </div>
-                                    
-                                                        
-
-                                                    <input type="submit" class="btn" value="Confirmar">
                                                     </div>
+                                                    <br>
+                                                    <input type="submit" class="btn" value="Confirmar">
                                                 </form>
                                             </div>
                                             <!-- Footer -->
@@ -509,7 +507,7 @@
 
                                 <!-- PARTICIPANTES -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/">
+                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/<?php echo $grupo->id_grupo?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>grupos.svg"></img>
                                 </a>  
 

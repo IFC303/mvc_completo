@@ -23,6 +23,7 @@ class Entrenador extends Controlador{
                 $this->testModelo = $this->modelo('Test');
                 $this->pruebaModelo = $this->modelo('Prueba');
                 $this->mensajeModelo = $this->modelo('Mensaje');
+                $this->grupoModelo = $this->modelo('Grupo');
             }
 
 
@@ -35,7 +36,37 @@ class Entrenador extends Controlador{
         // *********** SUBMENU: GRUPOS (funciones) ***********  
 
             public function grupos(){
+                $this->datos['grupos'] = $this->grupoModelo->obtenerGrupos();
+                $id_grupo=$_POST['filtro'];
+                //echo $id_grupo;
+                $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnos($id_grupo);
+                //var_dump($this->datos['alumnosGrupo']);
+                $this->datos['testPruebas'] = $this->grupoModelo->obtenerTestPruebas();
+                //var_dump($this->datos['testPruebas']);
                 $this->vista('entrenadores/grupos', $this->datos);
+            }
+
+
+            public function marca($id){
+                $this->datos['rolesPermitidos'] = [2];         
+                if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                    redireccionar('/usuarios');
+                };
+
+
+                 if($_SERVER['REQUEST_METHOD']=='POST'){
+   
+                    //  $nuevaMarca=[
+                    //     'id_prueba'=> $_POST['id_prueba'],
+                    //     'id_usuario'=> $id,
+                    //     'marca'=>($_POST['marca']),
+                    //     'fecha'=> trim($_POST['fecha'])
+                        
+                    //  ];  
+                      var_dump($_POST['marca']);
+                 }
+
+
             }
 
 
@@ -157,18 +188,23 @@ class Entrenador extends Controlador{
         // *********** SUBMENU: MENSAJERIA (funciones) ***********  
 
             public function mensajeria(){
-                $this->datos['mensaje']=$this->mensajeModelo->obtenerEmail();
+                //var_dump($this->datos['usuarioSesion']);
+                $idUsu=$this->datos['usuarioSesion']->id_usuario;
+               
+                $this->datos['mensaje']=$this->mensajeModelo->obtenerEmailGrupo();
+                //var_dump($this->datos['mensaje']);
+                $this->datos['entrenadorGrupo']=$this->mensajeModelo->entrenadorGrupo($idUsu);
+                //var_dump($this->datos['entrenadorGrupo']);
 
                  if($_SERVER['REQUEST_METHOD']=='POST'){
                      $this->datos['emailsEnvio']= $_POST['seleccionados'];
                  } 
-
-             $this->vista('entrenadores/mensajeria', $this->datos );
-
+                $this->vista('entrenadores/mensajeria', $this->datos);
             }
 
 
             public function enviar(){
+
 
                 if($_SERVER['REQUEST_METHOD']=='POST'){
 
