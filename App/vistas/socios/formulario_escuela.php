@@ -25,15 +25,28 @@
 </head>
 
 <body>
+    <?php print_r($datos['usuarios']); ?><br><br><br>
+    <?php print_r($datos['categorias']); ?><br><br><br>
+    <?php print_r($datos['grupos']); ?><br><br><br>
     <form action="aaa.html">
-        
-        <label for="">CCC </label><input type="text" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+
+        <label for="">CCC </label><input value="<?php $datos['usuarios'][0]->CCC; ?>" type="text" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
         <br><br>
-        <label for="">Categoría (2022) </label><input type="text" required>
+        <label for="cat">Categoría (2022) </label>
+        <select name="cat" id="cat" required>
+            <?php foreach ($datos['categorias'] as $cat) : ?>
+            <option value="<?php echo $cat->id_categoria ?>"><?php echo $cat->nombre ?></option>
+            <?php endforeach ?>
+        </select>
         <br><br>
-        <label for="">Grupo entrenamiento </label><input type="text" required>
+        <label for="grup">Grupo entrenamiento </label>
+        <select name="grup" id="grup" required>
+            <?php foreach ($datos['grupos'] as $gru) : ?>
+            <option value="<?php echo $gru->id_grupo ?>"><?php echo $gru->nombre ?></option>
+            <?php endforeach ?>
+        </select>
         <br><br>
-        <label for="">Código GIR </label><input type="text">
+        <label for="">Código GIR </label><input value="<?php $datos['usuarios'][0]->gir; ?>" type="text">
         <br><br>
 
         <label for="">Consiento la toma y el uso de fotos </label> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -50,7 +63,7 @@
 
 
         <input type="submit" value="enviar">
-        
+
     </form>
 </body>
 

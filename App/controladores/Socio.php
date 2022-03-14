@@ -124,8 +124,11 @@ class Socio extends Controlador
         }
 
         $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-        $this->datos['usuarios']=$datosUser;        
-
+        $categorias = $this->SocioModelo->obtenerCategorias();
+        $grupos = $this->SocioModelo->obtenergrupos();
+        $this->datos['usuarios']=$datosUser;
+        $this->datos['categorias']=$categorias;
+        $this->datos['grupos']=$grupos;
         $this->vista('socios/formulario_escuela', $this->datos);
         
     }
