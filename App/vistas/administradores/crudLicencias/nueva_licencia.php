@@ -73,6 +73,11 @@
          </div>
 
          <div class="mt-3 mb-3">
+            <label for="gir">GIR<sup>*</sup></label>
+            <input type="text" name="gir" id="gir" class="form-control form-control-lg" required>
+         </div>
+
+         <div class="mt-3 mb-3">
             <label for="imagenLicAdmin">Subir Imágen<sup>*</sup></label><br>
             <input  accept="image/*" type="file" id="" name="imagenLicAdmin" >
          </div>

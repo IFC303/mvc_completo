@@ -15,11 +15,18 @@ class AdminLicencias extends Controlador{
 
 
     public function index(){
-        $prueba=$this->datos['licencia'] = $this->licenciaModelo->obtenerSocioLicencia();
+        $this->datos['licencia'] = $this->licenciaModelo->obtenerSocioLicencia();
         
         $this->vista('administradores/crudLicencias/inicio',$this->datos);
     }
 
+    public function verFoto($numLic){
+        $this->datos['foto'] = $numLic;
+        
+        $pru= $this->licenciaModelo->obtenerFotoLicencia($numLic);
+       
+        $this->vista('administradores/crudLicencias/verFoto',$this->datos);
+    }
 
     public function nueva_licencia(){
 
@@ -46,6 +53,7 @@ class AdminLicencias extends Controlador{
                 'aut_nac' => trim($_POST['aut_nac']),
                 'dorsal' => trim($_POST['dorsal']),
                 'fechaCad' => trim($_POST['fechaCad']),
+                'gir' => trim($_POST['gir']),
                 'imagenLicAdmin' => $_FILES['imagenLicAdmin']['name']
             ];
 

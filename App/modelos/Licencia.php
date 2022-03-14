@@ -24,6 +24,11 @@ class Licencia
     }
 
 
+    public function obtenerFotoLicencia($numLic){
+        $this->db->query("SELECT imagen FROM LICENCIA WHERE num_licencia = '$numLic'");
+        return $this->db->registros();
+    }
+
     public function obtenerSocioLicencia(){
         $this->db->query("SELECT * FROM LICENCIA, USUARIO WHERE USUARIO.id_usuario = LICENCIA.id_usuario");
         return $this->db->registros();
@@ -31,8 +36,8 @@ class Licencia
 
     public function agregarLicencia($licenciaNueva){
         
-        $this->db->query("INSERT INTO LICENCIA (id_usuario, tipo ,num_licencia,regional_nacional,dorsal,fecha_cad,imagen) VALUES 
-        (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin)");
+        $this->db->query("INSERT INTO LICENCIA (id_usuario, tipo ,num_licencia,regional_nacional,dorsal,fecha_cad,imagen, gir) VALUES 
+        (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin, :gir)");
 
         $this->db->bind(':id', $licenciaNueva['usuario']);
         $this->db->bind(':tipo', 'Escolar');
@@ -65,7 +70,8 @@ class Licencia
             $this->db->bind(':imagenLicAdmin',$licenciaNueva['imagenLicAdmin']);
         }
         
-        
+        $this->db->bind(':gir', $licenciaNueva['gir']);
+
         if($this->db->execute()){
             return true;
         }else{

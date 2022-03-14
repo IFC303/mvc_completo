@@ -177,11 +177,6 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>                             
                                             </div>
                                             
-                                            <!-- <div class="modal-header">
-                                                <h2 class="modal-title">Edicion de la licencia</h2>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div> -->
-
 
                                             <!--Body-->
                                             <div id="bodyVer" class="row m-3">
@@ -223,7 +218,7 @@
 
                                                 <div class="col-12">
                                                     <label for="imagen">IMÁGEN</label><br>
-                                                    <img id="imagen" name="imagen" <?php if ($licencia->imagen=='') {?> width="100" height="100" src='<?php echo RUTA_Icon?>licencias.svg'<?php ;}else {?> width="150" height="150" src='<?php echo RUTA_ImgDatos.$licencia->imagen;} ?>' >   
+                                                    <a href="<?php echo RUTA_URL?>/adminLicencias/verFoto/<?php echo $licencia->num_licencia ?>" target="_blank"><img id="imagen" name="imagen" <?php if ($licencia->imagen=='') {?> width="100" height="100" <?php ;}else {?> width="150" height="150" src='<?php echo RUTA_ImgDatos.$licencia->imagen;} ?>'></a>   
                                                     <br><br>
                                                 </div>
                                             </div>
