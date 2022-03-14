@@ -412,47 +412,70 @@ class AdminModelo
         }
     }
 
-    public function dorsal()
-    {
-        $dorsal=1;
-        $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE 1 ORDER BY `dorasl` DESC;");
-        $dorsalExterno= $this->db->registros();
-        $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE 1 ORDER BY `dorsal` DESC;");
-        $dorsalSocio= $this->db->registros();
-        
-        if(($dorsalExterno[0]->dorasl)>($dorsalSocio[0]->dorsal)){
-            $dorsal= ($dorsalExterno[0]->dorasl) + 1;
-        }elseif(($dorsalSocio[0]->dorsal)>($dorsalExterno[0]->dorasl)){
-            $dorsal= ($dorsalSocio[0]->dorsal) + 1;
-        }
-
-        return $dorsal;
-    }
-
     public function aceptar_solicitudes_EvenExter($datAceptar)
     {
-        $dorsal=1;
-        $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE 1 ORDER BY `dorasl` DESC;");
-        $dorsalExterno= $this->db->registros();
-        $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE 1 ORDER BY `dorsal` DESC;");
-        $dorsalSocio= $this->db->registros();
-        
-        if(($dorsalExterno[0]->dorasl)>($dorsalSocio[0]->dorsal)){
-            $dorsal= ($dorsalExterno[0]->dorasl) + 1;
-        }elseif(($dorsalSocio[0]->dorsal)>($dorsalExterno[0]->dorasl)){
-            $dorsal= ($dorsalSocio[0]->dorsal) + 1;
-        }
-
         $idUsu = $datAceptar[0];
         $idEvento = $datAceptar[1];
         $fecha = $datAceptar[2];
+
+        $dorsal=1;
+        $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
+        $this->db->bind(':id_even', $idEvento);
+        $dorsalExterno= $this->db->registros();
+        $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
+        $this->db->bind(':id_even', $idEvento);
+        $dorsalSocio= $this->db->registros();
         
+        if(($dorsalExterno[0]->dorasl)>($dorsalSocio[0]->dorsal)){
+            $dorsal= ($dorsalExterno[0]->dorasl) + 1;
+        }elseif(($dorsalSocio[0]->dorsal)>($dorsalExterno[0]->dorasl)){
+            $dorsal= ($dorsalSocio[0]->dorsal) + 1;
+        }
+
         $this->db->query("UPDATE `EXTERNO` SET `id_evento` = :id_even, `dorasl` = $dorsal WHERE `id_externo` = :id_usu;");
         $this->db->bind(':id_usu', $idUsu);
         $this->db->bind(':id_even', $idEvento);
         $this->db->execute();
 
         $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha;");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_even', $idEvento);
+        $this->db->bind(':id_fecha', $fecha);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function aceptar_solicitudes_EvenSoci($datAceptar)
+    {
+        $idUsu = $datAceptar[0];
+        $idEvento = $datAceptar[1];
+        $fecha = $datAceptar[2];
+
+        $dorsal=1;
+        $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
+        $this->db->bind(':id_even', $idEvento);
+        $dorsalExterno= $this->db->registros();
+        $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
+        $this->db->bind(':id_even', $idEvento);
+        $dorsalSocio= $this->db->registros();
+        
+        if(($dorsalExterno[0]->dorasl)>($dorsalSocio[0]->dorsal)){
+            $dorsal= ($dorsalExterno[0]->dorasl) + 1;
+        }elseif(($dorsalSocio[0]->dorsal)>($dorsalExterno[0]->dorasl)){
+            $dorsal= ($dorsalSocio[0]->dorsal) + 1;
+        }
+        
+        $this->db->query("INSERT INTO `SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`, `dorsal`) VALUES (:id_usu, :id_even, :id_fecha, $dorsal);");
+        $this->db->bind(':id_usu', $idUsu);
+        $this->db->bind(':id_even', $idEvento);
+        $this->db->bind(':id_fecha', $fecha);
+        $this->db->execute();
+
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO`WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
         $this->db->bind(':id_usu', $idUsu);
         $this->db->bind(':id_even', $idEvento);
         $this->db->bind(':id_fecha', $fecha);

@@ -8,7 +8,6 @@
 </form>
 </div>
 
-<?php print_r($datos['soliEventos']); ?>
 <br>
 
 <div class="tabla" style="border:solid 1px #023ef9">
@@ -96,8 +95,9 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_EvenExter/<?php $datBorrar = $usuarios->id . "_" . $usuarios->id_evento . "_" . $usuarios->fecha;
-                                                                                                                                                                echo $datBorrar ?>" method="post">
+                                                                                        </form>
+                                                                                        <?php if($datos['radioCheck']=="socio"){$rutaCrud= RUTA_URL."/admin/aceptar_solicitudes_EvenSoci/";}elseif($datos['radioCheck']=="externo"){$rutaCrud= RUTA_URL."/admin/aceptar_solicitudes_EvenExter/";} ?>
+                                                                                        <form action="<?php $datBorrar = $usuarios->id . "_" . $usuarios->id_evento . "_" . $usuarios->fecha; echo $rutaCrud.$datBorrar ?>" method="post">
                                                                                                 <button type="submit">Aceptar</button>
                                                                                         </form>
                                                                                 </div>
