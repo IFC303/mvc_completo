@@ -34,6 +34,7 @@ CREATE TABLE USUARIO(
   passw varchar(50),
   talla varchar(5) not null,
   foto varchar(800),
+  gir varchar(20),
   activado boolean not null,
   id_rol int,
   primary key (id_usuario),

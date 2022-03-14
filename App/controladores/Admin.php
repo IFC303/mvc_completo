@@ -126,6 +126,7 @@ class Admin extends Controlador
                 'fecEdit' => trim($_POST["editFecha"]),
                 'telEdit' => trim($_POST["editTlf"]),
                 'emaEdit' => trim($_POST["editEmail"]),
+                'direcEdit' => trim($_POST["editDirec"]),
                 'passEdit' => trim($_POST["editPas"]),
                 'CCCEdit' => trim($_POST["editCCC"]),
                 'TallaEdit' => trim($_POST["editTalla"]),
@@ -167,10 +168,12 @@ class Admin extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $anaUsu = [
+                'socioUsuAna' => trim($_POST["socio"]),
                 'dniUsuAna' => trim($_POST["dni"]),
                 'nomUsuAna' => trim($_POST["nombre"]),
                 'apelUsuAna' => trim($_POST["apellidos"]),
                 'fecUsuAna' => trim($_POST["fecha"]),
+                'direccionUsuAna' => trim($_POST["direccion"]),
                 'telUsuAna' => trim($_POST["telf"]),
                 'emaUsuAna' => trim($_POST["email"]),
                 'passUsuAna' => trim($_POST["pass"]),

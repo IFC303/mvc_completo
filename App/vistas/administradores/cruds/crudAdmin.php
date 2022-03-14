@@ -33,7 +33,7 @@
                                                 <td>
 
                                                         <!--MODAL VER (javascript)-->
-                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $usuarios->id_usuario ?>)"></img> 
+                                                        <img id="btnModal_<?php echo $usuarios->id_usuario ?>" src="<?php echo RUTA_Icon ?>ojo.svg" width="20" height="20" onclick="abrir(<?php echo $usuarios->id_usuario ?>)"></img>
 
                                                         <div id="<?php echo $usuarios->id_usuario ?>" class="modalVer">
                                                                 <div class="modal-content">
@@ -65,6 +65,12 @@
                                                                                         <label for="verEmail">Email: </label>
                                                                                         <label name="verEmail" class="form-control form-control-lg"><?php echo $usuarios->email ?></label>
                                                                                 </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                                        <label for="verDirec">Direccion: </label>
+                                                                                        <label name="verDirec" class="form-control form-control-lg"><?php echo $usuarios->direccion ?></label>
+                                                                                </div>
+
                                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                                         <label for="verFecha">Fecha Nacimiento: </label>
                                                                                         <label name="verFecha" class="form-control form-control-lg"><?php echo $usuarios->fecha_nacimiento ?></label>
@@ -121,7 +127,8 @@
 
                                                                                 <!-- Modal body -->
                                                                                 <div class="modal-body">
-                                                                                        <form method="post" class="card-body" autocomplete="off" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php $idEditTengo= $datos['idTengo']."-".$usuarios->id_usuario; echo $idEditTengo ?>">
+                                                                                        <form method="post" class="card-body" autocomplete="off" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php $idEditTengo = $datos['idTengo'] . "-" . $usuarios->id_usuario;
+                                                                                                                                                                                                        echo $idEditTengo ?>">
                                                                                                 <div class="row">
                                                                                                         <p style="color: #023EF9;">*Si dejas un campo vacio se guardara el dato anterior</p>
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -143,6 +150,12 @@
                                                                                                                 <label for="editEmail">Email: <sup>*</sup></label>
                                                                                                                 <input autocomplete="false" type="email" name="editEmail" id="editEmail" class="form-control form-control-lg" placeholder="<?php echo $usuarios->email ?>">
                                                                                                         </div>
+
+                                                                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                                                                <label for="editDirec">Direccion: <sup>*</sup></label>
+                                                                                                                <input autocomplete="false" type="text" name="editDirec" id="editDirec" class="form-control form-control-lg" placeholder="<?php echo $usuarios->direccion ?>">
+                                                                                                        </div>
+
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                                                                 <label for="editFecha">Fecha Nacimiento: <sup>*</sup></label>
                                                                                                                 <input type="date" name="editFecha" id="editFecha" class="form-control form-control-lg" placeholder="<?php echo $usuarios->fecha_nacimiento ?>">
@@ -247,7 +260,8 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php $idUsuTengo= $datos['idTengo']."-".$usuarios->id_usuario; echo $idUsuTengo ?>" method="post">
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/borrarUsuario/<?php $idUsuTengo = $datos['idTengo'] . "-" . $usuarios->id_usuario;
+                                                                                                                                                        echo $idUsuTengo ?>" method="post">
                                                                                                 <button type="submit">Borrar</button>
                                                                                         </form>
                                                                                 </div>
@@ -275,7 +289,7 @@
                 console.log(idAbrir);
                 var modal = document.getElementById(idAbrir);
                 var body = document.getElementsByTagName("body")[0];
-                modal.style.display = "block"; 
+                modal.style.display = "block";
                 body.style.overflow = "hidden";
         }
 
