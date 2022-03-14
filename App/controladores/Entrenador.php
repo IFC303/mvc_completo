@@ -37,13 +37,17 @@ class Entrenador extends Controlador{
 
             public function grupos(){
                 $this->datos['grupos'] = $this->grupoModelo->obtenerGrupos();
+              
                 $id_grupo=$_POST['filtro'];
                 //echo $id_grupo;
                 $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnos($id_grupo);
                 //var_dump($this->datos['alumnosGrupo']);
                 $this->datos['testPruebas'] = $this->grupoModelo->obtenerTestPruebas();
                 //var_dump($this->datos['testPruebas']);
+                $this->datos['marcas'] = $this->pruebaModelo->obtenerMarcas();
+                //var_dump($this->datos['marcas']);
                 $this->vista('entrenadores/grupos', $this->datos);
+                
             }
 
 
@@ -56,14 +60,19 @@ class Entrenador extends Controlador{
 
                  if($_SERVER['REQUEST_METHOD']=='POST'){
    
-                    //  $nuevaMarca=[
-                    //     'id_prueba'=> $_POST['id_prueba'],
-                    //     'id_usuario'=> $id,
-                    //     'marca'=>($_POST['marca']),
-                    //     'fecha'=> trim($_POST['fecha'])
-                        
-                    //  ];  
-                      var_dump($_POST['marca']);
+                      $nuevaMarca=[
+                         'id_prueba'=> $_POST['idPrueba'],
+                         'id_usuario'=> $id,
+                         'fecha'=> trim($_POST['fecha']),
+                         'marca'=>($_POST['marca'])
+                         
+                      ];  
+                      //var_dump($nuevaMarca);
+                      if ($this->pruebaModelo->agregarMarca($nuevaMarca)) {
+                            redireccionar('/entrenador/grupos');
+                        }else{
+                            die('Algo ha fallado!!!');
+                        }  
                  }
 
 

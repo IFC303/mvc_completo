@@ -24,4 +24,28 @@ class Prueba
      }
 
 
+     public function agregarMarca($nuevaMarca){
+        //var_dump($nuevaMarca);
+        //echo $nuevaMarca['marca'];
+         $this->db->query("INSERT INTO PRUEBA_SOCIO (id_prueba,id_usuario,fecha,marca) VALUES (:idPrueba,:idUsuario,:fecha,:marca)");
+         $this->db->bind(':idPrueba', $nuevaMarca['id_prueba']);
+         $this->db->bind(':idUsuario', $nuevaMarca['id_usuario']);
+         $this->db->bind(':fecha',$nuevaMarca['fecha']);
+         $this->db->bind(':marca',$nuevaMarca['marca']);
+         
+         if ($this->db->execute()){
+             return true;
+         }else{
+             return false;
+         }
+     }
+
+
+     public function obtenerMarcas(){
+        $this->db->query("SELECT TEST.nombreTest,TEST.id_test,PRUEBA.tipo,PRUEBA.nombrePrueba,PRUEBA_SOCIO.id_prueba,id_usuario,fecha,marca 
+        from PRUEBA_SOCIO,PRUEBA,TEST, TEST_PRUEBA
+        WHERE PRUEBA.id_prueba=PRUEBA_SOCIO.id_prueba and TEST.id_test=TEST_PRUEBA.id_test AND TEST_PRUEBA.id_prueba=PRUEBA.id_prueba");
+        return $this->db->registros();
+     }
+
 }
