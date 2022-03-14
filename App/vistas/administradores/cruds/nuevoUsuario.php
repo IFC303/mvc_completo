@@ -22,7 +22,13 @@
         <br><br>
         <label for="">Correo </label><input type="text" value="" id="email" name="email" onblur="return correo(this.id)" required> <label id="errorMail"></label>
         <br><br>
+        <label for="">Direccion </label><input type="text" value="" id="direccion" name="direccion" required>
+        <br><br>
         <label for="">Contraseña </label><input type="password" value="" id="pass" name="pass">
+        <br><br>
+        <label for="">Socio</label> &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="siSocio" name="socio" value="si" required><label for="siSocio">SI</label>
+        <input type="radio" id="noSocio" name="socio" value="no" required><label for="noSocio">NO</label>
         <br><br>
         <input type="submit" value="enviar">
     </form>

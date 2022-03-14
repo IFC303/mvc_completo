@@ -31,19 +31,23 @@
         <input type="radio" id="noSocio" name="socio" value="no" onclick="ereSocio();" required><label for="noSocio">NO</label>
         <label id="prueba"></label>
         <br><br>
-        <label for="">DNI (atleta) </label><input type="text" value="" id="dniAtl" name="dniAtl" style="text-transform:uppercase;">
+        <label for="">Fecha Nacimiento (atleta) </label><input id="fecha" type="date" onchange="mayorEdad()" required>
         <br><br>
-        <label for="">DNI (padre) </label><input type="text" value="" id="dniPad" name="dniPad" onblur="return dni(this.id)" required style="text-transform:uppercase;"> <label id="error"></label>
+
+        <div id="esMenor" style="display: none;">
+        <label for="">DNI (padre) </label><input type="text" value="" id="dniPad" name="dniPad" onblur="return dni(this.id)" style="text-transform:uppercase;"> <label id="error"></label>
+        <br><br>
+        <label for="">Nombre (padre) </label><input id="nomPadre" type="text" onkeypress="return Solo_Texto(event);">
+        <br><br>
+        <label for="">Apellidos (padre) </label><input id="apelPadre" type="text" onkeypress="return Solo_Texto(event);">
+        <br><br>
+        </div>
+
+        <label for="">DNI (atleta) </label><input type="text" value="" id="dniAtl" name="dniAtl" style="text-transform:uppercase;">
         <br><br>
         <label for="">Nombre (atleta) </label><input type="text" required onkeypress="return Solo_Texto(event);">
         <br><br>
         <label for="">Apellidos (atleta) </label><input type="text" required onkeypress="return Solo_Texto(event);">
-        <br><br>
-        <label for="">Nombre (padre) </label><input type="text" required onkeypress="return Solo_Texto(event);">
-        <br><br>
-        <label for="">Apellidos (padre) </label><input type="text" required onkeypress="return Solo_Texto(event);">
-        <br><br>
-        <label for="">Fecha Nacimiento (atleta) </label><input type="date" required>
         <br><br>
         <label for="">Dirección </label><input type="text" required>
         <br><br>
@@ -72,14 +76,15 @@
         <label for="">Foto reciente tamaño carnet </label><input type="file" required>
         <br><br>
 
-        <label for="" id="borTallaLabel" >Talla </label><input type="text" id="borTalla" required>
+        <div id="hacerSoci" style="display: none;">
+        <label for="" id="borTallaLabel" name="talla" >Talla </label><input type="text" id="borTalla">
         <br><br>
-
         <label for="" id="borSocioLabel">¿Has sido socio?</label> &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" id="siHasSocio" name="hasSocio" value="si" required class="borrar"><label for="siHasSocio" id="borSiLabel">SI</label>
-        <input type="radio" id="noHasSocio" name="hasSocio" value="no" required class="borrar"><label for="noHasSocio" id="borNoLabel">NO</label>
-
+        <input type="radio" id="siHasSocio" name="hasSocio" value="si" class="borrar"><label for="siHasSocio" id="borSiLabel">SI</label>
+        <input type="radio" id="noHasSocio" name="hasSocio" value="no" class="borrar"><label for="noHasSocio" id="borNoLabel">NO</label>
         <br><br>
+        </div>
+
         <input type="submit" value="enviar">
         
     </form>

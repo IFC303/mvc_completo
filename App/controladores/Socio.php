@@ -112,6 +112,23 @@ class Socio extends Controlador
         }
         
     }
+
+    public function escuela()
+    {
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+        $this->datos['usuarios']=$datosUser;        
+
+        $this->vista('socios/formulario_escuela', $this->datos);
+        
+    }
     
 
 

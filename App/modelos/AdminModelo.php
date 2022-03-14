@@ -122,6 +122,15 @@ class AdminModelo
             }
             $emaMet = true;
         }
+        if (($usuEditar['direcEdit'] != "") && ($usuEditar['direcEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `direccion` = :direUsu";
+            } else {
+                $cad = $cad . " `direccion` = :direUsu";
+                $coma = 1;
+            }
+            $emaMet = true;
+        }
         if (($usuEditar['passEdit'] != "") && ($usuEditar['passEdit'] != null)) {
             if ($coma == 1) {
                 $cad = $cad . ", `passw` = MD5(:passUsu)";
@@ -196,6 +205,9 @@ class AdminModelo
         if ($emaMet == true) {
             $this->db->bind(':emaUsu', $usuEditar['emaEdit']);
         }
+        if ($emaMet == true) {
+            $this->db->bind(':direUsu', $usuEditar['direcEdit']);
+        }
         if ($telMet == true) {
             $this->db->bind(':telUsu', $usuEditar['telEdit']);
         }
@@ -227,8 +239,8 @@ class AdminModelo
 
     public function anadirUsuario($usuAnadir)
     {
-        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
-        VALUES (:dniUsu, :nomUsu, :apelUsu, :emaUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
+        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
+        VALUES (:dniUsu, :nomUsu, :apelUsu, :emaUsu, :direcUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
 
         $this->db->bind(':dniUsu', $usuAnadir['dniUsuAna']);
         $this->db->bind(':nomUsu', $usuAnadir['nomUsuAna']);
@@ -236,18 +248,22 @@ class AdminModelo
         $this->db->bind(':fecUsu', $usuAnadir['fecUsuAna']);
         $this->db->bind(':telUsu', $usuAnadir['telUsuAna']);
         $this->db->bind(':emaUsu', $usuAnadir['emaUsuAna']);
+        $this->db->bind(':direcUsu', $usuAnadir['direccionUsuAna']);
         $this->db->bind(':cccUsu', "" /*$usuAnadir['cccUsuAna']*/);
         $this->db->bind(':passUsu', $usuAnadir['passUsuAna']);
         $this->db->bind(':tallUsu', ""/*$usuAnadir['tallUsuAna']*/);
         $this->db->bind(':fotUsu', ""/*$usuAnadir['fotUsuAna']*/);
         $this->db->bind(':actUsu', "1"/*$usuAnadir['actUsuAna']*/);
         $this->db->bind(':idRolUsu', $usuAnadir['rolUsuAna']);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
+        $this->db->execute();
+        $idSoci = $this->db->ultimoIndice();
+        if($usuAnadir['socioUsuAna']=="si"){
+            $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
+            $this->db->execute();
         }
+
+        return true;
+        
     }
 
     //SOLICITUD SOCIOS
@@ -349,7 +365,7 @@ class AdminModelo
         $idGrupo = $datAceptar[1];
         $fecha = $datAceptar[2];
 
-        $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '1' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+        $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '0' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
         $this->db->bind(':id_usu', $idUsu);
         $this->db->bind(':id_grup', $idGrupo);
         $this->db->bind(':id_fecha', $fecha);

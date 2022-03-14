@@ -26,6 +26,14 @@
                         <p id="pMarcas" class="mx-auto" >VER MARCAS</p>
                     </div>
                 </div>
+
+                <!-- Apuntate Escuela -->
+                <div class="col-xs-12 col-md-6 col-xl-4">
+                    <div>
+                        <a href="<?php echo RUTA_URL ?>/socio/escuela"><div id="colorMarcas" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>escuela.png" width="100" height="100"></div></a>
+                        <p id="pMarcas" class="mx-auto" >ESCUELA</p>
+                    </div>
+                </div>
         </div>
 
     </div>
