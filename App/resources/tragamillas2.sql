@@ -22,24 +22,23 @@ INSERT INTO
 VALUES
   (4, 'tienda');
 CREATE TABLE USUARIO(
-  id_usuario int AUTO_INCREMENT,
-  dni varchar(11) unique,
-  nombre varchar(20) not null,
-  apellidos varchar(30) not null,
-  email varchar(40) not null,
-  direccion varchar(150) not null,
-  fecha_nacimiento date,
-  telefono int not null,
-  CCC varchar(25) not null,
-  passw varchar(50),
-  talla varchar(5) not null,
-  foto varchar(800),
-  activado boolean not null,
-  id_rol int,
-  primary key (id_usuario),
-  constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
-);
-
+    id_usuario int AUTO_INCREMENT,
+    dni varchar(11) unique,
+    nombre varchar(20) not null,
+    apellidos varchar(30) not null,
+    email varchar(40) not null,
+    direccion varchar(150) not null,
+    fecha_nacimiento date,
+    telefono int not null,
+    CCC varchar(25) not null,
+    passw varchar(50),
+    talla varchar(5) not null,
+    foto varchar(800),
+    activado boolean not null,
+    id_rol int,
+    primary key (id_usuario),
+    constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
+  );
 INSERT INTO
   `USUARIO` (
     `id_usuario`,
@@ -240,118 +239,104 @@ CREATE TABLE GRUPO(
     fecha_ini date,
     fecha_fin date
   );
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '1' ,
-    'ATLETISMO_GENERAL_BENJAMINES' ,
-    '2022/09/01' ,
+  (
+    '1',
+    'ATLETISMO_GENERAL_BENJAMINES',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '2' ,
-    'ATLETISMO_GENERAL_ALEVINES' ,
-    '2022/09/01' ,
+  (
+    '2',
+    'ATLETISMO_GENERAL_ALEVINES',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '3' ,
-    'ATLETISMO_GENERAL_INFANTILES' ,
-    '2022/09/01' ,
+  (
+    '3',
+    'ATLETISMO_GENERAL_INFANTILES',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '4' ,
-    'PRUEBAS-VELOCIDAD' ,
-    '2022/09/01' ,
+  (
+    '4',
+    'PRUEBAS-VELOCIDAD',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '5' ,
-    'FONDO_Y_MEDIOFONDO' ,
-    '2022/09/01' ,
+  (
+    '5',
+    'FONDO_Y_MEDIOFONDO',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '6' ,
-    'DIA_ENTRENAMIENTO' ,
-    '2022/09/01' ,
+  (
+    '6',
+    'DIA_ENTRENAMIENTO',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '7' ,
-    'ESCUELA_TRIATLON' ,
-    '2022/09/01' ,
+  (
+    '7',
+    'ESCUELA_TRIATLON',
+    '2022/09/01',
     '2022/09/30'
-);
-
+  );
 CREATE TABLE ENTRENADOR_GRUPO(
     fecha date,
     id_grupo int,
@@ -554,59 +539,57 @@ CREATE TABLE CATEGORIA(
     edad_min int not null,
     edad_max int not null
   );
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES 
-    (
-    '1', 
-    'BENJAMIN', 
-    '8', 
+  )
+VALUES
+  (
+    '1',
+    'BENJAMIN',
+    '8',
     '9'
-    );
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+  );
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES (
-    '2', 
-    'ALEVIN', 
-    '10', 
+  )
+VALUES
+  (
+    '2',
+    'ALEVIN',
+    '10',
     '11'
-    );
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+  );
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES 
-    ('3', 
-    'INFANTILES', 
-    '12', 
-    '13');
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+  )
+VALUES
+  ('3', 'INFANTILES', '12', '13');
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES (
-    '4', 
-    'ADULTO', 
-    '14', 
+  )
+VALUES
+  (
+    '4',
+    'ADULTO',
+    '14',
     '99'
-    );
-
+  );
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
     id_usuario int,
@@ -786,20 +769,47 @@ CREATE TABLE I_ACTIVIDADES(
     constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
     constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
-
-
-
-
-
 create view GRUPOS_Y_HORARIOS as
-	select HORARIO_GRUPO.id_grupo,GRUPO.nombre,GRUPO.fecha_ini,GRUPO.fecha_fin,HORARIO_GRUPO.id_horario,HORARIO.dia_sem,HORARIO.hora_ini,HORARIO.hora_fin
-  from HORARIO_GRUPO,GRUPO,HORARIO
-  where HORARIO_GRUPO.id_grupo=GRUPO.id_grupo and HORARIO_GRUPO.id_horario=HORARIO.id_horario;
-
-
+select
+  HORARIO_GRUPO.id_grupo,
+  GRUPO.nombre,
+  GRUPO.fecha_ini,
+  GRUPO.fecha_fin,
+  HORARIO_GRUPO.id_horario,
+  HORARIO.dia_sem,
+  HORARIO.hora_ini,
+  HORARIO.hora_fin
+from
+  HORARIO_GRUPO,
+  GRUPO,
+  HORARIO
+where
+  HORARIO_GRUPO.id_grupo = GRUPO.id_grupo
+  and HORARIO_GRUPO.id_horario = HORARIO.id_horario;
 create view INGRESOS as
-  select id_ingreso_actividades as id_ingreso, fecha, concepto, importe, 'actividades' as tipo from I_ACTIVIDADES
-  union all
-  select id_ingreso_cuota as id_ingreso, fecha, concepto, importe, 'cuotas' as tipo FROM I_CUOTAS
-  union all
-  select id_ingreso_otros as id_ingreso, fecha, concepto, importe, 'otros' as tipo  from I_OTROS;
+select
+  id_ingreso_actividades as id_ingreso,
+  fecha,
+  concepto,
+  importe,
+  'actividades' as tipo
+from
+  I_ACTIVIDADES
+union all
+select
+  id_ingreso_cuota as id_ingreso,
+  fecha,
+  concepto,
+  importe,
+  'cuotas' as tipo
+FROM
+  I_CUOTAS
+union all
+select
+  id_ingreso_otros as id_ingreso,
+  fecha,
+  concepto,
+  importe,
+  'otros' as tipo
+from
+  I_OTROS;
