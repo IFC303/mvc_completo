@@ -209,30 +209,59 @@
 
                                                 <div class="row">
                                                     
-                                                    
+                                                            <!--CAMPOS DE OTROS-->
                                                     <?php 
-                                                        if($datos['tipoIngreso']=="otros"){?>
+                                                        if($datos['tipoIngreso']=="otros"){
+                                                            foreach($datos['ingresosOtros'] as $otros){
+                                                                if($otros->id_ingreso_otros==$info->id_ingreso){
+                                                                    $entidad=$otros->nombre;
+                                                                }
+                                                            }
+                                                            ?>
                                                             <div class="col-6">
-                                                                <label for="id_ususario">Entidad</label>
-                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $iCuotas->id_usuario?>" readonly>
+                                                                <label for="id_entidad">Entidad</label>
+                                                                <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg" value="<?php echo $entidad?>" readonly>
                                                                 <br>
                                                             </div>
-                                                        <?php }else if($datos['tipoIngreso']=="cuotas"){?>
-                                                            <div class="col-6">
-                                                                <label for="id_ususario">Usuario</label>
-                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $iCuotas->id_usuario?>" readonly>
-                                                                <br>
-                                                            </div>
-                                                        <?php }else if($datos['tipoIngreso']=="actividades"){?>
 
+                                                            <!--CAMPOS DE CUOTAS-->
+                                                        <?php }else if($datos['tipoIngreso']=="cuotas"){
+                                                            foreach($datos['ingresosCuotas'] as $cuotas){
+                                                                if($cuotas->id_ingreso_cuota==$info->id_ingreso){
+                                                                    $usuario=$cuotas->nombre." ".$cuotas->apellidos;
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <div class="col-6">
+                                                                <label for="id_usuario">Usuario</label>
+                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $usuario?>" readonly>
+                                                                <br>
+                                                            </div>
+
+                                                            <!--CAMPOS DE ACTIVIDADES-->
+                                                        <?php }else if($datos['tipoIngreso']=="actividades"){
+                                                            foreach($datos['ingresosActividadesSocios'] as $socios){
+                                                                if($socios->id_ingreso_actividades==$info->id_ingreso){
+                                                                    $evento=$socios->nom_evento;
+                                                                    $participante=$socios->nombre." ".$socios->apellidos;
+                                                                }
+                                                            }
+                                                            foreach($datos['ingresosActividadesExternos'] as $externos){
+                                                                if($externos->id_ingreso_actividades==$info->id_ingreso){
+                                                                    $evento=$externos->nom_evento;
+                                                                    $participante=$externos->nombre." ".$externos->apellidos;
+                                                                }
+                                                            }
+
+                                                            ?>
                                                             <div class="col-6">
                                                                 <label for="tipo">Participante</label>
-                                                                <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $info->tipo?>" readonly>
+                                                                <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $participante?>" readonly>
                                                                 <br>
                                                             </div>
                                                             <div class="col-6">
-                                                                <label for="id_ususario">Evento</label>
-                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $iCuotas->id_usuario?>" readonly>
+                                                                <label for="id_evento">Evento</label>
+                                                                <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg" value="<?php echo $evento?>" readonly>
                                                                 <br>
                                                             </div>
                                                        <?php };
@@ -253,14 +282,15 @@
 
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $iCuotas->id_ingreso_cuota?>" >
+                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $info->id_ingreso?>" >
                                   <img src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="ModalEditar_<?php echo $iCuotas->id_ingreso_cuota?>">
+                                    <div class="modal" id="ModalEditar_<?php echo $info->id_ingreso ?>">
                                     <div class="modal-dialog modal-xl modal-dialog-centered">
                                         <div class="modal-content">
+
 
                                             <!-- Header -->
                                             <div class="modal-header">
@@ -271,46 +301,98 @@
                                             <!-- Body -->
                                             <div class="modal-body">
                                                 <form method="post" action="<?php echo RUTA_URL?>/adminFacturacion/editarIngreso/<?php echo $iCuotas->id_ingreso_cuota ?>" class="card-body">
-                                                        <div class="row">
+                                                        
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <label for="id_ingreso">Numero de ingreso</label>
+                                                        <input type="text" name="id_ingreso" id="id_ingreso" class="form-control form-control-lg" value="<?php echo $info->id_ingreso ?>">
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <label for="fecha">fecha</label>
+                                                        <input type="text" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>">
+                                                        <br>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <label for="concepto">Concepto</label>
+                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>"> 
+                                                        <br>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <label for="importe">Importe</label>
+                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>">
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                
+          
+
+                                                <div class="row">
+                                                    
+                                                            <!--CAMPOS DE OTROS-->
+                                                    <?php 
+                                                        if($datos['tipoIngreso']=="otros"){
+                                                            foreach($datos['ingresosOtros'] as $otros){
+                                                                if($otros->id_ingreso_otros==$info->id_ingreso){
+                                                                    $entidad=$otros->nombre;
+                                                                }
+                                                            }
+                                                            ?>
                                                             <div class="col-6">
-                                                                <label for="id_evento">Numero de ingreso</label>
-                                                                <input type="text" name="id_ingreso_cuota" id="id_ingreso_cuota" class="form-control form-control-lg" value="<?php echo $iCuotas->id_ingreso_cuota?>">
+                                                                <label for="id_entidad">Entidad</label>
+                                                                <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg" value="<?php echo $entidad?>">
+                                                                <br>
                                                             </div>
 
+                                                            <!--CAMPOS DE CUOTAS-->
+                                                        <?php }else if($datos['tipoIngreso']=="cuotas"){
+                                                            foreach($datos['ingresosCuotas'] as $cuotas){
+                                                                if($cuotas->id_ingreso_cuota==$info->id_ingreso){
+                                                                    $usuario=$cuotas->nombre." ".$cuotas->apellidos;
+                                                                }
+                                                            }
+                                                            ?>
                                                             <div class="col-6">
-                                                                <label for="fecha">fecha</label>
-                                                                <input type="text" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $iCuotas->fecha?>">
+                                                                <label for="id_usuario">Usuario</label>
+                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $usuario?>">
                                                                 <br>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <label for="concepto">Concepto</label>
-                                                                <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $iCuotas->concepto?>"> 
-                                                                <br>
-                                                            </div>
+                                                            <!--CAMPOS DE ACTIVIDADES-->
+                                                        <?php }else if($datos['tipoIngreso']=="actividades"){
+                                                            foreach($datos['ingresosActividadesSocios'] as $socios){
+                                                                if($socios->id_ingreso_actividades==$info->id_ingreso){
+                                                                    $evento=$socios->nom_evento;
+                                                                    $participante=$socios->nombre." ".$socios->apellidos;
+                                                                }
+                                                            }
+                                                            foreach($datos['ingresosActividadesExternos'] as $externos){
+                                                                if($externos->id_ingreso_actividades==$info->id_ingreso){
+                                                                    $evento=$externos->nom_evento;
+                                                                    $participante=$externos->nombre." ".$externos->apellidos;
+                                                                }
+                                                            }
 
+                                                            ?>
                                                             <div class="col-6">
-                                                                <label for="importe">Importe</label>
-                                                                <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $iCuotas->importe?>">
+                                                                <label for="tipo">Participante</label>
+                                                                <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $participante?>">
                                                                 <br>
                                                             </div>
-                                                        </div>
+                                                            <div class="col-6">
+                                                                <label for="id_evento">Evento</label>
+                                                                <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg" value="<?php echo $evento?>">
+                                                                <br>
+                                                            </div>
+                                                       <?php };
+                                                    ?>
+                                                    
+                                                </div>
 
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <label for="tipo">tipo</label>
-                                                                <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $iCuotas->tipo?>">
-                                                                <br>
-                                                            </div>
-                                                            
-                                                            <div class="col-6">
-                                                                <label for="id_ususario">Usuario</label>
-                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $iCuotas->id_usuario?>">
-                                                                <br>
-                                                            </div>
-                                                        </div>
                                                   
                                                     <br>
                                                     <input type="submit" class="btn" value="Confirmar">
@@ -331,12 +413,12 @@
 
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $iCuotas->id_ingreso_cuota?>" href="<?php echo RUTA_URL?>/adminFacturacion/borrar/<?php echo $iCuotas->id_ingreso_cuota?>">
+                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $info->id_ingreso?>" href="<?php echo RUTA_URL?>/adminFacturacion/borrar/<?php echo $info->id_ingreso?>">
                                   <img src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
-                                    <div class="modal" id="ModalBorrar_<?php echo $iCuotas->id_ingreso_cuota?>">
+                                    <div class="modal" id="ModalBorrar_<?php echo $info->id_ingreso?>">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
 
@@ -347,12 +429,13 @@
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <h6>Seguro que quiere borrar el ingreso <?php echo $iCuotas->concepto?> ?</h6>
+                                                <h6>Seguro que quiere borrar el ingreso <?php echo $info->id_ingreso?> ?</h6>
                                             </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminFacturacion/borrar/<?php echo $iCuotas->id_ingreso_cuota?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminFacturacion/borrar/<?php echo $info->id_ingreso?>" method="post">
+                                                    <input type="hidden" name="tipo" value="<?php echo $info->tipo?>">
                                                     <button type="submit" class="btn">Borrar</button>
                                                 </form>
                                             </div>

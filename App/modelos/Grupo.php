@@ -40,9 +40,16 @@ class Grupo
         return $this->db->registros();
     }
 
+    public function obtenerEntrenadorGrupo(){
+        $this->db->query("SELECT * FROM ENTRENADOR_GRUPO");
+        return $this->db->registros();
+    }
 
-    public function obtenerAlumnos(){
-        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=3");
+    //obtiene alumnos por el id_grupo (tabla SOCIO_GRUPO)
+    public function obtenerAlumnos($idGrupo){
+        $this->db->query("SELECT id_grupo, fecha_inscripcion, acepatado, activo, SOCIO_GRUPO.id_usuario, USUARIO.nombre, USUARIO.apellidos 
+        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario");
+        $this->db->bind(':idGrupo',$idGrupo);
         return $this->db->registros();
     }
 
@@ -125,8 +132,37 @@ class Grupo
     }
 
 
+    public function agregarEntrenadorGrupo($hoy,$id_grupo,$entrenador){
+         $this->db->query("INSERT INTO ENTRENADOR_GRUPO (fecha,id_grupo,id_usuario) VALUES (:hoy,:id_grupo,:entrenador)");
+         $this->db->bind(':hoy', $hoy);
+         $this->db->bind(':id_grupo',$id_grupo);
+         $this->db->bind(':entrenador',$entrenador);
+         if ($this->db->execute()){
+             return true;
+         }else{
+             return false;
+         }
+    }
   
 
+    public function cambiarEstadoAlumno($info){
+        $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idAlumno");
+            $this->db->bind(':idAlumno',$info);
+             if ($this->db->execute()){
+                 return true;
+             }else{
+                 return false;
+             }
+    }
 
+    
+    public function obtenerTestPruebas(){
+        $this->db->query("SELECT TEST_PRUEBA.id_test, TEST_PRUEBA.id_prueba, TEST.nombreTest, PRUEBA.nombrePrueba, PRUEBA.tipo 
+        from TEST,PRUEBA,TEST_PRUEBA where TEST_PRUEBA.id_test=TEST.id_test and TEST_PRUEBA.id_prueba=PRUEBA.id_prueba");
+        $this->db->execute();
+        return $this->db->registros();
+    }
+
+    
 
 }

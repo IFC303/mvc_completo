@@ -20,41 +20,94 @@
 
 </head>
 
+<style>
+ 
+ #ventana{
+    margin: auto;
+    width:60%;
+    background-color:#EBECEC;
+} 
+
+label, h2,p{
+   color:#023ef9;
+}
+
+p{
+    margin-left:35px;
+}
+
+.btn{
+    background-color: #023ef9; 
+    color:white;
+    margin-left:35px;
+}
+
+#botonVolver{
+    background-color:white; 
+    color:#023ef9;
+    border-color:#023ef9;
+}
+
+#entrenadores, #alumnos,#cajaEntrenador,#cajaAlumnos{
+    background-color:white;
+}
+</style>
+
+
+
 <body>
     
-    <div class="container">
+
+
+<div id="ventana" class="card">
+    
+    <h2 class="card-header">Gestion de participantes</h2>
+    
+    <div class="container card-body">
 
             <!--DRAG & DROP ENTRENADOR-->
-            <h5>Arrastra el profesor que quieras incluir en el grupo</h5>
             <div class="row">
-                <div id="entrenadores" class="col" style="border:solid" ondragover="sobre(event);" ondrop="suelta2(event);">
-                    <script>
-                            let participantes = <?php echo json_encode($datos['entrenadores']);?>;
-                            var di=document.getElementById("entrenadores"); 
-
-                            //console.log(participantes);
-                            let ent =new Array();
-
-                            for(var i=0;i<participantes.length;i++){
-                                
-                                var part=document.createElement("div"); 
-                                part.setAttribute("id",participantes[i].id_usuario);
-                                part.setAttribute("class","entrenador");
-                                part.setAttribute("draggable",true);
-                                part.setAttribute("ondragstart","arrastre(this.id,event);");
-                                part.setAttribute("value",participantes[i].id_usuario);
-
-                                var nombre=participantes[i].nombre+" "+ participantes[i].apellidos;
-
-                                var textoNodo=document.createTextNode(nombre);
-
-                                part.appendChild(textoNodo);
-                                di.appendChild(part);
-                            }
-                        </script>
+                <div class="col">
+                    <p>Entrenadores disponibles</p>
                 </div>
-    
-                <div class="col" style="border:solid" ondragover="sobre(event);" ondrop="suelta(event,this.id);" id="cajaEntrenador"> 
+                <div class="col">
+                    <p>Entrenador en el grupo</p>
+                </div>
+            </div>
+            
+            <div class="row d-flex justify-content-around">
+                <div id="entrenadores" class="col-5" ondragover="sobre(event);" ondrop="suelta2(event);">
+
+                    <script>
+                        let participantes = <?php echo json_encode($datos['entrenadores']);?>;
+                        let participantesGrupo = <?php echo json_encode($datos['entrenadoresGrupo']);?>;
+                        var di=document.getElementById("entrenadores"); 
+
+                        //console.log(participantes);
+                        let ent = new Array();
+
+                        for(var i=0;i<participantes.length;i++){
+                            
+                            var part=document.createElement("div"); 
+                            part.setAttribute("id",participantes[i].id_usuario);
+                            part.setAttribute("class","entrenador");
+                            part.setAttribute("draggable",true);
+                            part.setAttribute("ondragstart","arrastre(this.id,event);");
+                            part.setAttribute("value",participantes[i].id_usuario);
+
+                            var nombre=participantes[i].nombre+" "+ participantes[i].apellidos;
+
+                            var textoNodo=document.createTextNode(nombre);
+
+                            part.appendChild(textoNodo);
+                            di.appendChild(part);
+                        }
+                    </script> 
+                
+                    
+                </div>
+
+                <div class="col-5"  ondragover="sobre(event);" ondrop="suelta(event,this.id);" id="cajaEntrenador"> 
                 </div>
             </div>
 
@@ -62,10 +115,18 @@
          
 
             <!--DRAG & DROP ALUMNOS-->
-            <h5>Arrastra los alumos que quieras incluir en el grupo</h5>
             <div class="row">
-                <div id="alumnos" class="col" style="border:solid" ondragover="sobre(event);" ondrop="sueltaAlumno(event);">
-                    <script>
+                <div class="col">
+                    <p>Atletas disponibles</p>
+                </div>
+                <div class="col">
+                    <p>Atletas en el grupo</p>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around">
+                <div id="alumnos" class="col-5" ondragover="sobre(event);" ondrop="sueltaAlumno(event);"> 
+                        <script>
                             let alumnos = <?php echo json_encode($datos['alumnos']);?>;
                             var alus=document.getElementById("alumnos"); 
                             
@@ -88,20 +149,31 @@
                                 alus.appendChild(alu);
                             }
                         </script>
-        
                 </div>
-
-                <div class="col" style="border:solid" ondragover="sobre(event);" ondrop="sueltaAlu(event,this.id);" id="cajaAlumnos">  
+                
+                <div class="col-5" ondragover="sobre(event);" ondrop="sueltaAlu(event,this.id);" id="cajaAlumnos">         
                 </div>
             </div>
 
 
-            <form method="post" action="<?php RUTA_APP?>/adminGrupos" >
-                <input type="hidden" id="entrenadorActual" name="entrenadorActual">
-                <input type="hidden" id="alumnosActuales" name="alumnosActuales">
-                <input type="submit" class="btn btn-success" id="enviar" name="enviar" value="Confirmar">
+            <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/nueva_clase">
+                <input type="hidden" id="entrenadorActual" name="entrenadorActual" value="">
+                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value=""><br>
+                <?php $idGrupo=($datos['id_grupo'])?>
+                <input type="hidden" id="idGrupo" name="idGrupo" value="<?php echo $idGrupo?>">
+                
+                <div class="row">
+                    <div class="col-2">
+                        <input type="submit" class="btn" id="enviar" name="enviar" value="Confirmar">
+                    </div>
+                    <div class="col-3">
+                        <a href="<?php echo RUTA_URL?>/adminGrupos">
+                            <input type="button" class="btn" id="botonVolver" value="Volver">  
+                        </a>
+                    </div>
+                </div>   
             </form>
-
+    </div>
 
     </div>
 

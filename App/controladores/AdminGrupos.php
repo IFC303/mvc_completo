@@ -275,8 +275,6 @@ class AdminGrupos extends Controlador
     }
 
 
-
-
         public function horario($id_grupo){
             $this->datos['entrenadores'] = $this->grupoModelo->obtenerEntrenador();
             $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos();
@@ -288,56 +286,51 @@ class AdminGrupos extends Controlador
 
         public function participantes($id_grupo){
             $this->datos['entrenadores'] = $this->grupoModelo->obtenerEntrenador();
-            $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos();
+            $this->datos['entrenadoresGrupo'] = $this->grupoModelo->obtenerEntrenadorGrupo();
+            //var_dump($this->datos['entrenadores']);
+            //var_dump($this->datos['entrenadoresGrupo']);
+            $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos($id_grupo);
+            $this->datos['id_grupo'] = $id_grupo;
             $this->vista('administradores/crudGrupos/participantes',$this->datos);
         }
 
 
         public function nueva_clase(){
-            $this->datos['rolesPermitidos'] = [1];         
-            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                $this->datos['rolesPermitidos'] = [1];         
+                if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
                 redireccionar('/usuarios');
-            }
+                }
 
+              if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 
+                //DATOS ENTRENADOR (tabla ENTRENADOR_GRUPO)
+                if($_POST['entrenadorActual']!=null){
+                    //cogemos el dia de hoy (llega un array asociativo);
+                    $hoy = getdate();
+                    $hoy = $hoy['year']."/".$hoy['mon']."/".$hoy['mday'];
+                    $id_grupo = $_POST['idGrupo'];
+                    //llega un array javascript
+                    $entrenador=json_decode($_POST['entrenadorActual']);
+                    $entrenador=$entrenador[0];
+                    $this->grupoModelo->agregarEntrenadorGrupo($hoy,$id_grupo,$entrenador); 
+                }
+                
+
+                //DATOS ATLETAS (tabla SOCIO_GRUPO)
+                if($_POST['alumnosActuales']!=null){
+                    $alumnos=json_decode($_POST['alumnosActuales']);
+                    foreach($alumnos as $info){
+                        $this->grupoModelo->cambiarEstadoAlumno($info);
+                    }
+                }
+                 redireccionar('/adminGrupos');
+              }
         }
 
+        
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 
