@@ -239,11 +239,6 @@
                                                 </form>
 
                                             </div>
-                                            <!-- Footer -->
-                                            <!-- <div class="modal-footer">
-                                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                            </div> -->
-
                                         </div>
                                     </div>
                                     </div>
