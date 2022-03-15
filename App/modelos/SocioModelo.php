@@ -27,11 +27,11 @@ class SocioModelo
 
     public function actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser){
 
-        $this->db->query("UPDATE USUARIO SET dni=:dni ,nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, CCC=:CCC, passw=:passw, talla=:talla
+        $this->db->query("UPDATE USUARIO SET dni=:dni ,nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, CCC=:CCC, passw=:passw, talla=:talla, foto=:foto
                            WHERE id_usuario = '$idUsuarioSesion';");
 
 
-        
+        //print_r($datosUser); exit();
         //vinculamos los valores
         if ($editarDatos['dniEdit']=="") {
             $this->db->bind(':dni', $datosUser[0]->dni);
@@ -80,6 +80,12 @@ class SocioModelo
         }else {
             $this->db->bind(':talla', $editarDatos['tallaEdit']);
         }
+
+        if ($editarDatos['fotoEdit']=="") {
+            $this->db->bind(':foto', $datosUser[0]->foto);
+        }else {
+            $this->db->bind(':foto', $editarDatos['fotoEdit']);
+        }
         
         //ejecutamos
         if ($this->db->execute()) {
@@ -106,7 +112,7 @@ class SocioModelo
 
     public function obtenerLicenciasId($idUsuarioSesion)
     {
-        $this->db->query("SELECT * FROM LICENCIA L where '$idUsuarioSesion' = L.id_usuario  ORDER BY L.id_licencia");
+        $this->db->query("SELECT * FROM LICENCIA L where '$idUsuarioSesion' = L.id_usuario");
 
         return $this->db->registros();
     }
@@ -119,8 +125,19 @@ class SocioModelo
         $this->db->bind(':id_usuario', $idUsuarioSesion);
         $this->db->bind(':imagen', $agreLic['imagenLicencia']);
         $this->db->bind(':num_licencia', $agreLic['numLicencia']);
-        $this->db->bind(':fecha_cad', $agreLic['fechaCaducidad']);
-        $this->db->bind(':tipo', $agreLic['tipoLicencia']);
+        
+        if ($agreLic['fechaCaducidad']=="") {
+            $this->db->bind(':fecha_cad', NULL);    
+        }else {
+            $this->db->bind(':fecha_cad', $agreLic['fechaCaducidad']);
+        }
+        
+        if ($agreLic['tipoLicencia']==1) {
+            $this->db->bind(':tipo', 'Federativa');
+        }elseif ($agreLic['tipoLicencia']==2) {
+            $this->db->bind(':tipo', 'Escolar');
+        }
+        
         if ($agreLic['dorsal']=="") {
             $this->db->bind(':dorsal', NULL);    
         }else {

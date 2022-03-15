@@ -107,7 +107,7 @@
             
             <div class="col-2">
                 <div class="row float-right" style="font-family: 'Inter', sans-serif;">
-                    <form name="form" method="post">
+                    <form name="form"  ENCTYPE="multipart/form-data" method="post">
                         <div class="datos col-12" ><input type="text" value="" id="agregarLic" name="NumLicencia" required></div>
 
                         <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();" required>
@@ -122,9 +122,9 @@
                         
                         <div class="datos col-12" ><input type="number" min="0" value="" id="agregarLic" name="Dorsal"></div>
                         
-                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad" required></div>
+                        <div class="datos col-12" ><input type="date" value="" id="agregarLic" name="FechaCaducidad" ></div>
                         
-                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia" required></div>
+                        <div class="datos col-12" ><input  accept="image/*" type="file" id="imagenLicencia" name="ImagenLicencia" ></div>
 
                 </div>
             </div>

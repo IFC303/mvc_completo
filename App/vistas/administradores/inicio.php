@@ -99,12 +99,14 @@
 
     <!-- LICENCIAS -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorLice" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                <img src="<?php echo RUTA_Icon ?>licencias.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminLicencias">
+            <div>
+                <div id="colorLice" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                    <img src="<?php echo RUTA_Icon ?>licencias.svg" width="100" height="100">
+                </div>
+                <p id="pLicen" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">LICENCIAS</p>
             </div>
-            <p id="pLicen" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">LICENCIAS</p>
-        </div>
+        </a>
     </div>
 
     <!-- ENTIDADES -->

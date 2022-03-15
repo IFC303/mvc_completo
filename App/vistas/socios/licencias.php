@@ -96,8 +96,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Num Licencia</th>
                         <th scope="col">Tipo Licencia</th>
-                        <th scope="col">Dorsal</th>
                         <th scope="col">Regional/Nacional</th>
+                        <th scope="col">Dorsal</th>
                         <th scope="col">Fecha Caducidad</th>
                         <th scope="col">Imagen</th>
                 
@@ -112,10 +112,10 @@
                         <td scope="row"><?php echo $contador ?></td>
                         <td scope="col"><?php if ($licencias->num_licencia==''){echo '-';}else {echo $licencias->num_licencia;}?></td>
                         <td scope="col"><?php if ($licencias->tipo==''){echo '-';}else {echo $licencias->tipo;}?></td>
-                        <td scope="col"><?php if ($licencias->dorsal==''){echo '-';}else {echo $licencias->dorsal;}?></td>
                         <td scope="col"><?php if ($licencias->regional_nacional==''){echo '-';}else {echo $licencias->regional_nacional;}?></td>
+                        <td scope="col"><?php if ($licencias->dorsal==''){echo '-';}else {echo $licencias->dorsal;}?></td>
                         <td scope="col"><?php if ($licencias->fecha_cad==''){echo '-';}else {echo $licencias->fecha_cad;}?></td>
-                        <td scope="col"><?php if ($licencias->imagen==''){echo '-';}else {echo $licencias->imagen;}?></td>
+                        <td scope="col"><?php if ($licencias->imagen==''){echo '-';}else {?> <img width="30" height="30" src="<?php echo RUTA_ImgDatos. $licencias->imagen?>"><?php ;}?></td>
                     </tr>
                     
                 <?php endforeach ?>

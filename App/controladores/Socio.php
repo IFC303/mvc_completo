@@ -33,6 +33,11 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            $directorio="/var/www/html/tragamillas/public/img/datosBBDD/";
+           
+            
+            move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$_FILES['foto']['name']);
+
             $editarDatos = [
                 'dniEdit' => trim($_POST["dni"]),
                 'nombreEdit' => trim($_POST["nombre"]),
@@ -42,6 +47,7 @@ class Socio extends Controlador
                 'cccEdit' => trim($_POST["ccc"]),
                 'passwEdit' => trim($_POST["passw"]),
                 'tallaEdit' => trim($_POST["talla"]),
+                'fotoEdit' => $_FILES['foto']['name'],
             ];
 
             if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
@@ -84,6 +90,10 @@ class Socio extends Controlador
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
+     
+        
+
+
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -92,13 +102,18 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            $dir="/var/www/html/tragamillas/public/img/datosBBDD/";
+           
+            
+            move_uploaded_file($_FILES['ImagenLicencia']['tmp_name'], $dir.$_FILES['ImagenLicencia']['name']);
+           
             $agreLic = [
                 'numLicencia' => trim($_POST['NumLicencia']),
                 'tipoLicencia' => trim($_POST['tipoLicencia']),
                 'federativas' => trim($_POST['federativas']),
                 'dorsal' => trim($_POST['Dorsal']),
                 'fechaCaducidad' => trim($_POST['FechaCaducidad']),
-                'imagenLicencia' => trim($_POST['ImagenLicencia']),
+                'imagenLicencia' => $_FILES['ImagenLicencia']['name'],
             ];
 
             if ($this->SocioModelo->agregarLicencia($agreLic, $idUsuarioSesion)) {
@@ -106,7 +121,6 @@ class Socio extends Controlador
             } else {
                 die('Algo ha fallado!!!');
             }
-
         } else {
             $this->vista('socios/agregarLicencia', $this->datos);
         }
