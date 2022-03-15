@@ -138,6 +138,33 @@ class Socio extends Controlador
         }
 
         $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $dirCarnet="/var/www/html/tragamillas/public/img/foto_carnet/";
+
+            $terCarnet=(substr($_FILES['imgCarnet']["name"], strpos($_FILES['imgCarnet']["name"],'.')+strlen('.')));
+            $nomFoto = "socioCarnet_".$datosUser[0]->id_usuario.".".$terCarnet;
+
+            move_uploaded_file($_FILES['imgCarnet']['tmp_name'], $dirCarnet.$nomFoto);
+           
+            $agreEscuela = [
+                'id_usu' =>$datosUser[0]->id_usuario,
+                'ccc' => trim($_POST['ccc']),
+                'categoria' => trim($_POST['cat']),
+                'grupo' => trim($_POST['grup']),
+                'gir' => trim($_POST['gir']),
+                'fecha' => date('Y-m-d'),
+                'fotoCarnet' => $nomFoto,
+            ];
+          
+            if ($this->SocioModelo->escuela($agreEscuela)) {
+                redireccionar('/socio');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+
         $categorias = $this->SocioModelo->obtenerCategorias();
         $grupos = $this->SocioModelo->obtenergrupos();
         $this->datos['usuarios']=$datosUser;
@@ -146,7 +173,6 @@ class Socio extends Controlador
         $this->vista('socios/formulario_escuela', $this->datos);
         
     }
-    
 
 
 }

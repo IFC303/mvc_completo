@@ -25,40 +25,39 @@
 </head>
 
 <body>
-    <?php print_r($datos['usuarios']); ?><br><br><br>
+    <!-- <?php print_r($datos['usuarios']); ?><br><br><br>
     <?php print_r($datos['categorias']); ?><br><br><br>
-    <?php print_r($datos['grupos']); ?><br><br><br>
-    <form action="aaa.html">
+    <?php print_r($datos['grupos']); ?><br><br><br> -->
 
-        <label for="">CCC </label><input value="<?php $datos['usuarios'][0]->CCC; ?>" type="text" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+    <form method="post" ENCTYPE="multipart/form-data">
+
+        <label for="ccc">CCC</label><sup>* </sup><input id="ccc" name="ccc" value="<?php $datos['usuarios'][0]->CCC; ?>" type="text" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
         <br><br>
-        <label for="cat">Categoría (2022) </label>
+        <label for="cat">Categoría (2022)</label><sup>* </sup>
         <select name="cat" id="cat" required>
             <?php foreach ($datos['categorias'] as $cat) : ?>
             <option value="<?php echo $cat->id_categoria ?>"><?php echo $cat->nombre ?></option>
             <?php endforeach ?>
         </select>
         <br><br>
-        <label for="grup">Grupo entrenamiento </label>
+        <label for="grup">Grupo entrenamiento </label><sup>*</sup>
         <select name="grup" id="grup" required>
             <?php foreach ($datos['grupos'] as $gru) : ?>
             <option value="<?php echo $gru->id_grupo ?>"><?php echo $gru->nombre ?></option>
             <?php endforeach ?>
         </select>
         <br><br>
-        <label for="">Código GIR </label><input value="<?php $datos['usuarios'][0]->gir; ?>" type="text">
+        <label for="">Código GIR </label><input type="text" name="gir" value="<?php $datos['usuarios'][0]->gir; ?>">
         <br><br>
 
-        <label for="">Consiento la toma y el uso de fotos </label> &nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="">Consiento la toma y el uso de fotos</label><sup>*</sup> &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" id="siFotos" name="fotos" value="si"><label for="siFotos">SI</label>
         <input type="radio" id="noFotos" name="fotos" value="no"><label for="noFotos">NO</label>
         <br><br>
-        <label for="">He leido y acepto el reglamento </label> &nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="">He leido y acepto el reglamento</label><sup>*</sup> &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" id="siReglamento" name="reglamento" value="si" required><label for="siReglamento">SI</label>
         <br><br>
-        <label for="">Justificante de pago </label><input type="file" required>
-        <br><br>
-        <label for="">Foto reciente tamaño carnet </label><input type="file" required>
+        <label for="">Foto reciente tamaño carnet</label><sup>* </sup><input type="file" name="imgCarnet" accept="image/*" required>
         <br><br>
 
 
