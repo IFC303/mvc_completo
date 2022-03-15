@@ -21,9 +21,9 @@ class AdminLicencias extends Controlador{
     }
 
     public function verFoto($numLic){
-        $this->datos['foto'] = $numLic;
-        
-        $pru= $this->licenciaModelo->obtenerFotoLicencia($numLic);
+     
+
+        $this->datos['foto']=$this->licenciaModelo->obtenerFotoLicencia($numLic);
        
         $this->vista('administradores/crudLicencias/verFoto',$this->datos);
     }
@@ -42,7 +42,7 @@ class AdminLicencias extends Controlador{
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
 
-            $dir="/var/www/html/tragamillas/public/img/datosBBDD/";
+            $dir="/var/www/html/tragamillas/public/img/licencias/";
            
             
             move_uploaded_file($_FILES['imagenLicAdmin']['tmp_name'], $dir.$_FILES['imagenLicAdmin']['name']);
@@ -94,7 +94,7 @@ class AdminLicencias extends Controlador{
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $dir="/var/www/html/tragamillas/public/img/datosBBDD/";
+            $dir="/var/www/html/tragamillas/public/img/licencias/";
            
             
             move_uploaded_file($_FILES['imagen']['tmp_name'], $dir.$_FILES['imagen']['name']);

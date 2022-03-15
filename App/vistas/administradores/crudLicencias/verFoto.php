@@ -1,7 +1,7 @@
 <?php
-$foto=$datos['licencias'];
-print_r($foto);
+$foto=$datos['foto'][0]->imagen;
+
 ?>
-<img src="<?php echo RUTA_ImgDatos.$foto?>" alt="">
+<img src="<?php echo RUTA_ImgDatos.'licencias/'.$foto?>">
 
 

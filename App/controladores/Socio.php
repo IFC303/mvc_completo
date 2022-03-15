@@ -33,7 +33,7 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $directorio="/var/www/html/tragamillas/public/img/datosBBDD/";
+            $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
            
             
             move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$_FILES['foto']['name']);
@@ -102,7 +102,7 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $dir="/var/www/html/tragamillas/public/img/datosBBDD/";
+            $dir="/var/www/html/tragamillas/public/img/licencias/";
            
             
             move_uploaded_file($_FILES['ImagenLicencia']['tmp_name'], $dir.$_FILES['ImagenLicencia']['name']);
