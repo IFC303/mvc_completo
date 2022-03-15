@@ -66,6 +66,7 @@ class AdminModelo
         $fotMet = false;
         $actMet = false;
         $rolMet = false;
+        $girMet = false;
         $cad = "UPDATE `USUARIO` SET ";
 
         if (($usuEditar['dniEdit'] != "") && ($usuEditar['dniEdit'] != null)) {
@@ -180,10 +181,20 @@ class AdminModelo
             if ($coma == 1) {
                 $cad = $cad . ", `id_rol` = :idRolUsu";
             } else {
-                $cad = $cad . " `id_rol` = idRolUsu:";
+                $cad = $cad . " `id_rol` = :idRolUsu";
                 $coma = 1;
             }
             $rolMet = true;
+        }
+
+        if (($usuEditar['GirEdit'] != "") && ($usuEditar['GirEdit'] != null)) {
+            if ($coma == 1) {
+                $cad = $cad . ", `gir` = :girUsu";
+            } else {
+                $cad = $cad . " `gir` = :girUsu";
+                $coma = 1;
+            }
+            $girMet = true;
         }
 
         $cad = $cad . " WHERE `id_usuario` = :idUsu;";
@@ -228,6 +239,9 @@ class AdminModelo
         }
         if ($rolMet == true) {
             $this->db->bind(':idRolUsu', $usuEditar['RolEdit']);
+        }
+        if ($girMet == true) {
+            $this->db->bind(':girUsu', $usuEditar['GirEdit']);
         }
 
         if ($this->db->execute()) {

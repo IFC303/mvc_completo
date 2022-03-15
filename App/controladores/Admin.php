@@ -133,6 +133,7 @@ class Admin extends Controlador
                 'FotoEdit' => trim($_POST["editFoto"]),
                 'ActEdit' => trim($_POST["editAct"]),
                 'RolEdit' => trim($_POST["editRol"]),
+                'GirEdit' => trim($_POST["editGir"]),
             ];
 
             if ($this->AdminModelo->editarUsuario($ediUsu)) {
