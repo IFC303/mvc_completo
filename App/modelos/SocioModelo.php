@@ -155,14 +155,30 @@ class SocioModelo
 
     public function obtenergrupos()
     {
-        $this->db->query("SELECT * FROM `CATEGORIA`");
+        $this->db->query("SELECT * FROM `GRUPO`");
         return $this->db->registros();
     }
 
     public function obtenerCategorias()
     {
-        $this->db->query("SELECT * FROM `GRUPO`");
+        $this->db->query("SELECT * FROM `CATEGORIA`");
         return $this->db->registros();
+    }
+
+    public function escuela($agreEscuela)
+    {
+        print_r($agreEscuela);
+        //$this->db->query("INSERT INTO `SOCIO_GRUPO` (`id_grupo`, `id_usuario`, `fecha_inscripcion`, `acepatado`, `activo`) VALUES ('2', '11', '2022-03-15', '0', '0');;");
+        
+        // $this->db->bind(':id_gru', $grupo);
+        // $this->db->bind(':id_usu', $id_usu);
+        // $this->db->bind(':fecha', $fecha);     
+    
+        /*if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }*/
     }
 
 }
