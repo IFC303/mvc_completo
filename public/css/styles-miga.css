@@ -1,0 +1,68 @@
+#titulo_header{
+    font-family: 'Anton',sans-serif; 
+    color: #023EF9; 
+    font: bold; 
+    letter-spacing: 5px;
+}
+
+#migaImgMenu{
+    width: 50px; 
+    height: 50px; 
+    cursor:pointer;
+}
+
+#fotoMenu{
+    padding: 50px;
+    padding-bottom: 0;
+}
+
+#notificaciones{
+    float: right;
+}
+
+/* MIGA DE PAN */
+.breadcrumb {
+    list-style-type: none;
+    display: block;
+}
+.v1 .breadcrumb-level::before, .v1 .breadcrumb-level::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 50%;
+    width: 100%;
+    background: #FFBF1C;
+    z-index: -1;
+}
+.v1 .breadcrumb-level::before {
+    top: 0;
+    transform: skew(20deg);
+}
+.v1 .breadcrumb-level::after {
+    bottom: 0;
+    transform: skew(-20deg);
+}
+.breadcrumb-level {
+    display: inline-block;
+    position: relative;
+}
+.breadcrumb-level:last-child a {
+    cursor: default;
+}
+.breadcrumb-level:last-child::before, .breadcrumb-level:last-child::after {
+    background: #ffbf1c79;
+}
+.breadcrumb-level:not(:last-child):hover::before, .breadcrumb-level:not(:last-child):hover::after {
+    background: #FFBF1C;
+}
+.breadcrumb-level a {
+    display: inline-block;
+    position: relative;
+    line-height: 2.5;
+    padding: 0 20px;
+    color: #000000;
+    text-decoration: none;
+}
+.row{
+    padding: 0;
+}

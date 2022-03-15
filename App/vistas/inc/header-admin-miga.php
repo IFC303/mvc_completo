@@ -16,6 +16,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos-admin.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/styles-miga.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="<?php echo RUTA_URL ?>/public/js/main.js"></script>
+
     <title><?php echo NOMBRE_SITIO ?></title>
 </head>
 
@@ -24,9 +29,10 @@
 
         <header class="p-4 row">
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
-            <br><br><br><br>
+            
+
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
+                <h1 id="titulo_header">ZONA DE ADMINISTRADOR</h1>
 
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
@@ -45,7 +51,7 @@
                                                     } ?></a></li>
                 </ol>
             </div>
-            <br><br><br><br>
+            
             <div class="d-flex col-6 col-md-2 justify-content-end order-2 order-md-3 text-center">
                 <div class="col-12">
                     <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
@@ -69,7 +75,9 @@
             </div>
 
             <div class="col-12 order-4" id="fotoMenu">
-                <div style="width: 50px; height: 50px; cursor:pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu1"><img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50"></div>
+                <div id="migaImgMenu" data-bs-toggle="offcanvas" data-bs-target="#menu1">
+                    <img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50">
+                </div>
             </div>
 
             <!--MENU-->
@@ -116,13 +124,13 @@
                     </li>
                     <ul class="collapse nav flex-column " id="submenuSol" data-bs-parent="#menu">
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span id="notificaciones" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span id="notificaciones" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link ">EVENTOS<span id="notificaciones" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
                         </li>
                     </ul>
                 </ul>

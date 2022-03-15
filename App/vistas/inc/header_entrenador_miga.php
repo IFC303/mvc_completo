@@ -16,7 +16,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos-admin.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/styles-miga.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="<?php echo RUTA_URL ?>/public/js/main.js"></script>
+    
     <title><?php echo NOMBRE_SITIO ?></title>
+
 </head>
 
 
@@ -29,9 +36,9 @@
 
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
 
-            <div class="col-xs-12 col-md-7 text-center order-3 order-md-2" style="z-index:1">
+            <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
                 </br>
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ENTRENADORES</h1>
+                <h1 id="titulo_header">ZONA DE ENTRENADORES</h1>
                 </br>
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>">INICIO</a></li>
@@ -59,54 +66,53 @@
                     </script>
                 </div>
             </div>
-        </header>
+        
 
-        <nav class="row">
             <!--BOTON MENU LATERAL-->
             <div class="col-12 order-4" id="fotoMenu">
-                <div style="width: 50px; height: 50px; cursor:pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu1">
+                <div id="migaImgMenu" data-bs-toggle="offcanvas" data-bs-target="#menu1">
                     <img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50">
                 </div>
             </div>
-        </nav>
 
-        <div class="offcanvas offcanvas-start" id="menu1">
-            <!--HEADER-->
-            <div class="offcanvas-header">
-                <a href="<?php echo RUTA_URL ?>/entrenador"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
-                <a href="<?php echo RUTA_URL ?>/entrenador">
-                    <h1 class="offcanvas-title">INICIO</h1>
-                </a>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <!--BODY-->
-            <div class="offcanvas-body">
+            <div class="offcanvas offcanvas-start" id="menu1">
+                <!--HEADER-->
+                <div class="offcanvas-header">
+                    <a href="<?php echo RUTA_URL ?>/entrenador"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
+                    <a href="<?php echo RUTA_URL ?>/entrenador">
+                        <h1 class="offcanvas-title">INICIO</h1>
+                    </a>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <!--BODY-->
+                <div class="offcanvas-body">
 
-                <ul id="mInicioGru">
-                    <!--GRUPOS-->
-                    <li id="mInicioGru">
-                        <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link px-0 align-middle">
-                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="35" height="35"></div>
-                            <div class="col-12">GRUPOS</div>
-                        </a>
-                    </li>
-                    <!--TEST-->
-                    <li id="mInicioTem">
-                        <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link px-0 align-middle">
-                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>cronometro.svg" width="35" height="35"></div>
-                            <div class="col-12">TEST</div>
-                        </a>
-                    </li>
-                    <!--MENSAJERIA-->
-                    <li id="mInicioMen">
-                        <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link px-0 align-middle">
-                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
-                            <div class="col-12">MENSAJERIA</div>
-                        </a>
-                </ul>
+                    <ul id="mInicioGru">
+                        <!--GRUPOS-->
+                        <li id="mInicioGru">
+                            <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="35" height="35"></div>
+                                <div class="col-12">GRUPOS</div>
+                            </a>
+                        </li>
+                        <!--TEST-->
+                        <li id="mInicioTem">
+                            <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>cronometro.svg" width="35" height="35"></div>
+                                <div class="col-12">TEST</div>
+                            </a>
+                        </li>
+                        <!--MENSAJERIA-->
+                        <li id="mInicioMen">
+                            <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
+                                <div class="col-12">MENSAJERIA</div>
+                            </a>
+                    </ul>
+                </div>
+                <!--FOOTER-->
+                <div class="d-flex offcanvas-footer justify-content-center align-items-end">
+                    <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
+                </div>
             </div>
-            <!--FOOTER-->
-            <div class="d-flex offcanvas-footer justify-content-center align-items-end">
-                <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
-            </div>
-        </div>
+        </header>
