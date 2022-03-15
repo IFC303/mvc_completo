@@ -93,12 +93,17 @@
 
                                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                                         <label for="verAct">Activado: </label>
-                                                                                        <label name="verAct" class="form-control form-control-lg"><?php echo $usuarios->activado ?></label>
+                                                                                        <label name="verAct" class="form-control form-control-lg"><?php if($usuarios->activado==0){echo "DESACTIVADO";}elseif($usuarios->activado==1){echo "ACTIVADO";} ?></label>
                                                                                 </div>
 
                                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                                         <label for="verRol">Rol: </label>
-                                                                                        <label name="verRol" class="form-control form-control-lg"><?php echo $usuarios->id_rol ?></label>
+                                                                                        <label name="verRol" class="form-control form-control-lg"><?php if ($usuarios->id_rol == 1) {echo "Admin";}elseif($usuarios->id_rol == 2){echo "Entrenador";}elseif($usuarios->id_rol == 3){echo "Socio";}elseif($usuarios->id_rol == 4){echo "Tienda";} ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                                        <label for="verGir">Gir: </label>
+                                                                                        <label name="verGir" class="form-control form-control-lg"><?php echo $usuarios->gir ?></label>
                                                                                 </div>
 
                                                                         </div>
@@ -187,8 +192,8 @@
                                                                                                         </div>
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                                                                                                <label for="editAct">Activado: <sup>*</sup></label>
-                                                                                                                <input type="text" name="editAct" id="editAct" class="form-control form-control-lg" placeholder="<?php echo $usuarios->activado ?>">
+                                                                                                                <label for="editAct">Activado(0=Desactivado, 1=Activado): <sup>*</sup></label>
+                                                                                                                <input type="text" name="editAct" id="editAct" class="form-control form-control-lg" placeholder="<?php if($usuarios->activado==0){echo "DESACTIVADO";}elseif($usuarios->activado==1){echo "ACTIVADO";} ?>">
                                                                                                         </div>
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -217,6 +222,11 @@
                                                                                                                         <?php } ?>
 
                                                                                                                 </select>
+                                                                                                        </div>
+
+                                                                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                                                                <label for="editGir">Gir: <sup>*</sup></label>
+                                                                                                                <input type="text" name="editGir" id="editGir" class="form-control form-control-lg" placeholder="<?php echo $usuarios->gir ?>">
                                                                                                         </div>
                                                                                                 </div>
                                                                                                 <input type="submit" class="btn btn-success" value="Confirmar">
