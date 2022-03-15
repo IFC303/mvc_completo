@@ -115,7 +115,7 @@
                         <td scope="col"><?php if ($licencias->regional_nacional==''){echo '-';}else {echo $licencias->regional_nacional;}?></td>
                         <td scope="col"><?php if ($licencias->dorsal==''){echo '-';}else {echo $licencias->dorsal;}?></td>
                         <td scope="col"><?php if ($licencias->fecha_cad==''){echo '-';}else {echo $licencias->fecha_cad;}?></td>
-                        <td scope="col"><?php if ($licencias->imagen==''){echo '-';}else {?> <img width="30" height="30" src="<?php echo RUTA_ImgDatos. $licencias->imagen?>"><?php ;}?></td>
+                        <td scope="col"><?php if ($licencias->imagen==''){echo '-';}else {?> <img width="30" height="30" src="<?php echo RUTA_ImgDatos.'licencias/'.$licencias->imagen?>"><?php ;}?></td>
                     </tr>
                     
                 <?php endforeach ?>

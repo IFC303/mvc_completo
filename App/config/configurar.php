@@ -20,4 +20,4 @@ define('DB_NOMBRE', 'tragamillas2');
 
 define('RUTA_Icon', RUTA_URL . '/public/img/icons/');
 define('RUTA_Foto', RUTA_URL . '/public/img/fotos/');
-define('RUTA_ImgDatos', RUTA_URL . '/public/img/datosBBDD/');
+define('RUTA_ImgDatos', RUTA_URL . '/public/img/');
