@@ -153,4 +153,16 @@ class SocioModelo
         }
     }
 
+    public function obtenergrupos()
+    {
+        $this->db->query("SELECT * FROM `CATEGORIA`");
+        return $this->db->registros();
+    }
+
+    public function obtenerCategorias()
+    {
+        $this->db->query("SELECT * FROM `GRUPO`");
+        return $this->db->registros();
+    }
+
 }
