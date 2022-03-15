@@ -607,7 +607,6 @@ CREATE TABLE I_CUOTAS(
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    tipo varchar (30),
     id_usuario int,
     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );

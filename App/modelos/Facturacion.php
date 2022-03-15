@@ -46,8 +46,8 @@ class Facturacion
     }
 
     public function ingresosCuotas(){
-        $this->db->query("SELECT id_ingreso_cuota, fecha, concepto, importe, tipo, I_CUOTAS.id_usuario,USUARIO.nombre,USUARIO.apellidos 
-        from USUARIO, I_CUOTAS WHERE usuario.id_usuario=I_CUOTAS.id_usuario;");
+        $this->db->query("SELECT id_ingreso_cuota, fecha, concepto, importe, I_CUOTAS.id_usuario,USUARIO.nombre,USUARIO.apellidos 
+        from USUARIO, I_CUOTAS WHERE USUARIO.id_usuario=I_CUOTAS.id_usuario;");
         return $this->db->registros();
     }
    
@@ -72,6 +72,49 @@ class Facturacion
     }
 
 
+    public function agregarIngreso($ingreso){
+        //var_dump($ingreso); 
+        //echo $ingreso['tipo'];
+
+        if($ingreso['tipo']=="cuotas"){
+            $this->db->query("INSERT INTO I_CUOTAS (fecha, concepto, importe,id_usuario) 
+            VALUES (:fecha,:concepto,:importe,:id_usuario)");
+            $this->db->bind(':fecha',$ingreso['fecha']);
+            $this->db->bind(':concepto', $ingreso['concepto']);
+            $this->db->bind(':importe',$ingreso['importe']);
+            $this->db->bind(':id_usuario',$ingreso['id_participante']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }if($ingreso['tipo']=="otros"){
+            $this->db->query("INSERT INTO I_OTROS (fecha, concepto, importe,id_entidad) 
+            VALUES (:fecha,:concepto,:importe,:id_entidad)");
+            $this->db->bind(':fecha',$ingreso['fecha']);
+            $this->db->bind(':concepto', $ingreso['concepto']);
+            $this->db->bind(':importe',$ingreso['importe']);
+            $this->db->bind(':id_entidad',$ingreso['id_participante']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+    }
+
+    public function obtenerUsuarios(){
+        $this->db->query("SELECT * from USUARIO");
+        return $this->db->registros();
+    }
+
+    public function obtenerEntidades(){
+        $this->db->query("SELECT * from OTRAS_ENTIDADES");
+        return $this->db->registros();
+    }
 
 
 
@@ -111,15 +154,9 @@ class Facturacion
     }
 
 
-    public function obtenerUsuarios(){
-        $this->db->query("SELECT * from USUARIO");
-        return $this->db->registros();
-    }
+   
 
-    public function obtenerEntidades(){
-        $this->db->query("SELECT * from OTRAS_ENTIDADES");
-        return $this->db->registros();
-    }
+  
 
     public function obtenerExternos(){
         $this->db->query("SELECT * from EXTERNO");
@@ -130,8 +167,6 @@ class Facturacion
 
 
 
-    public function agregarIngreso(){
-
-    }
+  
 
 }

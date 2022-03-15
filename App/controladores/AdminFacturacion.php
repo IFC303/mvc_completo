@@ -59,16 +59,16 @@ class AdminFacturacion extends Controlador{
                 'usuario'=>trim($_POST['browser']),
                 'concepto'=>trim($_POST['concepto']),
                 'evento'=>trim($_POST['evento']),
-        
+                'id_participante'=>($_POST['id_participante']),
             ];
         
             //var_dump($ingreso);
 
-              if($this->facturacionModelo->agregarIngreso($ingreso)){
-                  redireccionar('/adminFacturacion');
-              }else{
-                 die('Añgo ha fallado!!');
-              }
+               if($this->facturacionModelo->agregarIngreso($ingreso)){
+                   redireccionar('/adminFacturacion');
+               }else{
+                  die('Añgo ha fallado!!');
+               }
 
         }else{
             
