@@ -719,7 +719,7 @@ create view GASTOS as
 
 
 create view PARTICIPANTE AS 
-  select SE.id_usuario AS id_participante,id_evento,U.nombre,U.apellidos, "socio" as tipo
+  select SE.id_usuario AS id_participante,id_evento,U.nombre,U.apellidos, "socio" as tipoParticipante
   from SOCIO_EVENTO SE, USUARIO U
   WHERE SE.id_evento=U.id_usuario
   union
