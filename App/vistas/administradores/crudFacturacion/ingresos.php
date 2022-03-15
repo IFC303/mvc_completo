@@ -115,7 +115,7 @@
                 <h4 id="titulo">Gestion de ingresos</h4>
             </div>
 
-            <div>
+            <!-- <div>
                 <form method="post"action="">
                     <input type="radio" value="todos" name="tipo">Todos
                     <input type="radio" value="cuotas" name="tipo">Cuotas
@@ -123,7 +123,7 @@
                     <input type="radio" value="otros" name="tipo">Otros   
                     <input type="submit">
                 </form>
-            </div>
+            </div> -->
         </div>
 
            <div class="tabla" style="border:solid 1px #023ef9">
@@ -455,7 +455,7 @@
 
                     <!--AÑADIR-->
                     <div class="col text-center">
-                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminFacturacion/nuevo_ingreso/">Nuevo ingreso</a>
+                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminFacturacion/nuevoIngreso/">Nuevo ingreso</a>
                     </div>
                     <br>
 

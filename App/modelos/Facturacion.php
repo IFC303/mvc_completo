@@ -11,6 +11,35 @@ class Facturacion
     }
 
 
+//********** CONSULTAS GASTOS ************//
+
+   public function obtenerGastos(){
+        $this->db->query("SELECT * from GASTOS");
+        return $this->db->registros();
+    }
+
+    public function gastosPersonal(){
+        $this->db->query("SELECT id_gasto, fecha, concepto, importe, G_PERSONAL.id_usuario,USUARIO.nombre,USUARIO.apellidos 
+        from USUARIO, G_PERSONAL WHERE USUARIO.id_usuario=G_PERSONAL.id_usuario;");
+        return $this->db->registros();
+    }
+
+    public function gastosOtrosUsuario(){
+        $this->db->query("SELECT id_gastos, fecha, concepto, importe, G_OTROS.id_usuario,USUARIO.nombre,USUARIO.apellidos 
+        from USUARIO, G_OTROS WHERE USUARIO.id_usuario=G_OTROS.id_usuario;");
+        return $this->db->registros();
+    }
+
+    public function gastosOtrosEntidad(){
+        $this->db->query("SELECT id_gastos, fecha, concepto, importe, G_OTROS.id_entidad,OTRAS_ENTIDADES.nombre
+        from OTRAS_ENTIDADES, G_OTROS WHERE OTRAS_ENTIDADES.id_entidad=G_OTROS.id_usuario;");
+        return $this->db->registros();
+    }
+
+
+
+//********** CONSULTAS INGRESOS ************//
+
     public function obtenerIngresos(){
         $this->db->query("SELECT * from INGRESOS");
         return $this->db->registros();
@@ -41,6 +70,14 @@ class Facturacion
         from OTRAS_ENTIDADES, I_OTROS where OTRAS_ENTIDADES.id_entidad=I_OTROS.id_entidad;");
         return $this->db->registros();
     }
+
+
+
+
+
+
+
+
 
 
     public function borrarIngresoCuotas($id){
@@ -90,19 +127,11 @@ class Facturacion
     }
 
 
-    // public function obtenerIngresosOtros(){
-    //     $this->db->query("SELECT * FROM I_OTROS");
-    //     return $this->db->registros();
-    // }
 
-    // public function obtenerGastosPersonal(){
-    //     $this->db->query("SELECT * FROM G_PERSONAL");
-    //     return $this->db->registros();
-    // }
 
-    // public function obtenerGastosOtros(){
-    //     $this->db->query("SELECT * FROM G_OTROS");
-    //     return $this->db->registros();
-    // }
+
+    public function agregarIngreso(){
+
+    }
 
 }

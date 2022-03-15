@@ -285,7 +285,7 @@
 
                     <!--AÑADIR-->
                     <div class="col text-center">
-                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminEntidades/nueva_entidad/">Nueva entidad</a>
+                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminEntidades/nuevaEntidad/">Nueva entidad</a>
                     </div>
                     <br>
 

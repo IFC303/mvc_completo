@@ -40,6 +40,128 @@ class AdminFacturacion extends Controlador{
     }
 
 
+    public function nuevoIngreso(){
+        $this->datos['rolesPermitidos'] = [1];         
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
+        $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
+
+        
+        if($_SERVER['REQUEST_METHOD'] =='POST'){
+            $ingreso = [
+                'fecha' => trim($_POST['fecha']),
+                'tipo' => trim($_POST['tipoSelect']),
+                'importe'=> trim($_POST['importe']),
+                'usuario'=>trim($_POST['browser']),
+                'concepto'=>trim($_POST['concepto']),
+                'evento'=>trim($_POST['evento']),
+        
+            ];
+        
+            //var_dump($ingreso);
+
+              if($this->facturacionModelo->agregarIngreso($ingreso)){
+                  redireccionar('/adminFacturacion');
+              }else{
+                 die('Añgo ha fallado!!');
+              }
+
+        }else{
+            
+            $this->datos['evento'] = (object)[
+                'id_grupo'=>'',
+                'id_usuario'=>'',
+                'nombre'=>'',
+                'tipo'=>'',
+                'precio'=>'',
+                'descuento'=>'',
+                'fecha_ini'=>'',
+                'fecha_fin'=>'',
+            ];
+            $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
+        }
+    }
+
+
+//**************************************************************************************** */
+//********************* FUNCIONES GASTOS ******************************/
+
+
+    public function gastos(){
+        $gastos= [];
+        $gastos = $this->facturacionModelo->obtenerGastos();
+        $this->datos['gastos']=$gastos;
+
+        $this->datos['gastosPersonal']=$this->facturacionModelo->gastosPersonal();
+        $this->datos['gastosOtrosUsuario']=$this->facturacionModelo->gastosOtrosUsuario();
+        $this->datos['gastosOtrosEntidad']=$this->facturacionModelo->gastosOtrosEntidad();
+
+          if(isset($_POST['tipo'])){
+              $tipo=$_POST['tipo'];
+              $this->datos['tipoGasto'] = $tipo;
+          }
+       
+          $this->vista('administradores/crudFacturacion/gastos', $this->datos);
+    }
+
+
+
+
+    public function nuevoGasto(){
+        $this->datos['rolesPermitidos'] = [1];         
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
+        $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
+
+        
+        if($_SERVER['REQUEST_METHOD'] =='POST'){
+            $ingreso = [
+                'fecha' => trim($_POST['fecha']),
+                'tipo' => trim($_POST['tipoSelect']),
+                'importe'=> trim($_POST['importe']),
+                'usuario'=>trim($_POST['browser']),
+                'concepto'=>trim($_POST['concepto']),
+                'evento'=>trim($_POST['evento']),
+        
+            ];
+        
+            //var_dump($ingreso);
+
+              if($this->facturacionModelo->agregarIngreso($ingreso)){
+                  redireccionar('/adminFacturacion');
+              }else{
+                 die('Añgo ha fallado!!');
+              }
+
+        }else{
+            
+            $this->datos['evento'] = (object)[
+                'id_grupo'=>'',
+                'id_usuario'=>'',
+                'nombre'=>'',
+                'tipo'=>'',
+                'precio'=>'',
+                'descuento'=>'',
+                'fecha_ini'=>'',
+                'fecha_fin'=>'',
+            ];
+            $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
+        }
+    }
+
+
+
+
+//******************************************************* */
+
     public function borrar($id){
             
         $tipo=$_POST['tipo'];
@@ -64,50 +186,7 @@ class AdminFacturacion extends Controlador{
     }
 
 
-    public function nuevo_ingreso(){
-        $this->datos['rolesPermitidos'] = [1];         
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
-
-        $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
-        $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
-        $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
-
-        
-        if($_SERVER['REQUEST_METHOD'] =='POST'){
-            $ingresoNuevo = [
-                'id_evento' => trim($_POST['id_evento']),
-                'id_usuario'=> trim($_POST['id_usuario']),
-                'nombre' => trim($_POST['nombre']),
-                'tipo'=>trim($_POST['tipo']),
-                'precio'=>trim($_POST['precio']),
-                'descuento'=>trim($_POST['descuento']),
-                'fecha_ini' => trim($_POST['fecha_ini']),
-                'fecha_fin'=> trim($_POST['fecha_fin']),
-            ];
-
-            if($this->eventoModelo->agregarEvento($eventoNuevo)){
-                redireccionar('/adminEventos');
-            }else{
-                die('Añgo ha fallado!!');
-            }
-
-        }else{
-            
-            $this->datos['evento'] = (object)[
-                'id_grupo'=>'',
-                'id_usuario'=>'',
-                'nombre'=>'',
-                'tipo'=>'',
-                'precio'=>'',
-                'descuento'=>'',
-                'fecha_ini'=>'',
-                'fecha_fin'=>'',
-            ];
-            $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
-        }
-    }
+   
 
     // public function gastos(){
     //     $this->datos['gastosPersonal'] = $this->facturacionModelo->obtenerGastosPersonal();
