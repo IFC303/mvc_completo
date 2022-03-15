@@ -375,10 +375,10 @@ CREATE TABLE SOCIO_GRUPO(
   );
 CREATE TABLE LICENCIA(
     id_licencia int primary key AUTO_INCREMENT,
-    id_usuario int,
-    imagen varchar(800) not null,
+    id_usuario int not null,
+    imagen varchar(800),
     num_licencia int not null,
-    fecha_cad date not null,
+    fecha_cad date,
     tipo varchar (30) not null,
     dorsal int,
     regional_nacional varchar (10),
