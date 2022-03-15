@@ -368,6 +368,7 @@ CREATE TABLE SOCIO_GRUPO(
     acepatado boolean not null,
     activo boolean not null,
     id_categoria int,
+    foto varchar(800),
     primary key (id_grupo, id_usuario, fecha_inscripcion),
     constraint FK_id_grupo_socio_grupo foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade,
     constraint FK_id_usuario_socio_grupo foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
