@@ -47,6 +47,14 @@
              
          </div>
 
+         <div class="mt-3 mb-3">
+            <label for="aut_nac">Tipo de licencia<sup>*</sup></label>
+            <select name="aut_nac" id="aut_nac" class="form-control form-control-lg">
+                <option selected value="0">Elige una opción</option>
+                <option value="1">Escolar</option>
+                <option value="2">Adulto</option>
+            </select>
+         </div>
 
          <div class="mt-3 mb-3">
             <label for="num_lic">Numero de licencia<sup>*</sup></label>

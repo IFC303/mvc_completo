@@ -13,7 +13,7 @@ class Licencia
 
     public function obtenerNombreSocio()
     {
-        $this->db->query("SELECT nombre, id_usuario FROM USUARIO ");
+        $this->db->query("SELECT U.nombre, U.id_usuario FROM USUARIO U, SOCIO S WHERE U.id_usuario=S.id_socio;");
 
         return $this->db->registros();
     }
@@ -36,8 +36,8 @@ class Licencia
 
     public function agregarLicencia($licenciaNueva){
         
-        $this->db->query("INSERT INTO LICENCIA (id_usuario, tipo ,num_licencia,regional_nacional,dorsal,fecha_cad,imagen, gir) VALUES 
-        (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin, :gir)");
+        $this->db->query("INSERT INTO LICENCIA (id_usuario, tipo ,num_licencia,regional_nacional,dorsal,fecha_cad,imagen) VALUES 
+        (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin) AND INSERT INTO USUARIO (gir) VALUES (:gir)");
 
         $this->db->bind(':id', $licenciaNueva['usuario']);
         $this->db->bind(':tipo', 'Escolar');
