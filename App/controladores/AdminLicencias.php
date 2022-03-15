@@ -49,11 +49,12 @@ class AdminLicencias extends Controlador{
 
             $licenciaNueva = [
                 'usuario' => trim($_POST['usuario']),
+                'tipo' => trim($_POST['tipo']),
+                'gir' => trim($_POST['gir']),
                 'num_lic' => trim($_POST['num_lic']),
                 'aut_nac' => trim($_POST['aut_nac']),
                 'dorsal' => trim($_POST['dorsal']),
                 'fechaCad' => trim($_POST['fechaCad']),
-                'gir' => trim($_POST['gir']),
                 'imagenLicAdmin' => $_FILES['imagenLicAdmin']['name']
             ];
 

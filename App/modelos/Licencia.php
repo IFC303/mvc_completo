@@ -36,14 +36,22 @@ class Licencia
 
     public function agregarLicencia($licenciaNueva){
         
+        print_r($licenciaNueva); exit();
+
         $this->db->query("INSERT INTO LICENCIA (id_usuario, tipo ,num_licencia,regional_nacional,dorsal,fecha_cad,imagen) VALUES 
-        (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin) AND INSERT INTO USUARIO (gir) VALUES (:gir)");
+        (:id , :tipo , :num_lic, :aut_nac, :dorsal, :fechaCad , :imagenLicAdmin);");
+        
 
         $this->db->bind(':id', $licenciaNueva['usuario']);
-        $this->db->bind(':tipo', 'Escolar');
-        $this->db->bind(':num_lic',$licenciaNueva['num_lic']);
+        
+        $this->db->bind(':tipo', $licenciaNueva['tipo']);
 
-        $this->db->bind(':aut_nac', $licenciaNueva['aut_nac']);
+        if ($licenciaNueva['num_lic']=="") {
+            $this->db->bind(':num_lic', NULL);
+        }else {
+            $this->db->bind(':num_lic', $licenciaNueva['num_lic']);
+        }
+        
         if ($licenciaNueva['aut_nac']==1) {
             $this->db->bind(':aut_nac', 'Autonómica');
         }elseif ($licenciaNueva['aut_nac']==2) {
@@ -70,7 +78,7 @@ class Licencia
             $this->db->bind(':imagenLicAdmin',$licenciaNueva['imagenLicAdmin']);
         }
         
-        $this->db->bind(':gir', $licenciaNueva['gir']);
+        
 
         if($this->db->execute()){
             return true;
@@ -78,6 +86,22 @@ class Licencia
             return false;
         }
 
+        $this->db->query("UPDATE USUARIO SET gir=:gir WHERE id_usuario=:id;");
+
+        $this->db->bind(':id', $licenciaNueva['usuario']);
+        
+        if ($licenciaNueva['gir']=="") {
+            $this->db->bind(':gir', NULL);
+        }else {
+            $this->db->bind(':gir', $licenciaNueva['gir']);
+        }
+
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function borrarLicencia($num_lic){

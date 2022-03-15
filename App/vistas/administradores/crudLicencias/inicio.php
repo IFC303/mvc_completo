@@ -127,11 +127,11 @@
                         <tr>
                             <th>USUARIO</th>
                             <th>NUM_LICENCIA</th>
+                            <th>GIR</th>
                             <th>TIPO_LICENCIA</th>
                             <th>AUTONÓMICA/NACIONAL</th>
                             <th>DORSAL</th>
-                            <th>FECHA_CADUCIDAD</th>
-                            <th>GIR</th>
+                            <th>FECHA_CADUCIDAD</th>       
                             <th>IMÁGEN</th>
                    
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
@@ -149,12 +149,12 @@
                         <tr>
 
                             <td class="datos_tabla"><?php echo $licencia->nombre?></td>
-                            <td class="datos_tabla"><?php echo $licencia->num_licencia?></td>
+                            <td class="datos_tabla"><?php if ($licencia->num_licencia==''){echo '-';}else {echo $licencia->num_licencia;}?></td>
+                            <td class="datos_tabla"><?php if ($licencia->gir==''){echo '-';}else {echo $licencia->gir;}?></td>
                             <td class="datos_tabla"><?php echo $licencia->tipo?></td>
                             <td class="datos_tabla"><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
                             <td class="datos_tabla"><?php if ($licencia->dorsal==''){echo '-';}else {echo $licencia->dorsal;}?></td>
                             <td class="datos_tabla"><?php if ($licencia->fecha_cad==''){echo '-';}else {echo $licencia->fecha_cad;}?></td>
-                            <td class="datos_tabla"><?php if ($licencia->gir==''){echo '-';}else {echo $licencia->gir;}?></td>
                             <td class="datos_tabla"><?php if ($licencia->imagen==''){echo '-';}else {?> <a href="<?php echo RUTA_URL?>/adminLicencias/verFoto/<?php echo $licencia->num_licencia ?>" target="_blank"><img width="30" height="30" src="<?php echo RUTA_ImgDatos.'licencias/'.$licencia->imagen?>"></a><?php ;}?></td>
                                                     
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
