@@ -19,7 +19,7 @@ class AdminEntidades extends Controlador{
     }
 
     
-    public function nueva_entidad(){
+    public function nuevaEntidad(){
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');

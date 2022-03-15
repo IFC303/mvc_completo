@@ -709,3 +709,9 @@ create view INGRESOS as
   select id_ingreso_cuota as id_ingreso, fecha, concepto, importe, 'cuotas' as tipo FROM I_CUOTAS
   union all
   select id_ingreso_otros as id_ingreso, fecha, concepto, importe, 'otros' as tipo  from I_OTROS;
+
+
+create view GASTOS as
+  select id_gastos as id_gasto, fecha, concepto, importe, 'otros' as tipo from G_OTROS
+  union all
+  select id_gasto as id_gasto, fecha, concepto, importe, 'personal' as tipo FROM G_PERSONAL;
