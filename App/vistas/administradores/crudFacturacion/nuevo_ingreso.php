@@ -94,7 +94,7 @@
                 <div class="col-6">
                     <label for="importe">Importe<sup>*</sup></label>
                 </div>   
-                <div class="col-6" id="labelSocios" style="display:block">
+                <div class="col-6" id="labelSocios" style="display:none">
                     <label for="browser" class="form-label">Socio<sup>*</sup></label>
                 </div> 
                 <div class="col-6" id="labelParticipantes" style="display:none">
@@ -141,12 +141,13 @@
             </div>
 
             <div class="row">
-                <input type="hidden" name="id_participante" value="<?php echo $usuatio->id_usuario?>">
+                 <input type="hidden" name="id_participante" value="<?php echo $usuario->id_usuario?>">
+
                 <div class="col-6" >
                     <label for="concepto">Concepto<sup>*</sup></label>
                 </div>   
-                <div class="col-6" id="evento" style="display:none">
-                    <label for="evento">Evento<sup>*</sup></label>
+                <div class="col-6" id="labelEvento" style="display:none">
+                    <label for="labelEvento">Evento<sup>*</sup></label>
                 </div>   
             </div>
             <div class="row">
@@ -154,7 +155,7 @@
                     <input type="text" name="concepto" id="concepto" class="form-control form-control-lg">
                 </div>
                 <div class="col-6 mt-3 mb-3" id="inputEvento" style="display:none" >  
-                    <input type="text" name="evento" id="evento" class="form-control form-control-lg">
+                    <input type="text" name="inputEvento" id="inputEvento" class="form-control form-control-lg">
                 </div>
             </div>
             <br>
@@ -181,32 +182,46 @@
         function opciones() {
 
             var opcion=document.getElementById("tipoSelect").value;
-            console.log(opcion);
+          
+
             if(opcion=="actividades"){
+
                 document.getElementById("labelSocios").style.display ="none";
                 document.getElementById("labelParticipantes").style.display="block";
                 document.getElementById("labelEntidades").style.display="none";
 
-                document.getElementById("evento").style.display = "block";
-                document.getElementById("inputEvento").style.display = "block";
+                document.getElementById("labelEvento").style.display="block";
+                document.getElementById("inputEvento").style.display="block";
+
+                document.getElementById("inputParticipantes").style.display = "block";
+                document.getElementById("inputEntidades").style.display = "none";
+                document.getElementById("inputSocios").style.display = "none";
 
             }else if (opcion=="cuotas"){
+
                 document.getElementById("labelSocios").style.display ="block";
                 document.getElementById("labelParticipantes").style.display="none";
                 document.getElementById("labelEntidades").style.display="none";
 
-                document.getElementById("evento").style.display = "none";
-                document.getElementById("inputEvento").style.display = "none";
-                document.getElementById("inputParticipantes").style.display = "block";
+                document.getElementById("labelEvento").style.display="none";
+                document.getElementById("inputEvento").style.display="none";
+
+                document.getElementById("inputParticipantes").style.display = "none";
+                document.getElementById("inputEntidades").style.display = "none";
+                document.getElementById("inputSocios").style.display = "block";
                 
             }else if(opcion=="otros") {
+
                 document.getElementById("labelSocios").style.display ="none";
                 document.getElementById("labelParticipantes").style.display="none";
                 document.getElementById("labelEntidades").style.display="block";
 
+                document.getElementById("labelEvento").style.display="none";
+                document.getElementById("inputEvento").style.display="none";
+
                 document.getElementById("inputParticipantes").style.display = "none";
                 document.getElementById("inputEntidades").style.display = "block";
-                document.getElementById("evento").style.display = "none";
+                document.getElementById("inputSocios").style.display = "none";
             }
         
         }
