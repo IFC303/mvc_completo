@@ -715,3 +715,12 @@ create view GASTOS as
   select id_gastos as id_gasto, fecha, concepto, importe, 'otros' as tipo from G_OTROS
   union all
   select id_gasto as id_gasto, fecha, concepto, importe, 'personal' as tipo FROM G_PERSONAL;
+
+
+create view PARTICIPANTE AS 
+  select SE.id_usuario AS id_participante,id_evento,U.nombre,U.apellidos, "socio" as tipo
+  from SOCIO_EVENTO SE, USUARIO U
+  WHERE SE.id_evento=U.id_usuario
+  union
+  SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipo 
+  from EXTERNO;

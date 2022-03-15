@@ -107,7 +107,7 @@ class Facturacion
     }
 
     public function obtenerUsuarios(){
-        $this->db->query("SELECT * from USUARIO");
+        $this->db->query("SELECT * from USUARIO where id_rol=1 or id_rol=2 or id_rol=3");
         return $this->db->registros();
     }
 
@@ -116,7 +116,15 @@ class Facturacion
         return $this->db->registros();
     }
 
+    public function obtenerParticipante(){
+        $this->db->query("SELECT * from PARTICIPANTE");
+        return $this->db->registros();
+    }
 
+    public function obtenerEventos(){
+        $this->db->query("SELECT * from EVENTO");
+        return $this->db->registros();
+    }
 
 
 
@@ -158,11 +166,7 @@ class Facturacion
 
   
 
-    public function obtenerExternos(){
-        $this->db->query("SELECT * from EXTERNO");
-        return $this->db->registros();
-    }
-
+    
 
 
 

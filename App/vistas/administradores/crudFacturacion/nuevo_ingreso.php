@@ -118,7 +118,8 @@
                         <?php foreach($datos['usuarios'] as $usuario){
                             ?><option value="<?php echo $usuario->nombre?>"></option><?php
                         }?>    
-                    </datalist>      
+                    </datalist>  
+                    <input type="hidden" name="idSocios" value="<?php echo $usuario->id_usuario?>">
                 </div>
                  <!--div PARTICIPANTES -->
                   <div class="col-6 mt-3 mb-3" id="inputParticipantes" style="display:none">  
@@ -127,7 +128,8 @@
                         <?php foreach($datos['participantes'] as $participante){
                             ?><option value="<?php echo $participante->nombre?>"></option><?php
                         }?>    
-                    </datalist>      
+                    </datalist>  
+                    <input type="hidden" name="idParticipante" value="<?php echo $participante->id_usuario?>">
                 </div> 
                   <!--div ENTIDADES -->
                   <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
@@ -136,7 +138,8 @@
                         <?php foreach($datos['entidades'] as $entidad){
                             ?><option value="<?php echo $entidad->nombre?>"></option><?php
                         }?>    
-                    </datalist>      
+                    </datalist>  
+                    <input type="hidden" name="idEntidad" value="<?php echo $entidad->id_entidad?>">    
                 </div> 
             </div>
 
@@ -155,7 +158,13 @@
                     <input type="text" name="concepto" id="concepto" class="form-control form-control-lg">
                 </div>
                 <div class="col-6 mt-3 mb-3" id="inputEvento" style="display:none" >  
-                    <input type="text" name="inputEvento" id="inputEvento" class="form-control form-control-lg">
+                    <input class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
+                    <datalist id="browsers4" name="evento">
+                        <?php foreach($datos['eventos'] as $eventos){
+                            ?><option value="<?php echo $eventos->nombre?>"></option><?php
+                        }?>    
+                    </datalist>  
+                    <input type="hidden" name="idEvento" value="<?php echo $eventos->id_evento?>">   
                 </div>
             </div>
             <br>

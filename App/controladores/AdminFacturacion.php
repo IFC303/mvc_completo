@@ -48,7 +48,8 @@ class AdminFacturacion extends Controlador{
 
         $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
         $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
-        $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
+        $this->datos['participantes']=$this->facturacionModelo->obtenerParticipante();
+        $this->datos['eventos']=$this->facturacionModelo->obtenerEventos();
 
         
         if($_SERVER['REQUEST_METHOD'] =='POST'){
@@ -56,19 +57,18 @@ class AdminFacturacion extends Controlador{
                 'fecha' => trim($_POST['fecha']),
                 'tipo' => trim($_POST['tipoSelect']),
                 'importe'=> trim($_POST['importe']),
-                'usuario'=>trim($_POST['browser']),
                 'concepto'=>trim($_POST['concepto']),
-                'evento'=>trim($_POST['evento']),
+                'evento'=>trim($_POST['inputEvento']),
                 'id_participante'=>($_POST['id_participante']),
             ];
         
-            //var_dump($ingreso);
+            var_dump($ingreso);
 
-               if($this->facturacionModelo->agregarIngreso($ingreso)){
-                   redireccionar('/adminFacturacion');
-               }else{
-                  die('Añgo ha fallado!!');
-               }
+            //    if($this->facturacionModelo->agregarIngreso($ingreso)){
+            //        redireccionar('/adminFacturacion');
+            //    }else{
+            //       die('Añgo ha fallado!!');
+            //    }
 
         }else{
             
