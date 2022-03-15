@@ -141,7 +141,7 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $dirCarnet="/var/www/html/tragamillas/public/img/foto_carnet_solicitud/";
+            $dirCarnet="/var/www/html/tragamillas/public/img/foto_carnet/";
 
             $terCarnet=(substr($_FILES['imgCarnet']["name"], strpos($_FILES['imgCarnet']["name"],'.')+strlen('.')));
             $nomFoto = "socioCarnet_".$datosUser[0]->id_usuario.".".$terCarnet;

@@ -57,7 +57,7 @@
         <label for="">He leido y acepto el reglamento</label><sup>*</sup> &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" id="siReglamento" name="reglamento" value="si" required><label for="siReglamento">SI</label>
         <br><br>
-        <label for="">Foto reciente tamaño carnet  </label><input type="file" name="imgCarnet" accept="image/*">
+        <label for="">Foto reciente tamaño carnet</label><sup>* </sup><input type="file" name="imgCarnet" accept="image/*" required>
         <br><br>
 
 
