@@ -94,26 +94,54 @@
                 <div class="col-6">
                     <label for="importe">Importe<sup>*</sup></label>
                 </div>   
-                <div class="col-6">
-                    <label for="browser" class="form-label">Usuario / participante<sup>*</sup></label>
-                </div>   
+                <div class="col-6" id="labelSocios" style="display:block">
+                    <label for="browser" class="form-label">Socio<sup>*</sup></label>
+                </div> 
+                <div class="col-6" id="labelParticipantes" style="display:none">
+                    <label for="browser" class="form-label">Participante<sup>*</sup></label>
+                </div> 
+                <div class="col-6" id="labelEntidades" style="display:none" >
+                    <label for="browser" class="form-label">Entidades<sup>*</sup></label>
+                </div> 
             </div>
+
+
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
                     <input type="text" name="importe" id="importe" class="form-control form-control-lg">
                 </div>   
-                 <div class="col-6 mt-3 mb-3">  
+                <!--div SOCIOS -->
+                 <div class="col-6 mt-3 mb-3" id="inputSocios" style="display:none">  
                     <input class="form-control form-control-lg" list="browsers" name="browser" id="browser">
-                    <datalist id="browsers" name="participante">
-                        <?php foreach($datos['usuarios'] as $usu){
-                            ?><option value="<?php echo $usu->nombre?>"></option><?php
+                    <datalist id="browsers" name="socio">
+                        <?php foreach($datos['usuarios'] as $usuario){
+                            ?><option value="<?php echo $usuario->nombre?>"></option><?php
                         }?>    
                     </datalist>      
                 </div>
+                 <!--div PARTICIPANTES -->
+                  <div class="col-6 mt-3 mb-3" id="inputParticipantes" style="display:none">  
+                    <input class="form-control form-control-lg" list="browsers2" name="browser2" id="browser2">
+                    <datalist id="browsers2" name="participante">
+                        <?php foreach($datos['participantes'] as $participante){
+                            ?><option value="<?php echo $participante->nombre?>"></option><?php
+                        }?>    
+                    </datalist>      
+                </div> 
+                  <!--div ENTIDADES -->
+                  <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
+                    <input class="form-control form-control-lg" list="browsers3" name="browser3" id="browser3">
+                    <datalist id="browsers3" name="entidad">
+                        <?php foreach($datos['entidades'] as $entidad){
+                            ?><option value="<?php echo $entidad->nombre?>"></option><?php
+                        }?>    
+                    </datalist>      
+                </div> 
             </div>
 
             <div class="row">
+                <input type="hidden" name="id_participante" value="<?php echo $usuatio->id_usuario?>">
                 <div class="col-6" >
                     <label for="concepto">Concepto<sup>*</sup></label>
                 </div>   
@@ -155,12 +183,32 @@
             var opcion=document.getElementById("tipoSelect").value;
             console.log(opcion);
             if(opcion=="actividades"){
+                document.getElementById("labelSocios").style.display ="none";
+                document.getElementById("labelParticipantes").style.display="block";
+                document.getElementById("labelEntidades").style.display="none";
+
                 document.getElementById("evento").style.display = "block";
                 document.getElementById("inputEvento").style.display = "block";
-            }else{
+
+            }else if (opcion=="cuotas"){
+                document.getElementById("labelSocios").style.display ="block";
+                document.getElementById("labelParticipantes").style.display="none";
+                document.getElementById("labelEntidades").style.display="none";
+
                 document.getElementById("evento").style.display = "none";
                 document.getElementById("inputEvento").style.display = "none";
+                document.getElementById("inputParticipantes").style.display = "block";
+                
+            }else if(opcion=="otros") {
+                document.getElementById("labelSocios").style.display ="none";
+                document.getElementById("labelParticipantes").style.display="none";
+                document.getElementById("labelEntidades").style.display="block";
+
+                document.getElementById("inputParticipantes").style.display = "none";
+                document.getElementById("inputEntidades").style.display = "block";
+                document.getElementById("evento").style.display = "none";
             }
+        
         }
 
 

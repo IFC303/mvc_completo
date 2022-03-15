@@ -584,7 +584,7 @@ CREATE TABLE OTRAS_ENTIDADES(
     tipo varchar (30)
   );
 CREATE TABLE I_OTROS(
-    id_ingreso_otros int primary key,
+    id_ingreso_otros int primary key AUTO_INCREMENT,
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
@@ -602,11 +602,10 @@ CREATE TABLE G_OTROS(
     constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
 CREATE TABLE I_CUOTAS(
-    id_ingreso_cuota int primary key,
+    id_ingreso_cuota int primary key AUTO_INCREMENT,
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    tipo varchar (30),
     id_usuario int,
     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
