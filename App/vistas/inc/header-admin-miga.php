@@ -198,7 +198,7 @@
                 <!--MENU MENSAJERIA-->
                 <ul id="mInicioMen">
                     <li id="mInicioMen">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminMensajeria/mensajeria" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
                             <div class="col-12">MENSAJERIA</div>
                         </a>

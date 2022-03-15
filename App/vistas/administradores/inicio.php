@@ -182,12 +182,14 @@
 
     <!-- MENSAJERIA -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorMens" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">
-                <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminMensajeria">
+            <div>
+                <div id="colorMens" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">
+                    <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100">
+                </div>
+                <p id="pMens" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">MENSAJERIA</p>
             </div>
-            <p id="pMens" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">MENSAJERIA</p>
-        </div>
+        </a>
     </div>
 </div>
 

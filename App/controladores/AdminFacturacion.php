@@ -58,11 +58,13 @@ class AdminFacturacion extends Controlador{
                 'tipo' => trim($_POST['tipoSelect']),
                 'importe'=> trim($_POST['importe']),
                 'concepto'=>trim($_POST['concepto']),
-                'evento'=>trim($_POST['inputEvento']),
-                'id_participante'=>($_POST['id_participante']),
+                'evento'=>trim($_POST['idEventos']),
+                'id_participante'=>($_POST['idParticipantes']),
+                'id_socio'=>($_POST['idSocios']),
+                'id_entidad'=>($_POST['idEntidades']),
             ];
         
-            var_dump($ingreso);
+            //var_dump($ingreso);
 
             //    if($this->facturacionModelo->agregarIngreso($ingreso)){
             //        redireccionar('/adminFacturacion');

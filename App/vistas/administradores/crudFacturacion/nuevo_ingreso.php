@@ -129,7 +129,7 @@
                             ?><option value="<?php echo $participante->nombre?>"></option><?php
                         }?>    
                     </datalist>  
-                    <input type="hidden" name="idParticipante" value="<?php echo $participante->id_usuario?>">
+                    <input type="hidden" name="idParticipantes" value="<?php echo $participante->id_participante?>">
                 </div> 
                   <!--div ENTIDADES -->
                   <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
@@ -139,13 +139,11 @@
                             ?><option value="<?php echo $entidad->nombre?>"></option><?php
                         }?>    
                     </datalist>  
-                    <input type="hidden" name="idEntidad" value="<?php echo $entidad->id_entidad?>">    
+                    <input type="hidden" name="idEntidades" value="<?php echo $entidad->id_entidad?>">    
                 </div> 
             </div>
 
             <div class="row">
-                 <input type="hidden" name="id_participante" value="<?php echo $usuario->id_usuario?>">
-
                 <div class="col-6" >
                     <label for="concepto">Concepto<sup>*</sup></label>
                 </div>   
@@ -159,12 +157,12 @@
                 </div>
                 <div class="col-6 mt-3 mb-3" id="inputEvento" style="display:none" >  
                     <input class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
-                    <datalist id="browsers4" name="evento">
+                    <datalist id="browsers4" name="inputEvento">
                         <?php foreach($datos['eventos'] as $eventos){
                             ?><option value="<?php echo $eventos->nombre?>"></option><?php
                         }?>    
                     </datalist>  
-                    <input type="hidden" name="idEvento" value="<?php echo $eventos->id_evento?>">   
+                    <input type="hidden" name="idEventos" value="<?php echo $eventos->id_evento?>">   
                 </div>
             </div>
             <br>
