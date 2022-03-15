@@ -168,17 +168,19 @@ class SocioModelo
     public function escuela($agreEscuela)
     {
         print_r($agreEscuela);
-        //$this->db->query("INSERT INTO `SOCIO_GRUPO` (`id_grupo`, `id_usuario`, `fecha_inscripcion`, `acepatado`, `activo`) VALUES ('2', '11', '2022-03-15', '0', '0');;");
+        $this->db->query("INSERT INTO `SOCIO_GRUPO` (`id_grupo`, `id_usuario`, `fecha_inscripcion`, `acepatado`, `activo`, `id_categoria`, `foto`) VALUES (:id_gru, :id_usu, :fecha, '0', '0', :cat, :foto);");
         
-        // $this->db->bind(':id_gru', $grupo);
-        // $this->db->bind(':id_usu', $id_usu);
-        // $this->db->bind(':fecha', $fecha);     
+        $this->db->bind(':id_gru', $agreEscuela["grupo"]);
+        $this->db->bind(':id_usu', $agreEscuela["id_usu"]);
+        $this->db->bind(':fecha', $agreEscuela["fecha"]);  
+        $this->db->bind(':cat', $agreEscuela["categoria"]);  
+        $this->db->bind(':foto', $agreEscuela["fotoCarnet"]);   
     
-        /*if ($this->db->execute()) {
+        if ($this->db->execute()) {
             return true;
         } else {
             return false;
-        }*/
+        }
     }
 
 }

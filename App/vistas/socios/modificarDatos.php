@@ -85,6 +85,16 @@
                     </li>
                 </ul>
 
+                <!--MENU Escuela-->
+                <ul id="mInicioMarcas">
+                    <li id="mInicioMarcas">
+                        <a href="<?php echo RUTA_URL ?>/socio/escuela" class="nav-link px-0 align-middle">
+                            <div id="imgMenu"><img src="<?php echo RUTA_Icon?>escuela.png" width="35" height="35"></div>
+                            <div class="col-12">ESCUELA</div>
+                        </a>
+                    </li>
+                </ul>
+
                 <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
                     <a href="<?php echo RUTA_URL ?>/socio"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></a>
                 </div>

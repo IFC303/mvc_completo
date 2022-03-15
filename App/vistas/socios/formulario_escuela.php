@@ -25,14 +25,9 @@
 </head>
 
 <body>
-    <!-- <?php print_r($datos['usuarios']); ?><br><br><br>
-    <?php print_r($datos['categorias']); ?><br><br><br>
-    <?php print_r($datos['grupos']); ?><br><br><br> -->
 
     <form method="post" ENCTYPE="multipart/form-data">
-
-        <label for="ccc">CCC</label><sup>* </sup><input id="ccc" name="ccc" value="<?php $datos['usuarios'][0]->CCC; ?>" type="text" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
-        <br><br>
+    
         <label for="cat">Categoría (2022)</label><sup>* </sup>
         <select name="cat" id="cat" required>
             <?php foreach ($datos['categorias'] as $cat) : ?>
@@ -46,8 +41,6 @@
             <option value="<?php echo $gru->id_grupo ?>"><?php echo $gru->nombre ?></option>
             <?php endforeach ?>
         </select>
-        <br><br>
-        <label for="">Código GIR </label><input type="text" name="gir" value="<?php $datos['usuarios'][0]->gir; ?>">
         <br><br>
 
         <label for="">Consiento la toma y el uso de fotos</label><sup>*</sup> &nbsp;&nbsp;&nbsp;&nbsp;
