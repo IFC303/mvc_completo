@@ -150,10 +150,8 @@ class Socio extends Controlador
            
             $agreEscuela = [
                 'id_usu' =>$datosUser[0]->id_usuario,
-                'ccc' => trim($_POST['ccc']),
                 'categoria' => trim($_POST['cat']),
                 'grupo' => trim($_POST['grup']),
-                'gir' => trim($_POST['gir']),
                 'fecha' => date('Y-m-d'),
                 'fotoCarnet' => $nomFoto,
             ];
