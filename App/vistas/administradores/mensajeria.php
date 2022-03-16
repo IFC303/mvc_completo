@@ -71,81 +71,62 @@
 
                 <!--RADIOS-->  
                 <div class="card bg-light mt-2 col-4"style="border-right:solid 1px #023ef9" >
-                    <div class="form-check" id="check" >
+                <div class="form-check" id="check" >
                         <br>
                         <h6>Selecciona el grupo destinatario</h6>
+                        <br>
+
+                        <?php 
+                        $destinatarios =['Administradores','Entrenadores','Socios','Tiendas', 'Participantes','Entidades'];
+
+                        foreach($destinatarios as $nombre){?>
                             <div class="col-1">
-                                <input type="radio" class="form-check-input" id="socios" name="todos" value="socios" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
+                                <input type="radio" class="form-check-input"  name="todos" id="todos" value="todos" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
                             </div>
-                            <label class="form-check-label" for="socios" id="elementSocios">Socios</label>
+                                <label class="form-check-label" for="todos" id="elementSocios"><?php echo $nombre?></label>
+                                    
+                            <!--VENTANA MODAL-->
+                            <div class="modal" id="v<?php echo $nombre?>">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                   
+                                   
+                                        <div class="header">
+                                            <h4 class="modal-title"><?php echo $nombre?> </h4>
+                                            <button type="button" class="btn-close" onclick="quitar(<?php echo $nombre?>);" data-bs-dismiss="modal"></button>
+                                        </div>
 
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input" id="entrenadores" name="todos" value="entrenadores" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
+                                        <div class="modal-body">
+                                              <input type="checkbox" id="<?php echo $nombre?>" onClick="marcar_desmarcar(this.id);"> <label for="todos">Seleccionar todos</label>   
+                                            <div class="mt-3 mb-3">
+                                            <?php 
+                                                foreach($datos['mensajeTodos'] as $objeto){   
+                                                    if($objeto->tipo==$nombre){  
+                                                ?> 
+                                                
+                                                <br> 
+                                                <input type="checkbox" class="<?php echo $objeto->tipo?>" name="<?php echo $objeto->tipo?>" id="<?php echo $objeto->tipo?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
+                                                <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
+                                                }}?>     
+                                            </div>
+                                        </div>
+
+                                        <div class="footer">
+                                            <button type="button" style="background-color: #023ef9; color:white" onclick="aceptar();" data-bs-dismiss="modal">Aceptar</button>
+                                        </div>                            
                             </div>
-                            <label class="form-check-label" for="entrenadores" id="elementEntre">Entrenadores</label>
-
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input" id="tiendas" name="todos" value="tiendas" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
                             </div>
-                            <label class="form-check-label" for="tiendas" id="elementTiendas">Tiendas</label>
+                            </div> 
 
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input" id="admins" name="todos" value="admins" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
-                            </div>
-                            <label class="form-check-label" for="admins" id="elementAdmins">Administradores</label>
+                        <?php }?>
 
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input" id="externos" name="todos" value="externos" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
-                            </div>
-                            <label class="form-check-label" for="socios" id="elementParticipantes">Participantes (no socios)</label>
-
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input" id="entidades" name="todos" value="entidades" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
-                            </div>
-                            <label class="form-check-label" for="entidades" id="elementEntidades">Entidades</label>
-                            
-                    
-
-
-                <!--VENTANA MODAL-->
-                <div class="modal" id="v<?php echo $entrenadorGrupo->id_grupo?>">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        
-                            <div class="header">
-                                <h4 class="modal-title">Selecion destinatarios</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-
-                            <div class="modal-body">
-                                <input type="checkbox" id="todos" onClick="marcar_desmarcar(this);"> <label for="todos">Seleccionar todos</label>    
-                                <div class="mt-3 mb-3">
-                                    <?php 
-                                  
-                                    foreach($datos['mensaje'] as $objeto){
-                                        if($objeto->id_grupo==$entrenadorGrupo->id_grupo){  
-                                    ?> 
-                                    <input type="checkbox" name="seleccionados" id="<?php echo $objeto->nombre ?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
-                                    <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
-                                            echo '<br>';
-                                    }}?>     
-                                </div>
-                            </div>
-
-                            <div class="footer">
-                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Aceptar</button>
-                            </div>    
-                                
-                        </div>
-                    </div>
-                </div> 
-
-                 
-                    </div>   
+                </div>   
                 </div>
+
+
                 <!--FORMULARIO-->
                 <div class="card bg-light mt-2 col-7">
-                        <form method="post" action="<?php echo RUTA_URL?>/entrenador/enviar"class="card-body">
+                        <form method="post" action="<?php echo RUTA_URL?>/adminMensajeria/enviar"class="card-body">
 
                                 <div class="mt-3 mb-3">
                                     <label for="destinatario">Email destinatario</label>
@@ -167,39 +148,68 @@
             </div>   
         </div>
 
-                     
-       
-
-
-
 
 
             <script>
 
                     function marcar_desmarcar(todos){
-                        todos.setAttribute("checked","true");   
-                    
+                       
                         var mails =[];
-                        casillas=document.getElementsByTagName('input');
+              
+                        casillas=document.getElementsByClassName(todos);
+                        todos=document.getElementById(todos);
+                        //console.log(todos);
                         
-                        //correos="";  
-                        for(i=0;i<casillas.length;i++){
-                            if(casillas[i].type == "checkbox"){    
-                                todos.setAttribute("checked","true");
-                                if(casillas[i].checked=todos.checked){
+                        correos="";  
+   
+                         for(i=0;i<casillas.length;i++){
+                             //console.log(casillas[i]);
+                             if(casillas[i].type == "checkbox"){    
+                                 //casillas[i].setAttribute("checked","true");
+                               if((casillas[i].checked=todos.checked) & (casillas[i].value!="on")){
                                     mails.push(casillas[i].value);
-                                    //correos=correos+casillas[i].value+",";
-                                } else{
-                                     mails.splice(mails.length) 
-                                }                 
-                             }   
-                      
-                        }
-                        mails.shift(); 
-                        document.getElementById('destinatario').setAttribute('value',mails) 
-                        console.log(mails); 
-                         
-                    } 
+                                    correos=correos+casillas[i].value+",";
+                                //  } else{
+                                //       mails.splice(mails.length);
+                                //   todos.setAttribute("checked","false");
+                                //  }                 
+                              }   
+                        } 
+                        //correos=correos.slice(0,-1);
+                        console.log(correos); 
+                        var destinatario=document.getElementById('destinatario');
+                        console.log(destinatario);
+                        destinatario.setAttribute("value",correos);
+                     }
+
+                    }
+
+                     function aceptar(){
+                        var aceptados=document.getElementById('destinatario').value;
+                        console.log(aceptados);
+                     }
+
+
+
+
+
+
+                     function quitar(todos){
+                        document.getElementById('destinatario').setAttribute('value',"");
+                        console.log(destinatario);
+
+
+                       casillas=document.getElementsByClassName(todos);
+                       for(i=0;i<casillas.length;i++){
+                            casillas[i].setAttribute("checked",false);
+                       }console.log(casillas);
+                        //todos=document.getElementById(todos);
+                        ///todos.setAttribute("checked","false");
+                        //casillas.setAttribute("checked",false); 
+                     } 
+
+
+
 
 
 

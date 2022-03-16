@@ -50,7 +50,7 @@
         <!--FORMULARIO AÑADIR-->
         <form method="post" class="card-body">
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-6 mt-3 mb-3">
                     <label for="id_evento">Numero de evento<sup>*</sup></label>
                     <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg">
@@ -60,7 +60,7 @@
                     <label for="id_usuario">Entrenador<sup>*</sup></label>
                     <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg">
                 </div>
-            </div>
+            </div> -->
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
@@ -71,6 +71,18 @@
                 <div class="col-6 mt-3 mb-3">
                     <label for="tipo">Tipo<sup>*</sup></label>
                     <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mt-3 mb-3">
+                    <label for="fecha_ini">Fecha inicio<sup>*</sup></label>
+                    <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg">
+                </div>
+
+                <div class="col-6 mt-3 mb-3">
+                    <label for="fecha_fin">Fecha fin<sup>*</sup></label>
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
                 </div>
             </div>
 
@@ -88,16 +100,16 @@
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
-                    <label for="fecha_ini">Fecha inicio<sup>*</sup></label>
-                    <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg">
+                    <label for="fecha_ini_inscrip">Fecha inicio inscripcion<sup>*</sup></label>
+                    <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg">
                 </div>
 
                 <div class="col-6 mt-3 mb-3">
-                    <label for="fecha_fin">Fecha fin<sup>*</sup></label>
-                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg">
+                    <label for="fecha_fin_inscrip">Fecha fin inscripcion<sup>*</sup></label>
+                    <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg">
                 </div>
             </div>
-
+        <br>
 
             <div class="row">
                 <div class="col-3">
@@ -107,7 +119,7 @@
                     </a>
                 </div>
             </div>
-          
+          <br>
             
         </form>  
 

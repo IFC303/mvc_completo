@@ -104,7 +104,7 @@
                                     ?> 
                                     <input type="checkbox" name="seleccionados" id="<?php echo $objeto->nombre ?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
                                     <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
-                                            echo '<br>';
+                              
                                     }}?>     
                                 </div>
                             </div>
@@ -164,7 +164,7 @@
                         for(i=0;i<casillas.length;i++){
                             if(casillas[i].type == "checkbox"){    
                                 todos.setAttribute("checked","true");
-                                if(casillas[i].checked=todos.checked){
+                                if((casillas[i].checked=todos.checked)& (casillas[i].value!="on")){
                                     mails.push(casillas[i].value);
                                     //correos=correos+casillas[i].value+",";
                                 } else{

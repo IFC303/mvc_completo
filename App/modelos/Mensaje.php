@@ -33,36 +33,40 @@ class Mensaje
 
 //**********************MENSAJERIA ADMIN******************************** */
 
-
-    public function obtenerEmailAdmin(){
-        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=1");
+    public function obtenerEmailsTodos(){
+        $this->db->query("SELECT * FROM EMAIL");
         return $this->db->registros();
     }
 
-    public function obtenerEmailEntre(){
-        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=2");
-        return $this->db->registros();
+   public function obtenerEmailEntidades(){
+         $this->db->query("SELECT * FROM OTRAS_ENTIDADES");
+         return $this->db->registros();
     }
 
-    public function obtenerEmailSocios(){
-        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=3");
-        return $this->db->registros();
-    }
 
-    public function obtenerEmailTiendas(){
-        $this->db->query("SELECT * FROM USUARIO WHERE id_rol=4");
-        return $this->db->registros();
-    }
 
-    public function obtenerEmailExternos(){
-        $this->db->query("SELECT * FROM EXTERNO");
-        return $this->db->registros();
-    }
 
-    public function obtenerEmailEntidades(){
-        $this->db->query("SELECT * FROM OTRAS_ENTIDADES");
-        return $this->db->registros();
-    }
+    // public function obtenerEmailEntre(){
+    //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=2");
+    //     return $this->db->registros();
+    // }
+
+    // public function obtenerEmailSocios(){
+    //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=3");
+    //     return $this->db->registros();
+    // }
+
+    // public function obtenerEmailTiendas(){
+    //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=4");
+    //     return $this->db->registros();
+    // }
+
+    // public function obtenerEmailExternos(){
+    //     $this->db->query("SELECT * FROM EXTERNO");
+    //     return $this->db->registros();
+    // }
+
+   
 
 
 
