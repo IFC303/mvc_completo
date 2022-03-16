@@ -585,7 +585,7 @@ CREATE TABLE OTRAS_ENTIDADES(
     nombre varchar (40) not null,
     direccion varchar (200) not null,
     telefono int(9) not null,
-    email varchar(50) null;
+    email varchar(50) null,
     observaciones varchar (30)
   );
 CREATE TABLE I_OTROS(
