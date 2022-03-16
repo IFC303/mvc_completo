@@ -581,20 +581,19 @@ CREATE TABLE CATEGORIA_SOCIO(
     constraint FK_id_usuario_categoria_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 CREATE TABLE OTRAS_ENTIDADES(
-    id_entidad int primary key,
+    id_entidad varchar (10) primary key,
     nombre varchar (40) not null,
     direccion varchar (200) not null,
     telefono int(9) not null,
     email varchar(50) null;
     observaciones varchar (30)
-  
   );
 CREATE TABLE I_OTROS(
     id_ingreso_otros int primary key AUTO_INCREMENT,
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    id_entidad int,
+    id_entidad varchar (10),
     constraint FK_id_entidad_i_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
 CREATE TABLE G_OTROS(
@@ -603,7 +602,7 @@ CREATE TABLE G_OTROS(
     concepto varchar (500) not null,
     importe int not null,
     id_usuario int,
-    id_entidad int,
+    id_entidad varchar(10),
     constraint FK_id_usuario_g_otros foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
     constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );

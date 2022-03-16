@@ -57,17 +57,17 @@
                 </div> -->
                 <div class="row">
                     <div class="col-6 mt-3 mb-3">
-                        <label for="nombre">Nombre<sup>*</sup></label>
-                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+                        <label for="cif">CIF<sup>*</sup></label>
+                        <input type="text" name="cif" id="cif" class="form-control form-control-lg">
                     </div>
                     <div class="col-6 mt-3 mb-3">
-                        <label for="cif">CIF</label>
-                        <input type="text" name="cif" id="cif" class="form-control form-control-lg">
+                        <label for="nombre">Nombre<sup>*</sup></label>
+                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
                     </div>
                 </div>
 
                 <div class="mt-3 mb-3">
-                    <label for="direccion">Direccion</label>
+                    <label for="direccion">Direccion<sup>*</sup></label>
                     <input type="text" name="direccion" id="direccion" class="form-control form-control-lg">
                 </div>
 
