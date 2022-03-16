@@ -21,11 +21,16 @@ class Tienda extends Controlador
 
     public function equipaciones()
     {
-        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario();;
+        $this->limit = (isset($_GET['limit'])) ? $_GET['limit'] : 4;
+        $this->page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+        $this->links = (isset($_GET['links'])) ? $_GET['links'] : 7;
+
+        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario();
+
         $this->vista('tienda/equipaciones', $this->datos);
     }
 
-    public function editarEquipacion($id)
+    public function editarEquipacion()
     {
         $this->datos['rolesPermitidos'] = [4];
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
