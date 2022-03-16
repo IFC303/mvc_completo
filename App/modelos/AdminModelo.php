@@ -35,8 +35,13 @@ class AdminModelo
     //CRUDS USUARIOS
     public function obtenerUsuarios($rol)
     {
-        $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
-        return $this->db->registros();
+        if ($rol == 2) {
+            $this->db->query("SELECT * FROM USUARIO u, ENTRENADOR e WHERE id_rol = $rol and u.id_usuario=e.id_usuario");
+            return $this->db->registros();
+        } else {
+            $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
+            return $this->db->registros();
+        }
     }
 
     public function borrarUsuario($idUsuario)
@@ -53,6 +58,13 @@ class AdminModelo
 
     public function editarUsuario($usuEditar)
     {
+        if ($usuEditar['SueldoEdit'] != "" && $usuEditar['SueldoEdit'] != NULL) {
+            $this->db->query("UPDATE `ENTRENADOR` SET `sueldo` = :sueldoEdit WHERE `id_usuario` = :id_usuEdit;");
+            $this->db->bind(':id_usuEdit', $usuEditar['idEdit']);
+            $this->db->bind(':sueldoEdit', $usuEditar['SueldoEdit']);
+            $this->db->execute();
+        }
+
         $coma = 0;
         $dniMet = false;
         $nomMet = false;
@@ -263,21 +275,29 @@ class AdminModelo
         $this->db->bind(':telUsu', $usuAnadir['telUsuAna']);
         $this->db->bind(':emaUsu', $usuAnadir['emaUsuAna']);
         $this->db->bind(':direcUsu', $usuAnadir['direccionUsuAna']);
-        $this->db->bind(':cccUsu', "" /*$usuAnadir['cccUsuAna']*/);
+        $this->db->bind(':cccUsu', "");
         $this->db->bind(':passUsu', $usuAnadir['passUsuAna']);
-        $this->db->bind(':tallUsu', ""/*$usuAnadir['tallUsuAna']*/);
-        $this->db->bind(':fotUsu', ""/*$usuAnadir['fotUsuAna']*/);
-        $this->db->bind(':actUsu', "1"/*$usuAnadir['actUsuAna']*/);
+        $this->db->bind(':tallUsu', "");
+        $this->db->bind(':fotUsu', "");
+        $this->db->bind(':actUsu', "1");
         $this->db->bind(':idRolUsu', $usuAnadir['rolUsuAna']);
         $this->db->execute();
         $idSoci = $this->db->ultimoIndice();
-        if($usuAnadir['socioUsuAna']=="si"){
+        if ($usuAnadir['socioUsuAna'] == "si") {
             $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
+            $this->db->execute();
+        }
+        if ($usuAnadir['rolUsuAna'] == 2) {
+            if ($usuAnadir['sueldoUsuAna'] != "" && $usuAnadir['sueldoUsuAna'] != NULL) {
+                $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($idSoci, :suel);");
+                $this->db->bind(':suel', $usuAnadir['sueldoUsuAna']);
+            } else {
+                $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`) VALUES ($idSoci);");
+            }
             $this->db->execute();
         }
 
         return true;
-        
     }
 
     //SOLICITUD SOCIOS
@@ -397,14 +417,14 @@ class AdminModelo
         $this->db->query("SELECT e.nombre as evento ,u.nombre, u.apellidos, s.fecha, s.id_usuario as id, s.id_evento FROM `SOLICITUD_SOCIO_EVENTO` s, `EVENTO` e, `USUARIO` u WHERE s.id_usuario= u.id_usuario and s.id_evento=e.id_evento");
         return $this->db->registros();
     }
-    
+
     public function obtenerSolicitudesEvenExter()
     {
         $this->db->query("SELECT e.nombre as evento ,u.nombre, u.apellidos, s.fecha, s.id_externo as id, s.id_evento FROM `SOLICITUD_EXTER_EVENTO` s, `EVENTO` e, `EXTERNO` u WHERE s.id_externo= u.id_externo and s.id_evento=e.id_evento;");
         return $this->db->registros();
     }
 
-    
+
 
     public function borrar_solicitudes_EvenSoci($datBorrar)
     {
@@ -448,18 +468,18 @@ class AdminModelo
         $idEvento = $datAceptar[1];
         $fecha = $datAceptar[2];
 
-        $dorsal=1;
+        $dorsal = 1;
         $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
         $this->db->bind(':id_even', $idEvento);
-        $dorsalExterno= $this->db->registros();
+        $dorsalExterno = $this->db->registros();
         $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
         $this->db->bind(':id_even', $idEvento);
-        $dorsalSocio= $this->db->registros();
-        
-        if(($dorsalExterno[0]->dorasl)>($dorsalSocio[0]->dorsal)){
-            $dorsal= ($dorsalExterno[0]->dorasl) + 1;
-        }elseif(($dorsalSocio[0]->dorsal)>($dorsalExterno[0]->dorasl)){
-            $dorsal= ($dorsalSocio[0]->dorsal) + 1;
+        $dorsalSocio = $this->db->registros();
+
+        if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
+            $dorsal = ($dorsalExterno[0]->dorasl) + 1;
+        } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
+            $dorsal = ($dorsalSocio[0]->dorsal) + 1;
         }
 
         $this->db->query("UPDATE `EXTERNO` SET `id_evento` = :id_even, `dorasl` = $dorsal WHERE `id_externo` = :id_usu;");
@@ -485,20 +505,20 @@ class AdminModelo
         $idEvento = $datAceptar[1];
         $fecha = $datAceptar[2];
 
-        $dorsal=1;
+        $dorsal = 1;
         $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
         $this->db->bind(':id_even', $idEvento);
-        $dorsalExterno= $this->db->registros();
+        $dorsalExterno = $this->db->registros();
         $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
         $this->db->bind(':id_even', $idEvento);
-        $dorsalSocio= $this->db->registros();
-        
-        if(($dorsalExterno[0]->dorasl)>($dorsalSocio[0]->dorsal)){
-            $dorsal= ($dorsalExterno[0]->dorasl) + 1;
-        }elseif(($dorsalSocio[0]->dorsal)>($dorsalExterno[0]->dorasl)){
-            $dorsal= ($dorsalSocio[0]->dorsal) + 1;
+        $dorsalSocio = $this->db->registros();
+
+        if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
+            $dorsal = ($dorsalExterno[0]->dorasl) + 1;
+        } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
+            $dorsal = ($dorsalSocio[0]->dorsal) + 1;
         }
-        
+
         $this->db->query("INSERT INTO `SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`, `dorsal`) VALUES (:id_usu, :id_even, :id_fecha, $dorsal);");
         $this->db->bind(':id_usu', $idUsu);
         $this->db->bind(':id_even', $idEvento);
@@ -516,5 +536,4 @@ class AdminModelo
             return false;
         }
     }
-
 }

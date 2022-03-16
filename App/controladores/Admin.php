@@ -134,6 +134,7 @@ class Admin extends Controlador
                 'ActEdit' => trim($_POST["editAct"]),
                 'RolEdit' => trim($_POST["editRol"]),
                 'GirEdit' => trim($_POST["editGir"]),
+                'SueldoEdit' => trim($_POST["editSueldo"]),
             ];
 
             if ($this->AdminModelo->editarUsuario($ediUsu)) {
@@ -178,6 +179,7 @@ class Admin extends Controlador
                 'telUsuAna' => trim($_POST["telf"]),
                 'emaUsuAna' => trim($_POST["email"]),
                 'passUsuAna' => trim($_POST["pass"]),
+                'sueldoUsuAna' => trim($_POST["sueldo"]),
                 'rolUsuAna'=> trim($usuVer),
             ];
 
