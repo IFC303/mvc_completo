@@ -722,11 +722,11 @@ create view GASTOS as
 
 
 create view PARTICIPANTE AS 
-  select SE.id_usuario AS id_participante,id_evento,U.nombre,U.apellidos, "socio" as tipoParticipante
-  from SOCIO_EVENTO SE, USUARIO U
-  WHERE SE.id_evento=U.id_usuario
+ select SOCIO_EVENTO.id_usuario AS id_participante,id_evento,USUARIO.nombre,USUARIO.apellidos, "socio" as tipoParticipante
+  from SOCIO_EVENTO, USUARIO
+  WHERE SOCIO_EVENTO.id_usuario=USUARIO.id_usuario
   union
-  SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipo 
+  SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipoParticipante 
   from EXTERNO;
 
 

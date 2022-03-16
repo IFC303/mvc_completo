@@ -56,8 +56,7 @@
         </div>
 
         <!--FORMULARIO AÑADIR-->
-        <form method="post" class="card-body">
-
+        <form action="<?php echo RUTA_URL ?>/adminFacturacion/nuevoIngreso" method="post" class="card-body">
 
                 <div class="row">
                     <div class="col-6">
@@ -67,6 +66,7 @@
                       <label for="tipo" class="form-label">Tipo de ingreso:</label>
                     </div>   
                 </div>
+                
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3"> 
@@ -115,11 +115,11 @@
                  <div class="col-6 mt-3 mb-3" id="inputSocios" style="display:none">  
                     <input class="form-control form-control-lg" list="browsers" name="browser" id="browser">
                     <datalist id="browsers" name="socio">
-                        <?php foreach($datos['usuarios'] as $usuario){
-                            ?><option value="<?php echo $usuario->nombre?>"></option><?php
+                        <?php foreach($datos['socios'] as $socios){
+                            ?><option value="<?php echo $socios->nombre?>"></option><?php
                         }?>    
                     </datalist>  
-                    <input type="hidden" name="idSocios" value="<?php echo $usuario->id_usuario?>">
+                    <input type="hidden" name="idSocios" value="<?php echo $socios->id_socio?>">
                 </div>
                  <!--div PARTICIPANTES -->
                   <div class="col-6 mt-3 mb-3" id="inputParticipantes" style="display:none">  
@@ -130,6 +130,7 @@
                         }?>    
                     </datalist>  
                     <input type="hidden" name="idParticipantes" value="<?php echo $participante->id_participante?>">
+                    <input type="hidden" name="tipoParticipante" value="<?php echo $participante->tipoParticipante?>">
                 </div> 
                   <!--div ENTIDADES -->
                   <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
@@ -169,7 +170,7 @@
             <div class="row">
                 <div class="col-3">
                     <input type="submit" class="btn" value="Confirmar">
-                    <a href="<?php echo RUTA_URL?>/adminFacturacion/ingresos">
+                    <a href="<?php echo RUTA_URL?>/adminFacturacion">
                         <input type="button" class="btn" id="botonVolver" value="Volver">  
                     </a>
                 </div>

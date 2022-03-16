@@ -132,7 +132,6 @@
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr style="background-color:#023ef9; color:white">
-                            <th>Nº INGRESO</th>
                             <th>FECHA</th>
                             <th>CONCEPTO</th>
                             <th>IMPORTE</th>
@@ -151,11 +150,9 @@
                         <?php
 
                         foreach($datos['ingresos'] as $info):   
-                            if($datos['tipoIngreso']==$info->tipo):
+                           
                            ?>
                         <tr>
-
-                            <td class="datos_tabla"><?php echo $info->id_ingreso?></td>
                             <td class="datos_tabla"><?php echo $info->fecha?></td>
                             <td class="datos_tabla"><?php echo $info->concepto?></td>
                             <td class="datos_tabla"><?php echo $info->importe?></td>
@@ -447,7 +444,7 @@
                         </tr>
                     
                         <?php
-                        endif;
+                       
                         endforeach ?>
                     </tbody>
 
