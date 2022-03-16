@@ -611,7 +611,7 @@ CREATE TABLE I_CUOTAS(
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    id_usuario int,
+    id_usuario int not null,
     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 CREATE TABLE EQUIPACION(
@@ -688,10 +688,10 @@ CREATE TABLE I_ACTIVIDADES(
     id_ingreso_actividades int primary key AUTO_INCREMENT,
     id_externo int,
     id_usuario int,
-    id_evento int,
+    id_evento int not null,
     fecha date not null,
     concepto varchar (500) not null,
-    importe int,
+    importe int not null,
     constraint FK_id_externo_ing_actividades foreign key (id_externo) references EXTERNO (id_externo) on delete cascade on update cascade,
     constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
     constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
