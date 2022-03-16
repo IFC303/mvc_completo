@@ -10,21 +10,22 @@
 
 <body>
     <form action="<?php echo RUTA_URL ?>/admin/nuevoUsuario/<?php echo $datos['idTengo']?>" method="post">
-        <label for="">DNI </label><input type="text" value="" id="dni" name="dni" style="text-transform:uppercase;">
+        <label for="dni">DNI </label><input type="text" value="" id="dni" name="dni" style="text-transform:uppercase;">
         <br><br>
-        <label for="">Nombre </label><input type="text" value="" id="nombre" name="nombre" required onkeypress="return Solo_Texto(event);">
+        <label for="nombre">Nombre </label><input type="text" value="" id="nombre" name="nombre" required onkeypress="return Solo_Texto(event);">
         <br><br>
-        <label for="">Apellidos </label><input type="text" value="" id="apellidos" name="apellidos" required onkeypress="return Solo_Texto(event);">
+        <label for="apellidos">Apellidos </label><input type="text" value="" id="apellidos" name="apellidos" required onkeypress="return Solo_Texto(event);">
         <br><br>
-        <label for="">Fecha Nacimiento </label><input type="date" value="" id="fecha" name="fecha">
+        <label for="fecha">Fecha Nacimiento </label><input type="date" value="" id="fecha" name="fecha">
         <br><br>
-        <label for="">Telefono </label><input type="text" value="" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+        <label for="telf">Telefono </label><input type="text" value="" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
         <br><br>
-        <label for="">Correo </label><input type="text" value="" id="email" name="email" onblur="return correo(this.id)" required> <label id="errorMail"></label>
+        <label for="email">Correo </label><input type="text" value="" id="email" name="email" onblur="return correo(this.id)" required> <label id="errorMail"></label>
         <br><br>
-        <label for="">Direccion </label><input type="text" value="" id="direccion" name="direccion" required>
+        <label for="direccion">Direccion </label><input type="text" value="" id="direccion" name="direccion" required>
         <br><br>
-        <label for="">Contraseña </label><input type="password" value="" id="pass" name="pass">
+        <label for="pass">Contraseña </label><input type="password" value="" id="pass" name="pass">
+        <?php if($datos["idTengo"]==2){echo "<br><br><label for='sueldo'>Sueldo </label><input type='number' value='' id='sueldo' name='sueldo'>";} ?>
         <br><br>
         <label for="">Socio</label> &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="radio" id="siSocio" name="socio" value="si" required><label for="siSocio">SI</label>
