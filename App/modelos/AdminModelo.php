@@ -301,7 +301,8 @@ class AdminModelo
     }
 
     //SOLICITUD SELECCIONADAS
-    public function borrar_solicitudes_seleccionadas_socios($datBorrar){
+    public function borrar_solicitudes_seleccionadas_socios($datBorrar)
+    {
         foreach ($datBorrar as $idBorrar) {
             $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
             $this->db->bind(':id_soli', $idBorrar);
@@ -309,16 +310,84 @@ class AdminModelo
         }
         return true;
     }
-    
-    public function aceptar_solicitudes_seleccionadas_socios($datAceptar){
+
+    public function aceptar_solicitudes_seleccionadas_socios($datAceptar)
+    {
         foreach ($datAceptar as $idAceptar) {
             $this->db->query("SELECT * FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
             $this->db->bind(':id_soli', $idAceptar);
-            $o=$this->db->registro();
-            print_r($o);
+            $datos = $this->db->registro();
+            print_r($datos);
             print_r("<br><br><br>");
+
+            $idSoli = $datos->id_solicitud_soc;
+            $dni = $datos->DNI;
+            $nombre = $datos->nombre;
+            $apellidos = $datos->apellidos;
+            $CCC = $datos->CCC;
+            $talla = $datos->talla;
+            $fecha_nacimiento = $datos->fecha_nacimiento;
+            $email = $datos->email;
+            $telefono = $datos->telefono;
+            $direccion = $datos->direccion;
+            $es_socio = $datos->es_socio;
+            print_r($idSoli);
+            print_r("<br>");
+            print_r($dni);
+            print_r("<br>");
+            print_r($nombre);
+            print_r("<br>");
+            print_r($apellidos);
+            print_r("<br>");
+            print_r($CCC);
+            print_r("<br>");
+            print_r($talla);
+            print_r("<br>");
+            print_r($fecha_nacimiento);
+            print_r("<br>");
+            print_r($email);
+            print_r("<br>");
+            print_r($telefono);
+            print_r("<br>");
+            print_r($direccion);
+            print_r("<br>");
+            print_r($es_socio);
+            print_r("<br>");
+
+            /*
+            $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
+        (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
+            $this->db->bind(':dni', $dni);
+            $this->db->bind(':nombre', $nombre);
+            $this->db->bind(':apellidos', $apellidos);
+            $this->db->bind(':CCC', $CCC);
+            $this->db->bind(':talla', $talla);
+            $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
+            $this->db->bind(':email', $email);
+            $this->db->bind(':telefono', $telefono);
+            $this->db->bind(':direccion', $direccion);
+            $this->db->bind(':es_socio', $es_socio);
+            $this->db->execute();
+
+            $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId and `nombre`= :nombreId and `apellidos`= :apellidosId and `email`= :emailId");
+            $this->db->bind(':dniId', $dni);
+            $this->db->bind(':nombreId', $nombre);
+            $this->db->bind(':apellidosId', $apellidos);
+            $this->db->bind(':emailId', $email);
+            $idUsu = $this->db->registros();
+            $idUsu = $idUsu[0]->id_usuario;
+
+            $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
+            $this->db->execute();
+
+            $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
+
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }*/
         }
-        //return true;
     }
 
     //SOLICITUD SOCIOS
