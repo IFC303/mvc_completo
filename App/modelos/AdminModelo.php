@@ -300,6 +300,27 @@ class AdminModelo
         return true;
     }
 
+    //SOLICITUD SELECCIONADAS
+    public function borrar_solicitudes_seleccionadas_socios($datBorrar){
+        foreach ($datBorrar as $idBorrar) {
+            $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
+            $this->db->bind(':id_soli', $idBorrar);
+            $this->db->execute();
+        }
+        return true;
+    }
+    
+    public function aceptar_solicitudes_seleccionadas_socios($datAceptar){
+        foreach ($datAceptar as $idAceptar) {
+            $this->db->query("SELECT * FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
+            $this->db->bind(':id_soli', $idAceptar);
+            $o=$this->db->registro();
+            print_r($o);
+            print_r("<br><br><br>");
+        }
+        //return true;
+    }
+
     //SOLICITUD SOCIOS
     public function obtenerSolicitudesSocios()
     {
