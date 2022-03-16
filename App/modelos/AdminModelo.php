@@ -313,12 +313,15 @@ class AdminModelo
 
     public function aceptar_solicitudes_seleccionadas_socios($datAceptar)
     {
+        // INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES ('1', '1', 'socio1', 'socio1', '67568', 'l', '2022-03-09', 'socio1@gmail.com', '79789070', 'jnmbmngh', '0');
+        // INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES ('2', '2', 'socio2', 'socio2', '568', '2', '2022-01-09', 'socio2@gmail.com', '89070', 'bmngh', '0');
+        // INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES ('3', '3', 'socio3', 'socio3', '68', '3', '2022-05-09', 'socio3@gmail.com', '9070', 'mngh', '0');
+        
         foreach ($datAceptar as $idAceptar) {
+            
             $this->db->query("SELECT * FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
             $this->db->bind(':id_soli', $idAceptar);
             $datos = $this->db->registro();
-            print_r($datos);
-            print_r("<br><br><br>");
 
             $idSoli = $datos->id_solicitud_soc;
             $dni = $datos->DNI;
@@ -331,32 +334,8 @@ class AdminModelo
             $telefono = $datos->telefono;
             $direccion = $datos->direccion;
             $es_socio = $datos->es_socio;
-            print_r($idSoli);
-            print_r("<br>");
-            print_r($dni);
-            print_r("<br>");
-            print_r($nombre);
-            print_r("<br>");
-            print_r($apellidos);
-            print_r("<br>");
-            print_r($CCC);
-            print_r("<br>");
-            print_r($talla);
-            print_r("<br>");
-            print_r($fecha_nacimiento);
-            print_r("<br>");
-            print_r($email);
-            print_r("<br>");
-            print_r($telefono);
-            print_r("<br>");
-            print_r($direccion);
-            print_r("<br>");
-            print_r($es_socio);
-            print_r("<br>");
-
-            /*
-            $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
-        (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
+          
+            $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
             $this->db->bind(':dni', $dni);
             $this->db->bind(':nombre', $nombre);
             $this->db->bind(':apellidos', $apellidos);
@@ -376,18 +355,14 @@ class AdminModelo
             $this->db->bind(':emailId', $email);
             $idUsu = $this->db->registros();
             $idUsu = $idUsu[0]->id_usuario;
-
+            
             $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
             $this->db->execute();
 
             $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
-
-            if ($this->db->execute()) {
-                return true;
-            } else {
-                return false;
-            }*/
+            $this->db->execute();
         }
+        return true;
     }
 
     //SOLICITUD SOCIOS

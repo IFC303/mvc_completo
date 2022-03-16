@@ -12,6 +12,15 @@
                                 <th>FECHA INSCRIPCION</th>
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
                                         <th>Acciones</th>
+                                        <th>
+                                                <a onclick="borrarMas()" data-bs-toggle="modal" data-bs-target="#ModalBorrar_mas">
+                                                        <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
+                                                </a>
+                                                &nbsp;
+                                                <a onclick="aceptarMas()" data-bs-toggle="modal" data-bs-target="#ModalAceptar_mas">
+                                                        <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
+                                                </a>
+                                        </th>
                                 <?php endif ?>
                         </tr>
                 </thead>
