@@ -117,15 +117,12 @@
         #region paginador
         $conn       = new mysqli('mysql', 'root', 'toor', 'tragamillas2');
 
-        $limit      = $this->limit;
-        $page       = $this->page;
-        $links      = $this->links;
         $query      = "SELECT * FROM EQUIPACION JOIN USUARIO ON EQUIPACION.id_usuario = USUARIO.id_usuario";
 
 
         $Paginator  = new Paginator($conn, $query);
 
-        $results    = $Paginator->getData($limit, $page);
+        $results    = $Paginator->getData($this->limit, $this->page);
         #endregion
         ?>
 
@@ -258,7 +255,7 @@
 
             </table>
 
-            <?php echo $Paginator->createLinks($links, 'pagination'); ?>
+            <?php echo $Paginator->createLinks($this->links, 'pagination'); ?>
 
         </div>
 
