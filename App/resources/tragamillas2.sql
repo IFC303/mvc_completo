@@ -626,7 +626,7 @@ CREATE TABLE EQUIPACION(
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
   );
 CREATE TABLE EVENTO(
-    id_evento int primary key,
+    id_evento int primary key AUTO_INCREMENT,
     id_usuario int,
     nombre varchar (50) not null,
     tipo varchar (30) not null,

@@ -50,18 +50,6 @@
         <!--FORMULARIO AÑADIR-->
         <form method="post" class="card-body">
 
-            <!-- <div class="row">
-                <div class="col-6 mt-3 mb-3">
-                    <label for="id_evento">Numero de evento<sup>*</sup></label>
-                    <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg">
-                </div>
-
-                <div class="col-6 mt-3 mb-3">
-                    <label for="id_usuario">Entrenador<sup>*</sup></label>
-                    <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg">
-                </div>
-            </div> -->
-
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
                     <label for="nombre">Nombre<sup>*</sup></label>

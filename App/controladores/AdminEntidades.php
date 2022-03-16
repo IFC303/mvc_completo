@@ -29,7 +29,10 @@ class AdminEntidades extends Controlador{
             $entidadNueva = [
                 'id_entidad' => trim($_POST['id_entidad']),
                 'nombre' => trim($_POST['nombre']),
-                'tipo' => trim($_POST['tipo']),
+                'direccion' => trim($_POST['direccion']),
+                'telefono' => trim($_POST['telefono']),
+                'email' => trim($_POST['email']),
+                'observaciones' => trim($_POST['observaciones']),
             ];
 
             if($this->entidadModelo->agregarEntidad($entidadNueva)){
@@ -37,7 +40,6 @@ class AdminEntidades extends Controlador{
             }else{
                 die('Añgo ha fallado!!');
             }
-
         }else{
             $this->datos['entidad'] = (object)[
                 'id_entidad'=>'',
@@ -60,8 +62,6 @@ class AdminEntidades extends Controlador{
             $this->datos['entidad'] = $this->entidadModelo->obtenerEntidadId($id);
             $this->vista('administradores/crudEntidades/inicio', $this->datos);
         }
-
-
     }
 
 
@@ -78,17 +78,22 @@ class AdminEntidades extends Controlador{
                 //recogemos los datos modificados y guardamos en $grupo_modificado
                 $entidad_modificada = [
                     'id_entidad' => trim($_POST['id_entidad']),
-                    'nombre' => trim($_POST['nombre']),
-                    'tipo' => trim($_POST['tipo']),  
+                    'nombre' => trim($_POST['nombre']), 
+                    'direccion' => trim($_POST['direccion']),
+                    'telefono' => trim($_POST['telefono']),
+                    'email' => trim($_POST['email']),
+                    'observaciones' => trim($_POST['observaciones']),
                 ];
    
-    
                 if ($this->entidadModelo->editarEntidad($entidad_modificada)) {
                     redireccionar('/adminEntidades');
                 }else{
                     die('Algo ha fallado!!!');
                 }
-    }
+
+         } else {
+                $this->vista('administradores/crudEntidades/inicio', $this->datos);
+        }
 
 
 }
