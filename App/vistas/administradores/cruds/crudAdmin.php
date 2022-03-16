@@ -1,6 +1,6 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
 
-<div class="tabla" style="border:solid 1px #023ef9">
+<div class="table-responsive" style="border:solid 1px #023ef9">
 
         <table class="table table-hover">
 
@@ -105,11 +105,6 @@
                                                                                         <label for="verGir">Gir: </label>
                                                                                         <label name="verGir" class="form-control form-control-lg"><?php echo $usuarios->gir ?></label>
                                                                                 </div>
-
-                                                                                <?php if($datos["idTengo"]==2){echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3'>
-                                                                                        <label for='verSueldo'>Sueldo: </label>
-                                                                                        <label name='verSueldo' class='form-control form-control-lg'>".$usuarios->sueldo."</label></div>";} 
-                                                                                ?>
 
                                                                         </div>
 
@@ -233,11 +228,6 @@
                                                                                                                 <label for="editGir">Gir: <sup>*</sup></label>
                                                                                                                 <input type="text" name="editGir" id="editGir" class="form-control form-control-lg" placeholder="<?php echo $usuarios->gir ?>">
                                                                                                         </div>
-
-                                                                                                        <?php if($datos["idTengo"]==2){echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3'>
-                                                                                                                <label for='editSueldo'>Sueldo: <sup>*</sup></label>
-                                                                                                                <input type='number' name='editSueldo' id='editSueldo' class='form-control form-control-lg' placeholder='".$usuarios->sueldo."'></div>";} 
-                                                                                                        ?>
                                                                                                 </div>
                                                                                                 <input type="submit" class="btn btn-success" value="Confirmar">
                                                                                         </form>
