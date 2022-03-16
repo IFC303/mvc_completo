@@ -78,20 +78,28 @@ class Socio extends Controlador
 
     public function licencias(){
 
+        
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $licencias = $this->SocioModelo->obtenerLicenciasId($idUsuarioSesion);
+        $licencias = $this->SocioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
         $this->datos['usuarios']=$licencias;
 
+       
         $this->vista('socios/licencias', $this->datos);
+    }
+
+    public function verFoto($idLic){
+     
+
+        $this->datos['foto']=$this->SocioModelo->obtenerFotoLicencia($idLic);
+       
+        $this->vista('socios/verFoto',$this->datos);
     }
 
     public function nuevaLicencia()
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-     
-        
+      
 
 
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso

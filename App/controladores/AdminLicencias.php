@@ -20,10 +20,10 @@ class AdminLicencias extends Controlador{
         $this->vista('administradores/crudLicencias/inicio',$this->datos);
     }
 
-    public function verFoto($numLic){
+    public function verFoto($idLic){
      
 
-        $this->datos['foto']=$this->licenciaModelo->obtenerFotoLicencia($numLic);
+        $this->datos['foto']=$this->licenciaModelo->obtenerFotoLicencia($idLic);
        
         $this->vista('administradores/crudLicencias/verFoto',$this->datos);
     }
@@ -71,6 +71,7 @@ class AdminLicencias extends Controlador{
     }
 
     public function borrar($num_lic){
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->licenciaModelo->borrarLicencia($num_lic)) {
                 redireccionar('/AdminLicencias');
@@ -102,16 +103,19 @@ class AdminLicencias extends Controlador{
 
                 //recogemos los datos modificados y guardamos en $grupo_modificado
                 $licencia_modificada = [
-                    'num_licencia' => trim($_POST['num_licencia']),
+                    'id_usuario' => trim($_POST['id_usuario']),
+                    'usuario' => trim($_POST['usuario']),
                     'tipo' => trim($_POST['tipo']),
-                    'regional_nacional' => trim($_POST['regional_nacional']), 
-                    'dorsal' => trim($_POST['dorsal']), 
-                    'fecha_cad' => trim($_POST['fecha_cad']), 
+                    'gir' => trim($_POST['gir']),
+                    'num_licencia' => trim($_POST['num_licencia']),
+                    'regional_nacional' => trim($_POST['regional_nacional']),
+                    'dorsal' => trim($_POST['dorsal']),
+                    'fecha_cad' => trim($_POST['fecha_cad']),
                     'imagen' => $_FILES['imagen']['name']
                 ];
    
     
-                if ($this->licenciaModelo->editarLicencia($licencia_modificada)) {
+                if ($this->licenciaModelo->editarLicencia($licencia_modificada, $id)) {
                     redireccionar('/AdminLicencias');
                 }else{
                     die('Algo ha fallado!!!');

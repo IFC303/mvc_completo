@@ -100,7 +100,7 @@
                     <div class="datos col-12" >TIPO LICENCIA</div>
                     <div class="datos col-12" >DORSAL</div>   
                     <div class="datos col-12" >FECHA CADUCIDAD</div>
-                    <div class="datos col-12" >IAMGEN LICENCIA</div>               
+                    <div class="datos col-12" >IMÁGEN LICENCIA</div>               
                 </div>
             </div>
 
@@ -112,7 +112,7 @@
 
                         <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();" required>
                             <option selected value="0">Elige una opción</option>
-                            <option value="1">Federativa</option>
+                            <option value="1">Adulto</option>
                             <option value="2">Escolar</option>
                         </select>
 
