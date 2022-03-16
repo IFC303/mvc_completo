@@ -583,8 +583,11 @@ CREATE TABLE CATEGORIA_SOCIO(
 CREATE TABLE OTRAS_ENTIDADES(
     id_entidad int primary key,
     nombre varchar (40) not null,
-    observaciones varchar (30),
-    email varchar(50)
+    direccion varchar (200) not null,
+    telefono int(9) not null,
+    email varchar(50) null;
+    observaciones varchar (30)
+  
   );
 CREATE TABLE I_OTROS(
     id_ingreso_otros int primary key AUTO_INCREMENT,
