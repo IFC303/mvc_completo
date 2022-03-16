@@ -87,7 +87,7 @@
                     <li id="mInicioUsu">
                         <a href="#submenuUsu" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>usuario.svg" width="35" height="35"></div>
-                            <div class=" d-none d-sm-inline">USUARIOS</div>
+                            <div class="col-12">USUARIOS</div>
                         </a>
                     </li>
                     <ul class="collapse nav flex-column" id="submenuUsu" data-bs-parent="#menu">
@@ -111,7 +111,7 @@
                     <li id="mInicioSol">
                         <a href="#submenuSol" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>solicitudes.svg" width="35" height="35"></div>
-                            <div class=" d-none d-sm-inline">SOLICITUDES</div>
+                            <div class="col-12">SOLICITUDES</div>
                         </a>
                     </li>
                     <ul class="collapse nav flex-column " id="submenuSol" data-bs-parent="#menu">
