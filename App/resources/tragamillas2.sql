@@ -583,7 +583,8 @@ CREATE TABLE CATEGORIA_SOCIO(
 CREATE TABLE OTRAS_ENTIDADES(
     id_entidad int primary key,
     nombre varchar (40) not null,
-    tipo varchar (30)
+    observaciones varchar (30),
+    email varchar(50)
   );
 CREATE TABLE I_OTROS(
     id_ingreso_otros int primary key AUTO_INCREMENT,
@@ -725,3 +726,18 @@ create view PARTICIPANTE AS
   union
   SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipo 
   from EXTERNO;
+
+
+
+create view EMAIL as
+  select nombre, apellidos, email, "Administradores" as tipo from USUARIO where id_rol=1
+  UNION
+  select nombre, apellidos, email, "Entrenadores" as tipo from USUARIO where id_rol=2
+  union
+  select nombre, apellidos, email, "Socios" as tipo from USUARIO where id_rol=3
+  union
+  select nombre, apellidos, email, "Tiendas" as tipo from USUARIO where id_rol=4
+  union
+  select nombre, apellidos, email, "Participantes" as tipo from EXTERNO
+  union
+  select nombre, "" as apellidos, email, "Entidades" as tipo from OTRAS_ENTIDADES;
