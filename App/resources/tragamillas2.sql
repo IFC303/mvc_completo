@@ -377,7 +377,7 @@ CREATE TABLE LICENCIA(
     id_licencia int primary key AUTO_INCREMENT,
     id_usuario int not null,
     imagen varchar(800),
-    num_licencia int not null,
+    num_licencia varchar(50),
     fecha_cad date,
     tipo varchar (30) not null,
     dorsal int,
