@@ -491,7 +491,7 @@
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <p>Seguro que quiere borrar el test con identificador <?php echo $grupo->id_grupo ?> ?</p>
+                                                <p>Seguro que quiere borrar el test con nombre <?php echo $grupo->nombre ?> ?</p>
                                             </div>
 
                                             <!-- Modal footer -->

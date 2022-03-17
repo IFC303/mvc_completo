@@ -51,14 +51,10 @@
         <!--FORMULARIO AÑADIR-->
         <form method="post" class="card-body">
 
-                <!-- <div class="mt-3 mb-3">
-                    <label for="id_entidad">Numero de entidad<sup>*</sup></label>
-                    <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg">
-                </div> -->
                 <div class="row">
                     <div class="col-6 mt-3 mb-3">
-                        <label for="cif">CIF<sup>*</sup></label>
-                        <input type="text" name="cif" id="cif" class="form-control form-control-lg">
+                        <label for="id_entidad">CIF<sup>*</sup></label>
+                        <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg">
                     </div>
                     <div class="col-6 mt-3 mb-3">
                         <label for="nombre">Nombre<sup>*</sup></label>

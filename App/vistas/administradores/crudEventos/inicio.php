@@ -122,10 +122,12 @@
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr style="background-color:#023ef9; color:white">
-                            <th>Nº EVENTO</th>
+                        
                             <th>NOMBRE</th>
+                            <th>TIPO</th>
                             <th>FECHA INICIO</th>
                             <th>FECHA FIN</th>
+                            
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <th>OPCIONES</th>
@@ -141,8 +143,8 @@
                         foreach($datos['evento'] as $evento): ?>
                         <tr>
 
-                            <td class="datos_tabla"><?php echo $evento->id_evento?></td>
                             <td class="datos_tabla"><?php echo $evento->nombre?></td>
+                            <td class="datos_tabla"><?php echo $evento->tipo?></td>
                             <td class="datos_tabla"><?php echo $evento->fecha_ini?></td>
                             <td class="datos_tabla"><?php echo $evento->fecha_fin?></td>
 
@@ -150,7 +152,7 @@
                             <td>
 
                                 <!--MODAL VER (javascript)-->
-                                    <img class="icono" id="btnModal_<?php echo $evento->id_evento ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $evento->id_evento ?>);" ></img>
+                                    <img class="icono" id="btnModal_<?php echo $evento->id_evento ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $evento->id_evento ?>);"></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $evento->id_evento ?>" class="modalVer">
@@ -165,66 +167,61 @@
 
                                             <!--Body-->
                                             <div id="bodyVer" class="row m-3">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="id_evento">Numero de evento</label>
-                                                        <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg" value="<?php echo $evento->id_evento?>" readonly>
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <label for="id_usuario">Entrenador</label>
-                                                        <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $evento->id_usuario?>" readonly>
-                                                        <br>
-                                                    </div>
-                                                </div>
 
                                                 <div class="row">
-                                                    <div class="col-6">
+                                                    <div class="col-6 mt-3 mb-3">
                                                         <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $evento->nombre?>" readonly> 
-                                                        <br>
+                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->id_evento?>" readonly>
                                                     </div>
 
-                                                    <div class="col-6">
+                                                    <div class="col-6 mt-3 mb-3">
                                                         <label for="tipo">Tipo</label>
-                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>" readonly>
-                                                        <br>
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->id_usuario?>" readonly>
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="precio">Precio</label>
-                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>" readonly>
-                                                        <br>
-                                                    </div>
-                                                    
-                                                    <div class="col-6">
-                                                        <label for="descuento">Descuento</label>
-                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>" readonly>
-                                                        <br>
-                                                    </div>
-                                                </div>
 
                                                 <div class="row">
-                                                    <div class="col-6">
+                                                    <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_ini">Fecha inicio</label>
-                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini?>" readonly>      
-                                                        <br>
+                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg"value="<?php echo $evento->fecha_ini?>" readonly>
                                                     </div>
 
-                                                    <div class="col-6">
+                                                    <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_fin">Fecha fin</label>
-                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>" readonly>        
-                                                        <br><br>
+                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>" readonly>
                                                     </div>
                                                 </div>
+
+                                          
+                                                <div class="row">
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="precio">Precio<sup>*</sup></label>
+                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>" readonly>
+                                                    </div>
+
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="descuento">Descuento<sup>*</sup></label>
+                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>" readonly>
+                                                    </div>
+                                                </div>
+
+                                         
+                                                <div class="row">
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="fecha_ini_inscrip">Fecha inicio inscripcion<sup>*</sup></label>
+                                                        <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini_inscrip?>" readonly>
+                                                    </div>
+
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="fecha_fin_inscrip">Fecha fin inscripcion<sup>*</sup></label>
+                                                        <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>" readonly>
+                                                    </div>
+                                                </div>
+
+                                       
                                             </div>
-                                            
-                                            <!-- <div id="footerVer">
-                                                <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $evento->id_evento ?>" class="close" onclick="cerrar(<?php echo $evento->id_evento ?>);" value="cerrar" >
-                                            </div> -->
-                                        
+                    
                                         </div>  
                                     </div> 
 
@@ -251,62 +248,65 @@
                                             <div class="modal-body">
                                                 <form method="post" action="<?php echo RUTA_URL?>/adminEventos/editarEvento/<?php echo $evento->id_evento ?>" class="card-body">
                                                   
-                                                    <div class="row">
-                                                        <div class="col-6 mb-3">
-                                                            <label for="id_evento">Id de evento</label>
-                                                            <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg" value="<?php echo $evento->id_evento?>">
-                                                        </div>
-                                                        
-                                                        <div class="col-6 mb-3">
-                                                            <label for="id_usuario">Entrenador</label>
-                                                            <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $evento->id_usuario?>">
-                                                        </div>
+
+                                                <div class="row">
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="nombre">Nombre</label>
+                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->nombre?>">
                                                     </div>
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-6 mb-3">
-                                                            <label for="nombre">Nombre</label>
-                                                            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $evento->nombre?>">    
-                                                        </div>
-                                                        
-                                                        <div class="col-6 mb-3">
-                                                            <label for="tipo">Tipo</label>
-                                                            <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>">
-                                                        </div>
+
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="tipo">Tipo</label>
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>">
                                                     </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="fecha_ini">Fecha inicio</label>
+                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg"value="<?php echo $evento->fecha_ini?>">
+                                                    </div>
+
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="fecha_fin">Fecha fin</label>
+                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>">
+                                                    </div>
+                                                </div>
+
+                                          
+                                                <div class="row">
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="precio">Precio<sup>*</sup></label>
+                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>">
+                                                    </div>
+
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="descuento">Descuento<sup>*</sup></label>
+                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>">
+                                                    </div>
+                                                </div>
+
                                                   
-                                                    <div class="row">
-                                                        <div class="col-6 mb-3">
-                                                            <label for="precio">Precio</label>
-                                                            <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>">
-                                                        </div>
-                                                        
-                                                        <div class="col-6 mb-3">
-                                                            <label for="descuento">Descuento</label>
-                                                            <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>">
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="fecha_ini_inscrip">Fecha inicio inscripcion<sup>*</sup></label>
+                                                        <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini_inscrip?>">
                                                     </div>
-                                                   
-                                                    <div class="row">
-                                                        <div class="col-6 mb-3">
-                                                            <label for="fecha_ini">Fecha inicio</label>
-                                                            <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini?>">  
-                                                        </div>
-                                                        
-                                                        <div class="col-6 mb-3">
-                                                            <label for="fecha_fin">Fecha fin</label>
-                                                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>">
-                                                        </div>
+
+                                                    <div class="col-6 mt-3 mb-3">
+                                                        <label for="fecha_fin_inscrip">Fecha fin inscripcion<sup>*</sup></label>
+                                                        <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>">
                                                     </div>
+                                                </div>
+
+                                                    <input type="hidden" name="id_evento" value="<?php echo $evento->id_evento?>">
+
                                                     <br>
                                                     <input type="submit" class="btn" value="Confirmar">
                                                 </form>
 
                                             </div>
-                                            <!-- Footer -->
-                                            <!-- <div class="modal-footer">
-                                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                            </div> -->
 
                                         </div>
                                     </div>

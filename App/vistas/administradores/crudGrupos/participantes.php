@@ -125,40 +125,75 @@ p{
             </div>
 
             <div class="row d-flex justify-content-around">
-                <div id="alumnos" class="col-5" ondragover="sobre(event);" ondrop="sueltaAlumno(event);"> 
-                        <script>
-                            let alumnos = <?php echo json_encode($datos['alumnos']);?>;
+                <div id="alumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoCero(event);"> 
+                         <script>
+                            let alumnosCero = <?php echo json_encode($datos['alumnos']);?>;
                             var alus=document.getElementById("alumnos"); 
+                            console.log(alumnosCero);
                             
-                            let particip = new Array();
+                            let participCero = new Array();
 
-                            for(var i=0;i<alumnos.length;i++){
-                            
-                                var alu=document.createElement("div"); 
-                                alu.setAttribute("id",alumnos[i].id_usuario);
-                                alu.setAttribute("class","alumno");
-                                alu.setAttribute("draggable",true);
-                                alu.setAttribute("ondragstart","arrastre(this.id,event);");
-                                alu.setAttribute("value",alumnos[i].id_usuario);
+                             for(var i=0;i<alumnosCero.length;i++){
+                                 if((alumnosCero[i]["activo"])==0){
+                                     //creamos div y ledamos propiedades
+                                     var alu=document.createElement("div"); 
+                                     alu.setAttribute("id",alumnosCero[i].id_usuario);
+                                     alu.setAttribute("class","alumno");
+                                     alu.setAttribute("draggable",true);
+                                     alu.setAttribute("ondragstart","arrastre(this.id,event);");
+                                     alu.setAttribute("value",alumnosCero[i].id_usuario);
 
-                                var nombre=alumnos[i].nombre+" "+ alumnos[i].apellidos;
+                                     var nombre=alumnosCero[i].nombre+" "+ alumnosCero[i].apellidos;
 
-                                var textoNodo=document.createTextNode(nombre);
+                                     var textoNodo=document.createTextNode(nombre);
 
-                                alu.appendChild(textoNodo);
-                                alus.appendChild(alu);
-                            }
-                        </script>
+                                     alu.appendChild(textoNodo);
+                                     alus.appendChild(alu);
+                                }
+                             }
+                        </script> 
                 </div>
                 
-                <div class="col-5" ondragover="sobre(event);" ondrop="sueltaAlu(event,this.id);" id="cajaAlumnos">         
+                <div id="cajaAlumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoUno(event,this.id);" >  
+                
+                             <script>
+                                    let alumnosUno = <?php echo json_encode($datos['alumnos']);?>;
+                                    //console.log(alumnosUno);
+                                    var alusUno=document.getElementById("cajaAlumnos"); 
+                                    let participUno = new Array();
+
+                                for(var i=0;i<alumnosUno.length;i++){
+                                    if((alumnosUno[i]["activo"])==1){
+                                        //creamos div y ledamos propiedades
+                                        var aluUno=document.createElement("div"); 
+                                        aluUno.setAttribute("id",alumnosUno[i].id_usuario);
+                                        aluUno.setAttribute("class","alumno");
+                                        aluUno.setAttribute("draggable",true);
+                                        aluUno.setAttribute("ondragstart","arrastre(this.id,event);");
+                                        aluUno.setAttribute("value",alumnosUno[i].id_usuario);
+
+                                        var nombre=alumnosUno[i].nombre+" "+ alumnosUno[i].apellidos;
+
+                                        var textoNodo=document.createTextNode(nombre);
+
+                                        aluUno.appendChild(textoNodo);
+                                        alusUno.appendChild(aluUno);
+                                    }
+                                    
+                                }
+                            </script> 
                 </div>
             </div>
 
 
             <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/nueva_clase">
+            
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual" value="">
-                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value=""><br>
+                <input type="hidden" id="entrenadorCero" name="entrenadorCero" value="">
+
+                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">                           
+                <input type="hidden" id="alumnosCero" name="alumnosCero" value="">
+
                 <?php $idGrupo=($datos['id_grupo'])?>
                 <input type="hidden" id="idGrupo" name="idGrupo" value="<?php echo $idGrupo?>">
                 
@@ -241,45 +276,77 @@ p{
 
         //***********CAJAS ALUMNOS**************
 
-        function sueltaAlu(ev,id){
+        function alumnoUno(ev,id){
+
             var caja=document.getElementById("cajaAlumnos");
             var numero = caja.getElementsByTagName('div').length;
             
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
             var clase=document.getElementById(dato);
+            //console.log(clase);
 
            if(clase.className=="alumno"){ 
-                caja.appendChild(document.getElementById(dato));   
-                particip.push(dato);
-                //para que no mande string
-                console.log(particip);
-                var participa = JSON.stringify(particip); 
-                var part=document.getElementById("alumnosActuales");
-                part.setAttribute("value",participa);
 
+                caja.appendChild(document.getElementById(dato)); 
+                
+                    participUno.push(dato);
+                    console.log(participUno);
+                   
+                 for(var i=0; i<participCero.length;i++){
+                     if(participCero[i]==dato){
+                        participCero.splice(i,1);
+     
+                     }}
+
+              
+                //para que no mande string
+                var participaUno = JSON.stringify(participUno); 
+                var part=document.getElementById("alumnosActuales");
+                part.setAttribute("value",participaUno);
+
+                var participaCero = JSON.stringify(participCero); 
+                var partCero=document.getElementById("alumnosCero");
+                partCero.setAttribute("value",participaCero);
+                
            }else{
                alert("No se puede añadir mas de un entrenador a un grupo");
            }  
         }  
 
 
-        function sueltaAlumno(ev){
+        function alumnoCero(ev){
+
+            var caja=document.getElementById("alumnos");
+            var numero = caja.getElementsByTagName('div').length;
+
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
             var clase=document.getElementById(dato);
-            console.log(dato);
+            //console.log(dato);
 
             if(clase.className=="alumno"){
                 var caja=document.getElementById("alumnos");   
                 caja.appendChild(document.getElementById(dato));
-                for(var i=0; i<particip.length;i++){
-                    if(particip[i]==dato){
-                        particip.splice(i,1);
+
+                for(var i=0; i<participUno.length;i++){
+                    if(participUno[i]==dato){
+                        //var cero=participUno[i];
+                        participCero.push(dato);
+                        console.log(participCero);
+                        participUno.splice(i,1);
+                        console.log(participUno);
                     }
-                    var participa = JSON.stringify(particip); 
+                    //para que no mande string
+                    var participaUno = JSON.stringify(participUno); 
                     var part=document.getElementById("alumnosActuales");
-                    part.setAttribute("value",participa);
+                    part.setAttribute("value",participaUno);
+
+                     //para que no mande string
+                    var participaCero = JSON.stringify(participCero); 
+                    var partCero=document.getElementById("alumnosCero");
+                    partCero.setAttribute("value",participaCero);
+
                 }
             }else{
                 alert ("no se puede");

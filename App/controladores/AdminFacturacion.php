@@ -30,10 +30,10 @@ class AdminFacturacion extends Controlador{
             $this->datos['ingresosActividadesSocios']=$this->facturacionModelo->ingresosActividadesSocios();
             $this->datos['ingresosActividadesExternos']=$this->facturacionModelo->ingresosActividadesExternos();
 
-              if(isset($_POST['tipo'])){
-                  $tipo=$_POST['tipo'];
-                  $this->datos['tipoIngreso'] = $tipo;
-              }
+            //   if(isset($_POST['tipo'])){
+            //       $tipo=$_POST['tipo'];
+            //       $this->datos['tipoIngreso'] = $tipo;
+            //   }
            
               $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
 
@@ -46,8 +46,11 @@ class AdminFacturacion extends Controlador{
             redireccionar('/usuarios');
         }
 
-        $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
+        //para ingresar en CUOTAS
+        $this->datos['socios']=$this->facturacionModelo->obtenerSocios();
+        //para ingresar en OTROS
         $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        //para ingresar en ACTIVIDADES
         $this->datos['participantes']=$this->facturacionModelo->obtenerParticipante();
         $this->datos['eventos']=$this->facturacionModelo->obtenerEventos();
 
@@ -62,15 +65,14 @@ class AdminFacturacion extends Controlador{
                 'id_participante'=>($_POST['idParticipantes']),
                 'id_socio'=>($_POST['idSocios']),
                 'id_entidad'=>($_POST['idEntidades']),
+                'tipo_participante' =>($_POST['tipoParticipante'])
             ];
-        
-            //var_dump($ingreso);
 
-            //    if($this->facturacionModelo->agregarIngreso($ingreso)){
-            //        redireccionar('/adminFacturacion');
-            //    }else{
-            //       die('Añgo ha fallado!!');
-            //    }
+                if($this->facturacionModelo->agregarIngreso($ingreso)){
+                    redireccionar('/adminFacturacion/ingresos');
+                }else{
+                   die('Añgo ha fallado!!');
+                }
 
         }else{
             
@@ -83,10 +85,49 @@ class AdminFacturacion extends Controlador{
                 'descuento'=>'',
                 'fecha_ini'=>'',
                 'fecha_fin'=>'',
-            ];
-            $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
+            ];  
+             $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
         }
+        
     }
+
+
+
+    public function borrarIngreso($id){
+            
+        $tipo=$_POST['tipo'];
+
+        echo $tipo;
+        echo $id;
+
+         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+             if($tipo=="actividades"){
+                 $this->facturacionModelo->borrarIngresoActividades($id);
+                 redireccionar('/adminFacturacion/ingresos');
+             }else if($tipo=="cuotas") {
+                 $this->facturacionModelo->borrarIngresoCuotas($id);
+                 redireccionar('/adminFacturacion/ingresos');
+             }else if ($tipo=="otros"){
+                 $this->facturacionModelo->borrarIngresoOtros($id);
+                 redireccionar('/adminFacturacion/ingresos');
+             }   
+        //  }else{
+        //      $this->datos['ingresos'] = $this->facturacionModelo->obtenerEventoId($id);
+        //     $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+        //  }
+     }
+    
+    }
+
+
+
+
+
+
+
+
+
 
 
 //**************************************************************************************** */
@@ -119,9 +160,9 @@ class AdminFacturacion extends Controlador{
             redireccionar('/usuarios');
         }
 
-        $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
-        $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
-        $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
+        // $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
+        // $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        // $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
 
         
         if($_SERVER['REQUEST_METHOD'] =='POST'){
@@ -155,7 +196,7 @@ class AdminFacturacion extends Controlador{
                 'fecha_ini'=>'',
                 'fecha_fin'=>'',
             ];
-            $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
+            $this->vista('administradores/crudFacturacion/nuevo_gasto',$this->datos);
         }
     }
 
@@ -164,28 +205,7 @@ class AdminFacturacion extends Controlador{
 
 //******************************************************* */
 
-    public function borrar($id){
-            
-        $tipo=$_POST['tipo'];
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            if($tipo=="actividades"){
-                $this->facturacionModelo->borrarIngresoActividades($id);
-                redireccionar('/adminFacturacion');
-            }else if($tipo=="cuotas") {
-                $this->facturacionModelo->borrarIngresoCuotas($id);
-                redireccionar('/adminFacturacion');
-            }else if ($tipo=="otros"){
-                $this->facturacionModelo->borrarIngresoOtros($id);
-                redireccionar('/adminFacturacion');
-            }   
-        }else{
-            //$this->datos['ingresos'] = $this->eventoModelo->obtenerEventoId($id);
-           //$this->vista('administradores/crudFacturacion/ingresos', $this->datos);
-        // // }
-     }
-    }
+ 
 
 
    

@@ -495,7 +495,7 @@ CREATE TABLE PRUEBA_SOCIO(
     constraint FK_id_usuario_prueba_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 CREATE TABLE TEST(
-    id_test int primary key,
+    id_test int primary key AUTO_INCREMENT,
     nombreTest varchar (30)
   );
 INSERT INTO
@@ -611,7 +611,7 @@ CREATE TABLE I_CUOTAS(
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    id_usuario int,
+    id_usuario int not null,
     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 CREATE TABLE EQUIPACION(
@@ -626,7 +626,7 @@ CREATE TABLE EQUIPACION(
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
   );
 CREATE TABLE EVENTO(
-    id_evento int primary key,
+    id_evento int primary key AUTO_INCREMENT,
     id_usuario int,
     nombre varchar (50) not null,
     tipo varchar (30) not null,
@@ -688,10 +688,10 @@ CREATE TABLE I_ACTIVIDADES(
     id_ingreso_actividades int primary key AUTO_INCREMENT,
     id_externo int,
     id_usuario int,
-    id_evento int,
+    id_evento int not null,
     fecha date not null,
     concepto varchar (500) not null,
-    importe int,
+    importe int not null,
     constraint FK_id_externo_ing_actividades foreign key (id_externo) references EXTERNO (id_externo) on delete cascade on update cascade,
     constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
     constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
@@ -722,11 +722,11 @@ create view GASTOS as
 
 
 create view PARTICIPANTE AS 
-  select SE.id_usuario AS id_participante,id_evento,U.nombre,U.apellidos, "socio" as tipoParticipante
-  from SOCIO_EVENTO SE, USUARIO U
-  WHERE SE.id_evento=U.id_usuario
+ select SOCIO_EVENTO.id_usuario AS id_participante,id_evento,USUARIO.nombre,USUARIO.apellidos, "socio" as tipoParticipante
+  from SOCIO_EVENTO, USUARIO
+  WHERE SOCIO_EVENTO.id_usuario=USUARIO.id_usuario
   union
-  SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipo 
+  SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipoParticipante 
   from EXTERNO;
 
 
