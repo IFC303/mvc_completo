@@ -40,6 +40,12 @@
                                                         } elseif ($this->datos['idTengo'] == "4") {
                                                             echo "TIENDAS";
                                                         }
+                                                    } elseif (isset($this->datos['radioCheck'])) {
+                                                        if ($this->datos['radioCheck'] == "socio") {
+                                                            echo "SOLICITUD EVENTOS SOCIO";
+                                                        } elseif ($this->datos['radioCheck'] == "externo") {
+                                                            echo "SOLICITUD EVENTOS EXTERNO";
+                                                        }
                                                     } else {
                                                         echo "FALTA ACABAR";
                                                     } ?></a></li>
@@ -122,7 +128,7 @@
                             <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
                         </li>
                     </ul>
                 </ul>
