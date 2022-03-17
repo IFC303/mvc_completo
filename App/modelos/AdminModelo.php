@@ -316,9 +316,9 @@ class AdminModelo
         // INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES ('1', '1', 'socio1', 'socio1', '67568', 'l', '2022-03-09', 'socio1@gmail.com', '79789070', 'jnmbmngh', '0');
         // INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES ('2', '2', 'socio2', 'socio2', '568', '2', '2022-01-09', 'socio2@gmail.com', '89070', 'bmngh', '0');
         // INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES ('3', '3', 'socio3', 'socio3', '68', '3', '2022-05-09', 'socio3@gmail.com', '9070', 'mngh', '0');
-        
+
         foreach ($datAceptar as $idAceptar) {
-            
+
             $this->db->query("SELECT * FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id_soli");
             $this->db->bind(':id_soli', $idAceptar);
             $datos = $this->db->registro();
@@ -334,7 +334,7 @@ class AdminModelo
             $telefono = $datos->telefono;
             $direccion = $datos->direccion;
             $es_socio = $datos->es_socio;
-          
+
             $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
             $this->db->bind(':dni', $dni);
             $this->db->bind(':nombre', $nombre);
@@ -355,7 +355,7 @@ class AdminModelo
             $this->db->bind(':emailId', $email);
             $idUsu = $this->db->registros();
             $idUsu = $idUsu[0]->id_usuario;
-            
+
             $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
             $this->db->execute();
 
@@ -369,8 +369,8 @@ class AdminModelo
     public function borrar_solicitudes_seleccionadas_grupos($datBorrar)
     {
         foreach ($datBorrar as $idBorrar) {
-            $idBorrar = explode ( '_', $idBorrar);
-            
+            $idBorrar = explode('_', $idBorrar);
+
             $idUsu = $idBorrar[0];
             $idGrupo = $idBorrar[1];
             $fecha = $idBorrar[2];
@@ -388,8 +388,8 @@ class AdminModelo
     public function aceptar_solicitudes_seleccionadas_grupos($datAceptar)
     {
         foreach ($datAceptar as $idAceptar) {
-            $idAceptar = explode ( '_', $idAceptar);
-            
+            $idAceptar = explode('_', $idAceptar);
+
             $idUsu = $idAceptar[0];
             $idGrupo = $idAceptar[1];
             $fecha = $idAceptar[2];
@@ -398,13 +398,131 @@ class AdminModelo
             $this->db->bind(':id_usu', $idUsu);
             $this->db->bind(':id_grup', $idGrupo);
             $this->db->bind(':id_fecha', $fecha);
-    
+
             $this->db->execute();
-            
         }
 
         return true;
     }
+
+    //SOLICITUD SELECCIONADAS EVENTOS
+    public function borrar_solicitudes_seleccionadas_eventosSoci($datBorrar)
+    {
+        foreach ($datBorrar as $idBorrar) {
+            $idBorrar = explode('_', $idBorrar);
+
+            $idUsu = $idBorrar[0];
+            $idEvento = $idBorrar[1];
+            $fecha = $idBorrar[2];
+
+            $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO` WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_even', $idEvento);
+            $this->db->bind(':id_fecha', $fecha);
+            $this->db->execute();
+        }
+
+        return true;
+    }
+
+    public function borrar_solicitudes_seleccionadas_eventosExter($datBorrar)
+    {
+        foreach ($datBorrar as $idBorrar) {
+            $idBorrar = explode('_', $idBorrar);
+
+            $idUsu = $idBorrar[0];
+            $idEvento = $idBorrar[1];
+            $fecha = $idBorrar[2];
+
+            $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_even', $idEvento);
+            $this->db->bind(':id_fecha', $fecha);
+            $this->db->execute();
+        }
+
+        return true;
+    }
+
+    public function aceptar_solicitudes_seleccionadas_eventosSoci($datAceptar)
+    {
+        foreach ($datAceptar as $idAceptar) {
+            $idAceptar = explode('_', $idAceptar);
+
+            $idUsu = $idAceptar[0];
+            $idEvento = $idAceptar[1];
+            $fecha = $idAceptar[2];
+            
+            $dorsal = 1;
+            $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
+            $this->db->bind(':id_even', $idEvento);
+            $dorsalExterno = $this->db->registros();
+            $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
+            $this->db->bind(':id_even', $idEvento);
+            $dorsalSocio = $this->db->registros();
+    
+            if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
+                $dorsal = ($dorsalExterno[0]->dorasl) + 1;
+            } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
+                $dorsal = ($dorsalSocio[0]->dorsal) + 1;
+            }
+    
+            $this->db->query("INSERT INTO `SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`, `dorsal`) VALUES (:id_usu, :id_even, :id_fecha, $dorsal);");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_even', $idEvento);
+            $this->db->bind(':id_fecha', $fecha);
+            $this->db->execute();
+    
+            $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO`WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_even', $idEvento);
+            $this->db->bind(':id_fecha', $fecha);
+    
+            $this->db->execute();
+        }
+
+        return true;
+    }
+
+    public function aceptar_solicitudes_seleccionadas_eventosExter($datAceptar)
+    {
+        foreach ($datAceptar as $idAceptar) {
+            $idAceptar = explode('_', $idAceptar);
+
+            $idUsu = $idAceptar[0];
+            $idEvento = $idAceptar[1];
+            $fecha = $idAceptar[2];
+
+            $dorsal = 1;
+            $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
+            $this->db->bind(':id_even', $idEvento);
+            $dorsalExterno = $this->db->registros();
+            $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
+            $this->db->bind(':id_even', $idEvento);
+            $dorsalSocio = $this->db->registros();
+
+            if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
+                $dorsal = ($dorsalExterno[0]->dorasl) + 1;
+            } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
+                $dorsal = ($dorsalSocio[0]->dorsal) + 1;
+            }
+
+            $this->db->query("UPDATE `EXTERNO` SET `id_evento` = :id_even, `dorasl` = $dorsal WHERE `id_externo` = :id_usu;");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_even', $idEvento);
+            $this->db->execute();
+
+            $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha;");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_even', $idEvento);
+            $this->db->bind(':id_fecha', $fecha);
+
+            $this->db->execute();
+        }
+
+        return true;
+    }
+
 
     //SOLICITUD SOCIOS
     public function obtenerSolicitudesSocios()

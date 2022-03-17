@@ -273,6 +273,77 @@ class Admin extends Controlador
         }
     }
     
+    //SOLICITUDES SELECCIONADAS EVENTOS
+    public function borrar_solicitudes_seleccionadas_eventosSoci()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datBorrar= trim($_POST["borrarMas"]);
+            $datBorrar = explode ( ',', $datBorrar);
+
+            if ($this->AdminModelo->borrar_solicitudes_seleccionadas_eventosSoci($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_eventos/socio"');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function borrar_solicitudes_seleccionadas_eventosExter()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datBorrar= trim($_POST["borrarMas"]);
+            $datBorrar = explode ( ',', $datBorrar);
+
+            if ($this->AdminModelo->borrar_solicitudes_seleccionadas_eventosExter($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_eventos/externo');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_seleccionadas_eventosSoci()
+    { 
+
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datAceptar= trim($_POST["aceptarMas"]);
+            $datAceptar = explode ( ',', $datAceptar);
+
+            if ($this->AdminModelo->aceptar_solicitudes_seleccionadas_eventosSoci($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_eventos/socio');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_seleccionadas_eventosExter()
+    { 
+
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datAceptar= trim($_POST["aceptarMas"]);
+            $datAceptar = explode ( ',', $datAceptar);
+
+            if ($this->AdminModelo->aceptar_solicitudes_seleccionadas_eventosExter($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_eventos/externo');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
     //SOLICITUD SOCIOS
     public function crud_solicitudes_socios()
     {
@@ -360,15 +431,19 @@ class Admin extends Controlador
     }
 
     //SOLICITUD EVENTOS
-    public function crud_solicitudes_eventos()
+    public function crud_solicitudes_eventos($sociExter)
     {
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
 
         $verSoliExter = $this->AdminModelo->obtenerSolicitudesEvenExter();
         $verSoliSoci = $this->AdminModelo->obtenerSolicitudesEvenSoci();
-        $this->datos['soliEventos'] = $verSoliSoci;
-        $this->datos['radioCheck'] = "socio";
+        if($sociExter=="socio"){
+            $this->datos['soliEventos'] = $verSoliSoci;
+        }elseif($sociExter=="externo"){
+            $this->datos['soliEventos'] = $verSoliSoci;
+        }
+        $this->datos['radioCheck'] = $sociExter;
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($_POST["opcion"]=="socio") {
@@ -392,7 +467,7 @@ class Admin extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->borrar_solicitudes_EvenSoci($datBorrar)) {
-                redireccionar('/admin/crud_solicitudes_eventos');
+                redireccionar('/admin/crud_solicitudes_eventos/socio');
             } else {
                 die('Algo ha fallado!!!');
             }
@@ -408,7 +483,7 @@ class Admin extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->borrar_solicitudes_EvenExter($datBorrar)) {
-                redireccionar('/admin/crud_solicitudes_eventos');
+                redireccionar('/admin/crud_solicitudes_eventos/externo');
             } else {
                 die('Algo ha fallado!!!');
             }
@@ -424,7 +499,7 @@ class Admin extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->aceptar_solicitudes_EvenExter($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_eventos');
+                redireccionar('/admin/crud_solicitudes_eventos/externo');
             } else {
                 die('Algo ha fallado!!!');
             }
@@ -440,7 +515,7 @@ class Admin extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->AdminModelo->aceptar_solicitudes_EvenSoci($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_eventos');
+                redireccionar('/admin/crud_solicitudes_eventos/socio');
             } else {
                 die('Algo ha fallado!!!');
             }
