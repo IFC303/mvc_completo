@@ -111,21 +111,6 @@
 
 
     <div class="container">
-
-
-        <?php
-        #region paginador
-        $conn       = new mysqli('mysql', 'root', 'toor', 'tragamillas2');
-
-        $query      = "SELECT * FROM EQUIPACION JOIN USUARIO ON EQUIPACION.id_usuario = USUARIO.id_usuario";
-
-
-        $Paginator  = new Paginator($conn, $query);
-
-        $results    = $Paginator->getData($this->limit, $this->page);
-        #endregion
-        ?>
-
         <div class="tabla">
             <table class="table table-hover">
 
@@ -149,11 +134,10 @@
                 <tbody class="table-light">
 
                     <?php
-                    $equipaciones = $results->data;
 
-                    foreach ($equipaciones as $equipacion) : ?>
+
+                    foreach ($datos['equipaciones'] as $equipacion) : ?>
                         <tr>
-
                             <td class="datos_tabla"><?php echo $equipacion->id_equipacion ?></td>
                             <td class="datos_tabla"><?php echo $equipacion->id_usuario ?></td>
                             <td class="datos_tabla"><?php echo $equipacion->nombre ?></td>
@@ -255,7 +239,7 @@
 
             </table>
 
-            <?php echo $Paginator->createLinks($this->links, 'pagination'); ?>
+            <?php echo $this->equipacionesModelo->paginator->createLinks($this->links, 'pagination'); ?>
 
         </div>
 

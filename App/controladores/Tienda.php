@@ -25,7 +25,7 @@ class Tienda extends Controlador
         $this->page = (isset($_GET['page'])) ? $_GET['page'] : 1;
         $this->links = (isset($_GET['links'])) ? $_GET['links'] : 7;
 
-        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario();
+        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario($this->limit, $this->page);
 
         $this->vista('tienda/equipaciones', $this->datos);
     }
