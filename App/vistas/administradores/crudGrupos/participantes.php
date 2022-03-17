@@ -185,13 +185,22 @@ p{
                 </div>
             </div>
 
+<?php 
 
+$alum=[];
+
+foreach ($datos['alumnos'] as $alumnos){
+    $alum [] =$alumnos->id_usuario;
+    }
+    var_dump($alum);
+?>
             <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/nueva_clase">
             
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual" value="">
                 <input type="hidden" id="entrenadorCero" name="entrenadorCero" value="">
 
-                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">                           
+                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">    
+                                      
                 <input type="hidden" id="alumnosCero" name="alumnosCero" value="">
 
                 <?php $idGrupo=($datos['id_grupo'])?>
@@ -210,11 +219,28 @@ p{
             </form>
     </div>
 
+    <script>
+        //let alumnCero = new Array()
+        let alumnCero = <?php echo json_encode($alum)?>;
+        var aluCero=document.getElementById('alumnosCero');
+        arrayAlum = new Array()
+        for(let i=0; i < alumnCero.length;i++){
+            //
+            arrayAlum.push(alumnCero[i]);
+            
+            // aluCero.value = JSON.stringify(alumnCero[i])
+            console.log(alumnCero[i])
+        }
+        aluCero.setAttribute('value',JSON.stringify(arrayAlum));
+        
+    </script> 
+
     </div>
 
 
     <script>
 
+        
         function arrastre(id,ev) {
             var id=document.getElementById(id);
             ev.dataTransfer.setData('Data',ev.target.id);

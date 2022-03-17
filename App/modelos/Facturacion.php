@@ -52,8 +52,8 @@ class Facturacion
         where SOCIO.id_socio=USUARIO.id_usuario");
         return $this->db->registros();
     }
-    //INGRESO CUOTAS
-    public function ingresosCuotas(){
+    //INGRESOs CUOTAS
+    public function obtenerIngresosCuotas(){
         $this->db->query("SELECT id_ingreso_cuota, fecha, concepto, importe, I_CUOTAS.id_usuario,USUARIO.nombre,USUARIO.apellidos 
         from USUARIO, I_CUOTAS WHERE USUARIO.id_usuario=I_CUOTAS.id_usuario;");
         return $this->db->registros();
@@ -64,8 +64,8 @@ class Facturacion
         $this->db->query("SELECT * from OTRAS_ENTIDADES");
         return $this->db->registros();
     }
-    //INGRESO OTROS
-    public function ingresosOtros(){
+    //INGRESOS OTROS
+    public function obtenerIngresosOtros(){
         $this->db->query("SELECT id_ingreso_otros, fecha, concepto, importe,I_OTROS.id_entidad,OTRAS_ENTIDADES.nombre
         from OTRAS_ENTIDADES, I_OTROS where OTRAS_ENTIDADES.id_entidad=I_OTROS.id_entidad;");
         return $this->db->registros();

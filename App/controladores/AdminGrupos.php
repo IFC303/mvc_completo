@@ -291,6 +291,8 @@ class AdminGrupos extends Controlador
             //var_dump($this->datos['entrenadoresGrupo']);
             $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos($id_grupo);
             $this->datos['id_grupo'] = $id_grupo;
+            $this->datos['ids_alunnos'] = [];
+            
             $this->vista('administradores/crudGrupos/participantes',$this->datos);
         }
 
