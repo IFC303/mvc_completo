@@ -68,7 +68,7 @@
             </div>
 
             <div id="labelAutNac" class="mt-3 mb-3" style="display:none">
-               <label for="aut_nac">Autonómica o Nacional<sup>*</sup></label>
+               <label for="aut_nac">Autonómica o Nacional</label>
                <select name="aut_nac" id="aut_nac" class="form-control form-control-lg">
                   <option selected value="0">Elige una opción</option>
                   <option value="1">Autonómica</option>
@@ -77,17 +77,17 @@
             </div>
 
             <div id="labelDorsal" class="mt-3 mb-3" style="display:none">
-               <label for="dorsal">Dorsal<sup>*</sup></label>
+               <label for="dorsal">Dorsal</label>
                <input type="number" min="0" name="dorsal" id="dorsal"  class="form-control form-control-lg">
             </div>
 
             <div id="labelFechaCad" class="mt-3 mb-3" style="display:none">
-               <label for="fechaCad">Fecha de Caducidad<sup>*</sup></label>
+               <label for="fechaCad">Fecha de Caducidad</label>
                <input type="date" name="fechaCad" id="fechaCad" class="form-control form-control-lg">
             </div>
 
             <div id="labelImg" class="mt-3 mb-3" style="display:none">
-               <label for="imagenLicAdmin">Subir Imágen<sup>*</sup></label><br>
+               <label for="imagenLicAdmin">Subir Imágen Licencia</label><br>
                <input  accept="image/*" type="file" id="" name="imagenLicAdmin" >
             </div>
          
