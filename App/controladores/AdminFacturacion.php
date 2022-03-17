@@ -24,9 +24,10 @@ class AdminFacturacion extends Controlador{
             $ingresos = $this->facturacionModelo->obtenerIngresos();
             $this->datos['ingresos']=$ingresos;
 
-            $this->datos['ingresosOtros']=$this->facturacionModelo->ingresosOtros();
-            $this->datos['ingresosCuotas']=$this->facturacionModelo->ingresosCuotas();
-
+            $this->datos['ingresosOtros']=$this->facturacionModelo->obtenerIngresosOtros();
+            $this->datos['ingresosCuotas']=$this->facturacionModelo->obtenerIngresosCuotas();
+            $this->datos['participantes']=$this->facturacionModelo->obtenerParticipante();
+            
             $this->datos['ingresosActividadesSocios']=$this->facturacionModelo->ingresosActividadesSocios();
             $this->datos['ingresosActividadesExternos']=$this->facturacionModelo->ingresosActividadesExternos();
 
@@ -48,10 +49,13 @@ class AdminFacturacion extends Controlador{
 
         //para ingresar en CUOTAS
         $this->datos['socios']=$this->facturacionModelo->obtenerSocios();
+        $this->datos['socios']=$this->facturacionModelo->obtenerIngresosCuotas();
         //para ingresar en OTROS
         $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        $this->datos['ingresosOtros']=$this->facturacionModelo->obtenerIngresosOtros();
         //para ingresar en ACTIVIDADES
         $this->datos['participantes']=$this->facturacionModelo->obtenerParticipante();
+        //var_dump($this->datos['participantes']);
         $this->datos['eventos']=$this->facturacionModelo->obtenerEventos();
 
         
@@ -62,7 +66,7 @@ class AdminFacturacion extends Controlador{
                 'importe'=> trim($_POST['importe']),
                 'concepto'=>trim($_POST['concepto']),
                 'evento'=>trim($_POST['idEventos']),
-                'id_participante'=>($_POST['idParticipantes']),
+                'id_participante'=>($_POST['participante']),
                 'id_socio'=>($_POST['idSocios']),
                 'id_entidad'=>($_POST['idEntidades']),
                 'tipo_participante' =>($_POST['tipoParticipante'])
@@ -97,9 +101,6 @@ class AdminFacturacion extends Controlador{
             
         $tipo=$_POST['tipo'];
 
-        echo $tipo;
-        echo $id;
-
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
              if($tipo=="actividades"){
@@ -112,10 +113,6 @@ class AdminFacturacion extends Controlador{
                  $this->facturacionModelo->borrarIngresoOtros($id);
                  redireccionar('/adminFacturacion/ingresos');
              }   
-        //  }else{
-        //      $this->datos['ingresos'] = $this->facturacionModelo->obtenerEventoId($id);
-        //     $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
-        //  }
      }
     
     }

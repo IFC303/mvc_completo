@@ -137,11 +137,7 @@ class Grupo
          $this->db->bind(':hoy', $hoy);
          $this->db->bind(':id_grupo',$id_grupo);
          $this->db->bind(':entrenador',$entrenador);
-         if ($this->db->execute()){
-             return true;
-         }else{
-             return false;
-         }
+         $this->db->execute();
     }
   
 
@@ -149,28 +145,20 @@ class Grupo
         var_dump($alumnosActuales);
         var_dump($alumnosCero);
 
-         foreach($alumnosActuales as $idActuales){
-
-                 $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual");
-                 $this->db->bind(':idActual',$idActuales);
-                 if ($this->db->execute()){
-                    return true;
-                }else{
-                     return false;
-                }
-          }
-
-        // //  foreach($alumnosCero as $idCero){
-        // //      $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero");
-        // //      $this->db->bind(':idCero',$idCero);
-        // //       if ($this->db->execute()){
-        // //           return true;
-        // //       }else{
-        // //           return false;
-        // //       }
-        //  }
+        foreach($alumnosActuales as $idActuales){
+             $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual");
+             $this->db->bind(':idActual',$idActuales);
+             $this->db->execute();
+        }
+   
+        foreach($alumnosCero as $idCero){
+            $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero");
+            $this->db->bind(':idCero',$idCero);
+            $this->db->execute();
+       }
         
     }
+    
 
     
     public function obtenerTestPruebas(){
