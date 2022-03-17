@@ -2,15 +2,16 @@
 
 class Paginator
 {
+    private $_db;
     private $_conn;
     private $_limit;
     private $_page;
     private $_query;
     private $_total;
 
-    public function __construct($conn, $query)
+    public function __construct($db, $conn, $query)
     {
-
+        $this->_db = $db;
         $this->_conn = $conn;
         $this->_query = $query;
 
