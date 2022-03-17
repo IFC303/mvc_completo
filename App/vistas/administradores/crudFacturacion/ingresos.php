@@ -148,9 +148,10 @@
                     <tbody class="table-light">
 
                         <?php
-
-                        foreach($datos['ingresos'] as $info):   
-                           
+var_dump($datos['ingresos']);
+                        foreach($datos['ingresos'] as $info):  
+                            
+                        
                            ?>
                         <tr>
                             <td class="datos_tabla"><?php echo $info->fecha?></td>
@@ -162,7 +163,7 @@
                             <td>
 
                                 <!--MODAL VER (javascript)-->
-                                    <img id="btnModal_<?php echo $info->id_ingreso ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $info->id_ingreso?>);" ></img>
+                                    <img id="btnModal_<?php echo $info->id_ingreso?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $info->id_ingreso?>);"></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $info->id_ingreso?>" class="modalVer">
@@ -171,21 +172,23 @@
                                             <!--Header-->
                                             <div id="headerVer" class="row">
                                                 <h2 class="col-11">Datos del ingreso</h2>
-                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $info->id_ingreso ?>" onclick="cerrar(<?php echo $info->id_ingreso ?>);">  
+                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $info->id_ingreso?>" onclick="cerrar(<?php echo $info->id_ingreso?>);">  
                                             </div>
                                             <hr>
 
                                             <!--Body-->
                                             <div id="bodyVer" class="row m-3">
                                                 <div class="row">
+                                     
                                                     <div class="col-6">
-                                                        <label for="id_ingreso">Numero de ingreso</label>
-                                                        <input type="text" name="id_ingreso" id="id_ingreso" class="form-control form-control-lg" value="<?php echo $info->id_ingreso ?>" readonly>
+                                                        <label for="fecha">Fecha del ingreso</label>
+                                                        <input type="text" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>" readonly>
+                                                        <br>
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <label for="fecha">fecha</label>
-                                                        <input type="text" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>" readonly>
+                                                        <label for="tipo">Tipo</label>
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $info->tipo?>" readonly>
                                                         <br>
                                                     </div>
                                                 </div>
@@ -209,11 +212,6 @@
                                                             <!--CAMPOS DE OTROS-->
                                                     <?php 
                                                         if($datos['tipoIngreso']=="otros"){
-                                                            foreach($datos['ingresosOtros'] as $otros){
-                                                                if($otros->id_ingreso_otros==$info->id_ingreso){
-                                                                    $entidad=$otros->nombre;
-                                                                }
-                                                            }
                                                             ?>
                                                             <div class="col-6">
                                                                 <label for="id_entidad">Entidad</label>
@@ -267,10 +265,6 @@
                                                 </div>
 
                                                  </div>
-                                            
-                                            <!-- <div id="footerVer">
-                                                <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $evento->id_evento ?>" class="close" onclick="cerrar(<?php echo $evento->id_evento ?>);" value="cerrar" >
-                                            </div> -->
                                         
                                         </div>  
                                     </div> 
@@ -279,12 +273,12 @@
 
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $info->id_ingreso?>" >
+                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $info->id_ingreso.$info->tipo?>" >
                                   <img src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="ModalEditar_<?php echo $info->id_ingreso ?>">
+                                    <div class="modal" id="ModalEditar_<?php echo $info->id_ingreso.$info->tipo?>">
                                     <div class="modal-dialog modal-xl modal-dialog-centered">
                                         <div class="modal-content">
 
@@ -410,12 +404,12 @@
 
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $info->id_ingreso?>" href="<?php echo RUTA_URL?>/adminFacturacion/borrar/<?php echo $info->id_ingreso?>">
+                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $info->id_ingreso.$info->tipo?>" href="<?php echo RUTA_URL?>/adminFacturacion/borrarIngreso/<?php echo $info->id_ingreso?>">
                                   <img src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
-                                    <div class="modal" id="ModalBorrar_<?php echo $info->id_ingreso?>">
+                                    <div class="modal" id="ModalBorrar_<?php echo $info->id_ingreso.$info->tipo?>">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
 
@@ -423,15 +417,15 @@
                                              <div class="modal-header">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
-
+ 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <h6>Seguro que quiere borrar el ingreso <?php echo $info->id_ingreso?> ?</h6>
+                                                <h6>Seguro que quiere borrar el ingreso <?php echo $info->concepto?> del tipo <?php echo $info->tipo?>?</h6>
                                             </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminFacturacion/borrar/<?php echo $info->id_ingreso?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminFacturacion/borrarIngreso/<?php echo $info->id_ingreso?>" method="post">
                                                     <input type="hidden" name="tipo" value="<?php echo $info->tipo?>">
                                                     <button type="submit" class="btn">Borrar</button>
                                                 </form>

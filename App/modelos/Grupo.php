@@ -145,14 +145,31 @@ class Grupo
     }
   
 
-    public function cambiarEstadoAlumno($info){
-        $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idAlumno");
-            $this->db->bind(':idAlumno',$info);
-             if ($this->db->execute()){
-                 return true;
-             }else{
-                 return false;
-             }
+    public function cambiarEstadoAlumno($alumnosActuales, $alumnosCero){
+        var_dump($alumnosActuales);
+        var_dump($alumnosCero);
+
+         foreach($alumnosActuales as $idActuales){
+
+                 $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual");
+                 $this->db->bind(':idActual',$idActuales);
+                 if ($this->db->execute()){
+                    return true;
+                }else{
+                     return false;
+                }
+          }
+
+        // //  foreach($alumnosCero as $idCero){
+        // //      $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero");
+        // //      $this->db->bind(':idCero',$idCero);
+        // //       if ($this->db->execute()){
+        // //           return true;
+        // //       }else{
+        // //           return false;
+        // //       }
+        //  }
+        
     }
 
     
