@@ -92,6 +92,44 @@ class AdminFacturacion extends Controlador{
     }
 
 
+
+    public function borrarIngreso($id){
+            
+        $tipo=$_POST['tipo'];
+
+        echo $tipo;
+        echo $id;
+
+         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+             if($tipo=="actividades"){
+                 $this->facturacionModelo->borrarIngresoActividades($id);
+                 redireccionar('/adminFacturacion/ingresos');
+             }else if($tipo=="cuotas") {
+                 $this->facturacionModelo->borrarIngresoCuotas($id);
+                 redireccionar('/adminFacturacion/ingresos');
+             }else if ($tipo=="otros"){
+                 $this->facturacionModelo->borrarIngresoOtros($id);
+                 redireccionar('/adminFacturacion/ingresos');
+             }   
+        //  }else{
+        //      $this->datos['ingresos'] = $this->facturacionModelo->obtenerEventoId($id);
+        //     $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+        //  }
+     }
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
 //**************************************************************************************** */
 //********************* FUNCIONES GASTOS ******************************/
 
@@ -122,9 +160,9 @@ class AdminFacturacion extends Controlador{
             redireccionar('/usuarios');
         }
 
-        $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
-        $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
-        $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
+        // $this->datos['usuarios']=$this->facturacionModelo->obtenerUsuarios();
+        // $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        // $this->datos['externos']=$this->facturacionModelo->obtenerExternos();
 
         
         if($_SERVER['REQUEST_METHOD'] =='POST'){
@@ -158,7 +196,7 @@ class AdminFacturacion extends Controlador{
                 'fecha_ini'=>'',
                 'fecha_fin'=>'',
             ];
-            $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
+            $this->vista('administradores/crudFacturacion/nuevo_gasto',$this->datos);
         }
     }
 
@@ -167,28 +205,7 @@ class AdminFacturacion extends Controlador{
 
 //******************************************************* */
 
-    public function borrar($id){
-            
-        $tipo=$_POST['tipo'];
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            if($tipo=="actividades"){
-                $this->facturacionModelo->borrarIngresoActividades($id);
-                redireccionar('/adminFacturacion');
-            }else if($tipo=="cuotas") {
-                $this->facturacionModelo->borrarIngresoCuotas($id);
-                redireccionar('/adminFacturacion');
-            }else if ($tipo=="otros"){
-                $this->facturacionModelo->borrarIngresoOtros($id);
-                redireccionar('/adminFacturacion');
-            }   
-        }else{
-            //$this->datos['ingresos'] = $this->eventoModelo->obtenerEventoId($id);
-           //$this->vista('administradores/crudFacturacion/ingresos', $this->datos);
-        // // }
-     }
-    }
+ 
 
 
    

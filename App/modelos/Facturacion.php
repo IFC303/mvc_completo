@@ -83,7 +83,7 @@ class Facturacion
     }
 
 
-
+    // AÑADIR NUEVO INGRESO
     public function agregarIngreso($ingreso){
      
         if($ingreso['tipo']=="cuotas"){
@@ -150,6 +150,38 @@ class Facturacion
     }
 
 
+    //FUNCIONES BORRADO INGRESOS
+    public function borrarIngresoCuotas($id){
+        $this->db->query("DELETE FROM I_CUOTAS WHERE id_ingreso_cuota =:idIngreso");
+        $this->db->bind(':idIngreso',$id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function borrarIngresoActividades($id){
+        $this->db->query("DELETE FROM I_ACTIVIDADES WHERE id_ingreso_actividades =:idIngreso");
+        $this->db->bind(':idIngreso',$id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function borrarIngresoOtros($id){
+        $this->db->query("DELETE FROM I_OTROS WHERE id_ingreso_otros =:idIngreso");
+        $this->db->bind(':idIngreso',$id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 
 
 
@@ -196,37 +228,6 @@ class Facturacion
 
 
 
-
-
-    public function borrarIngresoCuotas($id){
-        $this->db->query("DELETE FROM I_CUOTAS WHERE id_ingreso_cuota =:idIngreso");
-        $this->db->bind(':idIngreso',$id);
-        if ($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public function borrarIngresoActividades($id){
-        $this->db->query("DELETE FROM I_ACTIVIDADES WHERE id_ingreso_actividades =:idIngreso");
-        $this->db->bind(':idIngreso',$id);
-        if ($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public function borrarIngresoOtros($id){
-        $this->db->query("DELETE FROM I_OTROS WHERE id_ingreso_otros =:idIngreso");
-        $this->db->bind(':idIngreso',$id);
-        if ($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
 
    

@@ -55,79 +55,87 @@
             </div>
         </div>
 
-        <!--FORMULARIO AÑADIR-->
-        <form method="post" class="card-body">
+         <!--FORMULARIO AÑADIR-->
+         <form action="<?php echo RUTA_URL ?>/adminFacturacion/nuevoGasto" method="post" class="card-body">
 
-
-                <div class="row">
-                    <div class="col-6">
-                        <label for="fecha">Fecha<sup>*</sup></label>
-                    </div>   
-                    <div class="col-6">
-                      <label for="tipo" class="form-label">Tipo de gasto:</label>
-                    </div>   
-                </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="fecha">Fecha<sup>*</sup></label>
+                </div>   
+                <div class="col-6">
+                <label for="tipo" class="form-label">Tipo de gasto:</label>
+                </div>   
+            </div>
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3"> 
                     <input type="date" name="fecha" id="fecha" class="form-control form-control-lg">
                 </div>
                 <div class="col-6 mt-3 mb-3">    
-                   <!-- <input class="form-control" list="browsers2" name="browser2" id="browser2">
-                    <datalist id="browsers2" name="tipo" id="tipo">
-                        <option value="Cuotas" name="cuotas" id="cuotas"></option>
-                        <option value="Actividades" name="actividades" id="actividades"></option>
-                        <option value="Otros" name="otros" id="otros"></option>
-                    </datalist>  
-                    <input type="hidden" value="" name="selec">     -->
                     <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect" onchange="opciones()" required >
                         <option value="">-- Selecciona un tipo de gasto --</option>
-                        <option value="personal">Personal</option>
+                        <option value="personal">De personal</option>
                         <option value="otros">Otros</option>
                     </select>
                 </div>  
             </div>
             
-
             <div class="row">
                 <div class="col-6">
                     <label for="importe">Importe<sup>*</sup></label>
                 </div>   
-                <div class="col-6">
-                    <label for="browser" class="form-label">Usuario / participante /entidad<sup>*</sup></label>
-                </div>   
+                <div class="col-6" id="labelPersonal" style="display:none">
+                    <label for="browser" class="form-label">Usuario<sup>*</sup></label>
+                </div> 
             </div>
+
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
                     <input type="text" name="importe" id="importe" class="form-control form-control-lg">
                 </div>   
-                 <div class="col-6 mt-3 mb-3">  
+              <!--div personal -->
+              <div class="col-6 mt-3 mb-3" id="inputPersonal" style="display:none">  
                     <input class="form-control form-control-lg" list="browsers" name="browser" id="browser">
-                    <datalist id="browsers" name="participante">
-                        <?php foreach($datos['usuarios'] as $usu){
-                            ?><option value="<?php echo $usu->nombre?>"></option><?php
-                        }?>    
-                    </datalist>      
+                    <datalist id="browsers" name="inputPersonal">
+                        <!-- <?php foreach($datos['socios'] as $socios){
+                            ?><option value="<?php echo $socios->nombre?>"></option><?php
+                        }?>     -->
+                    </datalist>  
+                    <input type="hidden" name="idSocios" value="<?php echo $socios->id_socio?>">
                 </div>
             </div>
+
+
 
             <div class="row">
                 <div class="col-6" >
                     <label for="concepto">Concepto<sup>*</sup></label>
                 </div>   
-                <div class="col-6" id="evento" style="display:none">
-                    <label for="evento">Evento<sup>*</sup></label>
-                </div>   
+                <div class="col-6" id="labelEntidades" style="display:none" >
+                    <label for="browser" class="form-label">Entidades<sup>*</sup></label>
+                </div> 
             </div>
+
+
             <div class="row">
                 <div class="col-6 mt-3 mb-3">  
                     <input type="text" name="concepto" id="concepto" class="form-control form-control-lg">
                 </div>
-                <div class="col-6 mt-3 mb-3" id="inputEvento" style="display:none" >  
-                    <input type="text" name="evento" id="evento" class="form-control form-control-lg">
-                </div>
+                   <!--div ENTIDADES -->
+                   <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
+                    <input class="form-control form-control-lg" list="browsers3" name="browser3" id="browser3">
+                    <datalist id="browsers3" name="entidad">
+                        <?php foreach($datos['entidades'] as $entidad){
+                            ?><option value="<?php echo $entidad->nombre?>"></option><?php
+                        }?>    
+                    </datalist>  
+                    <input type="hidden" name="idEntidades" value="<?php echo $entidad->id_entidad?>">    
+                </div> 
             </div>
+
+
+     
             <br>
             <div class="row">
                 <div class="col-3">
@@ -162,6 +170,23 @@
             }
         }
 
+
+
+
+        function opciones() {
+                var opcion=document.getElementById("tipoSelect").value;
+                if(opcion=="personal"){
+                    document.getElementById("labelPersonal").style.display ="block";
+                    document.getElementById("inputPersonal").style.display = "block";
+                    document.getElementById("labelEntidades").style.display="none";
+                    document.getElementById("inputEntidades").style.display = "none";  
+                }else if(opcion=="otros") {
+                    document.getElementById("labelPersonal").style.display="block";
+                    document.getElementById("inputPersonal").style.display = "block";
+                    document.getElementById("labelEntidades").style.display="block";
+                    document.getElementById("inputEntidades").style.display = "block";                   
+                }
+        }
 
 </script>
 
