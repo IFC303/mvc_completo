@@ -204,7 +204,7 @@ class Admin extends Controlador
         }
     }
 
-    //SOLICITUDES SELECCIONADAS
+    //SOLICITUDES SELECCIONADAS SOCIOS
     public function borrar_solicitudes_seleccionadas_socios()
     {
         $notific = $this->notificaciones();
@@ -232,6 +232,41 @@ class Admin extends Controlador
             $datAceptar = explode ( ',', $datAceptar);
             if ($this->AdminModelo->aceptar_solicitudes_seleccionadas_socios($datAceptar)) {
                 redireccionar('/admin/crud_solicitudes_socios');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    //SOLICITUDES SELECCIONADAS GRUPOS
+    public function borrar_solicitudes_seleccionadas_grupos()
+    {
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datBorrar= trim($_POST["borrarMas"]);
+            $datBorrar = explode ( ',', $datBorrar);
+    
+            if ($this->AdminModelo->borrar_solicitudes_seleccionadas_grupos($datBorrar)) {
+                redireccionar('/admin/crud_solicitudes_grupos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
+
+    public function aceptar_solicitudes_seleccionadas_grupos()
+    { 
+
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datAceptar= trim($_POST["aceptarMas"]);
+            $datAceptar = explode ( ',', $datAceptar);
+            if ($this->AdminModelo->aceptar_solicitudes_seleccionadas_grupos($datAceptar)) {
+                redireccionar('/admin/crud_solicitudes_grupos');
             } else {
                 die('Algo ha fallado!!!');
             }

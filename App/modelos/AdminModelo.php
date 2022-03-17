@@ -300,7 +300,7 @@ class AdminModelo
         return true;
     }
 
-    //SOLICITUD SELECCIONADAS
+    //SOLICITUD SELECCIONADAS SOCIOS
     public function borrar_solicitudes_seleccionadas_socios($datBorrar)
     {
         foreach ($datBorrar as $idBorrar) {
@@ -362,6 +362,47 @@ class AdminModelo
             $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
             $this->db->execute();
         }
+        return true;
+    }
+
+    //SOLICITUD SELECCIONADAS GRUPOS
+    public function borrar_solicitudes_seleccionadas_grupos($datBorrar)
+    {
+        foreach ($datBorrar as $idBorrar) {
+            $idBorrar = explode ( '_', $idBorrar);
+            
+            $idUsu = $idBorrar[0];
+            $idGrupo = $idBorrar[1];
+            $fecha = $idBorrar[2];
+
+            $this->db->query("DELETE FROM `SOCIO_GRUPO` WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_grup', $idGrupo);
+            $this->db->bind(':id_fecha', $fecha);
+            $this->db->execute();
+        }
+
+        return true;
+    }
+
+    public function aceptar_solicitudes_seleccionadas_grupos($datAceptar)
+    {
+        foreach ($datAceptar as $idAceptar) {
+            $idAceptar = explode ( '_', $idAceptar);
+            
+            $idUsu = $idAceptar[0];
+            $idGrupo = $idAceptar[1];
+            $fecha = $idAceptar[2];
+
+            $this->db->query("UPDATE `SOCIO_GRUPO` SET `acepatado` = '1', `activo` = '0' WHERE `id_grupo` = :id_grup AND `id_usuario` = :id_usu AND `fecha_inscripcion` = :id_fecha;");
+            $this->db->bind(':id_usu', $idUsu);
+            $this->db->bind(':id_grup', $idGrupo);
+            $this->db->bind(':id_fecha', $fecha);
+    
+            $this->db->execute();
+            
+        }
+
         return true;
     }
 
