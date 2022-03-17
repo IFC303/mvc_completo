@@ -16,14 +16,14 @@ class Tienda extends Controlador
 
     public function index()
     {
-        redireccionar('/tienda/equipaciones');
+        redireccionar('/tienda/equipaciones/');
     }
 
-    public function equipaciones()
+    public function equipaciones($page = 1)
     {
-        $this->limit = (isset($_GET['limit'])) ? $_GET['limit'] : 4;
-        $this->page = (isset($_GET['page'])) ? $_GET['page'] : 1;
-        $this->links = (isset($_GET['links'])) ? $_GET['links'] : 7;
+        $this->limit = 4;
+        $this->page = is_numeric($page) && $page > 0 ? $page : 1;
+        $this->links = 7;
 
         $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario($this->limit, $this->page);
         $this->datos['paginator'] = $this->equipacionesModelo->getPaginator();
