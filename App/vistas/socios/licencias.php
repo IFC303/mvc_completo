@@ -12,7 +12,7 @@
                         <th scope="col">AUTONÓMICA/NACIONAL</th>
                         <th scope="col">DORSAL</th>
                         <th scope="col">FECHA_CADUCIDAD</th>
-                        <th scope="col">IMÁGEN</th>
+                        <th scope="col">IMÁGEN_LICENCIA</th>
                 
                 </tr>
             </thead>
@@ -29,7 +29,7 @@
                         <td scope="col"><?php if ($licencias->regional_nacional==''){echo '-';}else {echo $licencias->regional_nacional;}?></td>
                         <td scope="col"><?php if ($licencias->dorsal==''){echo '-';}else {echo $licencias->dorsal;}?></td>
                         <td scope="col"><?php if ($licencias->fecha_cad==''){echo '-';}else {echo $licencias->fecha_cad;}?></td>
-                        <td scope="col"><?php if ($licencias->imagen==''){echo '-';}else {?><a href="<?php echo RUTA_URL?>/Socio/verFoto/<?php echo $licencias->id_licencia?>" target="_blank"><img width="30" height="30" src="<?php echo RUTA_ImgDatos.'licencias/'.$licencias->imagen?>"></a><?php ;}?></td>
+                        <td title="Ver licencia" scope="col"><?php if ($licencias->imagen==''){echo '-';}else {?><a href="<?php echo RUTA_URL?>/Socio/verFoto/<?php echo $licencias->id_licencia?>" target="_blank"><img width="30" height="30" src="<?php echo RUTA_ImgDatos.'licencias/'.$licencias->imagen?>"></a><?php ;}?></td>
                     </tr>
                     
                 <?php endforeach ?>
