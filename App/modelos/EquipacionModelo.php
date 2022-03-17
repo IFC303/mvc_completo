@@ -3,24 +3,30 @@
 class EquipacionModelo
 {
     private $db;
+    private $paginator;
 
     public function __construct()
     {
         $this->db = new Base;
     }
 
+    public function getPaginator()
+    {
+        return $this->paginator;
+    }
+
     public function getEquipacionesUsuario($limit, $page)
     {
         $conn       = new mysqli('mysql', 'root', 'toor', 'tragamillas2');
         $query      = "SELECT * FROM EQUIPACION JOIN USUARIO ON EQUIPACION.id_usuario = USUARIO.id_usuario";
-        $this->paginator  = new Paginator($conn, $query);
+        $this->paginator = new Paginator($conn, $query);
+
         $results    = $this->paginator->getData($limit, $page);
 
         return $results->data;
-        $this->db->query("SELECT * FROM EQUIPACION JOIN USUARIO ON EQUIPACION.id_usuario = USUARIO.id_usuario;");
 
-        
-        // return $this->db->registros();
+        $this->db->query($query);
+        return $this->db->registros();
     }
 
     public function updateUsuario($id, $activado)

@@ -239,7 +239,7 @@
 
             </table>
 
-            <?php echo $this->equipacionesModelo->paginator->createLinks($this->links, 'pagination'); ?>
+            <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
 
         </div>
 
