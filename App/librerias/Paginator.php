@@ -3,20 +3,18 @@
 class Paginator
 {
     private $_db;
-    private $_conn;
     private $_limit;
     private $_page;
     private $_query;
     private $_total;
 
-    public function __construct($db, $conn, $query)
+    public function __construct($db, $query)
     {
         $this->_db = $db;
-        $this->_conn = $conn;
         $this->_query = $query;
 
-        $rs = $this->_conn->query($this->_query);
-        $this->_total = $rs->num_rows;
+        $this->_db->query($query);
+        $this->_total = $this->_db->rowCount();
     }
 
     public function getData($limit = 4, $page = 1)
@@ -29,11 +27,9 @@ class Paginator
         } else {
             $query      = $this->_query . " LIMIT " . (($this->_page - 1) * $this->_limit) . ", $this->_limit";
         }
-        $rs             = $this->_conn->query($query);
 
-        while ($row = $rs->fetch_assoc()) {
-            $results[]  = (object)$row;
-        }
+        $this->_db->query($query);
+        $results = $this->_db->registros();
 
         $result         = new stdClass();
         $result->page   = $this->_page;
