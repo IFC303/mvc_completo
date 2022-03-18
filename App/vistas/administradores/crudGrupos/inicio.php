@@ -37,7 +37,7 @@
         }
 
         .modalVer .modal-content{
-            width:40%;
+            width:60%;
             margin: auto;
         }
 
@@ -119,8 +119,8 @@
 
                     <tbody class="table-light">
                         
-                        <?php
-                            foreach($datos['grupo'] as $grupo):
+                        <?php 
+                            foreach($datos['grupo'] as $grupo): 
                             ?>
 
                             <tr>
@@ -131,8 +131,7 @@
                                 
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <td><span class="d-flex justify-content-center">
-                                   
-                                
+                                      
                             <!--MODAL VER (javascript)-->
                             <img class="icono mt-1" id="btnModal_<?php echo $grupo->id_grupo ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $grupo->id_grupo ?>);" ></img>
 
@@ -150,32 +149,136 @@
 
                                     <!--Body-->
                                     <div id="bodyVer" class="row m-3">
-                                            <div class="col-12">
-                                                <label for="id_grupo">Identificador</label>
-                                                <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>" readonly>
-                                                <br>
-                                            </div>
 
-                                            <div class="col-12">
-                                                <label for="nombreGrupo">Nombre</label>
-                                                <input type="text" name="nombreGrupo" id="nombreGrupo" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>" readonly>
-                                                <br>
-                                            </div>
-                                        
-                                            <div class="col-12">
-                                                <label for="fecha_ini">Fecha inicio</label>
-                                                <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>" readonly>
-                                                <br>
-                                            </div>
+                                        <div class="col-md-5 px-4">
+                                                <div class="row mt-3 mb-3">
+                                                    <label for="nombreTest">Nombre<sup>*</sup></label>
+                                                    <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>" readonly>
+                                                </div>
+                                                <div class="row mt-3 mb-3">
+                                                    <label for="nombreTest">Fecha inicio<sup>*</sup></label>
+                                                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>" readonly>
+                                                </div>
+                                                <div class="row mt-3 mb-3">
+                                                    <label for="nombreTest">Fecha fin<sup>*</sup></label>
+                                                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>" readonly>
+                                                </div>
+                                        </div>
+  
+                                        <div class="col-md-7 px-5"> 
+                                        <br>  
+                                            <p>Selecciona dia, hora de inicio y hora de fin</p>
+                                            
+                                            <?php 
+                                                $lunesCK="";
+                                                $martesCK="";
+                                                $miercolesCK="";
+                                                $juevesCK="";
+                                                $viernesCK="";
+                                                $lunesIni="";
+                                                $lunesFin="";
+                                                $martesIni="";
+                                                $martesFin="";
+                                                $miercolesIni="";
+                                                $miercolesFin="";
+                                                $juevesIni="";
+                                                $juevesFin="";
+                                                $viernesIni="";
+                                                $viernesFin="";
 
-                                            <div class="col-12">
-                                                <label for="fecha_fin">Fecha fin</label>
-                                                <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>" readonly>
-                                                <br>
-                                            </div>    
+                                                foreach($datos['grupos_y_horarios'] as $info){
+                                                    
+                                                    if($info->id_grupo==$grupo->id_grupo){
+                                                        if ($info->dia_sem=="Lunes"){
+                                                            $lunesCK="checked";
+                                                            $lunesIni=$info->hora_ini;
+                                                            $lunesFin=$info->hora_fin; 
+                                                        }else if($info->dia_sem=="Martes"){
+                                                            $martesCK="checked";
+                                                            $martesIni=$info->hora_ini;
+                                                            $martesFin=$info->hora_fin; 
+                                                        }else if($info->dia_sem=="Miercoles"){
+                                                            $miercolesCK="checked";
+                                                            $miercolesIni=$info->hora_ini;
+                                                            $miercolesFin=$info->hora_fin; 
+                                                        }else if($info->dia_sem=="Jueves"){
+                                                            $juevesCK="checked";   
+                                                            $juevesIni=$info->hora_ini;
+                                                            $juevesFin=$info->hora_fin; 
+                                                        }else if($info->dia_sem=="Viernes"){
+                                                            $viernesCK="checked";
+                                                            $viernesIni=$info->hora_ini;
+                                                            $viernesFin=$info->hora_fin; 
+                                                        }  
+
+                                                    }
+                                                }  
+                                            ?>
+
+                                            <div class="row">
+                                                <div class="col-3 mb-3">
+                                                    <input type="checkbox" id="lunes" name="lunesDia" value="Lunes" <?php echo $lunesCK ?> disabled> 
+                                                    <label for="Lunes">Lunes</label>
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="time" id="lunesIni" name="lunesIni" value="<?php echo $lunesIni?>" class="form-control form-control-sm" disabled>  
+                                                </div>   
+                                                <div class="col-3">   
+                                                    <input type="time" name="lunesFin" id="hora_fin" value="<?php echo $lunesFin?>" class="form-control form-control-sm" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3 mb-3">
+                                                    <input type="checkbox" name="martesDia" value="Martes" <?php echo $martesCK?> disabled> 
+                                                    <label for="Martes">Martes</label>
+                                                </div>  
+                                                <div class="col-3">
+                                                    <input type="time" name="martesIni" id="hora_ini" value="<?php echo $martesIni?>" class="form-control form-control-sm" disabled>  
+                                                </div>   
+                                                <div class="col-3">   
+                                                    <input type="time" name="martesFin" id="hora_fin" value="<?php echo $martesFin?>" class="form-control form-control-sm" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3 mb-3">
+                                                    <input type="checkbox" name="miercolesDia" value="Miercoles" <?php echo $miercolesCK?> disabled> 
+                                                    <label for="Miercoles">Miercoles</label>
+                                                </div>  
+                                                <div class="col-3">
+                                                    <input type="time" name="miercolesIni" id="hora_ini" value="<?php echo $miercolesIni?>" class="form-control form-control-sm" disabled>  
+                                                </div>   
+                                                <div class="col-3">   
+                                                    <input type="time" name="miercolesFin" id="hora_fin" value="<?php echo $miercolesFin?>" class="form-control form-control-sm" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3 mb-3">
+                                                    <input type="checkbox" name="juevesDia" value="Jueves" <?php echo $juevesCK?> disabled> 
+                                                    <label for="Jueves">Jueves</label>
+                                                </div>
+                                                <div class="col-3">
+                                                    <input type="time" name="juevesIni" id="hora_ini" value="<?php echo $juevesIni?>" class="form-control form-control-sm" disabled>  
+                                                </div>   
+                                                <div class="col-3">   
+                                                    <input type="time" name="juevesFin" id="hora_fin" value="<?php echo $juevesFin?>" class="form-control form-control-sm" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <input type="checkbox" name="viernesDia" value="Viernes" <?php echo $viernesCK?> disabled> 
+                                                    <label for="Viernes">Viernes</label>
+                                                </div>  
+                                                <div class="col-3">
+                                                    <input type="time" name="viernesIni" id="hora_ini" value="<?php echo $viernesIni?>" class="form-control form-control-sm" disabled>  
+                                                </div>   
+                                                <div class="col-3">   
+                                                    <input type="time" name="viernesFin" id="hora_fin" value="<?php echo $viernesFin?>" class="form-control form-control-sm" disabled>
+                                                </div>
+                                            </div> 
+                                        </div>
+       
                                               
-                                    </div>
-                                    
+                                    </div> 
                                     <!-- <div id="footerVer">
                                         <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $grupo->id_grupo ?>" class="close" onclick="cerrar(<?php echo $grupo->id_grupo ?>);" value="cerrar" >
                                     </div> -->
@@ -205,31 +308,159 @@
 
                                             <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/grupo/editarGrupo/<?php echo $grupo->id_grupo?>" class="card-body">
-                                                    <!-- id test -->
-                                                    <div class="mt-3 mb-3">
-                                                        <label for="id_grupo">Identificador</label>
-                                                        <input type="text" name="id_grupo" id="id_grupo" class="form-control form-control-lg" value="<?php echo $grupo->id_grupo?>" readonly>
+                                                <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/editarGrupo/<?php echo $grupo->id_grupo?>" class="card-body">
+                                                 <div class="row">
+                                                    <div class="col-md-5 px-4">
+                                                        <div class="row mt-3 mb-3">
+                                                            <label for="nombreTest">Nombre<sup>*</sup></label>
+                                                            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>">
+                                                        </div>
+                                                        <div class="row mt-3 mb-3">
+                                                            <label for="nombreTest">Fecha inicio<sup>*</sup></label>
+                                                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>">
+                                                        </div>
+                                                        <div class="row mt-3 mb-3">
+                                                            <label for="nombreTest">Fecha fin<sup>*</sup></label>
+                                                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>">
+                                                        </div>
                                                     </div>
-                                                    <!-- nombre test -->
-                                                    <div class="mt-3 mb-3">
-                                                        <label for="nombre_grupo">Nombre</label>
-                                                        <input type="text" name="nombre_grupo" id="nombre_grupo" class="form-control form-control-lg" value="<?php echo $grupo->nombre?>">     
+
+
+                                                    <div class="col-md-7 px-5"> 
+                                                    <br>  
+                                                    <p>Selecciona dia, hora de inicio y hora de fin</p>
+                                            
+                                                    <?php 
+                                                        $lunesCK="";
+                                                        $martesCK="";
+                                                        $miercolesCK="";
+                                                        $juevesCK="";
+                                                        $viernesCK="";
+
+                                                        $lunesIni="";
+                                                        $lunesFin="";
+                                                        $lunesId="";
+
+                                                        $martesIni="";
+                                                        $martesFin="";
+                                                        $martesId="";
+
+                                                        $miercolesIni="";
+                                                        $miercolesFin="";
+                                                        $miercolesId="";
+
+                                                        $juevesIni="";
+                                                        $juevesFin="";
+                                                        $juevesId="";
+
+                                                        $viernesIni="";
+                                                        $viernesFin="";
+                                                        $viernesId="";
+
+                                                        foreach($datos['grupos_y_horarios'] as $info){
+                                                            
+                                                            if($info->id_grupo==$grupo->id_grupo){
+                                                                if ($info->dia_sem=="Lunes"){
+                                                                    $lunesCK="checked";
+                                                                    $lunesIni=$info->hora_ini;
+                                                                    $lunesFin=$info->hora_fin; 
+                                                                    $lunesId="$info->id_horario";
+                                                                }else if($info->dia_sem=="Martes"){
+                                                                    $martesCK="checked";
+                                                                    $martesIni=$info->hora_ini;
+                                                                    $martesFin=$info->hora_fin; 
+                                                                    $martesId="$info->id_horario";
+                                                                }else if($info->dia_sem=="Miercoles"){
+                                                                    $miercolesCK="checked";
+                                                                    $miercolesIni=$info->hora_ini;
+                                                                    $miercolesFin=$info->hora_fin; 
+                                                                    $miercolesId="$info->id_horario";
+                                                                }else if($info->dia_sem=="Jueves"){
+                                                                    $juevesCK="checked";   
+                                                                    $juevesIni=$info->hora_ini;
+                                                                    $juevesFin=$info->hora_fin; 
+                                                                    $juevesId="$info->id_horario";
+                                                                }else if($info->dia_sem=="Viernes"){
+                                                                    $viernesCK="checked";
+                                                                    $viernesIni=$info->hora_ini;
+                                                                    $viernesFin=$info->hora_fin; 
+                                                                    $viernesId="$info->id_horario";
+                                                                }  
+
+                                                            }
+                                                        }  
+                                                    ?>
+
+                                                        <div class="row">
+                                                            <div class="col-3 mb-3">
+                                                                <input type="checkbox" id="lunes" name="lunesDia" value="Lunes" <?php echo $lunesCK ?>> 
+                                                                <label for="Lunes">Lunes</label>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <input type="time" id="lunesIni" name="lunesIni" value="<?php echo $lunesIni?>" class="form-control form-control-sm">  
+                                                            </div>   
+                                                            <div class="col-3">   
+                                                                <input type="time" name="lunesFin" id="lunesFin" value="<?php echo $lunesFin?>" class="form-control form-control-sm">
+                                                            </div>
+                                                            <input type="hidden" name="horario[]" value="<?php echo $lunesId?>">
+                                                        </div>
+                                                    <div class="row">
+                                                        <div class="col-3 mb-3">
+                                                            <input type="checkbox" name="martesDia" value="Martes" <?php echo $martesCK?>> 
+                                                            <label for="Martes">Martes</label>
+                                                        </div>  
+                                                        <div class="col-3">
+                                                            <input type="time" name="martesIni" id="martesIni" value="<?php echo $martesIni?>" class="form-control form-control-sm">  
+                                                        </div>   
+                                                        <div class="col-3">   
+                                                            <input type="time" name="martesFin" id="martesFin" value="<?php echo $martesFin?>" class="form-control form-control-sm">
+                                                        </div>
+                                                        <input type="hidden" name="horario[]" value="<?php echo $martesId?>">
                                                     </div>
-                                                     <!-- fecha inicio -->
-                                                     <div class="mt-3 mb-3">
-                                                        <label for="fecha_ini">Fecha inicio</label>
-                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg" value="<?php echo $grupo->fecha_ini?>">   
+                                                    <div class="row">
+                                                        <div class="col-3 mb-3">
+                                                            <input type="checkbox" name="miercolesDia" value="Miercoles" <?php echo $miercolesCK?>> 
+                                                            <label for="Miercoles">Miercoles</label>
+                                                        </div>  
+                                                        <div class="col-3">
+                                                            <input type="time" name="miercolesIni" id="hora_ini" value="<?php echo $miercolesIni?>" class="form-control form-control-sm">  
+                                                        </div>   
+                                                        <div class="col-3">   
+                                                            <input type="time" name="miercolesFin" id="hora_fin" value="<?php echo $miercolesFin?>" class="form-control form-control-sm">
+                                                        </div>
+                                                        <input type="hidden" name="horario[]" value="<?php echo $miercolesId?>">
                                                     </div>
-                                                     <!-- fecha fin -->
-                                                     <div class="mt-3 mb-3">
-                                                        <label for="fecha_fin">Fecha fin</label>
-                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $grupo->fecha_fin?>">    
+                                                    <div class="row">
+                                                        <div class="col-3 mb-3">
+                                                            <input type="checkbox" name="juevesDia" value="Jueves" <?php echo $juevesCK?>> 
+                                                            <label for="Jueves">Jueves</label>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <input type="time" name="juevesIni" id="hora_ini" value="<?php echo $juevesIni?>" class="form-control form-control-sm">  
+                                                        </div>   
+                                                        <div class="col-3">   
+                                                            <input type="time" name="juevesFin" id="hora_fin" value="<?php echo $juevesFin?>" class="form-control form-control-sm">
+                                                        </div>
+                                                        <input type="hidden" name="horario[]" value="<?php echo $juevesId?>">
                                                     </div>
-                            
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <input type="checkbox" name="viernesDia" value="Viernes" <?php echo $viernesCK?>> 
+                                                            <label for="Viernes">Viernes</label>
+                                                        </div>  
+                                                        <div class="col-3">
+                                                            <input type="time" name="viernesIni" id="hora_ini" value="<?php echo $viernesIni?>" class="form-control form-control-sm">  
+                                                        </div>   
+                                                        <div class="col-3">   
+                                                            <input type="time" name="viernesFin" id="hora_fin" value="<?php echo $viernesFin?>" class="form-control form-control-sm">
+                                                        </div>
+                                                        <input type="hidden" name="horario[]" value="<?php echo $viernesId?>">
+                                                    </div> 
+                                                </div>
+                                                    </div>
+                                                    <br>
                                                     <input type="submit" class="btn" value="Confirmar">
                                                 </form>
-
                                             </div>
                                             <!-- Footer -->
                                             <!-- <div class="modal-footer">
@@ -260,7 +491,7 @@
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <p>Seguro que quiere borrar el test con identificador <?php echo $grupo->id_grupo ?> ?</p>
+                                                <p>Seguro que quiere borrar el test con nombre <?php echo $grupo->nombre ?> ?</p>
                                             </div>
 
                                             <!-- Modal footer -->
@@ -276,7 +507,7 @@
 
                                 <!-- PARTICIPANTES -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/">
+                                <a href="<?php echo RUTA_URL?>/adminGrupos/participantes/<?php echo $grupo->id_grupo?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>grupos.svg"></img>
                                 </a>  
 

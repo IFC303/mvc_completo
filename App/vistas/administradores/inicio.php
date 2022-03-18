@@ -61,13 +61,13 @@
         </div>
         <ul id="mSol">
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
             </li>
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS</a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
             </li>
             <li id="mUsu">
-                <a href="#" class="nav-link ">EVENTOS</a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
             </li>
         </ul>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
@@ -182,12 +182,14 @@
 
     <!-- MENSAJERIA -->
     <div class="col-xs-12 col-md-6 col-xl-4">
-        <div>
-            <div id="colorMens" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">
-                <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100">
+        <a href="<?php echo RUTA_URL ?>/adminMensajeria">
+            <div>
+                <div id="colorMens" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">
+                    <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100">
+                </div>
+                <p id="pMens" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">MENSAJERIA</p>
             </div>
-            <p id="pMens" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">MENSAJERIA</p>
-        </div>
+        </a>
     </div>
 </div>
 

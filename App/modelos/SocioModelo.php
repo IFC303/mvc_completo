@@ -165,4 +165,34 @@ class SocioModelo
         }
     }
 
+    public function obtenergrupos()
+    {
+        $this->db->query("SELECT * FROM `GRUPO`");
+        return $this->db->registros();
+    }
+
+    public function obtenerCategorias()
+    {
+        $this->db->query("SELECT * FROM `CATEGORIA`");
+        return $this->db->registros();
+    }
+
+    public function escuela($agreEscuela)
+    {
+        print_r($agreEscuela);
+        $this->db->query("INSERT INTO `SOCIO_GRUPO` (`id_grupo`, `id_usuario`, `fecha_inscripcion`, `acepatado`, `activo`, `id_categoria`, `foto`) VALUES (:id_gru, :id_usu, :fecha, '0', '0', :cat, :foto);");
+        
+        $this->db->bind(':id_gru', $agreEscuela["grupo"]);
+        $this->db->bind(':id_usu', $agreEscuela["id_usu"]);
+        $this->db->bind(':fecha', $agreEscuela["fecha"]);  
+        $this->db->bind(':cat', $agreEscuela["categoria"]);  
+        $this->db->bind(':foto', $agreEscuela["fotoCarnet"]);   
+    
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

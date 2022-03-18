@@ -51,21 +51,39 @@
         <!--FORMULARIO AÑADIR-->
         <form method="post" class="card-body">
 
-                <div class="mt-3 mb-3">
-                    <label for="id_entidad">Numero de entidad<sup>*</sup></label>
-                    <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg">
+                <div class="row">
+                    <div class="col-6 mt-3 mb-3">
+                        <label for="id_entidad">CIF<sup>*</sup></label>
+                        <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg">
+                    </div>
+                    <div class="col-6 mt-3 mb-3">
+                        <label for="nombre">Nombre<sup>*</sup></label>
+                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+                    </div>
                 </div>
 
                 <div class="mt-3 mb-3">
-                    <label for="nombre">Nombre<sup>*</sup></label>
-                    <input type="text" name="nombre" id="nombre" class="form-control form-control-lg">
+                    <label for="direccion">Direccion<sup>*</sup></label>
+                    <input type="text" name="direccion" id="direccion" class="form-control form-control-lg">
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mt-3 mb-3">
+                        <label for="telefono">Telefono<sup>*</sup></label>
+                        <input type="text" name="telefono" id="telefono" class="form-control form-control-lg">
+                    </div>
+                    <div class="col-6 mt-3 mb-3">
+                        <label for="email">Email<sup>*</sup></label>
+                        <input type="text" name="email" id="email" class="form-control form-control-lg">
+                    </div>
                 </div>
 
                 <div class="mt-3 mb-3">
-                    <label for="tipo">Tipo<sup>*</sup></label>
-                    <input type="text" name="tipo" id="tipo" class="form-control form-control-lg">
+                    <label for="observaciones">Observaciones</label>
+                    <input type="text" name="observaciones" id="observaciones" class="form-control form-control-lg">
                 </div>
                
+                <br>
 
                 <div class="row">
                     <div class="col-3">
@@ -75,7 +93,7 @@
                         </a>
                     </div>
                 </div>
-                    
+                    <br>
         </form>     
             
 </div>

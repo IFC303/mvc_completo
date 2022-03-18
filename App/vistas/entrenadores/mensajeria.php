@@ -49,6 +49,9 @@
             margin-top:20px;
         }
 
+
+
+
     </style>
 
 
@@ -67,23 +70,27 @@
             <div class="row">
 
                 <!--RADIOS-->  
-                <div class="card bg-light mt-2 col-3"style="border-right:solid 1px #023ef9" >
+                <div class="card bg-light mt-2 col-4"style="border-right:solid 1px #023ef9" >
                     <div class="form-check" id="check" >
                         <br>
-                        <h6>Selecciona el grupo de destinatarios</h6>
-                        <input type="radio" class="form-check-input" id="todos" name="todos" value="todos" data-bs-toggle="modal" data-bs-target="#ventanaModal">
-                        <label class="form-check-label" for="todos" id="elementSocios">SOCIOS</label>
-                    </div>   
-                </div>
+                        <h6>Selecciona el grupo destinatario</h6>
+
+                        <?php foreach($datos['entrenadorGrupo'] as $entrenadorGrupo){
+                            ?>
+                            <div class="col-1">
+                                <input type="radio" class="form-check-input" id="todos" name="todos" value="todos" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
+                            </div>
+                            <label class="form-check-label" for="todos" id="elementSocios"><?php echo $entrenadorGrupo->nombre?></label>
+                       
 
 
                 <!--VENTANA MODAL-->
-                <div class="modal" id="ventanaModal">
+                <div class="modal" id="v<?php echo $entrenadorGrupo->id_grupo?>">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         
                             <div class="header">
-                                <h4 class="modal-title">Modal</h4>
+                                <h4 class="modal-title">Selecion destinatarios</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
@@ -91,12 +98,14 @@
                                 <input type="checkbox" id="todos" onClick="marcar_desmarcar(this);"> <label for="todos">Seleccionar todos</label>    
                                 <div class="mt-3 mb-3">
                                     <?php 
-                                    foreach($datos['mensaje'] as $objeto){ 
+                                  
+                                    foreach($datos['mensaje'] as $objeto){
+                                        if($objeto->id_grupo==$entrenadorGrupo->id_grupo){  
                                     ?> 
                                     <input type="checkbox" name="seleccionados" id="<?php echo $objeto->nombre ?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
                                     <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
-                                            echo '<br>';
-                                    }?>     
+                              
+                                    }}?>     
                                 </div>
                             </div>
 
@@ -108,9 +117,12 @@
                     </div>
                 </div> 
 
-
+                <?php
+                        }?>   
+                    </div>   
+                </div>
                 <!--FORMULARIO-->
-                <div class="card bg-light mt-2 col-7" style=" ">
+                <div class="card bg-light mt-2 col-7">
                         <form method="post" action="<?php echo RUTA_URL?>/entrenador/enviar"class="card-body">
 
                                 <div class="mt-3 mb-3">
@@ -152,7 +164,7 @@
                         for(i=0;i<casillas.length;i++){
                             if(casillas[i].type == "checkbox"){    
                                 todos.setAttribute("checked","true");
-                                if(casillas[i].checked=todos.checked){
+                                if((casillas[i].checked=todos.checked)& (casillas[i].value!="on")){
                                     mails.push(casillas[i].value);
                                     //correos=correos+casillas[i].value+",";
                                 } else{

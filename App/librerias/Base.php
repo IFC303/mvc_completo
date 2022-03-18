@@ -88,4 +88,9 @@ class Base
         $this->execute();
         return $this->stmt->rowCount();
     }
+
+  public function ultimoIndice(){
+        return $this->dbh->lastInsertId();
+  }
+
 }

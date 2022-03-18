@@ -29,14 +29,14 @@ class AdminEventos extends Controlador{
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
             $eventoNuevo = [
-                'id_evento' => trim($_POST['id_evento']),
-                'id_usuario'=> trim($_POST['id_usuario']),
                 'nombre' => trim($_POST['nombre']),
                 'tipo'=>trim($_POST['tipo']),
                 'precio'=>trim($_POST['precio']),
                 'descuento'=>trim($_POST['descuento']),
                 'fecha_ini' => trim($_POST['fecha_ini']),
                 'fecha_fin'=> trim($_POST['fecha_fin']),
+                'fecha_ini_inscrip' => trim($_POST['fecha_ini_inscrip']),
+                'fecha_fin_inscrip'=> trim($_POST['fecha_fin_inscrip']),
             ];
 
             if($this->eventoModelo->agregarEvento($eventoNuevo)){
@@ -77,7 +77,7 @@ class AdminEventos extends Controlador{
     }
 
 
-    public function editarEvento($id){
+    public function editarEvento(){
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -88,22 +88,30 @@ class AdminEventos extends Controlador{
 
                 $evento_modificado = [
                     'id_evento' => trim($_POST['id_evento']),
-                    'id_usuario' => trim($_POST['id_usuario']),
                     'nombre' => trim($_POST['nombre']),
                     'tipo'=> trim($_POST['tipo']),
                     'precio' => trim($_POST['precio']),
                     'descuento'=>trim($_POST['descuento']),
                     'fecha_ini' => trim($_POST['fecha_ini']),
-                    'fecha_fin' => trim($_POST['fecha_fin']),   
+                    'fecha_fin' => trim($_POST['fecha_fin']), 
+                    'fecha_ini_inscrip' => trim($_POST['fecha_ini_inscrip']),
+                    'fecha_fin_inscrip' => trim($_POST['fecha_fin_inscrip']),  
                 ];
    
-                $this->eventoModelo->editarEvento($evento_modificado);
+             
+
                  if ($this->eventoModelo->editarEvento($evento_modificado)) {
                      redireccionar('/adminEventos');
                  }else{
                      die('Algo ha fallado!!!');
                  }
-    }
+
+         } else {
+                $this->vista('administradores/crudEventos/inicio', $this->datos);
+        }
+
+
+
 
 
 }

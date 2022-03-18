@@ -154,7 +154,51 @@ class Socio extends Controlador
         }
         
     }
-    
+
+    public function escuela()
+    {
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $dirCarnet="/var/www/html/tragamillas/public/img/foto_carnet_solicitud/";
+
+            $terCarnet=(substr($_FILES['imgCarnet']["name"], strpos($_FILES['imgCarnet']["name"],'.')+strlen('.')));
+            $nomFoto = "socioCarnet_".$datosUser[0]->id_usuario.".".$terCarnet;
+
+            move_uploaded_file($_FILES['imgCarnet']['tmp_name'], $dirCarnet.$nomFoto);
+           
+            $agreEscuela = [
+                'id_usu' =>$datosUser[0]->id_usuario,
+                'categoria' => trim($_POST['cat']),
+                'grupo' => trim($_POST['grup']),
+                'fecha' => date('Y-m-d'),
+                'fotoCarnet' => $nomFoto,
+            ];
+          
+            if ($this->SocioModelo->escuela($agreEscuela)) {
+                redireccionar('/socio');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+
+        $categorias = $this->SocioModelo->obtenerCategorias();
+        $grupos = $this->SocioModelo->obtenergrupos();
+        $this->datos['usuarios']=$datosUser;
+        $this->datos['categorias']=$categorias;
+        $this->datos['grupos']=$grupos;
+        $this->vista('socios/formulario_escuela', $this->datos);
+        
+    }
 
 
 }

@@ -26,6 +26,14 @@
                         <p id="pMarcas" class="mx-auto" >VER MARCAS</p>
                     </div>
                 </div>
+
+                <!-- Apuntate Escuela -->
+                <div class="col-xs-12 col-md-6 col-xl-4">
+                    <div>
+                        <a href="<?php echo RUTA_URL ?>/socio/escuela"><div id="colorEscuela" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>escuela.png" width="100" height="100"></div></a>
+                        <p id="pEscuela" class="mx-auto" >ESCUELA</p>
+                    </div>
+                </div>
         </div>
 
     </div>
@@ -36,7 +44,7 @@
 <script>
 		window.onload=function()
 		{
-            vOpciones=[["pDatos","colorDatos"],["pLicen","colorLicen"],["pMarcas","colorMarcas"]];
+            vOpciones=[["pDatos","colorDatos"],["pLicen","colorLicen"],["pMarcas","colorMarcas"],["pEscuela","colorEscuela"]];
             
             for (let i = 0; i < vOpciones.length; i++) {
                 var elemento=document.getElementById(vOpciones[i][0]);

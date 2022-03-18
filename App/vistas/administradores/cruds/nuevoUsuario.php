@@ -1,34 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+<div class="container mt-3">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+  <form action="<?php echo RUTA_URL ?>/admin/nuevoUsuario/<?php echo $datos['idTengo']?>" method="post">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="dni">DNI </label>
+            <input type="text" class="form-control" id="dni" placeholder="Escriba el DNI" name="dni" style="text-transform:uppercase;">
+        </div>
 
-<body>
-    <form action="<?php echo RUTA_URL ?>/admin/nuevoUsuario/<?php echo $datos['idTengo']?>" method="post">
-        <label for="">DNI </label><input type="text" value="" id="dni" name="dni" style="text-transform:uppercase;">
-        <br><br>
-        <label for="">Nombre </label><input type="text" value="" id="nombre" name="nombre" required onkeypress="return Solo_Texto(event);">
-        <br><br>
-        <label for="">Apellidos </label><input type="text" value="" id="apellidos" name="apellidos" required onkeypress="return Solo_Texto(event);">
-        <br><br>
-        <label for="">Fecha Nacimiento </label><input type="date" value="" id="fecha" name="fecha">
-        <br><br>
-        <label for="">Telefono </label><input type="text" value="" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
-        <br><br>
-        <label for="">Correo </label><input type="text" value="" id="email" name="email" onblur="return correo(this.id)" required> <label id="errorMail"></label>
-        <br><br>
-        <label for="">Contraseña </label><input type="password" value="" id="pass" name="pass">
-        <br><br>
-        <input type="submit" value="enviar">
-    </form>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="nombre">Nombre </label>
+            <input type="text" class="form-control" placeholder="Escriba el nombre" id="nombre" name="nombre" required onkeypress="return Solo_Texto(event);">
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="apellidos">Apellidos </label>
+            <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apellidos" name="apellidos" required onkeypress="return Solo_Texto(event);">
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="fecha">Fecha Nacimiento </label>
+            <input type="date" class="form-control" id="fecha" name="fecha">
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="telf">Telefono </label>
+            <input type="text" class="form-control" placeholder="Escriba el telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="email">Correo </label>
+            <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required> <label id="errorMail"></label>
+        </div>
+        
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+        <label for="direccion">Direccion </label>
+            <input type="text" class="form-control" placeholder="Escriba la direccion" id="direccion" name="direccion" required>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="pass">Contraseña </label>
+            <input type="password" class="form-control" placeholder="Escriba la contraseña" id="pass" name="pass" >
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
+            <label for="">Quiere que sea Socio: </label> <span style="margin-left: 10px;"></span>
+            <input type="radio" id="siSocio" name="socio" value="si" required><label for="siSocio">SI</label><span style="margin-left: 20px;"></span>
+            <input type="radio" id="noSocio" name="socio" value="no" required><label for="noSocio">NO</label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Añadir</button>
+    </div>
+  </form>
+</div>
 </body>
 
-</html>
+
+<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 <script>
     function dni(m) {
         var dni = document.getElementById(m).value

@@ -40,6 +40,12 @@
                                                         } elseif ($this->datos['idTengo'] == "4") {
                                                             echo "TIENDAS";
                                                         }
+                                                    } elseif (isset($this->datos['radioCheck'])) {
+                                                        if ($this->datos['radioCheck'] == "socio") {
+                                                            echo "SOLICITUD EVENTOS SOCIO";
+                                                        } elseif ($this->datos['radioCheck'] == "externo") {
+                                                            echo "SOLICITUD EVENTOS EXTERNO";
+                                                        }
                                                     } else {
                                                         echo "FALTA ACABAR";
                                                     } ?></a></li>
@@ -87,7 +93,7 @@
                     <li id="mInicioUsu">
                         <a href="#submenuUsu" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>usuario.svg" width="35" height="35"></div>
-                            <div class=" d-none d-sm-inline">USUARIOS</div>
+                            <div class="col-12">USUARIOS</div>
                         </a>
                     </li>
                     <ul class="collapse nav flex-column" id="submenuUsu" data-bs-parent="#menu">
@@ -111,18 +117,18 @@
                     <li id="mInicioSol">
                         <a href="#submenuSol" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>solicitudes.svg" width="35" height="35"></div>
-                            <div class=" d-none d-sm-inline">SOLICITUDES</div>
+                            <div class="col-12">SOLICITUDES</div>
                         </a>
                     </li>
                     <ul class="collapse nav flex-column " id="submenuSol" data-bs-parent="#menu">
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS</a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos">4</span></a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
                         </li>
                         <li id="sInicio">
-                            <a href="#" class="nav-link ">EVENTOS</a>
+                            <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
                         </li>
                     </ul>
                 </ul>
@@ -198,7 +204,7 @@
                 <!--MENU MENSAJERIA-->
                 <ul id="mInicioMen">
                     <li id="mInicioMen">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
+                        <a href="<?php echo RUTA_URL ?>/adminMensajeria/mensajeria" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
                             <div class="col-12">MENSAJERIA</div>
                         </a>
