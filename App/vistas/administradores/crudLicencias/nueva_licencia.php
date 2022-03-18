@@ -114,29 +114,35 @@
             console.log(opcion);
             if(opcion=="Escolar"){
                 document.getElementById("labelGir").style.display ="block";
+                document.getElementById("gir").required = true;
                 document.getElementById("labelDorsal").style.display="block";
                 document.getElementById("labelImg").style.display="block";
 
                 document.getElementById("labelNumLic").style.display ="none";
+                document.getElementById("num_lic").required = false;
                 document.getElementById("labelAutNac").style.display="none";
                 document.getElementById("labelFechaCad").style.display = "none";
                             
             }else if (opcion=="Adulto"){
                 document.getElementById("labelNumLic").style.display ="block";
+                document.getElementById("num_lic").required = true;
                 document.getElementById("labelAutNac").style.display="block";
                 document.getElementById("labelDorsal").style.display="block";
                 document.getElementById("labelFechaCad").style.display = "block";
                 document.getElementById("labelImg").style.display = "block";
                 
                 document.getElementById("labelGir").style.display ="none";
+                document.getElementById("gir").required = false;
   
               
          
             }else if (opcion==""){
                 document.getElementById("labelGir").style.display ="none";
+                document.getElementById("gir").required = false;
                 document.getElementById("labelDorsal").style.display="none";
                 document.getElementById("labelImg").style.display="none";
                 document.getElementById("labelNumLic").style.display ="none";
+                document.getElementById("num_lic").required = false;
                 document.getElementById("labelAutNac").style.display="none";
                 document.getElementById("labelFechaCad").style.display = "none";
 
@@ -144,6 +150,8 @@
             }
         
         }
+
+
 
 
 </script>
