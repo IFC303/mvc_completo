@@ -1,5 +1,10 @@
+var comprobarDni= false;
+var comprobarCorreo = false;
 function validar() {
-    return false;
+    if(comprobarDni==true && comprobarCorreo == true){
+        return true;
+    }else{return false;}
+    
 }
 
 function mayorEdad() {
@@ -81,14 +86,17 @@ function dni(m) {
 
         if (letraSupuesta == dni.charAt(dni.length - 1)) {
             document.getElementById("error").innerHTML="";
+            comprobarDni = true;
             return true;
         } else {
             document.getElementById("error").innerHTML=" ¡LETRA DNI INCORRECTA!";
+            comprobarDni = false;
             //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
             return false;
         }
     } else {
         document.getElementById("error").innerHTML=" ¡DNI INCORRECTO!";
+        comprobarDni = false;
         //document.getElementById(m).setCustomValidity("¡DNI INCORRECTO!");
         return false;
     }
@@ -103,10 +111,12 @@ function correo(n){
     if (re.test(correo)) {
         cad="";
         document.getElementById("errorMail").innerHTML = cad;
+        comprobarCorreo = true;
         return true;
     }else{ 
         cad="Correo con formato incorrecto";
         document.getElementById("errorMail").innerHTML = cad;
+        comprobarCorreo = false;
         return false;
     }
 
