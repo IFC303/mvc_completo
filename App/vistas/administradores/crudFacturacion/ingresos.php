@@ -113,7 +113,6 @@
 
             <div class="col-12">
                 <h4 id="titulo">Gestion de ingresos</h4>
-                <?php var_dump($this->datos['ingresos']);?>
             </div>
 
             <!-- <div>
@@ -173,7 +172,7 @@
                                             <!--Header-->
                                             <div id="headerVer" class="row">
                                                 <h2 class="col-11">Datos del ingreso</h2>
-                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $info->id_ingreso?>" onclick="cerrar(<?php echo $info->id_ingreso?>);">  
+                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $info->id_ingreso?>" onclick="cerrar('<?php echo $info->id_ingreso.$info->tipo?>');">  
                                             </div>
                                             <hr>
 
@@ -189,7 +188,7 @@
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <label for="tipo">Tipo</label>
+                                                        <label for="tipo">Categoria</label>
                                                         <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $info->tipo?>" readonly>
                                                         <br>
                                                     </div>
@@ -215,39 +214,49 @@
                                                     <?php 
                                                         if($info->tipo=="otros"){
                                                             foreach($datos['ingresosOtros'] as $ingresosOtros){
+                                                            //     var_dump($ingresosOtros);
+                                                            //     echo " --------------------";
+                                                            //    var_dump($info);
+                                                                if($ingresosOtros->id_ingreso_otros == $info->id_ingreso){?>
+                                                                    <div class="col-6">
+                                                                    <label for="id_entidad">Entidad</label>
+                                                                    <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg" value="<?php echo $ingresosOtros->nombre?>" readonly>
+                                                                    <br>
+                                                                </div>
+
+
+                                                                <?php }
                                                             ?>
-                                                            <div class="col-6">
-                                                                <label for="id_entidad">Entidad</label>
-                                                                <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg" value="<?php echo $ingresosOtros->nombre?>" readonly>
-                                                                <br>
-                                                            </div>
+                                                            
 
                                                             <!--CAMPOS DE CUOTAS-->
-                                                        <?php }
+                                                    <?php }
                                                         }else if($info->tipo=="cuotas"){
                                                             foreach($datos['ingresosCuotas'] as $ingresosCuotas){   
                                                             ?>
                                                             <div class="col-6">
                                                                 <label for="id_usuario">Usuario</label>
-                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $ingresosCuotas->nombre?>" readonly>
+                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $ingresosCuotas->nombre." ".$ingresosCuotas->apellidos?>" readonly>
                                                                 <br>
                                                             </div>
 
                                                             <!--CAMPOS DE ACTIVIDADES-->
-                                                        <?php }}else if($info->tipo=="actividades"){
+                                                        <?php }
+                                                        }else if($info->tipo=="actividades"){
                                                             foreach($datos['participantes'] as $part){
-                                                                if($part->tipo_participante=="socios"){
-
-                                                                }
-                                                                ?>
-                                                              
-                                                                <div class="col-6">
-                                                                    <label for="tipo">Participante</label>
-                                                                    <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $part->nombre?>" readonly>
+                                                                var_dump($part);
+                                                                if($part->tipo_participante=="socios"){?>
+                                                                    <div class="col-6">
+                                                                        <label for="tipo">Participante</label>
+                                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $part->nombre." ".$part->apellidos?>" readonly>
                                                                     <br>
                                                                 </div>
-                                                            <?php }
-           
+
+                                                               <?php }
+                                                                ?>
+                                                              
+                                                               
+                                                        <?php }       
                                                             ?>
                                                             
                                                             <div class="col-6">
@@ -329,11 +338,12 @@
                                                             <!--CAMPOS DE OTROS-->
                                                     <?php 
                                                         if($datos['tipoIngreso']=="otros"){
-                                                            // foreach($datos['ingresosOtros'] as $otros){
-                                                            //     if($otros->id_ingreso_otros==$info->id_ingreso){
-                                                            //         $entidad=$otros->nombre;
-                                                            //     }
-                                                            // }
+                                                             foreach($datos['ingresosOtros'] as $otros){
+                                                                 
+                                                                 if($otros->id_ingreso_otros==$info->id_ingreso){
+                                                                     $entidad=$otros->nombre;
+                                                                 }
+                                                             }
                                                             ?>
                                                             <div class="col-6">
                                                                 <label for="id_entidad">Entidad</label>

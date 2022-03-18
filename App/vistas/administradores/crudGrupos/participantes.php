@@ -83,12 +83,12 @@ p{
                
 <?php 
 
-$alum=[];
+// $alum=[];
 
- foreach ($datos['alumnos'] as $alumnos){
-     $alum[]=$alumnos;
-     }
-     var_dump($alum);
+//  foreach ($datos['alumnos'] as $alumnos){
+//      $alum[]=$alumnos;
+//      }
+//      var_dump($alum);
      
 
 
@@ -96,7 +96,6 @@ $alum=[];
 
 
                     <script>
-let prueba = <?php echo json_encode($alum);?>;
 
                         let participantes = <?php echo json_encode($datos['entrenadores']);?>;
                         let participantesGrupo = <?php echo json_encode($datos['entrenadoresGrupo']);?>;
@@ -148,7 +147,7 @@ let prueba = <?php echo json_encode($alum);?>;
                          <script>
                             let alumnosCero = <?php echo json_encode($datos['alumnos']);?>;
                             var alus=document.getElementById("alumnos"); 
-                            console.log(alumnosCero);
+                            //console.log(alumnosCero);
                             
                             let participCero = new Array();
 
@@ -180,6 +179,7 @@ let prueba = <?php echo json_encode($alum);?>;
                                     //console.log(alumnosUno);
                                     var alusUno=document.getElementById("cajaAlumnos"); 
                                     let participUno = new Array();
+                                  
 
                                 for(var i=0;i<alumnosUno.length;i++){
                                     if((alumnosUno[i]["activo"])==1){
@@ -331,20 +331,21 @@ let prueba = <?php echo json_encode($alum);?>;
                 caja.appendChild(document.getElementById(dato)); 
                 
                     participUno.push(dato);
-                    console.log(participUno);
+                    
                    
-                //  for(var i=0; i<participCero.length;i++){
-                //      if(participCero[i]==dato){
-                //         participCero.splice(i,1);
+                //   for(var i=0; i<participCero.length;i++){
+                //       if(participCero[i]==dato){
+                //          participCero.splice(i,1);
      
-                //      }}
+                //     }
+                // } 
 
                 //para que no mande string
-                var participaUno = JSON.stringify(participUno); 
+                var participaUno = JSON.stringify(participUno); console.log(participUno + " uno");
                 var part=document.getElementById("alumnosActuales");
                 part.setAttribute("value",participaUno);
 
-                 var participaCero = JSON.stringify(participCero); 
+                 var participaCero = JSON.stringify(participCero); console.log(participCero+ " cero ");
                  var partCero=document.getElementById("alumnosCero");
                  partCero.setAttribute("value",participaCero);
                 
@@ -378,14 +379,14 @@ let prueba = <?php echo json_encode($alum);?>;
                         console.log(participUno);
                     }
                     //para que no mande string
-                    var participaUno = JSON.stringify(participUno); 
-                    var part=document.getElementById("alumnosActuales");
-                    part.setAttribute("value",participaUno);
+                    var participaUno = JSON.stringify(participUno); console.log(participUno + " uno");
+                    //var part=document.getElementById("alumnosActuales");
+                    //part.setAttribute("value",participaUno);
 
                      //para que no mande string
-                    var participaCero = JSON.stringify(participCero); 
-                    var partCero=document.getElementById("alumnosCero");
-                    partCero.setAttribute("value",participaCero);
+                    var participaCero = JSON.stringify(participCero); console.log(participCero+ " cero ");
+                    //var partCero=document.getElementById("alumnosCero");
+                   // partCero.setAttribute("value",participaCero);
 
                 }
             }else{

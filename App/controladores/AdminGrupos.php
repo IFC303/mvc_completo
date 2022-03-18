@@ -328,15 +328,24 @@ class AdminGrupos extends Controlador
         $this->vista('administradores/crudGrupos/participantes', $this->datos);
     }
 
+                    $alumnosActuales=json_decode($_POST['alumnosActuales']);
+                    $alumnosCero=json_decode($_POST['alumnosCero']);
+                    var_dump($alumnosActuales);
+                    var_dump($alumnosCero);
+                    $this->grupoModelo->cambiarEstadoAlumno($alumnosActuales,$alumnosCero);
 
     public function nueva_clase()
     {
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
 
-        $this->datos['rolesPermitidos'] = [1];
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
+                     //DATOS ATLETAS (tabla SOCIO_GRUPO)
+                //      if($_POST['alumnosActuales']!=null){
+                //          $alumnos=json_decode($_POST['alumnosActuales']);
+                         
+                //      }
+                //   redireccionar('/adminGrupos');
+              }
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

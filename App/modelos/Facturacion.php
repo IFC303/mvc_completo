@@ -84,70 +84,112 @@ class Facturacion
 
 
     // AÑADIR NUEVO INGRESO
-    public function agregarIngreso($ingreso){
-     
-        if($ingreso['tipo']=="cuotas"){
-            $this->db->query("INSERT INTO I_CUOTAS (fecha, concepto, importe,id_usuario) 
-                              VALUES (:fecha,:concepto,:importe,:id_socio)");
 
-            $this->db->bind(':fecha',$ingreso['fecha']);
-            $this->db->bind(':concepto', $ingreso['concepto']);
-            $this->db->bind(':importe',$ingreso['importe']);
-            $this->db->bind(':id_socio',$ingreso['id_socio']);
+    public function agregarIngresoOtros($ingreso){
+        $this->db->query("INSERT INTO I_OTROS (fecha, concepto, importe,id_entidad) 
+                          VALUES (:fecha,:concepto,:importe,:id_entidad)");
 
-            if($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
+             $this->db->bind(':fecha',$ingreso['fecha']);
+             $this->db->bind(':concepto', $ingreso['concepto']);
+             $this->db->bind(':importe',$ingreso['importe']);
+             $this->db->bind(':id_entidad',$ingreso['id_entidad']);
 
-        }elseif($ingreso['tipo']=="otros"){
-            $this->db->query("INSERT INTO I_OTROS (fecha, concepto, importe,id_entidad) 
-                              VALUES (:fecha,:concepto,:importe,:id_entidad)");
-            $this->db->bind(':fecha',$ingreso['fecha']);
-            $this->db->bind(':concepto', $ingreso['concepto']);
-            $this->db->bind(':importe',$ingreso['importe']);
-            $this->db->bind(':id_entidad',$ingreso['id_entidad']);
-
-            if($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
-
-        }elseif($ingreso['tipo']=="actividades"){
-
-            if($ingreso['tipo_participante']=="socio"){
-                $this->db->query("INSERT INTO I_ACTIVIDADES (id_usuario,id_evento,fecha, concepto, importe) 
-                                  VALUES (:id_usuario,:id_evento,:fecha,:concepto,:importe)");
-                $this->db->bind(':id_usuario',$ingreso['id_participante']);
-                $this->db->bind(':id_evento',$ingreso['evento']);
-                $this->db->bind(':fecha',$ingreso['fecha']);
-                $this->db->bind(':concepto', $ingreso['concepto']);
-                $this->db->bind(':importe',$ingreso['importe']);
-
-                if($this->db->execute()){
-                    return true;
-                }else{
-                    return false;
-                }
-            }else{
-                $this->db->query("INSERT INTO I_ACTIVIDADES (id_externo,id_evento,fecha, concepto, importe) 
-                                  VALUES (:id_externo,:id_evento,:fecha,:concepto,:importe)");
-                $this->db->bind(':id_externo',$ingreso['id_participante']);
-                $this->db->bind(':id_evento',$ingreso['evento']);
-                $this->db->bind(':fecha',$ingreso['fecha']);
-                $this->db->bind(':concepto', $ingreso['concepto']);
-                $this->db->bind(':importe',$ingreso['importe']);
-
-                if($this->db->execute()){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
+             if($this->db->execute()){
+             return true;
+             }else{
+                 return false;
+             }
     }
+
+
+    public function agregarIngresoCuotas($ingreso){
+             $this->db->query("INSERT INTO I_CUOTAS (fecha, concepto, importe,id_usuario) 
+                               VALUES (:fecha,:concepto,:importe,:id_socio)");
+
+             $this->db->bind(':fecha',$ingreso['fecha']);
+             $this->db->bind(':concepto', $ingreso['concepto']);
+             $this->db->bind(':importe',$ingreso['importe']);
+             $this->db->bind(':id_socio',$ingreso['id_usuario']);
+
+             if($this->db->execute()){
+                 return true;
+             }else{
+                 return false;
+             }
+    }
+
+
+     public function agregarIngresoActividadesExterno($ingreso,$id){
+             $this->db->query("INSERT INTO I_ACTIVIDADES (id_externo,id_evento,fecha, concepto, importe) 
+                               VALUES (:id_externo,:id_evento,:fecha,:concepto,:importe)");
+
+             $this->db->bind(':fecha',$ingreso['fecha']);
+             $this->db->bind(':concepto', $ingreso['concepto']);
+             $this->db->bind(':importe',$ingreso['importe']);
+             $this->db->bind(':id_externo',$id);
+             $this->db->bind(':id_evento',$ingreso['id_evento']);
+
+             if($this->db->execute()){
+                 return true;
+             }else{
+                 return false;
+             }
+    }
+
+
+    public function agregarIngresoActividadesSocio($ingreso,$id){
+
+     $this->db->query("INSERT INTO I_ACTIVIDADES (id_usuario,id_evento,fecha, concepto, importe) 
+        VALUES (:id_usuario,:id_evento,:fecha,:concepto,:importe)");
+
+        $this->db->bind(':fecha',$ingreso['fecha']);
+        $this->db->bind(':concepto', $ingreso['concepto']);
+        $this->db->bind(':importe',$ingreso['importe']);
+        $this->db->bind(':id_usuario',$id);
+        $this->db->bind(':id_evento',$ingreso['id_evento']);
+
+        if($this->db->execute()){
+        return true;
+        }else{
+        return false;
+        }
+}
+    
+
+
+        // }elseif($ingreso['tipo']=="actividades"){
+
+        //     if($ingreso['tipo_participante']=="socio"){
+        //         $this->db->query("INSERT INTO I_ACTIVIDADES (id_usuario,id_evento,fecha, concepto, importe) 
+        //                           VALUES (:id_usuario,:id_evento,:fecha,:concepto,:importe)");
+        //         $this->db->bind(':id_usuario',$ingreso['id_participante']);
+        //         $this->db->bind(':id_evento',$ingreso['evento']);
+        //         $this->db->bind(':fecha',$ingreso['fecha']);
+        //         $this->db->bind(':concepto', $ingreso['concepto']);
+        //         $this->db->bind(':importe',$ingreso['importe']);
+
+        //         if($this->db->execute()){
+        //             return true;
+        //         }else{
+        //             return false;
+        //         }
+        //     }else{
+        //         $this->db->query("INSERT INTO I_ACTIVIDADES (id_externo,id_evento,fecha, concepto, importe) 
+        //                           VALUES (:id_externo,:id_evento,:fecha,:concepto,:importe)");
+        //         $this->db->bind(':id_externo',$ingreso['id_participante']);
+        //         $this->db->bind(':id_evento',$ingreso['evento']);
+        //         $this->db->bind(':fecha',$ingreso['fecha']);
+        //         $this->db->bind(':concepto', $ingreso['concepto']);
+        //         $this->db->bind(':importe',$ingreso['importe']);
+
+        //         if($this->db->execute()){
+        //             return true;
+        //         }else{
+        //             return false;
+        //         }
+        //     }
+        // }
+    
 
 
     //FUNCIONES BORRADO INGRESOS

@@ -55,6 +55,7 @@
             </div>
         </div>
 
+
         <!--FORMULARIO AÑADIR-->
         <form action="<?php echo RUTA_URL ?>/adminFacturacion/nuevoIngreso" method="post" class="card-body">
 
@@ -116,31 +117,36 @@
                     <input class="form-control form-control-lg" list="browsers" name="browser" id="browser">
                     <datalist id="browsers" name="socio">
                         <?php foreach($datos['socios'] as $socios){
-                            ?><option value="<?php echo $socios->nombre?>"></option><?php
+                            ?><option  value="<?php echo $socios->id_socio?>"><?php echo $socios->nombre." ".$socios->apellidos?></option><?php
                         }?>    
                     </datalist>  
-                    <input type="hidden" name="idSocios" value="<?php echo $socios->id_socio?>">
                 </div>
                  <!--div PARTICIPANTES -->
                   <div class="col-6 mt-3 mb-3" id="inputParticipantes" style="display:none">  
                     <input class="form-control form-control-lg" list="browsers2" name="browser2" id="browser2">
+                 
                     <datalist id="browsers2" name="participante">
-                        <?php foreach($datos['participantes'] as $participante){
-                            ?><option value="<?php echo $participante->nombre?>"></option><?php
-                        }?>    
+                        <?php foreach($datos['participantes'] as $participante){   
+                        
+                                ?><option value="<?php echo $participante->id_participante?>-<?php echo $participante->tipoParticipante?>"><?php echo $participante->nombre." ".$participante->apellidos?></option> 
+                                <?php   
+                        }?>  
+                        
+                      
                     </datalist>  
-                    <input type="hidden" name="idParticipantes" value="<?php echo $participante->id_participante?>">
-                    <input type="hidden" name="tipoParticipante" value="<?php echo $participante->tipoParticipante?>">
+              
                 </div> 
+
                   <!--div ENTIDADES -->
-                  <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
+                  <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">   
                     <input class="form-control form-control-lg" list="browsers3" name="browser3" id="browser3">
                     <datalist id="browsers3" name="entidad">
                         <?php foreach($datos['entidades'] as $entidad){
-                            ?><option value="<?php echo $entidad->nombre?>"></option><?php
+                            ?><option name="idEntidades" value="<?php echo $entidad->id_entidad?>"><?php echo $entidad->nombre?></option>                          
+                            <?php
                         }?>    
-                    </datalist>  
-                    <input type="hidden" name="idEntidades" value="<?php echo $entidad->id_entidad?>">    
+                    </datalist> 
+         
                 </div> 
             </div>
 
