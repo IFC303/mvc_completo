@@ -78,7 +78,26 @@ p{
             <div class="row d-flex justify-content-around">
                 <div id="entrenadores" class="col-5" ondragover="sobre(event);" ondrop="suelta2(event);">
 
+
+
+               
+<?php 
+
+$alum=[];
+
+ foreach ($datos['alumnos'] as $alumnos){
+     $alum[]=$alumnos;
+     }
+     var_dump($alum);
+     
+
+
+?>
+
+
                     <script>
+let prueba = <?php echo json_encode($alum);?>;
+
                         let participantes = <?php echo json_encode($datos['entrenadores']);?>;
                         let participantesGrupo = <?php echo json_encode($datos['entrenadoresGrupo']);?>;
                         var di=document.getElementById("entrenadores"); 
@@ -185,15 +204,6 @@ p{
                 </div>
             </div>
 
-<?php 
-
-$alum=[];
-
-foreach ($datos['alumnos'] as $alumnos){
-    $alum [] =$alumnos->id_usuario;
-    }
-    var_dump($alum);
-?>
             <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/nueva_clase">
             
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual" value="">
@@ -201,7 +211,7 @@ foreach ($datos['alumnos'] as $alumnos){
 
                 <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">    
                                       
-                <input type="hidden" id="alumnosCero" name="alumnosCero" value="">
+                <input type="hidden" id="alumnosCero" name="alumnosCero" value="<?php echo json_encode($alum)?>">
 
                 <?php $idGrupo=($datos['id_grupo'])?>
                 <input type="hidden" id="idGrupo" name="idGrupo" value="<?php echo $idGrupo?>">
@@ -219,19 +229,21 @@ foreach ($datos['alumnos'] as $alumnos){
             </form>
     </div>
 
-    <script>
+    <script>       
+
+
         //let alumnCero = new Array()
-        let alumnCero = <?php echo json_encode($alum)?>;
-        var aluCero=document.getElementById('alumnosCero');
-        arrayAlum = new Array()
-        for(let i=0; i < alumnCero.length;i++){
-            //
-            arrayAlum.push(alumnCero[i]);
+        // let alumnCero = 
+        // var aluCero=document.getElementById('alumnosCero');
+        // arrayAlum = new Array()
+        // for(let i=0; i < alumnCero.length;i++){
+        //     //
+        //     arrayAlum.push(alumnCero[i]);
             
-            // aluCero.value = JSON.stringify(alumnCero[i])
-            console.log(alumnCero[i])
-        }
-        aluCero.setAttribute('value',JSON.stringify(arrayAlum));
+        //     // aluCero.value = JSON.stringify(alumnCero[i])
+        //     console.log(alumnCero[i])
+        // }
+        // aluCero.setAttribute('value',JSON.stringify(arrayAlum));
         
     </script> 
 
@@ -243,6 +255,7 @@ foreach ($datos['alumnos'] as $alumnos){
         
         function arrastre(id,ev) {
             var id=document.getElementById(id);
+            console.log(id);
             ev.dataTransfer.setData('Data',ev.target.id);
         }  
 
@@ -278,7 +291,7 @@ foreach ($datos['alumnos'] as $alumnos){
         }  
 
 
-        function suelta2(ev,){
+        function suelta2(ev){
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
             var clase=document.getElementById(dato);
@@ -306,6 +319,7 @@ foreach ($datos['alumnos'] as $alumnos){
 
             var caja=document.getElementById("cajaAlumnos");
             var numero = caja.getElementsByTagName('div').length;
+            //console.log(numero);
             
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
@@ -319,21 +333,20 @@ foreach ($datos['alumnos'] as $alumnos){
                     participUno.push(dato);
                     console.log(participUno);
                    
-                 for(var i=0; i<participCero.length;i++){
-                     if(participCero[i]==dato){
-                        participCero.splice(i,1);
+                //  for(var i=0; i<participCero.length;i++){
+                //      if(participCero[i]==dato){
+                //         participCero.splice(i,1);
      
-                     }}
+                //      }}
 
-              
                 //para que no mande string
                 var participaUno = JSON.stringify(participUno); 
                 var part=document.getElementById("alumnosActuales");
                 part.setAttribute("value",participaUno);
 
-                var participaCero = JSON.stringify(participCero); 
-                var partCero=document.getElementById("alumnosCero");
-                partCero.setAttribute("value",participaCero);
+                 var participaCero = JSON.stringify(participCero); 
+                 var partCero=document.getElementById("alumnosCero");
+                 partCero.setAttribute("value",participaCero);
                 
            }else{
                alert("No se puede añadir mas de un entrenador a un grupo");
@@ -345,6 +358,7 @@ foreach ($datos['alumnos'] as $alumnos){
 
             var caja=document.getElementById("alumnos");
             var numero = caja.getElementsByTagName('div').length;
+            //console.log(numero);
 
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
