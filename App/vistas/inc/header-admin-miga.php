@@ -46,9 +46,17 @@
     } elseif (isset($this->datos['notificaciones'][3])) {
         if ($this->datos['notificaciones'][3] == "EVENTOS") {
             $miga1Nom = "EVENTOS";
+        }elseif ($this->datos['notificaciones'][3] == "LICENCIA") {
+            $miga1Nom = "LICENCIA";
+        }elseif ($this->datos['notificaciones'][3] == "MENSAJERIA") {
+            $miga1Nom = "MENSAJERIA";
+        }elseif ($this->datos['notificaciones'][3] == "ENTIDADES") {
+            $miga1Nom = "ENTIDADES";
+        }elseif ($this->datos['notificaciones'][3] == "GRUPOS") {
+            $miga1Nom = "GRUPOS";
         }
     } else {
-        $miga1Nom = "FALTA ACABAR";
+        $miga1Nom = "EN MANTENIMIENTO";
     }
 
     if (isset($this->datos['nuevo'])) {
@@ -74,6 +82,18 @@
             $miga1 = RUTA_URL . "/adminEventos";
             $miga1Nom = "EVENTO";
             $miga2Nom = "NUEVA EVENTO";
+        }elseif ($this->datos['nuevo'] == "LICENCIA") {
+            $miga1 = RUTA_URL . "/adminLicencias";
+            $miga1Nom = "LICENCIA";
+            $miga2Nom = "NUEVA LICENCIA";
+        }elseif ($this->datos['nuevo'] == "ENTIDADES") {
+            $miga1 = RUTA_URL . "/adminEntidades";
+            $miga1Nom = "ENTIDADES";
+            $miga2Nom = "NUEVA ENTIDADES";
+        }elseif ($this->datos['nuevo'] == "GRUPOS") {
+            $miga1 = RUTA_URL . "/adminGrupos";
+            $miga1Nom = "GRUPOS";
+            $miga2Nom = "NUEVA GRUPOS";
         }
     }
     ?>

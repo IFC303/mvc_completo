@@ -11,17 +11,31 @@ class AdminLicencias extends Controlador{
         }
 
         $this->licenciaModelo = $this->modelo('Licencia');
+        $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+     //NOTIFICACIONES
+     public function notificaciones()
+     {
+         $notific[0] = $this->AdminModelo->notSocio();
+         $notific[1] = $this->AdminModelo->notGrupo();
+         $notific[2] = $this->AdminModelo->notEventos();
+         $notific[3] ="LICENCIA";
+         
+         return $notific;
+     }
 
     public function index(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
         $this->datos['licencia'] = $this->licenciaModelo->obtenerSocioLicencia();
         
         $this->vista('administradores/crudLicencias/inicio',$this->datos);
     }
 
     public function verFoto($idLic){
-     
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;     
 
         $this->datos['foto']=$this->licenciaModelo->obtenerFotoLicencia($idLic);
        
@@ -29,7 +43,8 @@ class AdminLicencias extends Controlador{
     }
 
     public function nueva_licencia(){
-
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
       
         $this->datos['licencia'] = $this->licenciaModelo->obtenerNombreSocio();
         
@@ -65,12 +80,14 @@ class AdminLicencias extends Controlador{
             }
 
         }else{
-           
+            $this->datos["nuevo"]="LICENCIA";
             $this->vista('administradores/crudLicencias/nueva_licencia',$this->datos);
         }
     }
 
     public function borrar($num_lic){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->licenciaModelo->borrarLicencia($num_lic)) {
@@ -88,6 +105,8 @@ class AdminLicencias extends Controlador{
 
 
     public function editarLicencia($id){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
