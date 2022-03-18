@@ -20,10 +20,23 @@ class AdminMensajeria extends Controlador
         }
 
         $this->mensajeModelo = $this->modelo('Mensaje');
+        $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+    //NOTIFICACIONES
+    public function notificaciones()
+    {
+        $notific[0] = $this->AdminModelo->notSocio();
+        $notific[1] = $this->AdminModelo->notGrupo();
+        $notific[2] = $this->AdminModelo->notEventos();
+        $notific[3] ="MENSAJERIA";
+        
+        return $notific;
+    }
 
     public function index(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
         
         $this->datos['mensajeTodos']=$this->mensajeModelo->obtenerEmailsTodos();
         // $this->datos['mensajeEntre']=$this->mensajeModelo->obtenerEmailEntre();
@@ -36,6 +49,8 @@ class AdminMensajeria extends Controlador
     }
 
     public function enviar(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
 
 
         if($_SERVER['REQUEST_METHOD']=='POST'){

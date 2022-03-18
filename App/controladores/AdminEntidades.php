@@ -10,16 +10,33 @@ class AdminEntidades extends Controlador{
             redireccionar('/'); 
         }
             $this->entidadModelo = $this->modelo('Entidad');
+            $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+    //NOTIFICACIONES
+    public function notificaciones()
+    {
+        $notific[0] = $this->AdminModelo->notSocio();
+        $notific[1] = $this->AdminModelo->notGrupo();
+        $notific[2] = $this->AdminModelo->notEventos();
+        $notific[3] ="ENTIDADES";
+        
+        return $notific;
+    }
 
     public function index(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['entidad']=$this->entidadModelo->obtenerEntidades();
         $this->vista('administradores/crudEntidades/inicio',$this->datos);
     }
 
     
     public function nuevaEntidad(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
@@ -46,12 +63,16 @@ class AdminEntidades extends Controlador{
                 'nombre'=>'',
                 'tipo'=>'',
             ];
+            $this->datos["nuevo"]="ENTIDADES";
             $this->vista('administradores/crudEntidades/nueva_entidad',$this->datos);
         }
     }
 
 
     public function borrar($id){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->entidadModelo->borrarEntidad($id)) {
                 redireccionar('/adminEntidades');
@@ -67,6 +88,8 @@ class AdminEntidades extends Controlador{
 
 
     public function editarEntidad($id){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
