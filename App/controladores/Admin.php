@@ -200,6 +200,7 @@ class Admin extends Controlador
             }
         } else {
             $this->datos["idTengo"]=$usuVer;
+            $this->datos["nuevo"]="nuevo";
             $this->vista('administradores/cruds/nuevoUsuario', $this->datos);
         }
     }
