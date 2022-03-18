@@ -20,6 +20,63 @@
 </head>
 
 <body>
+    <?php
+    $miga1 = "";
+    $miga1Nom = "";
+    $miga2 = "";
+    $miga2Nom = "";
+    $miga3 = "";
+
+    if (isset($this->datos['idTengo'])) {
+        if ($this->datos['idTengo'] == "1") {
+            $miga1Nom = "ADMIN";
+        } elseif ($this->datos['idTengo'] == "2") {
+            $miga1Nom = "ENTRENADORES";
+        } elseif ($this->datos['idTengo'] == "3") {
+            $miga1Nom = "SOCIOS";
+        } elseif ($this->datos['idTengo'] == "4") {
+            $miga1Nom = "TIENDAS";
+        }
+    } elseif (isset($this->datos['radioCheck'])) {
+        if ($this->datos['radioCheck'] == "socio") {
+            $miga1Nom = "SOLICITUD EVENTOS SOCIO";
+        } elseif ($this->datos['radioCheck'] == "externo") {
+            $miga1Nom = "SOLICITUD EVENTOS EXTERNO";
+        }
+    } elseif (isset($this->datos['notificaciones'][3])) {
+        if ($this->datos['notificaciones'][3] == "EVENTOS") {
+            $miga1Nom = "EVENTOS";
+        }
+    } else {
+        $miga1Nom = "FALTA ACABAR";
+    }
+
+    if (isset($this->datos['nuevo'])) {
+        if (isset($this->datos['idTengo'])) {
+            if ($this->datos['idTengo'] == "1") {
+                $miga1 = RUTA_URL . "/admin/crud_admin";
+                $miga1Nom = "ADMIN";
+                $miga2Nom = "NUEVO ADMIN";
+            } elseif ($this->datos['idTengo'] == "2") {
+                $miga1 = RUTA_URL . "/admin/crud_entrenadores";
+                $miga1Nom = "ENTRENADORES";
+                $miga2Nom = "NUEVO ENTRENADOR";
+            } elseif ($this->datos['idTengo'] == "3") {
+                $miga1 = RUTA_URL . "/admin/crud_socios";
+                $miga1Nom = "SOCIOS";
+                $miga2Nom = "NUEVO SOCIO";
+            } elseif ($this->datos['idTengo'] == "4") {
+                $miga1 = RUTA_URL . "/admin/crud_tiendas";
+                $miga1Nom = "TIENDAS";
+                $miga2Nom = "NUEVA TIENDA";
+            }
+        } elseif ($this->datos['nuevo'] == "EVENTO") {
+            $miga1 = RUTA_URL . "/adminEventos";
+            $miga1Nom = "EVENTO";
+            $miga2Nom = "NUEVA EVENTO";
+        }
+    }
+    ?>
     <div class="container-fluid min-vh-100">
 
         <header class="p-4 row">
@@ -30,25 +87,11 @@
 
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
-                    <li class="breadcrumb-level"><a><?php if (isset($this->datos['idTengo'])) {
-                                                        if ($this->datos['idTengo'] == "1") {
-                                                            echo "ADMIN";
-                                                        } elseif ($this->datos['idTengo'] == "2") {
-                                                            echo "ENTRENADORES";
-                                                        } elseif ($this->datos['idTengo'] == "3") {
-                                                            echo "SOCIOS";
-                                                        } elseif ($this->datos['idTengo'] == "4") {
-                                                            echo "TIENDAS";
-                                                        }
-                                                    } elseif (isset($this->datos['radioCheck'])) {
-                                                        if ($this->datos['radioCheck'] == "socio") {
-                                                            echo "SOLICITUD EVENTOS SOCIO";
-                                                        } elseif ($this->datos['radioCheck'] == "externo") {
-                                                            echo "SOLICITUD EVENTOS EXTERNO";
-                                                        }
-                                                    } else {
-                                                        echo "FALTA ACABAR";
-                                                    } ?></a></li>
+                    <li class='breadcrumb-level'><a href="<?php echo $miga1 ?>"><?php echo $miga1Nom ?></a></li>
+                    <?php if (isset($this->datos['nuevo'])) {
+                        echo "<li class='breadcrumb-level'><a href=" . $miga2 . ">" . $miga2Nom . "</a></li>";
+                    }
+                    ?>
                 </ol>
             </div>
             <br><br><br><br>

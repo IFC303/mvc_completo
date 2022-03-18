@@ -11,17 +11,31 @@ class AdminEventos extends Controlador{
         }
 
         $this->eventoModelo = $this->modelo('Evento');
+        $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+    //NOTIFICACIONES
+    public function notificaciones()
+    {
+        $notific[0] = $this->AdminModelo->notSocio();
+        $notific[1] = $this->AdminModelo->notGrupo();
+        $notific[2] = $this->AdminModelo->notEventos();
+        $notific[3] ="EVENTOS";
+        return $notific;
+    }
 
     public function index(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['evento'] = $this->eventoModelo->obtenerEventos();
         $this->vista('administradores/crudEventos/inicio',$this->datos);
     }
-
-
-
+    
     public function nuevo_evento(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
@@ -56,12 +70,15 @@ class AdminEventos extends Controlador{
                 'fecha_ini'=>'',
                 'fecha_fin'=>'',
             ];
+            $this->datos["nuevo"]="EVENTO";
             $this->vista('administradores/crudEventos/nuevo_evento',$this->datos);
         }
     }
 
-
     public function borrar($id){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->eventoModelo->borrarEvento($id)) {
                 redireccionar('/adminEventos');
@@ -76,8 +93,9 @@ class AdminEventos extends Controlador{
 
     }
 
-
     public function editarEvento(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
