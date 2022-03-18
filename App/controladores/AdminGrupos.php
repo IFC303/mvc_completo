@@ -307,8 +307,8 @@ class AdminGrupos extends Controlador
 
                     $alumnosActuales=json_decode($_POST['alumnosActuales']);
                     $alumnosCero=json_decode($_POST['alumnosCero']);
-                    //var_dump($alumnosActuales);
-                    //var_dump($alumnosCero);
+                    var_dump($alumnosActuales);
+                    var_dump($alumnosCero);
                     $this->grupoModelo->cambiarEstadoAlumno($alumnosActuales,$alumnosCero);
 
                 //     //DATOS ENTRENADOR (tabla ENTRENADOR_GRUPO)
@@ -324,12 +324,12 @@ class AdminGrupos extends Controlador
                 //      }
                 
 
-                //     //DATOS ATLETAS (tabla SOCIO_GRUPO)
-                //     if($_POST['alumnosActuales']!=null){
-                //         $alumnos=json_decode($_POST['alumnosActuales']);
-                //         
-                //     }
-                  //redireccionar('/adminGrupos');
+                     //DATOS ATLETAS (tabla SOCIO_GRUPO)
+                //      if($_POST['alumnosActuales']!=null){
+                //          $alumnos=json_decode($_POST['alumnosActuales']);
+                         
+                //      }
+                //   redireccionar('/adminGrupos');
               }
         }
 
