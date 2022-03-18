@@ -1,77 +1,161 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
 
-<div class="">
-    <div class="panel">
-        <div class="panel-heading">
-            CSV SEPA Tragamillas
-            <a href="exportData" class="btn btn-success pull-right">Exportar a CSV</a>
-        </div>
-        <div class="panel-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nombre Deudor</th>
-                        <th>IBAN</th>
-                        <th>Importe</th>
-                        <th>NIF-CIF</th>
-                        <th>Linea 1 (70 caracteres)</th>
-                        <th>Linea 2 (70 caracteres)</th>
-                        <th>T.Adeudo</th>
-                        <th>F.Firma</th>
-                        <th>Titular de la cuenta cuando sea distinto del recibo -Opcional-</th>
-                        <th>Domicilio -Opcional -</th>
-                        <th>Cód.Postal</th>
-                        <th>Poblacion</th>
-                        <th>Provincia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    #region db
-                    //include database configuration file
-                    //DB details
-                    $dbHost     = 'mysql';
-                    $dbUsername = 'root';
-                    $dbPassword = 'toor';
-                    $dbName     = 'tragamillas2';
+<!DOCTYPE html>
+<html lang="es">
 
-                    //Create connection and select DB
-                    $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
+    <!-- <link rel="stylesheet" href="css/estilos.css"> -->
 
-                    if ($db->connect_error) {
-                        die("Unable to connect database: " . $db->connect_error);
-                    }
-                    #endregion
 
-                    //get records from database
-                    $query = $db->query("SELECT id_ingreso_cuota, CONCAT(apellidos, ', ', nombre) AS 'apellidos_nombre', CCC, importe, dni, concepto, concepto, tipo, fecha, concat(apellidos, ', ', nombre) as 'apellidos_nombre', direccion, direccion as 'cod. postal', direccion as 'poblacion', direccion as 'provincia' FROM I_CUOTAS NATURAL JOIN USUARIO");
-                    if ($query->num_rows > 0) {
-                        while ($row = $query->fetch_assoc()) { ?>
-                            <tr>
-                                <td><?php echo $row['id_ingreso_cuota']; ?></td>
-                                <td><?php echo $row['apellidos_nombre']; ?></td>
-                                <td><?php echo $row['CCC']; ?></td>
-                                <td><?php echo $row['importe']; ?></td>
-                                <td><?php echo $row['dni']; ?></td>
-                                <td><?php echo $row['concepto']; ?></td>
-                                <td><?php echo $row['concepto']; ?></td>
-                                <td><?php echo $row['tipo']; ?></td>
-                                <td><?php echo $row['fecha']; ?></td>
-                                <td><?php echo $row['apellidos_nombre']; ?></td>
-                                <td><?php echo $row['direccion']; ?></td>
-                                <td><?php echo $row['cod. postal']; ?></td>
-                                <td><?php echo $row['poblacion']; ?></td>
-                                <td><?php echo $row['provincia']; ?></td>
-                            </tr>
-                        <?php }
-                    } else { ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <title><?php echo NOMBRE_SITIO ?></title>
+
+    <style>
+        /*modal javascript */
+
+        .modalVer {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding: 100px 100px 0px 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modalVer .modal-content {
+            width: 50%;
+            margin: auto;
+        }
+
+        #modalEditar {
+            width: 50%;
+            margin: auto;
+        }
+
+        .modal-title {
+            color: #023ef9;
+        }
+
+        label {
+            color: #023ef9;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        /*ESTILOS TABLA */
+
+        .tabla {
+            border: solid 1px #023ef9;
+            width: 60%;
+            margin: auto;
+        }
+
+        thead tr {
+            background-color: #023ef9;
+            color: white;
+            text-align: center;
+        }
+
+        .datos_tabla {
+            text-align: center;
+        }
+
+        .icono {
+            width: 20px;
+            height: 20px;
+        }
+
+
+        #headerVer h2 {
+            padding: 30px;
+            color: #023ef9;
+        }
+
+        #añadir {
+            color: white;
+        }
+
+        .btn {
+            background-color: #ffe193;
+            color: white;
+        }
+
+        #titulo {
+            font-family: 'Anton', sans-serif;
+            color: #023ef9;
+            letter-spacing: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="panel">
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <td colspan="5">No member(s) found.....</td>
+                            <th>Código</th>
+                            <th>Nombre Deudor</th>
+                            <th>IBAN</th>
+                            <th>Importe</th>
+                            <th>NIF-CIF</th>
+                            <th>Linea 1</th>
+                            <th>Linea 2</th>
+                            <th>T.Adeudo</th>
+                            <th>F.Firma</th>
+                            <th>Titular</th>
+                            <th>Domicilio</th>
+                            <th>Cód.Postal</th>
+                            <th>Poblacion</th>
+                            <th>Provincia</th>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($datos['cuotas'] as $cuota) : ?>
+                            <tr>
+                                <td class="datos_tabla"><?php echo $cuota->id_ingreso_cuota ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->apellidos_nombre ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->CCC ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->importe ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->dni ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->concepto ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->concepto ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->tipo ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->fecha ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->apellidos_nombre ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->direccion ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->cod_postal ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->poblacion ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->provincia ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel">
+            <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
+            <h4 id="titulo" class="pagination">
+                <a href="exportData" class="btn">Exportar a CSV</a>
+            </h4>
         </div>
     </div>
-</div>
