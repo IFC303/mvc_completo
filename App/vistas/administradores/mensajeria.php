@@ -81,7 +81,7 @@
 
                         foreach($destinatarios as $nombre){?>
                             <div class="col-1">
-                                <input type="radio" class="form-check-input"  name="todos" id="todos" value="todos" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
+                                <input type="radio" class="form-check-input"  name="todos<?php echo $nombre?>" id="todos<?php echo $nombre?>" value="todos<?php echo $nombre?>" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
                             </div>
                                 <label class="form-check-label" for="todos" id="elementSocios"><?php echo $nombre?></label>
                                     
@@ -142,6 +142,7 @@
                                     <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg"></textarea>
                                 </div>
 
+                                <input type="hidden" name="enviarCorreos" id="enviarCorreos" value="">
                                 <input type="submit" class="btn" value="Enviar">
                         </form>
                 </div>
@@ -153,44 +154,82 @@
             <script>
 
                     function marcar_desmarcar(todos){
-                       
+                        
+                        //console.log(todos);
                         var mails =[];
+                        
               
                         casillas=document.getElementsByClassName(todos);
                         todos=document.getElementById(todos);
-                        //console.log(todos);
+                        //console.log(casillas);
                         
-                        correos="";  
+                        //correos="";  
    
                          for(i=0;i<casillas.length;i++){
                              //console.log(casillas[i]);
                              if(casillas[i].type == "checkbox"){    
-                                 //casillas[i].setAttribute("checked","true");
+                                 casillas[i].setAttribute("checked","true");
                                if((casillas[i].checked=todos.checked) & (casillas[i].value!="on")){
                                     mails.push(casillas[i].value);
-                                    correos=correos+casillas[i].value+",";
+                                    
+                                    //correos=correos+casillas[i].value+",";
                                 //  } else{
                                 //       mails.splice(mails.length);
                                 //   todos.setAttribute("checked","false");
-                                //  }                 
+                                  }                 
                               }   
                         } 
+                        console.log(mails);
                         //correos=correos.slice(0,-1);
-                        console.log(correos); 
-                        var destinatario=document.getElementById('destinatario');
-                        console.log(destinatario);
-                        destinatario.setAttribute("value",correos);
+                        //console.log(correos); 
+
+                        var ha=document.getElementById('destinatario').value;
+                        console.log(ha);
+
+                        //pongo valor
+                        document.getElementById('destinatario').setAttribute("value",mails);
+                        //ha.push(mails);
+                        console.log(document.getElementById('destinatario').value);
+
+                        console.log(ha+" "+document.getElementById('destinatario').value);
+                        
+                        document.getElementById('destinatario').setAttribute("value",ha+" "+document.getElementById('destinatario').value);
+                        console.log(ha+" "+document.getElementById('destinatario').value);
+
+                        
+                     
                      }
 
+                    
+
+                
+                    //SELECCION UNO A UNO
+                    function seleccionados(seleccionado){
+                        seleccionado.setAttribute("checked","true");
+                        var correos = [];
+                        casillas=document.getElementsByTagName('input');
+
+                        for(i=0;i<casillas.length;i++){
+                            if((casillas[i].type=="checkbox") & (casillas[i].checked==true)){
+                                correos.push(casillas[i].value);
+                            }
+                        }   
+                          //console.log(correos); 
+                          document.getElementById('destinatario').setAttribute('value',correos);
                     }
+
+
+
+
+
+
+
+
 
                      function aceptar(){
                         var aceptados=document.getElementById('destinatario').value;
-                        console.log(aceptados);
+                        //console.log(aceptados);
                      }
-
-
-
 
 
 
@@ -200,6 +239,8 @@
 
 
                        casillas=document.getElementsByClassName(todos);
+
+
                        for(i=0;i<casillas.length;i++){
                             casillas[i].setAttribute("checked",false);
                        }console.log(casillas);
@@ -212,21 +253,7 @@
 
 
 
-
-                     function seleccionados(seleccionado){
-                        seleccionado.setAttribute("checked","true");
-                        var correos = [];
-                        casillas=document.getElementsByTagName('input');
-
-                        for(i=0;i<casillas.length;i++){
-                            if((casillas[i].type=="checkbox") & (casillas[i].checked==true)){
-                                correos.push(casillas[i].value);
-                            }
-                        }
-                        
-                          console.log(correos); 
-                          document.getElementById('destinatario').setAttribute('value',correos);
-                     }
+                   
 
 
 
