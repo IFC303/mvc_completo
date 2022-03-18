@@ -193,7 +193,7 @@
                             <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="nav-link ">GASTOS</a>
                         </li>
                         <li id="sInicio">
-                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/csv" class="nav-link ">GASTOS</a>
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas" class="nav-link ">GASTOS</a>
                         </li>
                     </ul>
                 </ul>

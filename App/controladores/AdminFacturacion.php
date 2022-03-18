@@ -70,11 +70,11 @@ class AdminFacturacion extends Controlador{
 
   
 
-    public function csv(){
-        $this->vista('administradores/csv/index',$this->datos);
+    public function cuotas(){
+        $this->vista('administradores/cuotas/index',$this->datos);
     }
 
     public function exportData(){
-        $this->vista('administradores/csv/exportData',$this->datos);
+        $this->vista('administradores/cuotas/exportData',$this->datos);
     }
 }

@@ -176,8 +176,8 @@
 
             <tr>
                 <td id="mUsu">
-                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/csv">
-                        <div>CSV</div>
+                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas">
+                        <div>CUOTAS</div>
                     </a>
                 </td>
             </tr>

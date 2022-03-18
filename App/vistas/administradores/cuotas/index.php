@@ -4,7 +4,7 @@
     <div class="panel">
         <div class="panel-heading">
             CSV SEPA Tragamillas
-            <a href="exportData" class="btn btn-success pull-right">Exportar CSV</a>
+            <a href="exportData" class="btn btn-success pull-right">Exportar a CSV</a>
         </div>
         <div class="panel-body">
             <table class="table table-bordered">
