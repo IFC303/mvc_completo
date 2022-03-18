@@ -22,6 +22,14 @@ class Socio extends Controlador
 
     public function modificarDatos()
     {
+
+        $nombrePagina = "MODIFICAR DATOS";
+        $tituloPagina = "MODIFICAR DATOS";
+
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
+        
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
         $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
 
@@ -68,6 +76,12 @@ class Socio extends Controlador
 
     public function verMarcas()
     {
+        $nombrePagina = "VER MARCAS";
+        $tituloPagina = "MARCAS PERSONALES";
+
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
         $marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
@@ -78,20 +92,34 @@ class Socio extends Controlador
 
     public function licencias(){
 
+        $nombrePagina = "SUBIR LICENCIAS";
+        $tituloPagina = "LICENCIAS";
+        
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
+
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $licencias = $this->SocioModelo->obtenerLicenciasId($idUsuarioSesion);
+        $licencias = $this->SocioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
         $this->datos['usuarios']=$licencias;
 
+       
         $this->vista('socios/licencias', $this->datos);
+    }
+
+    public function verFoto($idLic){
+     
+
+        $this->datos['foto']=$this->SocioModelo->obtenerFotoLicencia($idLic);
+       
+        $this->vista('socios/verFoto',$this->datos);
     }
 
     public function nuevaLicencia()
     {
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-     
-        
+      
 
 
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso

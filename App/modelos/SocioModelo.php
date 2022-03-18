@@ -117,6 +117,18 @@ class SocioModelo
         return $this->db->registros();
     }
 
+    public function obtenerLicenciasUsuarioId($idUsuarioSesion)
+    {
+        $this->db->query("SELECT * FROM LICENCIA L , USUARIO U where $idUsuarioSesion = U.id_usuario AND $idUsuarioSesion = U.id_usuario");
+
+        return $this->db->registros();
+    }
+
+    public function obtenerFotoLicencia($idLic){
+        $this->db->query("SELECT imagen FROM LICENCIA WHERE id_licencia = '$idLic'");
+        return $this->db->registros();
+    }
+
     public function agregarLicencia($agreLic, $idUsuarioSesion)
     {
         $this->db->query("INSERT INTO LICENCIA (id_usuario, imagen, num_licencia, fecha_cad, tipo, dorsal, regional_nacional) 
