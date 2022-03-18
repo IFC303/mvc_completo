@@ -113,11 +113,11 @@
 
             <div class="col-2">
                 <div class="row text-right" style="font-family: 'Inter', sans-serif;">
-                    <div class="datos col-12">NUMERO LICENCIA</div>
-                    <div class="datos col-12">TIPO LICENCIA</div>
-                    <div class="datos col-12">DORSAL</div>
-                    <div class="datos col-12">FECHA CADUCIDAD</div>
-                    <div class="datos col-12">IAMGEN LICENCIA</div>
+                    <div class="datos col-12" >NUMERO LICENCIA</div>
+                    <div class="datos col-12" >TIPO LICENCIA</div>
+                    <div class="datos col-12" >DORSAL</div>   
+                    <div class="datos col-12" >FECHA CADUCIDAD</div>
+                    <div class="datos col-12" >IMÁGEN LICENCIA</div>               
                 </div>
             </div>
 
@@ -127,11 +127,11 @@
                     <form name="form" ENCTYPE="multipart/form-data" method="post">
                         <div class="datos col-12"><input type="text" value="" id="agregarLic" name="NumLicencia" required></div>
 
-                        <div class="datos col-12"><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();" required>
-                                <option selected value="0">Elige una opción</option>
-                                <option value="1">Federativa</option>
-                                <option value="2">Escolar</option>
-                            </select>
+                        <div class="datos col-12" ><select name="tipoLicencia" id="agregarLic" onchange="cargarFederativas();" required>
+                            <option selected value="0">Elige una opción</option>
+                            <option value="1">Adulto</option>
+                            <option value="2">Escolar</option>
+                        </select>
 
                             <select id="agregarLic" name="federativas">
                                 <option value="">
