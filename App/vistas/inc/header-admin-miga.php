@@ -54,6 +54,10 @@
             $miga1Nom = "ENTIDADES";
         }elseif ($this->datos['notificaciones'][3] == "GRUPOS") {
             $miga1Nom = "GRUPOS";
+        }elseif ($this->datos['notificaciones'][3] == "INGRESOS") {
+            $miga1Nom = "INGRESOS";
+        }elseif ($this->datos['notificaciones'][3] == "GASTOS") {
+            $miga1Nom = "GASTOS";
         }
     } else {
         $miga1Nom = "EN MANTENIMIENTO";
@@ -94,6 +98,14 @@
             $miga1 = RUTA_URL . "/adminGrupos";
             $miga1Nom = "GRUPOS";
             $miga2Nom = "NUEVA GRUPOS";
+        }elseif ($this->datos['nuevo'] == "FACTURACION") {
+            $miga1 = RUTA_URL . "/adminFacturacion/ingresos";
+            $miga1Nom = "INGRESOS";
+            $miga2Nom = "NUEVA INGRESO";
+        }elseif ($this->datos['nuevo'] == "FACTURACION2") {
+            $miga1 = RUTA_URL . "/adminFacturacion/gastos";
+            $miga1Nom = "GASTOS";
+            $miga2Nom = "NUEVO GASTO";
         }
     }
     ?>

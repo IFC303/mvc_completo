@@ -11,15 +11,31 @@ class AdminFacturacion extends Controlador{
         }
 
         $this->facturacionModelo = $this->modelo('Facturacion');
+        $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
+    //NOTIFICACIONES
+    public function notificaciones()
+    {
+        $notific[0] = $this->AdminModelo->notSocio();
+        $notific[1] = $this->AdminModelo->notGrupo();
+        $notific[2] = $this->AdminModelo->notEventos();
+        
+        return $notific;
+    }
 
       public function index(){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
          $this->vista('administradores/crudFacturacion',$this->datos);
      }
 
 
     public function ingresos(){
+        $notific = $this->notificaciones();
+        $notific[3] ="INGRESOS";
+        $this->datos['notificaciones'] = $notific;
+
             $ingresos = [];
             $ingresos = $this->facturacionModelo->obtenerIngresos();
             $this->datos['ingresos']=$ingresos;
@@ -44,6 +60,10 @@ class AdminFacturacion extends Controlador{
 
 
     public function nuevoIngreso(){
+        $notific = $this->notificaciones();
+        $notific[3] ="INGRESOS";
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
@@ -145,14 +165,16 @@ class AdminFacturacion extends Controlador{
                 'fecha_ini'=>'',
                 'fecha_fin'=>'',
             ];  
+            $this->datos["nuevo"]="FACTURACION";
              $this->vista('administradores/crudFacturacion/nuevo_ingreso',$this->datos);
         }
         
     }
 
-
-
     public function borrarIngreso($id){
+        $notific = $this->notificaciones();
+        $notific[3] ="INGRESOS";
+        $this->datos['notificaciones'] = $notific;
             
         $tipo=$_POST['tipo'];
 
@@ -187,6 +209,10 @@ class AdminFacturacion extends Controlador{
 
 
     public function gastos(){
+        $notific = $this->notificaciones();
+        $notific[3] ="GASTOS";
+        $this->datos['notificaciones'] = $notific;
+
         $gastos= [];
         $gastos = $this->facturacionModelo->obtenerGastos();
         $this->datos['gastos']=$gastos;
@@ -207,6 +233,10 @@ class AdminFacturacion extends Controlador{
 
 
     public function nuevoGasto(){
+        $notific = $this->notificaciones();
+        $notific[3] ="GASTOS";
+        $this->datos['notificaciones'] = $notific;
+
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
@@ -248,6 +278,7 @@ class AdminFacturacion extends Controlador{
                 'fecha_ini'=>'',
                 'fecha_fin'=>'',
             ];
+            $this->datos["nuevo"]="FACTURACION2";
             $this->vista('administradores/crudFacturacion/nuevo_gasto',$this->datos);
         }
     }
@@ -263,6 +294,10 @@ class AdminFacturacion extends Controlador{
    
 
     // public function gastos(){
+        // $notific = $this->notificaciones();
+        //$notific[3] ="GASTOS";
+        // $this->datos['notificaciones'] = $notific;
+
     //     $this->datos['gastosPersonal'] = $this->facturacionModelo->obtenerGastosPersonal();
     //     $this->datos['gastosOtros'] = $this->facturacionModelo->obtenerGastosOtros();
     //     $this->vista('administradores/crudFacturacion/gastos', $this->datos);
