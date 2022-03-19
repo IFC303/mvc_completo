@@ -155,7 +155,7 @@
         <div class="panel">
             <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
             <h4 id="titulo" class="pagination">
-                <a href="exportData" class="btn">Exportar a CSV</a>
+                <a href="../exportData" class="btn">Exportar a CSV</a>
             </h4>
         </div>
     </div>
