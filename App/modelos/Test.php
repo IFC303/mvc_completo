@@ -77,11 +77,11 @@ class Test
         }
     }
 
-    public function modificarTest($id, $activado)
+    public function modificarTest($id, $entregado)
     {
-        $this->db->query("UPDATE USUARIO SET activado=:activado WHERE id_usuario = :id_usuario");
+        $this->db->query("UPDATE USUARIO SET entregado=:entregado WHERE id_usuario = :id_usuario");
         $this->db->bind(':id_usuario', $id);
-        $this->db->bind(':activado', $activado);
+        $this->db->bind(':entregado', $entregado);
         $this->db->execute();
     }
 }

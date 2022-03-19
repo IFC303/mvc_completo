@@ -86,7 +86,7 @@
                                                                                 </div>
 
                                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                                        <label for="verAct">Activado: </label>
+                                                                                        <label for="verAct">Entregado: </label>
                                                                                         <label name="verAct" class="form-control form-control-lg"><?php echo $usuarios->activado ?></label>
                                                                                 </div>
 
@@ -174,7 +174,7 @@
                                                                                                         </div>
 
                                                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                                                                                                <label for="editAct">Activado: <sup>*</sup></label>
+                                                                                                                <label for="editAct">Entregado: <sup>*</sup></label>
                                                                                                                 <input type="text" name="editAct" id="editAct" class="form-control form-control-lg" placeholder="<?php echo $usuarios->activado ?>">
                                                                                                         </div>
 

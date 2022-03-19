@@ -136,7 +136,7 @@ class AdminModelo
         $direccion = $datAceptar[9];
         $es_socio = $datAceptar[10];
 
-        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
+        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `entregado`, `id_rol`) VALUES 
         (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
         $this->db->bind(':dni', $dni);
         $this->db->bind(':nombre', $nombre);
@@ -279,9 +279,9 @@ class AdminModelo
         }
         if (($usuEditar['ActEdit'] != "") && ($usuEditar['ActEdit'] != null)) {
             if ($coma == 1) {
-                $cad = $cad . ", `activado` = :actUsu";
+                $cad = $cad . ", `entregado` = :actUsu";
             } else {
-                $cad = $cad . " `activado` = :actUsu";
+                $cad = $cad . " `entregado` = :actUsu";
                 $coma = 1;
             }
             $actMet = true;
@@ -346,7 +346,7 @@ class AdminModelo
 
     public function anadirUsuario($usuAnadir)
     {
-        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
+        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, fecha_nacimiento, telefono, CCC, passw, talla, foto, entregado, id_rol) 
         VALUES (:dniUsu, :nomUsu, :apelUsu, :emaUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
 
         $this->db->bind(':dniUsu', $usuAnadir['dniUsuAna']);

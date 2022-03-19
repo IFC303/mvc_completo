@@ -39,7 +39,7 @@ class Tienda extends Controlador
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->equipacionesModelo->updateUsuario(trim($_POST['id_usuario']), trim($_POST['activado']))) {
+            if ($this->equipacionesModelo->updateUsuario(trim($_POST['id_usuario']), trim($_POST['entregado']))) {
                 redireccionar('/tienda');
             } else {
                 die('Algo ha fallado!!!');

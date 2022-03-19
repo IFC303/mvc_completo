@@ -34,6 +34,7 @@
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>">INICIO</a></li>
                     <li class="breadcrumb-level"><a>TIENDA</a></li>
+                    <li class="breadcrumb-level"><a>EQUIPACIONES</a></li>
                 </ol>
             </div>
 

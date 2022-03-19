@@ -117,14 +117,12 @@
                 <!--CABECERA TABLA-->
                 <thead>
                     <tr>
-                        <th>id_equipacion</th>
-                        <th>id_usuario</th>
-                        <th>nombre</th>
-                        <th>apellidos</th>
-                        <th>activado</th>
+                        <th>ID</th>
+                        <th>SOCIO</th>
+                        <th>ENTREGADO</th>
 
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [4])) : ?>
-                            <th>OPCIONES</th>
+                            <th></th>
                         <?php endif ?>
                     </tr>
                 </thead>
@@ -139,11 +137,14 @@
                     foreach ($datos['equipaciones'] as $equipacion) : ?>
                         <tr>
                             <td class="datos_tabla"><?php echo $equipacion->id_equipacion ?></td>
-                            <td class="datos_tabla"><?php echo $equipacion->id_usuario ?></td>
-                            <td class="datos_tabla"><?php echo $equipacion->nombre ?></td>
-                            <td class="datos_tabla"><?php echo $equipacion->apellidos ?></td>
-                            <td class="datos_tabla"><?php echo $equipacion->activado ?></td>
-
+                            <td class="datos_tabla"><?php echo $equipacion->nombre . ' ' . $equipacion->apellidos ?></td>
+                            <td class="datos_tabla">
+                                <?php if ($equipacion->entregado) : ?>
+                                    <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
+                                <?php else : ?>
+                                    <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
+                                <?php endif; ?>
+                            </td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [4])) : ?>
                                 <td>
@@ -173,8 +174,8 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <label for="activado">activado</label>
-                                                    <input type="text" name="activado" id="activado" class="form-control form-control-lg" value="<?php echo $equipacion->activado ?>" readonly>
+                                                    <label for="entregado">entregado</label>
+                                                    <input type="text" name="entregado" id="entregado" class="form-control form-control-lg" value="<?php echo $equipacion->entregado ?>" readonly>
                                                     <br>
                                                 </div>
                                             </div>
@@ -219,8 +220,10 @@
                                                         </div>
 
                                                         <div class="mt-3 mb-3">
-                                                            <label for="activado">Activado</label>
-                                                            <input type="text" name="activado" id="activado" class="form-control form-control-lg" value="<?php echo $equipacion->activado ?>">
+                                                            <select name="entregado" id="entregado" class="form-control form-control-lg" value="<?php echo $equipacion->entregado ?>">
+                                                                <option value="0">No entregado</option>
+                                                                <option value="1" <?php if (!$equipacion->entregado) echo "selected" ?>>Entregado</option>
+                                                            </select>
                                                         </div>
 
                                                         <input type="submit" class="btn" value="Confirmar">
