@@ -80,16 +80,26 @@ class Test
                     $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
                     $this->db->bind(':id_test',$testModificado['id_test']);
                     $this->db->bind(':nombreTest', $testModificado['nombreTest']);
-                    $this->db->execute();
+                    if ($this->db->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
 
                 //INSERTAMOS en tabla TEST_PRUEBA
                 foreach($insertar as $insert){  
                     $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
                     $this->db->bind(':id_test',$testModificado['id_test']);
                     $this->db->bind(':id_prueba', $insert);
-                        if(!$this->db->execute()){
-                            return false;
-                        }
+                    $this->db->execute();
+                    if ($this->db->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                        // if(!$this->db->execute()){
+                        //     return false;
+                        // }
                     }   
                     
                //ELIMINAMOS en tabla TEST_PRUEBA
@@ -97,10 +107,18 @@ class Test
                     $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test and id_prueba=:id_prueba");
                     $this->db->bind(':id_test',$testModificado['id_test']);
                     $this->db->bind(':id_prueba', $elim);
-                        if(!$this->db->execute()){
-                            return false;
-                        }
+                    $this->db->execute();
+                    if ($this->db->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                        // if(!$this->db->execute()){
+                        //     return false;
+                        // }
                     }  
+
+
              
     }
 

@@ -201,13 +201,6 @@
                                                     </div>
                                             </div>
                                             
-                                            <!--Footer-->
-                                            <!-- <div id="footerVer">
-                                                <input class="btn" type="button" id="cerrar_<?php echo $test->id_test ?>" onclick="cerrar(<?php echo $test->id_test ?>);" value="Cerrar" >
-                                                <br>
-                                                <br>
-                                            </div>
-                                         -->
 
                                         </div>  
                                     </div> 
@@ -233,7 +226,7 @@
 
                                             <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/editarTest/<?php echo $test->id_test ?>" class="card-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/editarTest/<?php echo $test->id_test?>" class="card-body">
                                                    
                                                      <div class="mt-3 mb-3">
                                                         <label for="id_test">Id de test</label>

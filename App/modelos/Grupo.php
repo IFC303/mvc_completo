@@ -141,21 +141,26 @@ class Grupo
     }
   
 
-    public function cambiarEstadoAlumno($alumnosActuales, $alumnosCero){
+    public function cambiarEstadoAlumno($alumnosActuales, $alumnosCero,$idGrupo){
         var_dump($alumnosActuales);
+        echo "actuales";
         var_dump($alumnosCero);
+        echo "cero";
 
-        foreach($alumnosActuales as $idActuales){
-             $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual");
-             $this->db->bind(':idActual',$idActuales);
-             $this->db->execute();
-        }
+           foreach($alumnosActuales as $idActuales){
+               echo $idActuales;
+                $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual and id_grupo=:idGrupo");
+                $this->db->bind(':idActual',$idActuales);
+                $this->db->bind(':idGrupo',$idGrupo);
+                $this->db->execute();
+           }
    
-        foreach($alumnosCero as $idCero){
-            $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero");
-            $this->db->bind(':idCero',$idCero);
-            $this->db->execute();
-       }
+           foreach($alumnosCero as $idCero){
+               $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero and id_grupo=:idGrupo");
+               $this->db->bind(':idCero',$idCero);
+               $this->db->bind(':idGrupo',$idGrupo);
+               $this->db->execute();
+           }
         
     }
     

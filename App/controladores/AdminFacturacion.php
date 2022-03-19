@@ -43,7 +43,9 @@ class AdminFacturacion extends Controlador{
             $this->datos['ingresosOtros']=$this->facturacionModelo->obtenerIngresosOtros();
             //var_dump($this->datos['ingresosOtros']);
             $this->datos['ingresosCuotas']=$this->facturacionModelo->obtenerIngresosCuotas();
-
+            //todos ingresos participantes
+            $this->datos['todosIngresosParticipantes']=$this->facturacionModelo->todosIngresosParticipantes();
+            //var_dump($this->datos['todosIngresosParticipantes']);
 
             $this->datos['participantes']=$this->facturacionModelo->obtenerParticipante();
             $this->datos['ingresosActividadesSocios']=$this->facturacionModelo->ingresosActividadesSocios();
@@ -82,7 +84,7 @@ class AdminFacturacion extends Controlador{
 
         
         if($_SERVER['REQUEST_METHOD'] =='POST'){
-            //print_r($_POST);
+            print_r($_POST);
 
             if($_POST['tipoSelect']=="otros"){
                     $ingresOtros = [
@@ -113,12 +115,13 @@ class AdminFacturacion extends Controlador{
                     }
 
             }elseif ($_POST['tipoSelect']=="actividades"){
+                
                 $cadena=($_POST['browser2']);  
                 $separador = "-";
                 $separada = explode($separador, $cadena);
                 $id=$separada[0];
 
-                if($separada=="externo"){
+                if($separada[1]=="externo"){
                     $ingresActividadesExterno = [
                     'fecha' => trim($_POST['fecha']),
                     'tipo' => trim($_POST['tipoSelect']),
@@ -128,14 +131,14 @@ class AdminFacturacion extends Controlador{
                     ];
 
                     //var_dump($ingresActividadesExterno);
-                    if($this->facturacionModelo->agregarIngresoActividadesExterno($ingresActividadesExterno,$id)){
-                        redireccionar('/adminFacturacion/ingresos');
-                    }else{
-                        die('Añgo ha fallado!!');
-                    }
+                     if($this->facturacionModelo->agregarIngresoActividadesExterno($ingresActividadesExterno,$id)){
+                         redireccionar('/adminFacturacion/ingresos');
+                     }else{
+                         die('Añgo ha fallado!!');
+                     }
 
                 }else{
-
+ 
                     $ingresActividadesSocio = [
                         'fecha' => trim($_POST['fecha']),
                         'tipo' => trim($_POST['tipoSelect']),
@@ -143,12 +146,14 @@ class AdminFacturacion extends Controlador{
                         'concepto'=>trim($_POST['concepto']),
                         'id_evento'=>($_POST['idEventos']),
                         ];
+                        //var_dump($ingresActividadesSocio);
+                        // echo $id;
     
-                        if($this->facturacionModelo->agregarIngresoActividadesSocio($ingresActividadesSocio,$id)){
-                            redireccionar('/adminFacturacion/ingresos');
-                        }else{
-                            die('Añgo ha fallado!!');
-                        }
+                           if($this->facturacionModelo->agregarIngresoActividadesSocio($ingresActividadesSocio,$id)){
+                               redireccionar('/adminFacturacion/ingresos');
+                           }else{
+                             die('Añgo ha fallado!!');
+                           }
                 }
              
             }
@@ -170,6 +175,8 @@ class AdminFacturacion extends Controlador{
         }
         
     }
+
+
 
     public function borrarIngreso($id){
         $notific = $this->notificaciones();
@@ -193,6 +200,123 @@ class AdminFacturacion extends Controlador{
      }
     
     }
+
+
+    public function editarIngreso($id){
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $this->datos['rolesPermitidos'] = [1];          
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+        //para ingresar en CUOTAS
+        $this->datos['socios']=$this->facturacionModelo->obtenerSocios();
+        $this->datos['ingresosSocios']=$this->facturacionModelo->obtenerIngresosCuotas();
+        //para ingresar en OTROS
+        $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
+        $this->datos['ingresosOtros']=$this->facturacionModelo->obtenerIngresosOtros();
+        //para ingresar en ACTIVIDADES
+        $this->datos['participantes']=$this->facturacionModelo->obtenerParticipante();
+        //var_dump($this->datos['participantes']);
+        $this->datos['eventos']=$this->facturacionModelo->obtenerEventos();
+
+
+        if($_SERVER['REQUEST_METHOD'] =='POST'){
+            //print_r($_POST);
+
+            if($_POST['tipoSelect']=="otros"){
+                    $ingresOtros = [
+                    'fecha' => trim($_POST['fecha']),
+                    'tipo' => trim($_POST['tipoSelect']),
+                    'importe'=> trim($_POST['importe']),
+                    'concepto'=>trim($_POST['concepto']),
+                    'id_entidad'=>($_POST['browser3']),
+                    ];
+                    if($this->facturacionModelo->editarIngresoOtros($ingresOtros,$id)){
+                        redireccionar('/adminFacturacion/ingresos');
+                    }else{
+                        die('Añgo ha fallado!!');
+                    }
+
+            }elseif ($_POST['tipoSelect']=="cuotas"){
+                $ingresCuotas = [
+                 'fecha' => trim($_POST['fecha']),
+                 'tipo' => trim($_POST['tipoSelect']),
+                 'importe'=> trim($_POST['importe']),
+                 'concepto'=>trim($_POST['concepto']),
+                 'id_usuario'=>($_POST['browser']),
+                ];
+                    if($this->facturacionModelo->editarIngresoCuotas($ingresCuotas,$id)){
+                        redireccionar('/adminFacturacion/ingresos');
+                    }else{
+                    die('Añgo ha fallado!!');
+                    }
+
+            }elseif ($_POST['tipoSelect']=="actividades"){
+                
+                $cadena=($_POST['browser2']);  
+                $separador = "-";
+                $separada = explode($separador, $cadena);
+                $id=$separada[0];
+
+                if($separada[1]=="externo"){
+                    $ingresActividadesExterno = [
+                    'fecha' => trim($_POST['fecha']),
+                    'tipo' => trim($_POST['tipoSelect']),
+                    'importe'=> trim($_POST['importe']),
+                    'concepto'=>trim($_POST['concepto']),
+                    'id_evento'=>($_POST['browser4']),
+                    ];
+
+                    //var_dump($ingresActividadesExterno);
+                     if($this->facturacionModelo->editarIngresoActividadesExterno($ingresActividadesExterno,$id)){
+                         redireccionar('/adminFacturacion/ingresos');
+                     }else{
+                         die('Añgo ha fallado!!');
+                     }
+
+                }else{
+ 
+                    $ingresActividadesSocio = [
+                        'fecha' => trim($_POST['fecha']),
+                        'tipo' => trim($_POST['tipoSelect']),
+                        'importe'=> trim($_POST['importe']),
+                        'concepto'=>trim($_POST['concepto']),
+                        'id_evento'=>($_POST['browser4']),
+                        ];
+                        //var_dump($ingresActividadesSocio);
+                        // echo $id;
+    
+                            if($this->facturacionModelo->editarIngresoActividadesSocio($ingresActividadesSocio,$id)){
+                                redireccionar('/adminFacturacion/ingresos');
+                            }else{
+                              die('Añgo ha fallado!!');
+                            }
+                }
+             
+            }
+
+            }else{
+            
+            $this->datos['ingresos'] = (object)[
+                'id_grupo'=>'',
+                'id_usuario'=>'',
+                'nombre'=>'',
+                'tipo'=>'',
+                'precio'=>'',
+                'descuento'=>'',
+                'fecha_ini'=>'',
+                'fecha_fin'=>'',
+            ];  
+            $this->datos["nuevo"]="FACTURACION";
+            $this->vista('administradores/crudFacturacion/ingresos',$this->datos);
+             
+        }
+
+
+    }
+
 
 
 
