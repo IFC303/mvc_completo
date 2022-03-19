@@ -161,8 +161,8 @@
                                     correos.push(casillas[i].value);
                                    // console.log(correos);
                                    } else{
-                                       var indice = casillas[i].value
-                                       //console.log(indice)
+                                      var indice = correos.indexOf(casillas[i].value)
+                                       console.log(indice)
                                        correos.splice(indice,1)
                                    }
                               }
@@ -202,6 +202,7 @@
 
 
 
+                     
                      function quitar(){
                     
                         console.log(correos);

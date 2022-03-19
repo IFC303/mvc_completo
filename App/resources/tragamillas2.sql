@@ -495,7 +495,7 @@ CREATE TABLE PRUEBA_SOCIO(
     constraint FK_id_usuario_prueba_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 CREATE TABLE TEST(
-    id_test int primary key AUTO_INCREMENT,
+    id_test int primary key,
     nombreTest varchar (30)
   );
 INSERT INTO

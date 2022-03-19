@@ -21,7 +21,7 @@ class Test
 
     public function agregarTest($datos,$pruebasSelec){
         
-        $this->db->query("INSERT INTO TEST (nombreTest) VALUES (:idTest, :nombre)");
+        $this->db->query("INSERT INTO TEST (id_test,nombreTest) VALUES (:idTest, :nombre)");
         $this->db->bind(':idTest',$datos['id_test']);
         $this->db->bind(':nombre', $datos['nombreTest']);
         
@@ -39,6 +39,34 @@ class Test
             return false;
         }
     }
+
+
+    public function agregarSoloTest($datos){
+        
+        $this->db->query("INSERT INTO TEST (id_test,nombreTest) VALUES (:idTest, :nombre)");
+        $this->db->bind(':idTest',$datos['id_test']);
+        $this->db->bind(':nombre', $datos['nombreTest']);
+        
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
