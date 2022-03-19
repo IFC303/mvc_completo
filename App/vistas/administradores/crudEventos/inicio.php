@@ -154,7 +154,7 @@
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="tipo">Tipo</label>
-                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->id_usuario?>" readonly>
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>" readonly>
                                                     </div>
                                                 </div>
 
@@ -323,6 +323,13 @@
                                         </div>
                                     </div>
                                     </div>
+
+                                     <!-- PARTICIPANTES -->
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="<?php echo RUTA_URL?>/adminEventos/participantes/<?php echo $evento->id_evento?>">
+                                  <img class="icono" src="<?php echo RUTA_Icon?>grupos.svg"></img>
+                                </a> 
+
                             </td>
                             <?php endif ?>
                         </tr>

@@ -78,23 +78,6 @@ p{
             <div class="row d-flex justify-content-around">
                 <div id="entrenadores" class="col-5" ondragover="sobre(event);" ondrop="suelta2(event);">
 
-
-
-               
-<?php 
-
-// $alum=[];
-
-//  foreach ($datos['alumnos'] as $alumnos){
-//      $alum[]=$alumnos;
-//      }
-//      var_dump($alum);
-     
-
-
-?>
-
-
                     <script>
 
                         let participantes = <?php echo json_encode($datos['entrenadores']);?>;
@@ -142,14 +125,30 @@ p{
                 </div>
             </div>
 
+<?php
+foreach($datos['alumnos'] as $dato){
+    $info [] = $dato->id_usuario;
+}
+var_dump($info);
+
+?>
+
+
+<script>
+    let alumnosCero = <?php echo json_encode($datos['alumnos'])?>;
+    let alumnosUno = new Array ();
+    console.log(alumnosCero)
+    console.log(alumnosUno)
+
+</script>
+
+
+
             <div class="row d-flex justify-content-around">
                 <div id="alumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoCero(event);"> 
                          <script>
-                            let alumnosCero = <?php echo json_encode($datos['alumnos']);?>;
+                                       
                             var alus=document.getElementById("alumnos"); 
-                            //console.log(alumnosCero);
-                            
-                            let participCero = new Array();
 
                              for(var i=0;i<alumnosCero.length;i++){
                                  if((alumnosCero[i]["activo"])==0){
@@ -158,7 +157,7 @@ p{
                                      alu.setAttribute("id",alumnosCero[i].id_usuario);
                                      alu.setAttribute("class","alumno");
                                      alu.setAttribute("draggable",true);
-                                     alu.setAttribute("ondragstart","arrastre(this.id,event);");
+                                     alu.setAttribute("ondragstart","arrastre(event);");
                                      alu.setAttribute("value",alumnosCero[i].id_usuario);
 
                                      var nombre=alumnosCero[i].nombre+" "+ alumnosCero[i].apellidos;
@@ -172,14 +171,12 @@ p{
                         </script> 
                 </div>
                 
-                <div id="cajaAlumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoUno(event,this.id);" >  
+                <div id="cajaAlumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoUno(event);" >  
                 
                              <script>
-                                    let alumnosUno = <?php echo json_encode($datos['alumnos']);?>;
-                                    //console.log(alumnosUno);
-                                    var alusUno=document.getElementById("cajaAlumnos"); 
-                                    let participUno = new Array();
-                                  
+                                   
+                                var alusUno=document.getElementById("cajaAlumnos"); 
+                                         
 
                                 for(var i=0;i<alumnosUno.length;i++){
                                     if((alumnosUno[i]["activo"])==1){
@@ -188,7 +185,7 @@ p{
                                         aluUno.setAttribute("id",alumnosUno[i].id_usuario);
                                         aluUno.setAttribute("class","alumno");
                                         aluUno.setAttribute("draggable",true);
-                                        aluUno.setAttribute("ondragstart","arrastre(this.id,event);");
+                                        aluUno.setAttribute("ondragstart","arrastre(event);");
                                         aluUno.setAttribute("value",alumnosUno[i].id_usuario);
 
                                         var nombre=alumnosUno[i].nombre+" "+ alumnosUno[i].apellidos;
@@ -209,9 +206,8 @@ p{
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual" value="">
                 <input type="hidden" id="entrenadorCero" name="entrenadorCero" value="">
 
-                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">    
-                                      
-                <input type="hidden" id="alumnosCero" name="alumnosCero" value="<?php echo json_encode($alum)?>">
+                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">                             
+                <input type="hidden" id="alumnosCero" name="alumnosCero" value="">
 
                 <?php $idGrupo=($datos['id_grupo'])?>
                 <input type="hidden" id="idGrupo" name="idGrupo" value="<?php echo $idGrupo?>">
@@ -229,33 +225,15 @@ p{
             </form>
     </div>
 
-    <script>       
-
-
-        //let alumnCero = new Array()
-        // let alumnCero = 
-        // var aluCero=document.getElementById('alumnosCero');
-        // arrayAlum = new Array()
-        // for(let i=0; i < alumnCero.length;i++){
-        //     //
-        //     arrayAlum.push(alumnCero[i]);
-            
-        //     // aluCero.value = JSON.stringify(alumnCero[i])
-        //     console.log(alumnCero[i])
-        // }
-        // aluCero.setAttribute('value',JSON.stringify(arrayAlum));
-        
-    </script> 
-
     </div>
 
 
     <script>
 
         
-        function arrastre(id,ev) {
-            var id=document.getElementById(id);
-            console.log(id);
+        function arrastre(ev) {
+            //var id=document.getElementById(id);
+            //console.log(id);
             ev.dataTransfer.setData('Data',ev.target.id);
         }  
 
@@ -315,39 +293,50 @@ p{
 
         //***********CAJAS ALUMNOS**************
 
-        function alumnoUno(ev,id){
+        function alumnoUno(ev){
 
             var caja=document.getElementById("cajaAlumnos");
-            var numero = caja.getElementsByTagName('div').length;
+            //var numero = caja.getElementsByTagName('div').length;
             //console.log(numero);
             
+        
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
+            //console.log(dato);
             var clase=document.getElementById(dato);
             //console.log(clase);
 
-           if(clase.className=="alumno"){ 
+          
+            for(var i=0; i<alumnosCero.length;i++){
+                    alumnosCero.push(alumnosCero[i])
+                }
+            //console.log(alumnoCero);
+            
 
-                caja.appendChild(document.getElementById(dato)); 
-                
-                    participUno.push(dato);
-                    
-                   
-                //   for(var i=0; i<participCero.length;i++){
-                //       if(participCero[i]==dato){
-                //          participCero.splice(i,1);
-     
-                //     }
-                // } 
+           if(clase.className=="alumno"){ 
+                caja.appendChild(document.getElementById(dato));    
+                    alumnosUno.push(dato);
+                      
+                   for(var i=0; i<alumnosCero.length;i++){
+                       //console.log(alumnosCero[i])
+                       if(alumnosCero[i]==dato){
+                          alumnosCero.splice(i,1);
+                     }
+                 } 
+                 console.log("alumnos cero")
+                 console.log(alumnosCero);
+                 console.log("alumnos uno")
+                 console.log(alumnosUno);
+
 
                 //para que no mande string
-                var participaUno = JSON.stringify(participUno); console.log(participUno + " uno");
-                var part=document.getElementById("alumnosActuales");
-                part.setAttribute("value",participaUno);
+                //var participaUno = JSON.stringify(alumnosUno); 
+                //var partUno=document.getElementById("alumnosActuales");
+                //partUno.setAttribute("value",alumnosUno);
 
-                 var participaCero = JSON.stringify(participCero); console.log(participCero+ " cero ");
-                 var partCero=document.getElementById("alumnosCero");
-                 partCero.setAttribute("value",participaCero);
+                 //var participaCero = JSON.stringify(alumnosCero); 
+                // var partCero=document.getElementById("alumnosCero");
+                // partCero.setAttribute("value",alumnoCero);
                 
            }else{
                alert("No se puede añadir mas de un entrenador a un grupo");
@@ -358,37 +347,50 @@ p{
         function alumnoCero(ev){
 
             var caja=document.getElementById("alumnos");
-            var numero = caja.getElementsByTagName('div').length;
+            //var numero = caja.getElementsByTagName('div').length;
             //console.log(numero);
 
             ev.preventDefault();
             var dato=ev.dataTransfer.getData('Data');
+            //console.log(dato);
             var clase=document.getElementById(dato);
             //console.log(dato);
 
             if(clase.className=="alumno"){
-                var caja=document.getElementById("alumnos");   
                 caja.appendChild(document.getElementById(dato));
+                //console.log(dato);
 
-                for(var i=0; i<participUno.length;i++){
-                    if(participUno[i]==dato){
-                        //var cero=participUno[i];
-                        participCero.push(dato);
-                        console.log(participCero);
-                        participUno.splice(i,1);
-                        console.log(participUno);
-                    }
+
+
+                 for(var i=0;i<alumnosUno.length;i++){
+                     //console.log(alumnosUno[i])
+                     if(alumnosUno[i]==dato){
+                       alumnosUno.splice(i,1)
+                     }   
+                 } 
+
+                alumnCero.push(dato);
+                //alumnosCero.push(dato)
+                console.log("alumnos Cero")
+                console.log(alumnosCero); 
+                console.log("alumnos Uno")
+                console.log(alumnosUno);
+                
+                //console.log("valor alumnos uno");
+                //console.log(alumnosUno);
+               // console.log(alumnosUno);
+
                     //para que no mande string
-                    var participaUno = JSON.stringify(participUno); console.log(participUno + " uno");
-                    //var part=document.getElementById("alumnosActuales");
-                    //part.setAttribute("value",participaUno);
+                    //var participaUno = JSON.stringify(alumnosUno); 
+                    //var partUno=document.getElementById("alumnosActuales");
+                    //partUno.setAttribute("value",participaUno);
 
                      //para que no mande string
-                    var participaCero = JSON.stringify(participCero); console.log(participCero+ " cero ");
-                    //var partCero=document.getElementById("alumnosCero");
-                   // partCero.setAttribute("value",participaCero);
+                    //var participaCero = JSON.stringify(alumnosCero); 
+                   // var partCero=document.getElementById("alumnosCero");
+                   //partCero.setAttribute("value",participaCero);
 
-                }
+                
             }else{
                 alert ("no se puede");
             }

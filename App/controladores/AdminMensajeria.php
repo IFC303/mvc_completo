@@ -34,6 +34,10 @@ class AdminMensajeria extends Controlador
         return $notific;
     }
 
+
+
+
+
     public function index(){
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
@@ -47,6 +51,9 @@ class AdminMensajeria extends Controlador
 
         $this->vista('administradores/mensajeria',$this->datos);
     }
+
+
+
 
     public function enviar(){
         $notific = $this->notificaciones();
@@ -63,40 +70,46 @@ class AdminMensajeria extends Controlador
             echo print_r($destinatario);   
 
             $asunto = ($_POST['asunto']);
+            echo $asunto;
             $mensaje =($_POST['mensaje']);
+            echo $mensaje;
     
-            try {
-            //  Configuracion SMTP
-                $mail->SMTPDebug =2;
-                $mail->isSMTP();                                       // Activar envio SMTP
-                $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
-                $mail->SMTPAuth  = true;                               // Identificacion SMTP
-                $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
-                $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port  = 587;
+             try {
+            // //  Configuracion SMTP
+                // $mail->SMTPDebug =2;
+                 $mail->isSMTP();                                       // Activar envio SMTP
+                 $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
+                 $mail->SMTPAuth  = true;                               // Identificacion SMTP
+                 $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
+                 $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
+                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                 $mail->Port  = 587;
                 
-            // CONFIGURACION CORREO
-                $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
+            // // CONFIGURACION CORREO
+                 $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
 
-                foreach($destinatario as $correo){
-                    echo $correo ."<br>";
-                     $mail->addAddress($correo); // Email destinatario
-                }
+                 foreach($destinatario as $correo){
+                     echo $correo ."<br>";
+                      $mail->addAddress($correo); // Email destinatario
+                 }
                   
-                $mail->isHTML(true);
-                $mail->Subject = $asunto;
-                $mail->Body  = $mensaje;
-                $mail->send();
+                 $mail->isHTML(true);
+                 $mail->Subject = $asunto;
+                 $mail->Body  = $mensaje;
+                 $mail->send();
 
-                
-                redireccionar('/entrenador/mensajeria');
-                echo 'El mensaje se ha enviado';
-            } catch (Exception $e) {
-                echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
-            }
+                 
+                 echo '<script type="text/javascript">alert("Mensaje enviado correctamente");
+                    window.location.assign("adminMensajeria/mensajeria.php");
+                    </script>'; 
+ 
+             } catch (Exception $e) {
+                 echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+             }
 
         }
+
+        //redireccionar('/adminMensajeria/mensajeria');
             
     }
 

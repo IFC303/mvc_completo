@@ -116,8 +116,6 @@ class AdminEventos extends Controlador{
                     'fecha_fin_inscrip' => trim($_POST['fecha_fin_inscrip']),  
                 ];
    
-             
-
                  if ($this->eventoModelo->editarEvento($evento_modificado)) {
                      redireccionar('/adminEventos');
                  }else{
@@ -129,12 +127,25 @@ class AdminEventos extends Controlador{
         }
 
 
-
-
-
 }
 
 
+
+        public function participantes($id_evento)
+        {
+            $notific = $this->notificaciones();
+            $this->datos['notificaciones'] = $notific;
+    
+            // $this->datos['entrenadores'] = $this->grupoModelo->obtenerEntrenador();
+            // $this->datos['entrenadoresGrupo'] = $this->grupoModelo->obtenerEntrenadorGrupo();
+            // //var_dump($this->datos['entrenadores']);
+            // //var_dump($this->datos['entrenadoresGrupo']);
+            // $this->datos['alumnos'] = $this->grupoModelo->obtenerAlumnos($id_grupo);
+            // $this->datos['id_grupo'] = $id_grupo;
+            // $this->datos['ids_alunnos'] = [];
+    
+            $this->vista('administradores/crudEventos/participantes', $this->datos);
+        }
 
 
 

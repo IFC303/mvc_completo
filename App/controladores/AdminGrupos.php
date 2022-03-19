@@ -328,16 +328,17 @@ class AdminGrupos extends Controlador
         $this->vista('administradores/crudGrupos/participantes', $this->datos);
     }
 
-                    $alumnosActuales=json_decode($_POST['alumnosActuales']);
-                    $alumnosCero=json_decode($_POST['alumnosCero']);
-                    var_dump($alumnosActuales);
-                    var_dump($alumnosCero);
-                    $this->grupoModelo->cambiarEstadoAlumno($alumnosActuales,$alumnosCero);
-
-    public function nueva_clase()
-    {
+                   
+    public function nueva_clase(){
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
+
+
+        $this->datos['rolesPermitidos'] = [1];
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
 
                      //DATOS ATLETAS (tabla SOCIO_GRUPO)
                 //      if($_POST['alumnosActuales']!=null){
@@ -345,16 +346,22 @@ class AdminGrupos extends Controlador
                          
                 //      }
                 //   redireccionar('/adminGrupos');
-              }
-        }
+              //}
+        //}
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //var_dump($_POST);
 
+            $idGrupo=($_POST['idGrupo']);
+            //echo $idGrupo;
             $alumnosActuales = json_decode($_POST['alumnosActuales']);
+            //echo "actuales";
+            var_dump($alumnosActuales);
+            
             $alumnosCero = json_decode($_POST['alumnosCero']);
-            //var_dump($alumnosActuales);
-            //var_dump($alumnosCero);
-            $this->grupoModelo->cambiarEstadoAlumno($alumnosActuales, $alumnosCero);
+            //echo "cero";
+            var_dump($alumnosCero);
+            //$this->grupoModelo->cambiarEstadoAlumno($alumnosActuales, $alumnosCero,$idGrupo);
 
             //     //DATOS ENTRENADOR (tabla ENTRENADOR_GRUPO)
             //      if($_POST['entrenadorActual']!=null){

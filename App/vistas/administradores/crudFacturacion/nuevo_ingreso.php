@@ -37,7 +37,7 @@
 
 
         <!--FORMULARIO AÑADIR-->
-        <form action="<?php echo RUTA_URL ?>/adminFacturacion/nuevoIngreso" method="post" class="card-body">
+        <form  method="post" class="card-body">
 
                 <div class="row">
                     <div class="col-6">
@@ -54,13 +54,6 @@
                     <input type="date" name="fecha" id="fecha" class="form-control form-control-lg">
                 </div>
                 <div class="col-6 mt-3 mb-3">    
-                   <!-- <input class="form-control" list="browsers2" name="browser2" id="browser2">
-                    <datalist id="browsers2" name="tipo" id="tipo">
-                        <option value="Cuotas" name="cuotas" id="cuotas"></option>
-                        <option value="Actividades" name="actividades" id="actividades"></option>
-                        <option value="Otros" name="otros" id="otros"></option>
-                    </datalist>  
-                    <input type="hidden" value="" name="selec">     -->
                     <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect" onchange="opciones()" required >
                         <option value="">-- Selecciona un tipo de ingreso --</option>
                         <option value="cuotas">Cuotas</option>
@@ -85,8 +78,6 @@
                     <label for="browser" class="form-label">Entidades<sup>*</sup></label>
                 </div> 
             </div>
-
-
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
@@ -156,7 +147,7 @@
             <div class="row">
                 <div class="col-3">
                     <input type="submit" class="btn" value="Confirmar">
-                    <a href="<?php echo RUTA_URL?>/adminFacturacion">
+                    <a href="<?php echo RUTA_URL?>/adminFacturacion/ingresos">
                         <input type="button" class="btn" id="botonVolver" value="Volver">  
                     </a>
                 </div>
