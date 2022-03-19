@@ -85,5 +85,89 @@ class Evento{
 
 
 
+    public function obtenerParticipantesEventos($id){
+        $this->db->query("SELECT EVENTO.id_evento,EVENTO.nombre,'Externo' as tipo,EXTERNO.id_externo as id_usuario, EXTERNO.nombre, EXTERNO.apellidos, EXTERNO.dni, EXTERNO.email, EXTERNO.dorasl as dorsal, EXTERNO.marca
+        from EVENTO, EXTERNO where EVENTO.id_evento=EXTERNO.id_evento and EVENTO.id_evento=:id
+        union
+        SELECT EVENTO.id_evento,EVENTO.nombre,'Socio' as tipo,USUARIO.id_usuario as id_usuario, USUARIO.nombre, USUARIO.apellidos, USUARIO.dni,USUARIO.email, SOCIO_EVENTO.dorsal, SOCIO_EVENTO.marca
+        from EVENTO, USUARIO,SOCIO_EVENTO where USUARIO.id_usuario=SOCIO_EVENTO.id_usuario and EVENTO.id_evento=SOCIO_EVENTO.id_evento and EVENTO.id_evento=:id");
+        $this->db->bind(':id',$id);
+        return $this->db->registros();
+    }
+
+
+    public function guardarMarcasExterno($info){
+        //var_dump($info);
+        //echo $info[0];
+        
+                 $this->db->query("UPDATE EXTERNO SET dorasl=:dorsal,marca=:marca WHERE id_externo = :id_externo and id_evento=:id_evento");
+                 $this->db->bind(':dorsal', $info['dorsal']);
+                 $this->db->bind(':marca', $info['marca']);
+                 $this->db->bind(':id_externo',$info[0]);
+                 $this->db->bind(':id_evento',$info['id_evento']);
+
+                 if ($this->db->execute()){
+                     return true;
+                 }else{
+                     return false;
+                 }
+                        
+    }
+
+    
+    public function guardarMarcasSocio($info){
+        //var_dump($info);
+        //echo $info[0];
+
+                 $this->db->query("UPDATE SOCIO_EVENTO SET dorsal=:dorsal,marca=:marca WHERE id_usuario = :id_usuario and id_evento=:id_evento");
+                 $this->db->bind(':dorsal', $info['dorsal']);
+                 $this->db->bind(':marca', $info['marca']);
+                 $this->db->bind(':id_usuario',$info[0]);
+                 $this->db->bind(':id_evento',$info['id_evento']);
+
+                    if ($this->db->execute()){
+                        return true;
+                    }else{
+                        return false;
+                    }
+            
+    }
+
+
+
+    public function borrarMarcasExterno($info){
+        
+                 $this->db->query("DELETE FROM EXTERNO WHERE id_externo = :id_externo and id_evento=:id_evento");
+                 $this->db->bind(':id_externo',$info[0]);
+                 $this->db->bind(':id_evento',$info['id_evento']);
+
+                 if ($this->db->execute()){
+                     return true;
+                 }else{
+                     return false;
+                 }
+                        
+    }
+
+
+
+    
+    public function borrarMarcasSocio($info){
+ 
+                 $this->db->query("DELETE FROM SOCIO_EVENTO WHERE id_usuario = :id_usuario and id_evento=:id_evento");
+                 $this->db->bind(':id_usuario',$info[0]);
+                 $this->db->bind(':id_evento',$info['id_evento']);
+
+                    if ($this->db->execute()){
+                        return true;
+                    }else{
+                        return false;
+                    }
+            
+    }
+
+
+
+
 }
 

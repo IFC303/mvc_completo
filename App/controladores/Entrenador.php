@@ -102,22 +102,35 @@ class Entrenador extends Controlador{
                             'id_test' => trim($_POST['id_test']),
                             'nombreTest' => trim($_POST['nombreTest']),
                         ];
-                        if ($this->testModelo->agregarTest($testNuevo,$_POST['id_prueba'])) {
-                            redireccionar('/entrenador/test');
-                        }else{
-                            die('Algo ha fallado!!!');
-                        }
-                    } else{
-                        $this->datos['test'] = (object) [
-                            'id_test' => '',
-                            'nombreTest' => '',
-                        ];
-                        //obtenemos los test
-                        $this->datos['listaTest'] = $this->testModelo->obtenerTest();
-                        //obtenemos las pruebas y lo guardamos en datos['pruebas']
-                        $prueba = $this->pruebaModelo->obtenerPruebas();
-                        $this->datos['pruebas'] = $prueba;
-                        $this->vista('entrenadores/nuevo_test', $this->datos);
+                        //var_dump($_POST['id_prueba']);
+
+                            if(isset($_POST['id_prueba'])){
+                                if ($this->testModelo->agregarTest($testNuevo,$_POST['id_prueba'])) {
+                                    redireccionar('/entrenador/test');
+                                }else{
+                                    die('Algo ha fallado!!!');
+                                }
+                            }else{
+                                if ($this->testModelo->agregarSoloTest($testNuevo)) {
+                                    redireccionar('/entrenador/test');
+                                }else{
+                                    die('Algo ha fallado!!!');
+                                }
+                            }
+
+
+                            
+                     } else{
+                         $this->datos['test'] = (object) [
+                             'id_test' => '',
+                             'nombreTest' => '',
+                         ];
+                         //obtenemos los test
+                         $this->datos['listaTest'] = $this->testModelo->obtenerTest();
+                         //obtenemos las pruebas y lo guardamos en datos['pruebas']
+                         $prueba = $this->pruebaModelo->obtenerPruebas();
+                         $this->datos['pruebas'] = $prueba;
+                         $this->vista('entrenadores/nuevo_test', $this->datos);
                     }
             }
 
