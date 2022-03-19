@@ -175,7 +175,7 @@
 
                                                 <div class="col-12">
                                                     <label for="entregado">entregado</label>
-                                                    <input type="text" name="entregado" id="entregado" class="form-control form-control-lg" value="<?php echo $equipacion->entregado ?>" readonly>
+                                                    <input type="text" name="entregado" id="entregado" class="form-control form-control-lg" value="<?php if ($equipacion->entregado) echo "SI"; else echo "NO" ?>" readonly>
                                                     <br>
                                                 </div>
                                             </div>
