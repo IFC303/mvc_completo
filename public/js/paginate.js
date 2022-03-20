@@ -258,7 +258,7 @@
                 for ($i = $j, $ii = 0; $i < rowCount; $i++, $ii++)
                     tr[$ii] = table.rows[$i].outerHTML;
                 // Contenedor de los botones "paginate_controls"
-                table.insertAdjacentHTML("afterend", "<div id='buttons' class='paginate paginate_controls'></div");
+                table.insertAdjacentHTML("afterend", "<div id='buttons' class='input-group paginate paginate_controls'></div");
                 // Inicializando la tabla en la pagina 1
                 _lignePaginate.sort(1);
             } else {

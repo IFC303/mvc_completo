@@ -65,7 +65,7 @@
 
         .tabla {
             border: solid 1px #023ef9;
-            width: 100%;
+            width: 75%;
             margin: auto;
         }
 
@@ -114,14 +114,15 @@
         <div class="panel">
             <div class="body">
                 <div class="input-group">
-                    <label for="searchBox">Filtrar</label>
-                    <input type="search" id="searchBox" placeholder="Filtrar...">
+                    <div class="form-outline">
+                        <input type="search" id="searchBox" placeholder="Filtrar..." class="form-control"><br>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="tabla">
-            <table class="table table-hover">
+            <table class="table table-hover" style="margin-bottom: 0px;">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -133,116 +134,115 @@
                         <?php endif ?>
                     </tr>
                 </thead>
+                <table class="myTable table table-hover" style="margin-bottom: 0px;">
+                    <tbody class="myTable table-light">
+                        <?php foreach ($datos['equipaciones'] as $equipacion) : ?>
+                            <tr>
+                                <td class="datos_tabla"><?php echo $equipacion->id_equipacion ?></td>
+                                <td class="datos_tabla"><?php echo $equipacion->nombre . ' ' . $equipacion->apellidos ?></td>
+                                <td class="datos_tabla">
+                                    <?php if ($equipacion->entregado) : ?>
+                                        <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
+                                    <?php else : ?>
+                                        <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
+                                    <?php endif; ?>
+                                </td>
 
-                <tbody class="myTable table-light">
-                    <?php foreach ($datos['equipaciones'] as $equipacion) : ?>
-                        <tr>
-                            <td class="datos_tabla"><?php echo $equipacion->id_equipacion ?></td>
-                            <td class="datos_tabla"><?php echo $equipacion->nombre . ' ' . $equipacion->apellidos ?></td>
-                            <td class="datos_tabla">
-                                <?php if ($equipacion->entregado) : ?>
-                                    <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
-                                <?php else : ?>
-                                    <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
-                                <?php endif; ?>
-                            </td>
+                                <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [4])) : ?>
+                                    <td>
 
-                            <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [4])) : ?>
-                                <td>
+                                        <!--MODAL VER (javascript)-->
+                                        <img class="icono" id="btnModal_<?php echo $equipacion->id_equipacion ?>" src="<?php echo RUTA_Icon ?>ojo.svg" onclick="abrir(<?php echo $equipacion->id_equipacion ?>);"></img>
 
-                                    <!--MODAL VER (javascript)-->
-                                    <img class="icono" id="btnModal_<?php echo $equipacion->id_equipacion ?>" src="<?php echo RUTA_Icon ?>ojo.svg" onclick="abrir(<?php echo $equipacion->id_equipacion ?>);"></img>
+                                        <!--Ventana-->
+                                        <div id="<?php echo $equipacion->id_equipacion ?>" class="modalVer">
+                                            <div class="modal-content">
 
-                                    <!--Ventana-->
-                                    <div id="<?php echo $equipacion->id_equipacion ?>" class="modalVer">
-                                        <div class="modal-content">
-
-                                            <!--Header-->
-                                            <div id="headerVer" class="row">
-                                                <h2 class="col-11">Datos del usuario de la equipación</h2>
-                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $equipacion->id_equipacion ?>" onclick="cerrar(<?php echo $equipacion->id_equipacion ?>);">
-                                            </div>
-                                            <hr>
+                                                <!--Header-->
+                                                <div id="headerVer" class="row">
+                                                    <h2 class="col-11">Datos del usuario de la equipación</h2>
+                                                    <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $equipacion->id_equipacion ?>" onclick="cerrar(<?php echo $equipacion->id_equipacion ?>);">
+                                                </div>
+                                                <hr>
 
 
-                                            <!--Body-->
-                                            <div id="bodyVer" class="row m-3">
+                                                <!--Body-->
+                                                <div id="bodyVer" class="row m-3">
 
-                                                <div class="col-12">
-                                                    <label for="id_usuario">id_usuario</label>
-                                                    <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $equipacion->id_usuario ?>" readonly>
-                                                    <br>
+                                                    <div class="col-12">
+                                                        <label for="id_usuario">id_usuario</label>
+                                                        <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $equipacion->id_usuario ?>" readonly>
+                                                        <br>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <label for="talla">TALLA</label>
+                                                        <input type="text" name="talla" id="talla" class="form-control form-control-lg" value="<?php echo $equipacion->talla; ?>" readonly>
+                                                        <br>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-12">
-                                                    <label for="talla">TALLA</label>
-                                                    <input type="text" name="talla" id="talla" class="form-control form-control-lg" value="<?php echo $equipacion->talla; ?>" readonly>
-                                                    <br>
-                                                </div>
-                                            </div>
-
-                                            <!--Footer-->
-                                            <!-- <div id="footerVer">
+                                                <!--Footer-->
+                                                <!-- <div id="footerVer">
                                                 <input class="btn" type="button" id="cerrar_<?php echo $equipacion->id_usuario ?>" onclick="cerrar(<?php echo $equipacion->id_usuario ?>);" value="Cerrar" >
                                                 <br>
                                                 <br>
                                             </div>
                                          -->
 
+                                            </div>
                                         </div>
-                                    </div>
 
 
 
-                                    <!-- MODAL EDITAR -->
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $equipacion->id_usuario ?>">
-                                        <img class="icono" src="<?php echo RUTA_Icon ?>editar.svg"></img>
-                                    </a>
+                                        <!-- MODAL EDITAR -->
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $equipacion->id_usuario ?>">
+                                            <img class="icono" src="<?php echo RUTA_Icon ?>editar.svg"></img>
+                                        </a>
 
-                                    <!-- Ventana -->
-                                    <div class="modal" id="ModalEditar_<?php echo $equipacion->id_usuario ?>">
-                                        <div class="modal-dialog modal-xl modal-dialog-centered">
-                                            <div class="modal-content" id="modalEditar">
+                                        <!-- Ventana -->
+                                        <div class="modal" id="ModalEditar_<?php echo $equipacion->id_usuario ?>">
+                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                <div class="modal-content" id="modalEditar">
 
-                                                <!-- Header -->
-                                                <div class="modal-header">
-                                                    <h2 class="modal-title">Edicion de Equipacion</h2>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
+                                                    <!-- Header -->
+                                                    <div class="modal-header">
+                                                        <h2 class="modal-title">Edicion de Equipacion</h2>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
 
-                                                <!-- Body -->
-                                                <div class="modal-body">
-                                                    <form method="post" action="<?php echo RUTA_URL ?>/tienda/editarEquipacion/<?php echo $equipacion->id_usuario ?>" class="card-body">
+                                                    <!-- Body -->
+                                                    <div class="modal-body">
+                                                        <form method="post" action="<?php echo RUTA_URL ?>/tienda/editarEquipacion/<?php echo $equipacion->id_usuario ?>" class="card-body">
 
-                                                        <div class="mt-3 mb-3">
-                                                            <label for="id_usuario">Id de usuario</label>
-                                                            <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $equipacion->id_usuario ?>" readonly>
-                                                        </div>
+                                                            <div class="mt-3 mb-3">
+                                                                <label for="id_usuario">Id de usuario</label>
+                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $equipacion->id_usuario ?>" readonly>
+                                                            </div>
 
-                                                        <div class="mt-3 mb-3">
-                                                            <select name="entregado" id="entregado" class="form-control form-control-lg" value="<?php echo $equipacion->entregado ?>">
-                                                                <option value="0">No entregado</option>
-                                                                <option value="1" <?php if (!$equipacion->entregado) echo "selected" ?>>Entregado</option>
-                                                            </select>
-                                                        </div>
+                                                            <div class="mt-3 mb-3">
+                                                                <select name="entregado" id="entregado" class="form-control form-control-lg" value="<?php echo $equipacion->entregado ?>">
+                                                                    <option value="0">No entregado</option>
+                                                                    <option value="1" <?php if (!$equipacion->entregado) echo "selected" ?>>Entregado</option>
+                                                                </select>
+                                                            </div>
 
-                                                        <input type="submit" class="btn" value="Confirmar">
-                                                    </form>
+                                                            <input type="submit" class="btn" value="Confirmar">
+                                                        </form>
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                </td>
-                            <?php endif ?>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
+                                    </td>
+                                <?php endif ?>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             </table>
-
-
         </div>
     </div>
 
