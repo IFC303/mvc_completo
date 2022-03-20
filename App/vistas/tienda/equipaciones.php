@@ -108,8 +108,6 @@
 </head>
 
 <body>
-
-
     <div class="container">
         <div class="tabla">
             <table class="table table-hover">
@@ -175,7 +173,8 @@
 
                                                 <div class="col-12">
                                                     <label for="entregado">entregado</label>
-                                                    <input type="text" name="entregado" id="entregado" class="form-control form-control-lg" value="<?php if ($equipacion->entregado) echo "SI"; else echo "NO" ?>" readonly>
+                                                    <input type="text" name="entregado" id="entregado" class="form-control form-control-lg" value="<?php if ($equipacion->entregado) echo "SI";
+                                                                                                                                                    else echo "NO" ?>" readonly>
                                                     <br>
                                                 </div>
                                             </div>
@@ -245,12 +244,7 @@
             <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
 
         </div>
-
-
-
     </div>
-
-
 
     <script>
         function abrir(idModal) {
