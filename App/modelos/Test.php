@@ -18,55 +18,30 @@ class Test
     }
 
 
-
-    public function agregarTest($datos,$pruebasSelec){
-        
-        $this->db->query("INSERT INTO TEST (id_test,nombreTest) VALUES (:idTest, :nombre)");
-        $this->db->bind(':idTest',$datos['id_test']);
-        $this->db->bind(':nombre', $datos['nombreTest']);
-        
-        if ($this->db->execute()) {
-            foreach($pruebasSelec as $selected){  
-                $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:idTest, :idPrueba)");
-                $this->db->bind(':idTest',$datos['id_test']);
-                $this->db->bind(':idPrueba', $selected);
-                    if(!$this->db->execute()){
-                        return false;
-                    }
-            }   
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
     public function agregarSoloTest($datos){
         
-        $this->db->query("INSERT INTO TEST (id_test,nombreTest) VALUES (:idTest, :nombre)");
-        $this->db->bind(':idTest',$datos['id_test']);
+        $this->db->query("INSERT INTO TEST (nombreTest) VALUES (:nombre)");
         $this->db->bind(':nombre', $datos['nombreTest']);
         
-        if ($this->db->execute()) {
-            return true;
-        } else {
+        if ($this->db->execute()){
+            return $this->db->ultimoIndice();
+        }else{
             return false;
         }
     }
 
 
+    public function agregarTodo($indice,$pruebasSelec){
 
+              foreach($pruebasSelec as $selected){  
+                  $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:idTest, :idPrueba)");
+                  $this->db->bind(':idTest',$indice);
+                  $this->db->bind(':idPrueba', $selected);
+                  $this->db->execute();
+              }
 
-
-
-
-
-
-
-
-
-
-
+              return true;
+    }
 
 
 
@@ -91,9 +66,6 @@ class Test
         $this->db->query("DELETE FROM TEST WHERE id_test = :id");
         $this->db->bind(':id', $id);
 
-        // $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_prueba = :id_prueba AND id_test=:id" );
-        // $this->db->bind(':id_prueba', $id_);
-
         if ($this->db->execute()) {
             return true;
         } else {
@@ -103,53 +75,33 @@ class Test
 
 
     public function modificarTest($eliminar,$insertar,$testModificado){
+        //var_dump($testModificado);
         
                 //actualizamos tabla TEST (nombre)
                     $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
                     $this->db->bind(':id_test',$testModificado['id_test']);
                     $this->db->bind(':nombreTest', $testModificado['nombreTest']);
-                    if ($this->db->execute()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-
-                //INSERTAMOS en tabla TEST_PRUEBA
-                foreach($insertar as $insert){  
-                    $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
-                    $this->db->bind(':id_test',$testModificado['id_test']);
-                    $this->db->bind(':id_prueba', $insert);
                     $this->db->execute();
-                    if ($this->db->execute()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                        // if(!$this->db->execute()){
-                        //     return false;
-                        // }
-                    }   
-                    
-               //ELIMINAMOS en tabla TEST_PRUEBA
-                foreach($eliminar as $elim){  
-                    $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test and id_prueba=:id_prueba");
-                    $this->db->bind(':id_test',$testModificado['id_test']);
-                    $this->db->bind(':id_prueba', $elim);
-                    $this->db->execute();
-                    if ($this->db->execute()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                        // if(!$this->db->execute()){
-                        //     return false;
-                        // }
-                    }  
+                  
 
-
-             
+                 //INSERTAMOS en tabla TEST_PRUEBA
+                 foreach($insertar as $insert){  
+                     $this->db->query("INSERT INTO TEST_PRUEBA (id_test,id_prueba) VALUES (:id_test, :id_prueba)");
+                     $this->db->bind(':id_test',$testModificado['id_test']);
+                     $this->db->bind(':id_prueba', $insert);
+                     $this->db->execute();
+                 }
+                 
+                //ELIMINAMOS en tabla TEST_PRUEBA
+                  foreach($eliminar as $elim){  
+                     $this->db->query("DELETE FROM TEST_PRUEBA WHERE id_test=:id_test and id_prueba=:id_prueba");
+                     $this->db->bind(':id_test',$testModificado['id_test']);
+                     $this->db->bind(':id_prueba', $elim);
+                     $this->db->execute();
+                  }
+     
+                    return true;    
     }
-
 
 
 

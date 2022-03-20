@@ -165,6 +165,9 @@ class Grupo
     }
     
 
+
+
+///ENTRENADOR
     
     public function obtenerTestPruebas(){
         $this->db->query("SELECT TEST_PRUEBA.id_test, TEST_PRUEBA.id_prueba, TEST.nombreTest, PRUEBA.nombrePrueba, PRUEBA.tipo 
@@ -172,6 +175,37 @@ class Grupo
         $this->db->execute();
         return $this->db->registros();
     }
+
+
+    //todos los socios de los grupos de un UNICO ENTRENADOR
+    public function todosSociosGrupos($id_entrenador){
+        $this->db->query("SELECT CATEGORIA.id_categoria, CATEGORIA.nombre as nombre_categoria, USUARIO.id_usuario, USUARIO.nombre, USUARIO.apellidos,
+                        GRUPO.id_grupo,GRUPO.nombre as nombre_grupo,
+                        ENTRENADOR_GRUPO.id_usuario as id_entrenador
+                        from USUARIO,CATEGORIA,CATEGORIA_SOCIO,GRUPO,SOCIO_GRUPO, ENTRENADOR_GRUPO
+                        where CATEGORIA_SOCIO.id_categoria=CATEGORIA.id_categoria and CATEGORIA_SOCIO.id_usuario=USUARIO.id_usuario 
+                        and SOCIO_GRUPO.id_grupo=GRUPO.id_grupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario
+                        and ENTRENADOR_GRUPO.id_usuario=:id_entrenador and ENTRENADOR_GRUPO.id_grupo=GRUPO.id_grupo");
+                        $this->db->bind(':id_entrenador',$id_entrenador);
+                        $this->db->execute();
+                        return $this->db->registros();
+    }
+
+    
+    //todos los grupos de un UNICO ENTRENADOR
+    public function todosEntrenadoresGrupos($id_entrenador){
+        $this->db->query("SELECT GRUPO.id_grupo, GRUPO.nombre as nombre_grupo, USUARIO.id_usuario,USUARIO.nombre, USUARIO.apellidos
+            from USUARIO,GRUPO,ENTRENADOR_GRUPO
+            where ENTRENADOR_GRUPO.id_grupo=GRUPO.id_grupo and ENTRENADOR_GRUPO.id_usuario=USUARIO.id_usuario
+            and ENTRENADOR_GRUPO.id_usuario=$id_entrenador");
+        $this->db->execute();
+        return $this->db->registros();
+    }
+
+
+
+    
+    
 
     
 

@@ -116,32 +116,60 @@
 </head>
 
 
+<body>
 
-    <form method="post" action="<?php echo RUTA_URL?>/entrenador/grupos">
-        <select class="form-select" name='filtro'>
-                <option value="">Selecciona un grupo</option>
-                <?php 
-                    foreach($datos['grupos'] as $info){
-                        $id_grupo=$info->id_grupo;
-                        $nombre=$info->nombre;?>
-                        <option name="filtro" value="<?php echo $id_grupo?>"><?php echo $nombre?></option>
-                <?php }
-                ?>
-        </select>
-        <input type="submit">
-    </form>
+<header>
+    <!-- <form method="post" action="<?php echo RUTA_URL?>/entrenador/grupos"> -->
+
+    <!-- </form> -->
+</header>
 
 
+  <?php 
+    //var_dump($this->datos['todosSociosGrupos']);
+    //var_dump($this->datos['todosEntrenadoresGrupos']);
+   
 
-<div class="container">
+    //$id_grupo=$this->datos['todosEntrenadoresGrupos']['id_grupo'];
+    //echo $id_grupo;
+    //var_dump($datos['grupos']);
+    //var_dump($datos['alumnosGrupo']);
+    ?>
 
-        <div class="row" style="text-align:center">     
-            <div class="col-12">
-                <h4 id="titulo">Gestion de grupos y marcas/test</h4>
+
+
+
+            <div class="row d-flex justify-content-center" style="text-align:center">
+                            <div class="col-12">
+                                <h4 id="titulo">Gestion de grupos y marcas</h4>
+                            </div>
             </div>
-        </div>
+            <br>
 
 
+
+    <div class="container d-flex justify-content-center">
+    <div class="col-3 p-1">
+    <form method="post" action="<?php echo RUTA_URL?>/entrenador/grupos"> 
+            <select class="form-select"  style="width:330px" name='filtro' >
+                <option  value="" >Selecciona un grupo</option>
+                <?php 
+                    foreach($datos['todosEntrenadoresGrupos'] as $info){  
+                           $nombre=$info->nombre_grupo;
+                           $id_grupo=$info->id_grupo;
+                            ?>   
+                            <option name="filtro" value="<?php echo $id_grupo?>"><?php echo $nombre?></option>
+                    <?php }
+                    ?>
+            </select>
+            <input type="submit" value="ok">
+    </form>
+    </div>
+
+
+
+
+<div class="col-9 p-1">
         <div class="tabla" style="border:solid 1px #023ef9">
             <table class="table table-hover">
 
@@ -156,15 +184,17 @@
                         </tr>
                     </thead>
 
+
                      <!--BODY TABLA-->
                     <tbody class="table-light">
-                        <?php foreach($datos['alumnosGrupo'] as $info): ?> 
+
+                        <?php foreach($datos['todosSociosGrupos'] as $todos): ?> 
                             <tr>
-                                <td class="datos_tabla"><?php echo $info->nombre?></td>
-                                <td class="datos_tabla"><?php echo $info->apellidos?></td>
+                                <td class="datos_tabla"><?php echo $todos->nombre?></td>
+                                <td class="datos_tabla"><?php echo $todos->apellidos?></td>
 
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>   
-                                <td>
+                                <td class="d-flex justify-content-center">
 
                                     <!-- MODAL MARCAS -->
                                     &nbsp;&nbsp;&nbsp;
@@ -324,6 +354,7 @@
 
         </div>
 </div>
+</div>
 
 
 
@@ -331,6 +362,7 @@
    
 
         <script>
+
             function abrir(idModal){
                 var modal=document.getElementById(idModal);
                 console.log(idModal);
@@ -344,4 +376,15 @@
                 modal.style.display="none";
                 body.style.overflow="visible";
             }
+
+
+            function cambiarDatos(select){
+                var valor=select.value;
+                alert("hola" + valor)
+            }
+
+
+
+
+
         </script>

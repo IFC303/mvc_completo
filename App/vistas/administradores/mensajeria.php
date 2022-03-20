@@ -31,7 +31,11 @@
             margin-top:20px;
         }
 
-
+        #titulo{
+            font-family: 'Anton',sans-serif; 
+            color: #023ef9; 
+            letter-spacing: 5px;
+        }
 
 
     </style>
@@ -45,15 +49,14 @@
                 <div class="col-12"><h4 id="titulo">Envio de mensajeria</h4></div>
             </div>
 
-<script>
+            <script>
 
+                var menTodos =  <?php echo json_encode($datos['mensajeTodos'])?>;
+                //console.log(menTodos)
 
-    var menTodos =  <?php echo json_encode($datos['mensajeTodos'])?>;
-    //console.log(menTodos)
-
-    var correos = new Array();
-    console.log(correos);
-</script>
+                var correos = new Array();
+                console.log(correos);
+            </script>
 
             <div class="row">
 
@@ -68,39 +71,46 @@
                         $destinatarios =['Administradores','Entrenadores','Socios','Tiendas', 'Participantes','Entidades'];
 
                         foreach($destinatarios as $nombre){?>
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input"  name="todos" id="todos<?php echo $nombre?>" value="todos<?php echo $nombre?>" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
+                            <div class="row">
+                                <div class="col d-flex align-items-center m-2">
+                                    <input type="radio" class="form-check-input"  name="todos" id="todos<?php echo $nombre?>" value="todos<?php echo $nombre?>" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
+                                    <label class="form-check-label m-1" for="todos" id="elementSocios"><?php echo $nombre?></label>
+                                </div>
+                                <div class="col-11">
+                                    
+                                </div>
                             </div>
-                                <label class="form-check-label" for="todos" id="elementSocios"><?php echo $nombre?></label>
-
                             <!--VENTANA MODAL-->
                             <div class="modal" id="v<?php echo $nombre?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-md">
                             <div class="modal-content">
 
 
-                                        <div class="header">
-                                            <h4 class="modal-title"><?php echo $nombre?> </h4>
-                                            <button type="button" class="btn-close" id="" onclick="quitar();" data-bs-dismiss="modal"></button>
+                                        <div class="card-header">
+                                            <div class="row">
+                                                    <h4 class="modal-title col-11"><?php echo $nombre?> </h4>
+                                                    <button type="button" class="btn-close m-1 col-1" id="" onclick="quitar();" data-bs-dismiss="modal"></button>
+                                            </div>
                                         </div>
 
                                         <div class="modal-body">
+                                            <br>
                                               <input type="checkbox" id="<?php echo $nombre?>" onClick="marcar_desmarcar(this.id);"> <label for="todos">Seleccionar todos</label>
+                                              <hr>
                                             <div class="mt-3 mb-3">
                                             <?php
                                                 foreach($datos['mensajeTodos'] as $objeto){
                                                     if($objeto->tipo==$nombre){
                                                 ?>
-
-                                                <br>
                                                 <input type="checkbox" class="<?php echo $objeto->tipo?>" name="<?php echo $objeto->tipo?>" id="<?php echo $objeto->tipo?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
                                                 <?php   print_r($objeto->nombre."  ".$objeto->apellidos );
+                                                ?> <br> <?php
                                                 }}?>
                                             </div>
                                         </div>
 
                                         <div class="footer">
-                                            <button type="button" style="background-color: #023ef9; color:white" onclick="aceptar();" data-bs-dismiss="modal">Aceptar</button>
+                                            <button type="button" class="btn m-4" style="background-color: #023ef9; color:white" onclick="aceptar();" data-bs-dismiss="modal">Aceptar</button>
                                         </div>
                             </div>
                             </div>

@@ -125,8 +125,6 @@ class AdminEventos extends Controlador{
          } else {
                 $this->vista('administradores/crudEventos/inicio', $this->datos);
         }
-
-
 }
 
 
@@ -170,11 +168,12 @@ class AdminEventos extends Controlador{
                  }
                 
              }else{
-                 $this->vista('administradores/crudEventos/inicio', $this->datos);
+                 $this->vista('administradores/crudEventos/participantes', $this->datos);
             }
                 
         }
 
+        
         public function borrarMarcas($id){
             $notific = $this->notificaciones();
             $this->datos['notificaciones'] = $notific;

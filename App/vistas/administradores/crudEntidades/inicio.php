@@ -20,12 +20,12 @@
         }
 
         .modalVer .modal-content{
-            width:40%;
+            width:60%;
             margin: auto;
         }
 
         #modalEditar{
-            width:50%;
+            width:70%;
             margin: auto;
         }
 
@@ -46,7 +46,7 @@
 
         .tabla{
             border:solid 1px #023ef9;
-            width:60%;   
+            width:50%;   
             margin:auto;
         }
 
@@ -92,6 +92,7 @@
 
 
         <div class="container">
+            
             <div class="row" style="text-align:center">
                 <div class="col-12"><h4 id="titulo">Gestion de entidades</h4></div>
             </div>
@@ -128,10 +129,10 @@
      
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 
-                            <td>
+                            <td class="d-flex justify-content-center">
 
                                 <!--MODAL VER (javascript)-->
-                                    <img class="icono" id="btnModal_<?php echo $entidad->id_entidad?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir('<?php echo $entidad->id_entidad?>');" ></img>
+                                    <img class="icono mt-1" id="btnModal_<?php echo $entidad->id_entidad?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir('<?php echo $entidad->id_entidad?>');" ></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $entidad->id_entidad?>" class="modalVer">
@@ -147,7 +148,6 @@
                                             <!--Body-->
                                             <div id="bodyVer" class="row m-3">
 
-
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="id_entidad">CIF</label>
@@ -155,7 +155,7 @@
                                                     </div>
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $entidad->nombre?>" readonly>
+                                                        <input  type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $entidad->nombre?>" readonly>
                                                     </div>
                                                 </div>
 
@@ -178,8 +178,9 @@
                                                 <div class="mt-3 mb-3">
                                                     <label for="observaciones">Observaciones</label>
                                                     <input type="text" name="observaciones" id="observaciones" class="form-control form-control-lg" value="<?php echo $entidad->observaciones?>" readonly>
+                                                    <br>
                                                 </div>
-                                   
+
                                             </div>
                                         </div>  
                                     </div> 
