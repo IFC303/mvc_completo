@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
     <!-- <link rel="stylesheet" href="css/estilos.css"> -->
 
-    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/ligne.css">
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/paginate.css">
     <script src="<?php echo RUTA_URL ?>/public/js/paginate.js"></script>
 
@@ -244,7 +243,6 @@
                 </tbody>
             </table>
 
-            <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
 
         </div>
     </div>

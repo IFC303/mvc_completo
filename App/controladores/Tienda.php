@@ -19,15 +19,9 @@ class Tienda extends Controlador
         redireccionar('/tienda/equipaciones/');
     }
 
-    public function equipaciones($page = 1)
+    public function equipaciones()
     {
-        $this->limit = 4;
-        $this->page = is_numeric($page) && $page > 0 ? $page : 1;
-        $this->links = 7;
-
-        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario($this->limit, $this->page);
-        $this->datos['paginator'] = $this->equipacionesModelo->getPaginator();
-
+        $this->datos['equipaciones'] = $this->equipacionesModelo->getEquipacionesUsuario();
         $this->vista('tienda/equipaciones', $this->datos);
     }
 

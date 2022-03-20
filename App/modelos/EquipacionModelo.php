@@ -15,13 +15,11 @@ class EquipacionModelo
         return $this->paginator;
     }
 
-    public function getEquipacionesUsuario($limit, $page)
+    public function getEquipacionesUsuario()
     {
         $query = "SELECT * FROM EQUIPACION JOIN USUARIO ON EQUIPACION.id_usuario = USUARIO.id_usuario";
-        $this->paginator = new Paginator($this->db, $query);
-
-        $results    = $this->paginator->getData($limit, $page);
-        return $results->data;
+        $this->db->query($query);
+        return $this->db->registros();
     }
 
     public function updateUsuario($id, $entregado)
