@@ -176,7 +176,7 @@
                  *
                  * Tambien se encarga de agregar el boton de "gotopage" y "pagecounter"
                  **/
-                let buttons = "<input type='button' value='← prev' class='paginate_control_prev' onclick='paginate.sort(" + (currentPage - 1) + ")' " + prevDisabled + ">";
+                let buttons = "<input type='button' value='← anterior' class='paginate_control_prev' onclick='paginate.sort(" + (currentPage - 1) + ")' " + prevDisabled + ">";
                 let buttonNumberOfPage = "<input type='button' value='" + currentPage + ' - ' + numberOfPage + "' disabled>";
 
                 for (let $i = 1; $i <= numberOfPage; $i++) {
@@ -187,7 +187,7 @@
                     }
                 }
 
-                let nextButton = "<input type='button' value='next →' class='paginate_control_next' onclick='paginate.sort(" + (currentPage + 1) + ")' " + nextDisabled + ">";
+                let nextButton = "<input type='button' value='siguiente →' class='paginate_control_next' onclick='paginate.sort(" + (currentPage + 1) + ")' " + nextDisabled + ">";
                 buttons += nextButton;
 
                 if (settings.pageCounter)
@@ -224,7 +224,7 @@
 
         var addGoToPage = function() {
             let inputBox = "<input type='number' id='paginate_page_to_go' value='1' min='1' max='" + settings.numberOfPages + "'>";
-            let goButton = "<input type='button' id='paginate-go-button' value='Go' onclick='paginate.goToPage()'>  ";
+            let goButton = "<input type='button' id='paginate-go-button' value='Ir' onclick='paginate.goToPage()'>  ";
             return inputBox + goButton;
         }
 
