@@ -65,7 +65,7 @@
 
         .tabla {
             border: solid 1px #023ef9;
-            width: 50%;
+            width: 100%;
             margin: auto;
         }
 
@@ -175,9 +175,8 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <label for="entregado">entregado</label>
-                                                    <input type="text" name="entregado" id="entregado" class="form-control form-control-lg" value="<?php if ($equipacion->entregado) echo "SI";
-                                                                                                                                                    else echo "NO" ?>" readonly>
+                                                    <label for="talla">TALLA</label>
+                                                    <input type="text" name="talla" id="talla" class="form-control form-control-lg" value="<?php echo $equipacion->talla; ?>" readonly>
                                                     <br>
                                                 </div>
                                             </div>
@@ -250,7 +249,7 @@
     <script>
         //region paginacion
         let options = {
-            numberPerPage: 5, //Cantidad de datos por pagina
+            numberPerPage: 4, //Cantidad de datos por pagina
             goBar: true, //Barra donde puedes digitar el numero de la pagina al que quiere ir
             pageCounter: true, //Contador de paginas, en cual estas, de cuantas paginas
         };
