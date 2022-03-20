@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
     <!-- <link rel="stylesheet" href="css/estilos.css"> -->
 
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/ligne.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/paginate.css">
+    <script src="<?php echo RUTA_URL ?>/public/js/paginate.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,10 +112,17 @@
 
 <body>
     <div class="container">
+        <div class="panel">
+            <div class="body">
+                <div class="input-group">
+                    <label for="searchBox">Filtrar</label>
+                    <input type="search" id="searchBox" placeholder="Filtrar...">
+                </div>
+            </div>
+        </div>
+
         <div class="tabla">
             <table class="table table-hover">
-
-                <!--CABECERA TABLA-->
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -125,14 +135,8 @@
                     </tr>
                 </thead>
 
-
-                <!--BODY TABLA-->
-                <tbody class="table-light">
-
-                    <?php
-
-
-                    foreach ($datos['equipaciones'] as $equipacion) : ?>
+                <tbody class="myTable table-light">
+                    <?php foreach ($datos['equipaciones'] as $equipacion) : ?>
                         <tr>
                             <td class="datos_tabla"><?php echo $equipacion->id_equipacion ?></td>
                             <td class="datos_tabla"><?php echo $equipacion->nombre . ' ' . $equipacion->apellidos ?></td>
@@ -238,7 +242,6 @@
                         </tr>
                     <?php endforeach ?>
                 </tbody>
-
             </table>
 
             <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
@@ -247,6 +250,19 @@
     </div>
 
     <script>
+        //region paginacion
+        let options = {
+            numberPerPage: 5, //Cantidad de datos por pagina
+            goBar: true, //Barra donde puedes digitar el numero de la pagina al que quiere ir
+            pageCounter: true, //Contador de paginas, en cual estas, de cuantas paginas
+        };
+
+        let filterOptions = {
+            el: '#searchBox' //Caja de texto para filtrar, puede ser una clase o un ID
+        };
+
+        paginate.init('.myTable', options, filterOptions);
+        //endregion
         function abrir(idModal) {
             var modal = document.getElementById(idModal);
             console.log(idModal);
