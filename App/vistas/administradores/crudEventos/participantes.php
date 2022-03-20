@@ -22,6 +22,25 @@
 
 <style>
  
+ .tabla{
+            border:solid 1px #023ef9;
+            width:90%;   
+            margin:auto;
+        }
+
+        thead tr{
+            background-color:#023ef9; 
+            color:white;
+            text-align:center;
+        }
+
+        .datos_tabla{
+            text-align:center;
+        }
+
+
+
+ 
  #ventana{
     margin: auto;
     width:60%;
@@ -43,14 +62,20 @@ p{
 }
 
 #botonVolver{
-    background-color:white; 
-    color:#023ef9;
+    background-color:#023ef9; 
+    color:white;
     border-color:#023ef9;
 }
 
 #entrenadores, #alumnos,#cajaEntrenador,#cajaAlumnos{
     background-color:white;
 }
+
+#titulo{
+            font-family: 'Anton',sans-serif; 
+            color: #023ef9; 
+            letter-spacing: 5px;
+        }
 </style>
 
 

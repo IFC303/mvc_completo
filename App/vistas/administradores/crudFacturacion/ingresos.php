@@ -87,7 +87,7 @@
     </style>
    
 
-
+   
 
 <div class="container">
         <div class="row" style="text-align:center">
@@ -141,10 +141,10 @@
                             <td class="datos_tabla"><?php echo $info->tipo?></td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
-                            <td>
+                            <td class="d-flex justify-content-center">
 
                                 <!--MODAL VER (javascript)-->
-                                    <img id="btnModal_<?php echo $info->id_ingreso?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir('<?php echo $info->id_ingreso.$info->tipo?>');"></img>
+                                    <img class="icono mt-1" id="btnModal_<?php echo $info->id_ingreso?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir('<?php echo $info->id_ingreso.$info->tipo?>');"></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $info->id_ingreso.$info->tipo?>" class="modalVer">
@@ -268,7 +268,7 @@
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $info->id_ingreso.$info->tipo?>" >
-                                  <img src="<?php echo RUTA_Icon?>editar.svg"></img>
+                                  <img  class="icono"src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
@@ -333,35 +333,36 @@
                                                     <div class="col-6 mt-3 mb-3" id="inputSocios<?php echo $info->id_ingreso?>" style="display:none">  
                                                         <input class="form-control form-control-lg" list="browsers" name="browser" id="browser">
                                                         <datalist id="browsers" name="socio">
+                                                            <select>
                                                             <?php foreach($datos['socios'] as $socios){
                                                                 ?><option  value="<?php echo $socios->id_socio?>"><?php echo $socios->nombre." ".$socios->apellidos?></option><?php
-                                                            }?>    
+                                                            }?>  
+                                                            </select>  
                                                         </datalist>  
                                                     </div>
                                                     <!--div PARTICIPANTES -->
                                                     <div class="col-6 mt-3 mb-3" id="inputParticipantes<?php echo $info->id_ingreso?>" style="display:none">  
                                                         <input class="form-control form-control-lg" list="browsers2" name="browser2" id="browser2">
-                                                    
                                                         <datalist id="browsers2" name="participante">
-                                                            <?php foreach($datos['participantes'] as $participante){   
-                                                            
-                                                                    ?><option value="<?php echo $participante->id_participante?>-<?php echo $participante->tipoParticipante?>"><?php echo $participante->nombre." ".$participante->apellidos?></option> 
+                                                        <select>
+                                                            <?php foreach($datos['participantes'] as $participante){       
+                                                                ?><option value="<?php echo $participante->id_participante?>-<?php echo $participante->tipoParticipante?>"><?php echo $participante->nombre." ".$participante->apellidos?></option> 
                                                                     <?php   
-                                                            }?>  
-                                                            
-                                                        
+                                                            }?>      
+                                                        </select>
                                                         </datalist>  
-                                                
                                                     </div> 
 
                                                     <!--div ENTIDADES -->
                                                     <div class="col-6 mt-3 mb-3" id="inputEntidades<?php echo $info->id_ingreso?>" style="display:none">   
                                                         <input class="form-control form-control-lg" list="browsers3" name="browser3" id="browser3">
                                                         <datalist id="browsers3" name="entidad">
+                                                        <select>
                                                             <?php foreach($datos['entidades'] as $entidad){
                                                                 ?><option name="idEntidades" value="<?php echo $entidad->id_entidad?>"><?php echo $entidad->nombre?></option>                          
                                                                 <?php
-                                                            }?>    
+                                                            }?>   
+                                                        </select> 
                                                         </datalist> 
                                             
                                                     </div> 
@@ -381,16 +382,20 @@
                                                         <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>">
                                                     </div>
                                                     <div class="col-6 mt-3 mb-3" id="inputEvento<?php echo $info->id_ingreso?>" style="display:none" >  
-                                                        <input class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
+                                                        <input type="text" class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
                                                         <datalist id="browsers4" name="inputEvento">
+                                                        <select>
                                                             <?php foreach($datos['eventos'] as $eventos){
-                                                                ?><option value="<?php echo $eventos->nombre?>"></option><?php
-                                                            }?>    
+                                                                ?><option value="<?php echo $eventos->id_evento?>"><?php echo $eventos->nombre?></option><?php
+                                                            }?>  
+                                                        </select>  
                                                         </datalist>  
                                                        
                                                     </div>
                                                 </div>
                                                 <br>
+                                                    <input type="hidden" name="id_viejo" id="id_viejo" value="<?php echo $info->id_ingreso?>">
+                                                    <input type="hidden" name="tipo_viejo" ind="tipo_viejo" value="<?php echo $info->tipo?>">
                                                     <input type="submit" class="btn" value="Confirmar">
                                                 </form>
                                             </div>
@@ -402,7 +407,7 @@
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $info->id_ingreso.$info->tipo?>" href="<?php echo RUTA_URL?>/adminFacturacion/borrarIngreso/<?php echo $info->id_ingreso?>">
-                                  <img src="<?php echo RUTA_Icon?>papelera.svg"></img>
+                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
@@ -485,7 +490,7 @@
                                 document.getElementById("labelEntidades"+numero).style.display="none";
 
                                 document.getElementById("labelEvento"+numero).style.display="block";
-                                document.getElementById("inputEvento"+numero).style.display="block";
+                                document.getElementById("inputEvento"+numero).style.display = "block";
 
                                 document.getElementById("inputParticipantes"+numero).style.display = "block";
                                 document.getElementById("inputEntidades"+numero).style.display = "none";
@@ -519,7 +524,7 @@
                                 document.getElementById("inputSocios"+numero).style.display = "none";
                             }
 
-            }
+                        }
 
 
 

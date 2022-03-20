@@ -85,8 +85,6 @@
             color:#023ef9;
         }
 
-   
-
         .btn{
             background-color: #023ef9; 
             color:white;
@@ -144,10 +142,10 @@
 
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
-                            <td>
-
+                            <td class="d-flex justify-content-center"> 
+                              
                                 <!--MODAL VER (javascript)-->
-                                    <img  class="icono" id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $test->id_test ?>);"></img>
+                                    <img  class="icono mt-1" id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $test->id_test ?>);"></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $test->id_test ?>" class="modalVer">
@@ -197,20 +195,22 @@
                                                             ?>
                                                                 <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled>    
                                                                 <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
-                                                            endforeach; ?>   
+                                                            endforeach; ?>  
+                                                            
                                                     </div>
-                                            </div>
+                                            </div><br> 
                                             
 
                                         </div>  
                                     </div> 
-
+                                    
 
 
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
+                                
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $test->id_test ?>" >
-                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
+                                  <img class="icono justify-content-center" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
@@ -272,19 +272,20 @@
                                         </div>
                                     </div>
                                     </div>
-
+                                   
 
 
 
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
+                                
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $test->id_test ?>" href="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>">
-                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
+                                  <img class="icono justify-content-center " src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
                                     <div class="modal" id="ModalBorrar_<?php echo $test->id_test ?>">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-md">
                                         <div class="modal-content">
 
                                              <!-- Modal Header -->
@@ -306,6 +307,7 @@
                                         </div>
                                     </div>
                                     </div>
+                                
                             </td>
                             <?php endif ?>
                         </tr>

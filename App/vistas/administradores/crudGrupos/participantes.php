@@ -134,20 +134,17 @@ var_dump($info);
 ?>
 
 
-<script>
-    let alumnosCero = <?php echo json_encode($datos['alumnos'])?>;
-    let alumnosUno = new Array ();
-    console.log(alumnosCero)
-    console.log(alumnosUno)
-
-</script>
-
 
 
             <div class="row d-flex justify-content-around">
                 <div id="alumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoCero(event);"> 
-                         <script>
+                         <script> 
                                        
+                            let alumnosCero = <?php echo json_encode($datos['alumnos'])?>; 
+                             console.log(alumnosCero)  
+                            let alumnosUno = new Array (); 
+                             console.log(alumnosUno)     
+
                             var alus=document.getElementById("alumnos"); 
 
                              for(var i=0;i<alumnosCero.length;i++){

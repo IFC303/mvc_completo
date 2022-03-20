@@ -11,7 +11,9 @@ class Facturacion
     }
 
 
-//********** CONSULTAS GASTOS ************//
+/*******************************************************/
+/************** CONSULTAS GASTOS **********************/
+/*******************************************************/
 
    public function obtenerGastos(){
         $this->db->query("SELECT * from GASTOS");
@@ -32,13 +34,106 @@ class Facturacion
 
     public function gastosOtrosEntidad(){
         $this->db->query("SELECT id_gastos, fecha, concepto, importe, G_OTROS.id_entidad,OTRAS_ENTIDADES.nombre
-        from OTRAS_ENTIDADES, G_OTROS WHERE OTRAS_ENTIDADES.id_entidad=G_OTROS.id_usuario;");
+        from OTRAS_ENTIDADES, G_OTROS WHERE OTRAS_ENTIDADES.id_entidad=G_OTROS.id_entidad;");
         return $this->db->registros();
+    }
+
+    //OBTENER SOCIOS PARA GASTOS OTROS
+    public function obSocios(){
+        $this->db->query("SELECT SOCIO.id_socio,USUARIO.nombre,USUARIO.apellidos from SOCIO, USUARIO 
+        where SOCIO.id_socio=USUARIO.id_usuario");
+        return $this->db->registros();
+    }
+
+    //OBTENER ENTIDADES PARA GASTOS OTROS
+    public function obEntidades(){
+        $this->db->query("SELECT * from OTRAS_ENTIDADES");
+        return $this->db->registros();
+    }
+
+    //OBTENER ENTRENADORES PARA GASTOS PERSONAL
+    public function obEntrenadores(){
+        $this->db->query("SELECT ENTRENADOR.id_usuario,USUARIO.nombre,USUARIO.apellidos,ENTRENADOR.sueldo from USUARIO, ENTRENADOR
+        where ENTRENADOR.id_usuario=USUARIO.id_usuario");
+        return $this->db->registros();
+    }
+
+    // AÑADIR GASTO PERSONAL
+    public function agregarGastosPersonal($gasto){
+        $this->db->query("INSERT INTO G_PERSONAL (fecha, concepto, importe, id_usuario) 
+                          VALUES (:fecha,:concepto,:importe,:id_usuario)");
+
+             $this->db->bind(':fecha',$gasto['fecha']);
+             $this->db->bind(':concepto', $gasto['concepto']);
+             $this->db->bind(':importe',$gasto['importe']);
+             $this->db->bind(':id_usuario',$gasto['id_entrenador']);
+
+             if($this->db->execute()){
+                return true;
+             }else{
+                 return false;
+             }
+    }
+
+    // AÑADIR GASTO OTROS
+    public function agregarGastosOtros($gastos){
+        var_dump($gastos);
+
+        
+        $this->db->query("INSERT INTO G_OTROS (fecha, concepto, importe, id_usuario, id_entidad) 
+                          VALUES (:fecha, :concepto, :importe, :id_usuario, :id_entidad)");
+
+              $this->db->bind(':fecha',$gastos['fecha']);
+              $this->db->bind(':concepto',$gastos['concepto']);
+              $this->db->bind(':importe',$gastos['importe']);
+              $this->db->bind(':id_usuario',$gastos['id_usuario']); 
+              $this->db->bind(':id_entidad',$gastos['id_entidad']); 
+  
+                 if($this->db->execute()){
+                    return true;
+                 }else{
+                     return false;
+                 }
     }
 
 
 
-//********** CONSULTAS INGRESOS ************//
+     //FUNCIONES BORRADO GASTOS
+     public function borrarGastosPersonal($id){
+        $this->db->query("DELETE FROM G_PERSONAL WHERE id_gasto =:idGasto");
+        $this->db->bind(':idGasto',$id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public function borrarGastosOtros($id){
+        $this->db->query("DELETE FROM G_OTROS WHERE id_gastos =:idGasto");
+        $this->db->bind(':idGasto',$id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+/*******************************************************/
+/**************CONSULTAS INGRESOS **********************/
+/*******************************************************/
+
 
     public function obtenerIngresos(){
         $this->db->query("SELECT * from INGRESOS");
@@ -94,7 +189,6 @@ class Facturacion
 
 
     // AÑADIR NUEVO INGRESO
-
     public function agregarIngresoOtros($ingreso){
         $this->db->query("INSERT INTO I_OTROS (fecha, concepto, importe,id_entidad) 
                           VALUES (:fecha,:concepto,:importe,:id_entidad)");
@@ -168,88 +262,7 @@ class Facturacion
          }
 }
     
-
-//EDITAR INGRESOS
-
-public function editarIngresoOtros($ingreso,$id){
-    var_dump($ingreso);
-     $this->db->query("UPDATE I_OTROS SET fecha=:fecha, concepto=:concepto, importe=:importe,id_entidad=:id_entidad 
-                        WHERE id_ingreso_otros= :id");
-
-         $this->db->bind(':fecha',$ingreso['fecha']);
-         $this->db->bind(':concepto', $ingreso['concepto']);
-          $this->db->bind(':importe',$ingreso['importe']);
-          $this->db->bind(':id_entidad',$ingreso['id_entidad']);
-          $this->db->bind(':id',$id);
-
-         if($this->db->execute()){
-          return true;
-          }else{
-             return false;
-         }
-}
-
-
-public function editarIngresoCuotas($ingreso,$id){
-    //var_dump($ingreso);
-    //echo $id;
-       $this->db->query("UPDATE I_CUOTAS SET fecha=:fecha, concepto=:concepto, importe=:importe,id_usuario=:id_socio 
-                         WHERE id_ingreso_cuota=:id");
-
-           $this->db->bind(':fecha',$ingreso['fecha']);
-          $this->db->bind(':concepto', $ingreso['concepto']);
-           $this->db->bind(':importe',$ingreso['importe']);
-           $this->db->bind(':id_socio',$ingreso['id_usuario']);
-           $this->db->bind(':id',$id);
-
-           if($this->db->execute()){
-               return true;
-           }else{
-           return false;
-           }
-}
-
-
- public function editarIngresoActividadesExterno($ingreso,$id){
-    //var_dump($ingreso);
-
-          $this->db->query("UPDATE I_ACTIVIDADES SET id_externo=:id_externo,id_evento=:id_evento,fecha=:fecha, concepto=:concepto, importe=:importe 
-                            WHERE id_ingreso_actividades=:id");
-
-           $this->db->bind(':fecha',$ingreso['fecha']);
-           $this->db->bind(':concepto', $ingreso['concepto']);
-           $this->db->bind(':importe',$ingreso['importe']);
-           $this->db->bind(':id_externo',$id);
-           $this->db->bind(':id_evento',$ingreso['id_evento']);
-           $this->db->bind(':id',$id);
-
-           if($this->db->execute()){
-               return true;
-           }else{
-               return false;
-          }
-}
-
-
-public function editarIngresoActividadesSocio($ingreso,$id){
-    var_dump($ingreso);
-  $this->db->query("UPDATE I_ACTIVIDADES SET id_usuario=:id_usuario,id_evento=:id_evento,fecha=:fecha, concepto=:concepto, importe=:importe 
-                WHERE id_usuario=:id");
-
-     $this->db->bind(':fecha',$ingreso['fecha']);
-     $this->db->bind(':concepto', $ingreso['concepto']);
-     $this->db->bind(':importe',$ingreso['importe']);
-     $this->db->bind(':id_usuario',$id);
-     $this->db->bind(':id_evento',$ingreso['id_evento']);
-
-     if($this->db->execute()){
-     return true;
-     }else{
-     return false;
-     }
-}
   
-    
 
 
     //FUNCIONES BORRADO INGRESOS
@@ -282,17 +295,6 @@ public function editarIngresoActividadesSocio($ingreso,$id){
             return false;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
