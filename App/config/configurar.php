@@ -5,8 +5,8 @@
 define('RUTA_APP', dirname(dirname(__FILE__)));
 
 // Ruta url, Ejemplo: http://localhost/daw2_mvc
-//define('RUTA_URL', "https://{$_SERVER['HTTP_HOST']}/tragamillas");
-define('RUTA_URL', "http://localhost/tragamillas");
+define('RUTA_URL', "https://{$_SERVER['HTTP_HOST']}/tragamillas");
+//define('RUTA_URL', "http://localhost/tragamillas");
 //define('RUTA_URL', 'https://192.168.1.118');
 
 define('NOMBRE_SITIO', 'Tragamillas');
