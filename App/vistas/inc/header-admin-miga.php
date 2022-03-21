@@ -273,6 +273,9 @@
                         <li id="sInicio">
                             <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="nav-link ">GASTOS</a>
                         </li>
+                        <li id="sInicio">
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas/" class="nav-link ">CUOTAS</a>
+                        </li>
                     </ul>
                 </ul>
 

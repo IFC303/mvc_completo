@@ -551,4 +551,19 @@ class AdminFacturacion extends Controlador{
 
 
 
+    public function cuotas($page = 1) {
+        $this->limit = 4;
+        $this->page = is_numeric($page) && $page > 0 ? $page : 1;
+        $this->links = 7;
+
+        $this->datos['cuotas'] = $this->facturacionModelo->getCuotasUsuario($this->limit, $this->page);
+        $this->datos['paginator'] = $this->facturacionModelo->getPaginator();
+
+        $this->vista('administradores/cuotas/index',$this->datos);
+    }
+
+    public function exportData(){
+        $this->datos['cuotas'] = $this->facturacionModelo->getAllCuotasUsuario();
+        $this->vista('administradores/cuotas/exportData',$this->datos);
+    }
 }

@@ -22,25 +22,24 @@ INSERT INTO
 VALUES
   (4, 'tienda');
 CREATE TABLE USUARIO(
-  id_usuario int AUTO_INCREMENT,
-  dni varchar(11) unique,
-  nombre varchar(20) not null,
-  apellidos varchar(30) not null,
-  email varchar(40) not null,
-  direccion varchar(150) not null,
-  fecha_nacimiento date,
-  telefono int not null,
-  CCC varchar(25) not null,
-  passw varchar(50),
-  talla varchar(5) not null,
-  foto varchar(800),
-  gir varchar(20),
-  activado boolean not null,
-  id_rol int,
-  primary key (id_usuario),
-  constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
-);
-
+    id_usuario int AUTO_INCREMENT,
+    dni varchar(11) unique,
+    nombre varchar(20) not null,
+    apellidos varchar(30) not null,
+    email varchar(40) not null,
+    direccion varchar(150) not null,
+    fecha_nacimiento date,
+    telefono int not null,
+    CCC varchar(25) not null,
+    passw varchar(50),
+    talla varchar(5) not null,
+    foto varchar(800),
+    gir varchar(20),
+    entregado boolean not null,
+    id_rol int,
+    primary key (id_usuario),
+    constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
+  );
 INSERT INTO
   `USUARIO` (
     `id_usuario`,
@@ -55,7 +54,7 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `activado`,
+    `entregado`,
     `id_rol`
   )
 VALUES
@@ -89,7 +88,7 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `activado`,
+    `entregado`,
     `id_rol`
   )
 VALUES
@@ -123,7 +122,7 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `activado`,
+    `entregado`,
     `id_rol`
   )
 VALUES
@@ -136,6 +135,150 @@ VALUES
     'dire',
     '2000-1-1',
     33,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    331,
+    '331',
+    'socio1',
+    'socio1',
+    'socio1@socio.com',
+    'dire',
+    '2000-1-1',
+    331,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    332,
+    '332',
+    'socio2',
+    'socio2',
+    'socio2@socio.com',
+    'dire',
+    '2000-1-1',
+    332,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    333,
+    '333',
+    'socio3',
+    'socio3',
+    'socio3@socio.com',
+    'dire',
+    '2000-1-1',
+    333,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    334,
+    '334',
+    'socio4',
+    'socio4',
+    'socio4@socio.com',
+    'dire',
+    '2000-1-1',
+    334,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    335,
+    '335',
+    'socio5',
+    'socio5',
+    'socio5@socio.com',
+    'dire',
+    '2000-1-1',
+    335,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    336,
+    '336',
+    'socio6',
+    'socio6',
+    'socio6@socio.com',
+    'dire',
+    '2000-1-1',
+    336,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    337,
+    '337',
+    'socio7',
+    'socio7',
+    'socio7@socio.com',
+    'dire',
+    '2000-1-1',
+    337,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    338,
+    '338',
+    'socio8',
+    'socio8',
+    'socio8@socio.com',
+    'dire',
+    '2000-1-1',
+    338,
+    '',
+    '1b1844daa452df42c6f9123857ca686c',
+    's',
+    '',
+    1,
+    3
+  ),
+  (
+    339,
+    '339',
+    'socio9',
+    'socio9',
+    'socio9@socio.com',
+    'dire',
+    '2000-1-1',
+    339,
     '',
     '1b1844daa452df42c6f9123857ca686c',
     's',
@@ -157,7 +300,7 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `activado`,
+    `entregado`,
     `id_rol`
   )
 VALUES
@@ -209,118 +352,104 @@ CREATE TABLE GRUPO(
     fecha_ini date,
     fecha_fin date
   );
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '1' ,
-    'ATLETISMO_GENERAL_BENJAMINES' ,
-    '2022/09/01' ,
+  (
+    '1',
+    'ATLETISMO_GENERAL_BENJAMINES',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '2' ,
-    'ATLETISMO_GENERAL_ALEVINES' ,
-    '2022/09/01' ,
+  (
+    '2',
+    'ATLETISMO_GENERAL_ALEVINES',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '3' ,
-    'ATLETISMO_GENERAL_INFANTILES' ,
-    '2022/09/01' ,
+  (
+    '3',
+    'ATLETISMO_GENERAL_INFANTILES',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '4' ,
-    'PRUEBAS-VELOCIDAD' ,
-    '2022/09/01' ,
+  (
+    '4',
+    'PRUEBAS-VELOCIDAD',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '5' ,
-    'FONDO_Y_MEDIOFONDO' ,
-    '2022/09/01' ,
+  (
+    '5',
+    'FONDO_Y_MEDIOFONDO',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '6' ,
-    'DIA_ENTRENAMIENTO' ,
-    '2022/09/01' ,
+  (
+    '6',
+    'DIA_ENTRENAMIENTO',
+    '2022/09/01',
     '2022/09/30'
-);
-
-INSERT INTO 
-    `GRUPO`(
-    `id_grupo` ,
-    `nombre` ,
-    `fecha_ini` ,
+  );
+INSERT INTO
+  `GRUPO`(
+    `id_grupo`,
+    `nombre`,
+    `fecha_ini`,
     `fecha_fin`
-)
-
+  )
 VALUES
-    (
-    '7' ,
-    'ESCUELA_TRIATLON' ,
-    '2022/09/01' ,
+  (
+    '7',
+    'ESCUELA_TRIATLON',
+    '2022/09/01',
     '2022/09/30'
-);
-
+  );
 CREATE TABLE ENTRENADOR_GRUPO(
     fecha date,
     id_grupo int,
@@ -361,6 +490,19 @@ CREATE TABLE SOCIO(
     constraint FK_id_socio_socio foreign key (id_socio) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_familiar_socio foreign key (familiar) references SOCIO (id_socio) on delete cascade on update cascade
   );
+INSERT INTO
+  `tragamillas2`.`SOCIO` (`id_socio`, `familiar`)
+VALUES
+  (33, 33),
+  (331, 33),
+  (332, 33),
+  (333, 33),
+  (334, 33),
+  (335, 33),
+  (336, 33),
+  (337, 33),
+  (338, 33),
+  (339, 33);
 CREATE TABLE SOCIO_GRUPO(
     id_grupo int,
     id_usuario int,
@@ -519,59 +661,42 @@ CREATE TABLE CATEGORIA(
     edad_min int not null,
     edad_max int not null
   );
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES 
-    (
-    '1', 
-    'BENJAMIN', 
-    '8', 
-    '9'
-    );
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+  )
+VALUES
+  ('1', 'BENJAMIN', '8', '9');
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES (
-    '2', 
-    'ALEVIN', 
-    '10', 
-    '11'
-    );
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+  )
+VALUES
+  ('2', 'ALEVIN', '10', '11');
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES 
-    ('3', 
-    'INFANTILES', 
-    '12', 
-    '13');
-INSERT INTO 
-    `CATEGORIA` (
-    `id_categoria`, 
-    `nombre`, 
-    `edad_min`, 
+  )
+VALUES
+  ('3', 'INFANTILES', '12', '13');
+INSERT INTO
+  `CATEGORIA` (
+    `id_categoria`,
+    `nombre`,
+    `edad_min`,
     `edad_max`
-    ) 
-VALUES (
-    '4', 
-    'ADULTO', 
-    '14', 
-    '99'
-    );
-
+  )
+VALUES
+  ('4', 'ADULTO', '14', '99');
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
     id_usuario int,
@@ -587,6 +712,24 @@ CREATE TABLE OTRAS_ENTIDADES(
     telefono int(9) not null,
     email varchar(50) null,
     observaciones varchar (30)
+  );
+INSERT INTO
+  `tragamillas2`.`OTRAS_ENTIDADES` (
+    `id_entidad`,
+    `nombre`,
+    `direccion`,
+    `telefono`,
+    `email`,
+    `observaciones`
+  )
+VALUES
+  (
+    '1',
+    'adidas',
+    'direccion',
+    '123456789',
+    'email@email.com',
+    'observaciones'
   );
 CREATE TABLE I_OTROS(
     id_ingreso_otros int primary key AUTO_INCREMENT,
@@ -606,6 +749,33 @@ CREATE TABLE G_OTROS(
     constraint FK_id_usuario_g_otros foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
     constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
+INSERT INTO
+  `tragamillas2`.`G_OTROS` (
+    `id_gastos`,
+    `fecha`,
+    `concepto`,
+    `importe`,
+    `id_usuario`,
+    `id_entidad`
+  )
+VALUES
+  ('1', '2022-02-18', 'equipacion', '15', '33', '1'),
+  (
+    '2',
+    '2022-02-18',
+    'equipacion',
+    '15',
+    '331',
+    '1'
+  ),
+  (
+    '3',
+    '2022-02-18',
+    'equipacion',
+    '15',
+    '332',
+    '1'
+  );
 CREATE TABLE I_CUOTAS(
     id_ingreso_cuota int primary key AUTO_INCREMENT,
     fecha date not null,
@@ -613,6 +783,57 @@ CREATE TABLE I_CUOTAS(
     importe int not null,
     id_usuario int not null,
     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
+  );
+INSERT INTO
+  `tragamillas2`.`I_CUOTAS` (
+    `id_ingreso_cuota`,
+    `fecha`,
+    `concepto`,
+    `importe`,
+    `id_usuario`
+  )
+VALUES
+  (
+    '000201507444',
+    '2021-02-18',
+    'CUOTA SOCIO TRAGAMILLAS',
+    '30',
+    '33'
+  ),
+  (
+    '000330407092',
+    '2021-02-18',
+    'CUOTA SOCIO TRAGAMILLAS',
+    '30',
+    '331'
+  ),
+  (
+    '000330898570',
+    '2021-02-18',
+    'CUOTA SOCIO TRAGAMILLAS',
+    '100',
+    '332'
+  ),
+  (
+    '000330898571',
+    '2022-02-18',
+    'CUOTA SOCIO TRAGAMILLAS',
+    '100',
+    '332'
+  ),
+  (
+    '000330898572',
+    '2022-02-18',
+    'CUOTA SOCIO TRAGAMILLAS',
+    '100',
+    '332'
+  ),
+  (
+    '000330898573',
+    '2022-02-18',
+    'CUOTA SOCIO TRAGAMILLAS',
+    '100',
+    '332'
   );
 CREATE TABLE EQUIPACION(
     id_equipacion int primary key,
@@ -624,6 +845,88 @@ CREATE TABLE EQUIPACION(
     constraint FK_id_usuario_equipacion foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
+  );
+INSERT INTO
+  `tragamillas2`.`EQUIPACION` (
+    `id_equipacion`,
+    `talla`,
+    `fecha_peticion`,
+    `id_usuario`,
+    `id_ingreso_cuota`,
+    `id_gastos`
+  )
+VALUES
+  (
+    '1',
+    'xl',
+    '2022-02-18',
+    '33',
+    '000201507444',
+    '1'
+  ),
+  (
+    '2',
+    'xl',
+    '2022-02-18',
+    '331',
+    '000330407092',
+    '2'
+  ),
+  (
+    '3',
+    'xl',
+    '2022-02-18',
+    '332',
+    '000330898570',
+    '3'
+  ),
+  (
+    '4',
+    'xl',
+    '2022-02-18',
+    '333',
+    '000330898570',
+    '3'
+  ),
+  (
+    '5',
+    'xl',
+    '2022-02-18',
+    '334',
+    '000330898570',
+    '3'
+  ),
+  (
+    '6',
+    'xl',
+    '2022-02-18',
+    '335',
+    '000330898570',
+    '3'
+  ),
+  (
+    '7',
+    'xl',
+    '2022-02-18',
+    '335',
+    '000330898570',
+    '3'
+  ),
+  (
+    '8',
+    'xl',
+    '2022-02-18',
+    '335',
+    '000330898570',
+    '3'
+  ),
+  (
+    '9',
+    'xl',
+    '2022-02-18',
+    '335',
+    '000330898570',
+    '3'
   );
 CREATE TABLE EVENTO(
     id_evento int primary key AUTO_INCREMENT,
@@ -696,50 +999,142 @@ CREATE TABLE I_ACTIVIDADES(
     constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
     constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
-
-
-
-
-
 create view GRUPOS_Y_HORARIOS as
-	select HORARIO_GRUPO.id_grupo,GRUPO.nombre,GRUPO.fecha_ini,GRUPO.fecha_fin,HORARIO_GRUPO.id_horario,HORARIO.dia_sem,HORARIO.hora_ini,HORARIO.hora_fin
-  from HORARIO_GRUPO,GRUPO,HORARIO
-  where HORARIO_GRUPO.id_grupo=GRUPO.id_grupo and HORARIO_GRUPO.id_horario=HORARIO.id_horario;
-
-
+select
+  HORARIO_GRUPO.id_grupo,
+  GRUPO.nombre,
+  GRUPO.fecha_ini,
+  GRUPO.fecha_fin,
+  HORARIO_GRUPO.id_horario,
+  HORARIO.dia_sem,
+  HORARIO.hora_ini,
+  HORARIO.hora_fin
+from
+  HORARIO_GRUPO,
+  GRUPO,
+  HORARIO
+where
+  HORARIO_GRUPO.id_grupo = GRUPO.id_grupo
+  and HORARIO_GRUPO.id_horario = HORARIO.id_horario;
 create view INGRESOS as
-  select id_ingreso_actividades as id_ingreso, fecha, concepto, importe, 'actividades' as tipo from I_ACTIVIDADES
-  union all
-  select id_ingreso_cuota as id_ingreso, fecha, concepto, importe, 'cuotas' as tipo FROM I_CUOTAS
-  union all
-  select id_ingreso_otros as id_ingreso, fecha, concepto, importe, 'otros' as tipo  from I_OTROS;
-
-
+select
+  id_ingreso_actividades as id_ingreso,
+  fecha,
+  concepto,
+  importe,
+  'actividades' as tipo
+from
+  I_ACTIVIDADES
+union all
+select
+  id_ingreso_cuota as id_ingreso,
+  fecha,
+  concepto,
+  importe,
+  'cuotas' as tipo
+FROM
+  I_CUOTAS
+union all
+select
+  id_ingreso_otros as id_ingreso,
+  fecha,
+  concepto,
+  importe,
+  'otros' as tipo
+from
+  I_OTROS;
 create view GASTOS as
-  select id_gastos as id_gasto, fecha, concepto, importe, 'otros' as tipo from G_OTROS
-  union all
-  select id_gasto as id_gasto, fecha, concepto, importe, 'personal' as tipo FROM G_PERSONAL;
-
-
-create view PARTICIPANTE AS 
- select SOCIO_EVENTO.id_usuario AS id_participante,id_evento,USUARIO.nombre,USUARIO.apellidos, "socio" as tipoParticipante
-  from SOCIO_EVENTO, USUARIO
-  WHERE SOCIO_EVENTO.id_usuario=USUARIO.id_usuario
-  union
-  SELECT id_externo as id_participante,id_evento,nombre,apellidos, "externo" as tipoParticipante 
-  from EXTERNO;
-
-
-
+select
+  id_gastos as id_gasto,
+  fecha,
+  concepto,
+  importe,
+  'otros' as tipo
+from
+  G_OTROS
+union all
+select
+  id_gasto as id_gasto,
+  fecha,
+  concepto,
+  importe,
+  'personal' as tipo
+FROM
+  G_PERSONAL;
+create view PARTICIPANTE AS
+select
+  SOCIO_EVENTO.id_usuario AS id_participante,
+  id_evento,
+  USUARIO.nombre,
+  USUARIO.apellidos,
+  "socio" as tipoParticipante
+from
+  SOCIO_EVENTO,
+  USUARIO
+WHERE
+  SOCIO_EVENTO.id_usuario = USUARIO.id_usuario
+union
+SELECT
+  id_externo as id_participante,
+  id_evento,
+  nombre,
+  apellidos,
+  "externo" as tipoParticipante
+from
+  EXTERNO;
 create view EMAIL as
-  select nombre, apellidos, email, "Administradores" as tipo from USUARIO where id_rol=1
-  UNION
-  select nombre, apellidos, email, "Entrenadores" as tipo from USUARIO where id_rol=2
-  union
-  select nombre, apellidos, email, "Socios" as tipo from USUARIO where id_rol=3
-  union
-  select nombre, apellidos, email, "Tiendas" as tipo from USUARIO where id_rol=4
-  union
-  select nombre, apellidos, email, "Participantes" as tipo from EXTERNO
-  union
-  select nombre, "" as apellidos, email, "Entidades" as tipo from OTRAS_ENTIDADES;
+select
+  nombre,
+  apellidos,
+  email,
+  "Administradores" as tipo
+from
+  USUARIO
+where
+  id_rol = 1
+UNION
+select
+  nombre,
+  apellidos,
+  email,
+  "Entrenadores" as tipo
+from
+  USUARIO
+where
+  id_rol = 2
+union
+select
+  nombre,
+  apellidos,
+  email,
+  "Socios" as tipo
+from
+  USUARIO
+where
+  id_rol = 3
+union
+select
+  nombre,
+  apellidos,
+  email,
+  "Tiendas" as tipo
+from
+  USUARIO
+where
+  id_rol = 4
+union
+select
+  nombre,
+  apellidos,
+  email,
+  "Participantes" as tipo
+from
+  EXTERNO
+union
+select
+  nombre,
+  "" as apellidos,
+  email,
+  "Entidades" as tipo
+from
+  OTRAS_ENTIDADES;
