@@ -202,12 +202,11 @@ class SocioModelo
 
     public function eventoSoli($agreEvento)
     {
-        
-        $this->db->query("INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES (':id_usu', ':id_even', ':fecha');");
+        $this->db->query("INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES (:id_usu, :id_even, :fecha);");
         
         $this->db->bind(':id_usu', $agreEvento["id_usu"]);
         $this->db->bind(':id_even', $agreEvento["even"]);
-        $this->db->bind(':fecha', date('d-m-Y'));
+        $this->db->bind(':fecha', date('Y-m-d'));
           
         if ($this->db->execute()) {
             return true;

@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <title><?php echo NOMBRE_SITIO ?></title>
 
     <style>
         label[id^="error"] {
@@ -40,7 +40,8 @@
                 display: none;
             }
         }
-        sup{
+
+        sup {
             color: #023EF9;
             font-weight: bold;
             font-size: small;
@@ -52,10 +53,16 @@
     <div class="container-fluid min-vh-100 m-0 p-0">
         <div class="row">
             <div id="fotoBici" class="col-lg-6 col-md-6 col-sm-6 col-xs-0 m-0 p-0">
-                <img src="img/fotos/bici3.png" width="100%" height="100%">
+                <img src="<?php echo RUTA_Foto ?>bici3.png" width="100%" height="100%">
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-0 p-0">
-                <form action="#" onsubmit="return validarSoliSocio()">
+
+                <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
+                <div class="p-3" style="text-align: center;">
+                    <h1>INSCRIPCION EVENTO</h1>
+                </div>
+
+                <form action="" onsubmit="return validarSoliSocio()" method="POST">
                     <div class="row m-3">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
                             <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
@@ -64,7 +71,7 @@
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
                             <label for="dniAtl" id="dniObli">DNI</label>
-                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl" onchange="return dni(this.id)">
+                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl">
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
@@ -93,22 +100,14 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="ccc">CCC <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba el CCC" id="ccc" name="ccc" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+                            <label for="even">EVENTOS <sup>* </sup></label>
+                            <select class="form-control" name="even" id="even" required>
+                                <option value=""></option>
+                                <?php foreach ($datos['eventos'] as $even) : ?>
+                                    <option value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
-
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="talla">Talla camiseta <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba la talla" id="talla" name="talla" required>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="">¿Es tu primer año como socio? <sup>*</sup></label> <br>
-                            <input type="radio" id="siFotos" name="fotos" value="si" required><label for="siFotos">SI</label>
-                            <input type="radio" id="noFotos" name="fotos" value="no" required><label for="noFotos">NO</label>
-                        </div>
-                        
-                        <br><br>
 
                         <label id="error"></label>
                         <label id="errorMail"></label>
@@ -122,4 +121,4 @@
 </body>
 
 </html>
-<script src="js/validar.js"></script>
+<script src="<?php echo RUTA_URL ?>/public/js/validar.js"></script>

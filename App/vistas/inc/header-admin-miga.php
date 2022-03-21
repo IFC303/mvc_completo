@@ -85,7 +85,11 @@
         } elseif ($this->datos['nuevo'] == "EVENTO") {
             $miga1 = RUTA_URL . "/adminEventos";
             $miga1Nom = "EVENTO";
-            $miga2Nom = "NUEVA EVENTO";
+            $miga2Nom = "NUEVO EVENTO";
+        }elseif ($this->datos['nuevo'] == "PARTICIPANTES") {
+            $miga1 = RUTA_URL . "/adminEventos";
+            $miga1Nom = "PARTICIPANTES";
+            $miga2Nom = "NUEVo PARTICIPANTES";
         }elseif ($this->datos['nuevo'] == "LICENCIA") {
             $miga1 = RUTA_URL . "/adminLicencias";
             $miga1Nom = "LICENCIA";
@@ -136,7 +140,7 @@
                     <?php echo $datos['usuarioSesion']->nombre ?>
                     <p id="reloj"></p>
                     <script type="text/javascript">
-                        setInterval("verHora()", 500)
+                        setInterval("verHora()", 500);
 
                         function verHora() {
                             let d = new Date();

@@ -1,4 +1,4 @@
-<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
 <div class="container mt-3">
     <style>
         label[id^="error"] {

@@ -21,7 +21,7 @@ function validarSoliEvento() {
     
 }
 function validarSoliSocio() {
-    if(dniMayorEdad==true){comprobarDni=dni("dniAtl");}else{comprobarDni=true;}
+    if(dniMayorEdad==true){comprobarDni=dni("dniAtl");}else{if(document.getElementById("dniAtl").value==""){document.getElementById("error").style.display='none';comprobarDni=true;}else{document.getElementById("error").style.display='';dni("dniAtl");}}
     if(comprobarDni==true && comprobarCorreo == true){
         return true;
     }else{return false;}
@@ -103,6 +103,42 @@ function mayorEdad() {
 
 function dni(m) {
     var dni = document.getElementById(m).value
+    var numero
+    var letr
+    var letra
+    var expresion_regular_dni
+   
+    expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+   
+    if(expresion_regular_dni.test (dni) == true){
+       numero = dni.substr(0,dni.length-1);
+       letr = dni.substr(dni.length-1,1);
+       numero = numero % 23;
+       letra='TRWAGMYFPDXBNJZSQVHLCKET';
+       letra=letra.substring(numero,numero+1);
+      if (letra!=letr.toUpperCase()) {
+        document.getElementById("error").innerHTML=" ¡LETRA DNI INCORRECTA!";
+        errorDni=" ¡LETRA DNI INCORRECTA! ";
+        comprobarDni = false;
+        //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
+        return false;
+       }else{
+        document.getElementById("error").innerHTML="";
+        errorDni="";
+        comprobarDni = true;
+        return true;
+       }
+    }else{
+        document.getElementById("error").innerHTML=" ¡LETRA DNI INCORRECTA!";
+        errorDni=" ¡LETRA DNI INCORRECTA! ";
+        comprobarDni = false;
+        //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
+        return false;
+     }
+  }
+
+/*function dni(m) {
+    var dni = document.getElementById(m).value
     var letraSupuesta
     var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H',
         'L', 'C', 'K', 'E', 'T'
@@ -134,7 +170,7 @@ function dni(m) {
         return false;
     }
 
-}
+}*/
 
 function correo(n){
     var cad = "";

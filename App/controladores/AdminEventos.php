@@ -139,6 +139,7 @@ class AdminEventos extends Controlador{
              $this->datos['participantesEventos'] = $this->eventoModelo->obtenerParticipantesEventos($id_evento);
              //var_dump($this->datos['participantesEventos']);
  
+            $this->datos["nuevo"]="PARTICIPANTES";
             $this->vista('administradores/crudEventos/participantes', $this->datos);
         }
 
