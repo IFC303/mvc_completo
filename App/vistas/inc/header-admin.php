@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<style>
+  span {
+    display: inline-block;
+    width: 100%px;
+    height: 170px;
+    margin: 10px;
+    background-color: #f9f9f9;
+  }
+  </style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +32,12 @@
 </head>
 
 <body>
-    <div class="container-fluid min-vh-100" style="border: solid;">
 
+    <span class="border border-5">
+    <div class="container-fluid min-vh-100">
+        
         <header class="p-4 row">
+
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
 
             <br><br><br><br>
@@ -47,4 +60,7 @@
                     </script>
                 </div>
             </div>
-        </header>
+
+        </header> 
+        <br><br><br>
+    </span>

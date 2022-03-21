@@ -46,9 +46,15 @@ class Grupo
     }
 
     //obtiene alumnos por el id_grupo (tabla SOCIO_GRUPO)
-    public function obtenerAlumnos($idGrupo){
+    public function obtenerAlumnosUno($idGrupo){
         $this->db->query("SELECT id_grupo, fecha_inscripcion, acepatado, activo, SOCIO_GRUPO.id_usuario, USUARIO.nombre, USUARIO.apellidos 
-        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario");
+        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario and activo=1");
+        $this->db->bind(':idGrupo',$idGrupo);
+        return $this->db->registros();
+    }
+    public function obtenerAlumnosCero($idGrupo){
+        $this->db->query("SELECT id_grupo, fecha_inscripcion, acepatado, activo, SOCIO_GRUPO.id_usuario, USUARIO.nombre, USUARIO.apellidos 
+        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario and activo=0");
         $this->db->bind(':idGrupo',$idGrupo);
         return $this->db->registros();
     }
@@ -142,26 +148,23 @@ class Grupo
   
 
     public function cambiarEstadoAlumno($alumnosActuales, $alumnosCero,$idGrupo){
-        var_dump($alumnosActuales);
-        echo "actuales";
-        var_dump($alumnosCero);
-        echo "cero";
+         //var_dump($alumnosActuales);
+         //var_dump($alumnosCero);
 
-           foreach($alumnosActuales as $idActuales){
-               echo $idActuales;
+            foreach($alumnosActuales as $idActuales){
+               //echo $idActuales;
                 $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual and id_grupo=:idGrupo");
                 $this->db->bind(':idActual',$idActuales);
                 $this->db->bind(':idGrupo',$idGrupo);
                 $this->db->execute();
-           }
+            }
    
-           foreach($alumnosCero as $idCero){
-               $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero and id_grupo=:idGrupo");
-               $this->db->bind(':idCero',$idCero);
-               $this->db->bind(':idGrupo',$idGrupo);
-               $this->db->execute();
-           }
-        
+            foreach($alumnosCero as $idCero){
+                $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero and id_grupo=:idGrupo");
+                $this->db->bind(':idCero',$idCero);
+                $this->db->bind(':idGrupo',$idGrupo);
+                $this->db->execute();
+            }    
     }
     
 

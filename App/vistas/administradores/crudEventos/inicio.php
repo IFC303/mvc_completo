@@ -96,7 +96,8 @@
             </div>
 
            <div class="tabla" style="border:solid 1px #023ef9">
-            <table class="table table-hover" >
+            
+           <table class="table table-hover" >
 
 
                     <!--CABECERA TABLA-->
