@@ -1,24 +1,6 @@
 <?php
-#region db
-//include database configuration file
-//DB details
-$dbHost     = 'mysql';
-$dbUsername = 'root';
-$dbPassword = 'toor';
-$dbName     = 'tragamillas2';
 
-//Create connection and select DB
-$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
-
-if ($db->connect_error) {
-    die("Unable to connect database: " . $db->connect_error);
-}
-#endregion
-
-//get records from database
-$query = $db->query("SELECT id_ingreso_cuota AS Código, CONCAT(apellidos, ', ', nombre) AS 'Nombre Deudor', CCC AS IBAN, Importe, dni AS 'NIF-CIF', concepto AS 'Linea 1 (70 caracteres)', concepto AS 'Linea 2  (70 caracteres)', tipo AS 'T.Adeudo', fecha AS 'F.Firma', concat(apellidos, ', ', nombre) as 'Titular de la cuenta cuando sea distinto del recibo -Opcional-', direccion as 'Domicilio  -Opcional -', direccion as 'Cód.Postal', direccion as 'Poblacion', direccion as 'Provincia' FROM I_CUOTAS NATURAL JOIN USUARIO");
-
-if ($query->num_rows > 0) {
+if (count($datos['cuotas']) > 0) {
     $delimiter = ",";
     $filename = "norma_" . date('Y-m-d') . ".csv";
 
@@ -30,9 +12,8 @@ if ($query->num_rows > 0) {
     fputcsv($f, $fields, $delimiter);
 
     //output each row of the data, format line as csv and write to file pointer
-    while ($row = $query->fetch_assoc()) {
-        // $status = ($row['status'] == '1')?'Active':'Inactive';
-        $lineData = array($row['Código'], $row['Nombre Deudor'], $row['IBAN'], $row['Importe'], $row['NIF-CIF'], $row['Linea 1 (70 caracteres)'], $row['Linea 2  (70 caracteres)'], $row['T.Adeudo'], $row['F.Firma'], $row['Titular de la cuenta cuando sea distinto del recibo -Opcional-'], $row['Domicilio  -Opcional -'], $row['Cód.Postal'], $row['Poblacion'], $row['Provincia']);
+    foreach ($datos['cuotas'] as $cuota) {
+        $lineData = array($cuota->id_ingreso_cuota, $cuota->apellidos_nombre, $cuota->CCC, $cuota->importe, $cuota->dni, $cuota->concepto, $cuota->concepto, $cuota->tipo, $cuota->fecha, $cuota->apellidos_nombre, $cuota->direccion, $cuota->cod_postal, $cuota->poblacion, $cuota->provincia);
         fputcsv($f, $lineData, $delimiter);
     }
 

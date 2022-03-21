@@ -24,6 +24,12 @@ class Facturacion
         return $results->data;
     }
 
+    public function getAllCuotasUsuario() {
+        $query = "SELECT id_ingreso_cuota, CONCAT(apellidos, ', ', nombre) AS 'apellidos_nombre', CCC, importe, dni, concepto, concepto, tipo, fecha, concat(apellidos, ', ', nombre) as 'apellidos_nombre', direccion, direccion as 'cod_postal', direccion as 'poblacion', direccion as 'provincia' FROM I_CUOTAS NATURAL JOIN USUARIO";
+        $this->db->query($query);
+        return $this->db->registros();
+    }
+
     public function obtenerIngresos(){
         $this->db->query("SELECT * from INGRESOS");
         return $this->db->registros();

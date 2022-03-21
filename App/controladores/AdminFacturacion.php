@@ -82,6 +82,7 @@ class AdminFacturacion extends Controlador{
     }
 
     public function exportData(){
+        $this->datos['cuotas'] = $this->facturacionModelo->getAllCuotasUsuario();
         $this->vista('administradores/cuotas/exportData',$this->datos);
     }
 }
