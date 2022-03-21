@@ -24,7 +24,7 @@
 
     <div class="container-fluid min-vh-100">
         <header class="p-4 row">
-                
+
 
 
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
@@ -48,13 +48,14 @@
                     <?php echo $datos['usuarioSesion']->nombre ?>
                     <p id="reloj"></p>
                     <script type="text/javascript">
-                        setInterval("verHora()", 500)
+                        setInterval("verHora()", 500);
+
                         function verHora() {
                             let d = new Date();
                             let minutes = d.getMinutes();
                             minutes = minutes > 9 ? minutes : '0' + minutes;
-                            let reloj=d.getHours() + ":" + minutes
-                            document.getElementById("reloj").innerHTML=reloj; 
+                            let reloj = d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML = reloj;
                         }
                     </script>
                 </div>
@@ -103,6 +104,25 @@
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
                             <div class="col-12">MENSAJERIA</div>
                         </a>
+                    </li>
+
+                    <!--MENU ESCUELA-->
+                    <li id="mInicioEscuela">
+                        <a href="<?php echo RUTA_URL ?>/socio/escuela" class="nav-link px-0 align-middle">
+                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>escuela.png" width="35" height="35"></div>
+                            <div class="col-12">ESCUELA</div>
+                        </a>
+                    </li>
+
+
+                    <!--MENU EVENTO-->
+                    <li id="mInicioMarcas">
+                        <a href="<?php echo RUTA_URL ?>/socio/eventoSolicitud" class="nav-link px-0 align-middle">
+                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>eventos.svg" width="35" height="35"></div>
+                            <div class="col-12">EVENTO</div>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <!--FOOTER-->

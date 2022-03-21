@@ -668,6 +668,7 @@ CREATE TABLE EXTERNO(
     DNI varchar (11) unique,
     fecha_nacimiento date not null,
     email varchar (50) not null,
+    telefono int not null,
     dorasl int,
     marca varchar (50),
     constraint FK_id_evento_externo foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade

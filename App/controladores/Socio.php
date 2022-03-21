@@ -157,6 +157,12 @@ class Socio extends Controlador
 
     public function escuela()
     {
+        $nombrePagina = "ESCUELA";
+        $tituloPagina = "ESCUELA";
+        
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
@@ -202,6 +208,12 @@ class Socio extends Controlador
 
     public function eventoSolicitud()
     {
+        $nombrePagina = "EVENTO";
+        $tituloPagina = "EVENTO";
+        
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
@@ -214,7 +226,7 @@ class Socio extends Controlador
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $agreEvento = [
-                'id_usu' =>$datosUser[0]->id_usuario,
+                'id_usu' =>trim($datosUser[0]->id_usuario),
                 'even' => trim($_POST['even']),
             ];
           

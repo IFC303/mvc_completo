@@ -30,6 +30,11 @@ p[id^="p"]{
     cursor:pointer;
 }
 
+div[id^="color"]{
+    width: 200px;
+    height: 100%;
+}
+
 td[id^="m"] {
     font-size: 25px;
     letter-spacing: 3px;

@@ -40,10 +40,17 @@
                     </a>
                     <br>
                     <?php echo $datos['usuarioSesion']->nombre ?>
+                    <p id="reloj"></p>
                     <script type="text/javascript">
-                        var d = new Date();
+                        setInterval("verHora()", 500);
 
-                        document.write(d.getHours() + ":" + d.getMinutes());
+                        function verHora() {
+                            let d = new Date();
+                            let minutes = d.getMinutes();
+                            minutes = minutes > 9 ? minutes : '0' + minutes;
+                            let reloj = d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML = reloj;
+                        }
                     </script>
                 </div>
             </div>
