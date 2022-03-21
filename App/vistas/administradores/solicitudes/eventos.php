@@ -1,5 +1,16 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
 
+<style>
+ .btn{
+            background-color: #023ef9;  
+            color:white;
+        }
+
+</style>
+
+
+
+
 <div style="text-align: center;">
         <form method="post" id="radioChe" class="card-body" action="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/">
                 <input type="radio" name="opcion" value="socio" id="socio" <?php if ($datos['radioCheck'] == "socio") {
@@ -8,7 +19,7 @@
                 <input type="radio" name="opcion" value="externo" id="externo" <?php if ($datos['radioCheck'] == "externo") {
                                                                                         echo "checked";
                                                                                 } ?>>&nbsp;<label for="externo">Ver solicitudes externo</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input onclick="enviarSociExter()" type="submit" name="enviar" value="Cargar" style="background-color: #023ef9; color:white">
+                <input onclick="enviarSociExter()" class="btn" type="submit" name="enviar" value="Cargar">
         </form>
 </div>
 
