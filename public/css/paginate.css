@@ -10,7 +10,7 @@ div.paginate input[type='button']:hover {
 div.paginate input[type='button'] {
     margin: 0px 2px;
     border: none;
-    color: #03A9F4;
+    color: #0d6efd;
     background-color: transparent;
     border-radius: 50%;
     min-width: 1.5rem;
@@ -19,7 +19,7 @@ div.paginate input[type='button'] {
 }
 
 div.paginate input[type='button'].active {
-    background-color: #17a2b8;
+    background-color: #0d6efd;
     color: #fff;
     font-weight: bold;
 }
