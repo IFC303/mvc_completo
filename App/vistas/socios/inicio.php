@@ -34,6 +34,14 @@
                         <p id="pEscuela" class="mx-auto" >ESCUELA</p>
                     </div>
                 </div>
+
+                <!-- Apuntate Evento -->
+                <div class="col-xs-12 col-md-6 col-xl-4">
+                    <div>
+                        <a href="<?php echo RUTA_URL ?>/socio/eventoSolicitud"><div id="colorEvento" class="caja mx-auto"><img src="<?php echo RUTA_Icon?>eventos.svg" width="100" height="100"></div></a>
+                        <p id="pEvento" class="mx-auto" >EVENTO</p>
+                    </div>
+                </div>
         </div>
 
     </div>
@@ -44,7 +52,7 @@
 <script>
 		window.onload=function()
 		{
-            vOpciones=[["pDatos","colorDatos"],["pLicen","colorLicen"],["pMarcas","colorMarcas"],["pEscuela","colorEscuela"]];
+            vOpciones=[["pDatos","colorDatos"],["pLicen","colorLicen"],["pMarcas","colorMarcas"],["pEscuela","colorEscuela"],["pEvento","colorEvento"]];
             
             for (let i = 0; i < vOpciones.length; i++) {
                 var elemento=document.getElementById(vOpciones[i][0]);

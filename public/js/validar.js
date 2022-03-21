@@ -1,6 +1,27 @@
+var dniMayorEdad=false;
+
+var errorDni="";
+var errorCorreo="";
+
 var comprobarDni= false;
 var comprobarCorreo = false;
 function validar() {
+    if(comprobarDni==true && comprobarCorreo == true){
+        return true;
+    }else{ 
+        return false;
+    }
+    
+}
+
+function validarSoliEvento() {
+    if(comprobarDni==true){
+        return true;
+    }else{return false;}
+    
+}
+function validarSoliSocio() {
+    if(dniMayorEdad==true){comprobarDni=dni("dniAtl");}else{comprobarDni=true;}
     if(comprobarDni==true && comprobarCorreo == true){
         return true;
     }else{return false;}
@@ -58,15 +79,24 @@ function mayorEdad() {
     }
 
     if(edad>=18){
-        document.getElementById("esMenor").style.display='none';
+        /*document.getElementById("esMenor").style.display='none';
         document.getElementById("dniPad").required = false;
         document.getElementById("nomPadre").required = false;
-        document.getElementById("apelPadre").required = false;
-        
-    }else{document.getElementById("esMenor").style.display='';
+        document.getElementById("apelPadre").required = false;*/
+        document.getElementById("dniObli").innerHTML = "DNI <sup>*</sup>";
+        document.getElementById("dniAtl").required = true;
+        document.getElementById("error").style.display='';
+        dniMayorEdad=true;
+
+    }else{
+        /*document.getElementById("esMenor").style.display='';
         document.getElementById("dniPad").required = true;
         document.getElementById("nomPadre").required = true;
-        document.getElementById("apelPadre").required = true;
+        document.getElementById("apelPadre").required = true;*/
+        document.getElementById("dniObli").innerHTML = "DNI ";
+        document.getElementById("dniAtl").required = false;
+        document.getElementById("error").style.display='none';
+        dniMayorEdad=false;
     }
     
 }
@@ -86,16 +116,19 @@ function dni(m) {
 
         if (letraSupuesta == dni.charAt(dni.length - 1)) {
             document.getElementById("error").innerHTML="";
+            errorDni="";
             comprobarDni = true;
             return true;
         } else {
             document.getElementById("error").innerHTML=" ¡LETRA DNI INCORRECTA!";
+            errorDni=" ¡LETRA DNI INCORRECTA! ";
             comprobarDni = false;
             //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
             return false;
         }
     } else {
         document.getElementById("error").innerHTML=" ¡DNI INCORRECTO!";
+        errorDni=" ¡DNI INCORRECTO! ";
         comprobarDni = false;
         //document.getElementById(m).setCustomValidity("¡DNI INCORRECTO!");
         return false;
@@ -111,11 +144,13 @@ function correo(n){
     if (re.test(correo)) {
         cad="";
         document.getElementById("errorMail").innerHTML = cad;
+        errorCorreo="";
         comprobarCorreo = true;
         return true;
     }else{ 
         cad="Correo con formato incorrecto";
         document.getElementById("errorMail").innerHTML = cad;
+        errorCorreo=" ¡Correo con formato incorrecto! ";
         comprobarCorreo = false;
         return false;
     }
