@@ -200,5 +200,4 @@ class Socio extends Controlador
         
     }
 
-
 }
