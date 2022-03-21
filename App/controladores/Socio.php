@@ -200,5 +200,37 @@ class Socio extends Controlador
         
     }
 
+    public function eventoSolicitud()
+    {
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $agreEvento = [
+                'id_usu' =>$datosUser[0]->id_usuario,
+                'even' => trim($_POST['even']),
+            ];
+          
+            if ($this->SocioModelo->eventoSoli($agreEvento)) {
+                redireccionar('/socio');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+
+        $eventos = $this->SocioModelo->obtenerEventos();
+        $this->datos['usuarios']=$datosUser;
+        $this->datos['eventos']=$eventos;
+        $this->vista('socios/formulario_evento', $this->datos);
+        
+    }
+
 
 }
