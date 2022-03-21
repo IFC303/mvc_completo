@@ -48,4 +48,25 @@ class Prueba
         return $this->db->registros();
      }
 
+
+     public function borrarMarcaUsuario($borrar){
+        //var_dump($borrar);
+        
+         $this->db->query("DELETE FROM PRUEBA_SOCIO WHERE id_prueba = :id_prueba and id_usuario=:id_usuario");
+         $this->db->bind(':id_prueba', $borrar['id_prueba']);
+         $this->db->bind(':id_usuario', $borrar['id_usuario']);
+
+         if ($this->db->execute()) {
+             return true;
+         } else {
+             return false;
+         }
+        
+    
+    }
+
+
+
+
+
 }

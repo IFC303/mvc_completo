@@ -97,6 +97,7 @@
             color:white;
         }
 
+    
         #botonVolver{
             background-color:white; 
             color:#023ef9;
@@ -118,58 +119,41 @@
 
 <body>
 
-<header>
-    <!-- <form method="post" action="<?php echo RUTA_URL?>/entrenador/grupos"> -->
-
-    <!-- </form> -->
-</header>
-
-
-  <?php 
-    //var_dump($this->datos['todosSociosGrupos']);
-    //var_dump($this->datos['todosEntrenadoresGrupos']);
-   
-
-    //$id_grupo=$this->datos['todosEntrenadoresGrupos']['id_grupo'];
-    //echo $id_grupo;
-    //var_dump($datos['grupos']);
-    //var_dump($datos['alumnosGrupo']);
-    ?>
 
 
 
-
-            <div class="row d-flex justify-content-center" style="text-align:center">
-                            <div class="col-12">
-                                <h4 id="titulo">Gestion de grupos y marcas</h4>
-                            </div>
-            </div>
-            <br>
-
+        <div class="row d-flex justify-content-center" >
+           <div class="col-3">
+                <h4 id="titulo">Gestion de grupos y marcas</h4>
+            </div>           
+            <br><br>
+        </div>
 
 
-    <div class="container d-flex justify-content-center">
-    <div class="col-3 p-1">
-    <form method="post" action="<?php echo RUTA_URL?>/entrenador/grupos"> 
-            <select class="form-select"  style="width:330px" name='filtro' >
-                <option  value="" >Selecciona un grupo</option>
-                <?php 
-                    foreach($datos['todosEntrenadoresGrupos'] as $info){  
-                           $nombre=$info->nombre_grupo;
-                           $id_grupo=$info->id_grupo;
-                            ?>   
-                            <option name="filtro" value="<?php echo $id_grupo?>"><?php echo $nombre?></option>
-                    <?php }
-                    ?>
-            </select>
-            <input type="submit" value="ok">
-    </form>
-    </div>
+     <div class="container d-flex justify-content-center">
+
+                <div class=" d-flex col-3 p-1">
+                <form method="post" action="<?php echo RUTA_URL?>/entrenador/grupos"> 
+                        <select class="form-select"  style="width:330px" name='filtro'>
+                            <option  value="" >Selecciona un grupo</option>
+                                <?php 
+                                foreach($datos['todosEntrenadoresGrupos'] as $info){  
+                                    $nombre=$info->nombre_grupo;
+                                    $id_grupo=$info->id_grupo;
+                                        ?>   
+                                        <option name="filtro" value="<?php echo $id_grupo?>"><?php echo $nombre?></option>
+                                <?php }
+                                ?>
+                        </select>
+                        <br>
+                        <input type="submit" class="btn" value="Cargar">
+                </form>
+                </div> 
 
 
 
 
-<div class="col-9 p-1">
+        <div class="d-flex col-9 p-1">
         <div class="tabla" style="border:solid 1px #023ef9">
             <table class="table table-hover">
 
@@ -188,7 +172,9 @@
                      <!--BODY TABLA-->
                     <tbody class="table-light">
 
-                        <?php foreach($datos['todosSociosGrupos'] as $todos): ?> 
+                        <?php 
+  
+                        foreach($datos['alumnosGrupo'] as $todos): ?> 
                             <tr>
                                 <td class="datos_tabla"><?php echo $todos->nombre?></td>
                                 <td class="datos_tabla"><?php echo $todos->apellidos?></td>
@@ -198,24 +184,24 @@
 
                                     <!-- MODAL MARCAS -->
                                     &nbsp;&nbsp;&nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#ModalMarcas_<?php echo $info->id_usuario?>" >
+                                    <a data-bs-toggle="modal" data-bs-target="#ModalMarcas_<?php echo $todos->id_usuario?>" >
                                         <img class="icono" src="<?php echo RUTA_Icon?>test.svg"></img>
                                     </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="ModalMarcas_<?php echo $info->id_usuario ?>">
+                                    <div class="modal" id="ModalMarcas_<?php echo $todos->id_usuario ?>">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content">
                                             
                                             <!-- Header -->
                                             <div class="modal-header">
-                                                <h2 class="modal-title">Anotar marcas: <?php echo $info->nombre." ".$info->apellidos?></h2>
+                                                <h2 class="modal-title">Anotar marcas: <?php echo $todos->nombre." ".$todos->apellidos?></h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/marca/<?php echo $info->id_usuario?>" class="card-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/marca/<?php echo $todos->id_usuario?>" class="card-body">
                                                     <div class="row">   
                                                         <div class="col-3">
                                                             <label for="marca"><p>Marca</p></label>   
@@ -268,18 +254,18 @@
 
                                     <!-- MODAL RESULTADOS -->
                                     &nbsp;&nbsp;&nbsp;
-                                    <a data-bs-toggle="modal" data-bs-target="#ModalVer_<?php echo $info->id_usuario?>" >
+                                    <a data-bs-toggle="modal" data-bs-target="#ModalVer_<?php echo $todos->id_usuario?>" >
                                         <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"></img>
                                     </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="ModalVer_<?php echo $info->id_usuario;?>">
+                                    <div class="modal" id="ModalVer_<?php echo $todos->id_usuario;?>">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content">
                                                     
                                             <!-- Header -->
                                             <div class="modal-header">
-                                                <h2 class="modal-title">Resultados: <?php echo $info->nombre." ".$info->apellidos?></h2>
+                                                <h2 class="modal-title">Resultados: <?php echo $todos->nombre." ".$todos->apellidos?></h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
@@ -299,39 +285,48 @@
                                                        
                                                 
                                                 <?php foreach ($datos['marcas'] as $marcas){
-                                                if($info->id_usuario == $marcas->id_usuario){echo $marcas->id_prueba;?>
-                                                <div class="row">   
-                                                        <div class="col-5">
+                                                if($todos->id_usuario == $marcas->id_usuario){?>
+                                                <div class="row"> 
+
+                                                        <div class="col-4">
                                                             <label for="nomTest"><?php echo $marcas->nombreTest.": ".$marcas->nombrePrueba." (".$marcas->tipo.")"?></label>   
                                                         </div>
+
                                                         <div class="col-2">
                                                             <input type="text" name="marca" id="marca" value="<?php echo $marcas->marca?>" class="form-control" style="width:100px;" readonly>        
                                                         </div>
-                                                        <div class="col-4">
+
+                                                        <div class="col-3">
                                                             <input type="date" name="fecha" id="fecha" value="<?php echo $marcas->fecha?>" class="form-control" style="width:150px;" readonly>   
                                                         </div> 
 
                                                         <div class="col-1">
                                                         <!--MODAL BORRAR (javascript)-->
-                                                        <img class="icono" id="btnModal_<?php echo $marcas->id_prueba;?>" src="<?php echo RUTA_Icon?>papelera.svg" onclick="abrir(<?php echo $marcas->id_prueba;?>);" ></img>                         
+                                                            <img class="icono" id="btnModal_<?php echo $marcas->id_prueba;?>" src="<?php echo RUTA_Icon?>papelera.svg" onclick="abrir(<?php echo $marcas->id_prueba;?>);" ></img>                         
                                                             <!--Ventana-->
                                                             <div id="<?php echo $marcas->id_prueba;?>" class="modalVer">
                                                                 <div class="modal-content">
-                                                                <!--Header-->
-                                                                <div id="headerVer" class="row">
-                                                                    <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $marcas->id_prueba;?>" onclick="cerrar(<?php echo $marcas->id_prueba;?>);">  
-                                                                </div>
-                                                                <hr>
-                                                                <!--Body-->
-                                                                <div id="bodyVer" class="row m-3">
-                                                                    <h6>Seguro que quiere borrar el evento <?php echo $marcas->nombre?> ?</h6>
-                                                                </div>
-                                                                <!--Footer-->
-                                                                <div id="footerBorrar">
-                                                                    <input type="button" style="background-color: #023ef9; color:white"id="cerrar_<?php echo $evento->id_evento ?>" class="close" onclick="cerrar(<?php echo $evento->id_evento ?>);" value="cerrar" >
-                                                                </div>                           
-                                                            </div>   
-                                                </div> 
+                                                                    <!--Header-->
+                                                                    <div id="headerVer" class="row">
+                                                                        <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $marcas->id_prueba;?>" onclick="cerrar(<?php echo $marcas->id_prueba;?>);">  
+                                                                    </div>
+                                                                    <hr>
+                                                                    <!--Body-->
+                                                                    <div id="bodyVer" class="row m-3">
+                                                                        <h6>Seguro que quiere borrar la marca de <?php echo $marcas->nombrePrueba?> ?</h6>
+                                                                    </div>
+                                                                    <!--Footer-->
+                                                                    <div id="footerBorrar">
+                                                                        <form action="<?php echo RUTA_URL?>/entrenador/borrarMarca/<?php echo $marcas->id_prueba?>" method="post">
+                                                                            <input type="hidden" name="mBorrar" value="<?php echo $marcas->id_prueba?>">
+                                                                            <input type="hidden" name="idUsu" value="<?php echo $todos->id_usuario?>">
+                                                                            <button type="submit" class="btn m-3">Borrar</button>
+                                                                        </form>
+                                                                    </div>                           
+                                                                </div>   
+                                                                </div>    
+                                                        </div> 
+                                                </div>
                                                 <?php
                                                 }
                                                 }?>              
@@ -347,9 +342,10 @@
             </table>
 
                     <!--VER TODOS LOS RESULTADOS DEL GRUPO-->
-                    <div class="col text-center">
-                        <a class="btn" id="verTodos" href="<?php echo RUTA_URL?>/entrenador/resultados/">Ver resultados</a>
+                    <!-- <div class="col text-center">
+                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/entrenador/verTodos/">Ver todos</a>
                     </div>
+                     -->
                     <br>
 
         </div>
@@ -362,6 +358,7 @@
    
 
         <script>
+
 
             function abrir(idModal){
                 var modal=document.getElementById(idModal);
@@ -376,13 +373,6 @@
                 modal.style.display="none";
                 body.style.overflow="visible";
             }
-
-
-            function cambiarDatos(select){
-                var valor=select.value;
-                alert("hola" + valor)
-            }
-
 
 
 

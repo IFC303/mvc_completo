@@ -37,8 +37,8 @@ class Entrenador extends Controlador{
 
             public function grupos(){
             
-               // echo $_POST['filtro'];
-
+                
+                
                $id_entrenador=$this->datos['usuarioSesion']->id_usuario;
                //echo $id_entrenador;
 
@@ -49,8 +49,15 @@ class Entrenador extends Controlador{
                 $this->datos['todosEntrenadoresGrupos'] = $this->grupoModelo->todosEntrenadoresGrupos($id_entrenador);
                 //var_dump($this->datos['todosEntrenadoresGrupos']);
 
-                $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnos($_POST['filtro']);
-                //var_dump($this->datos['alumnosGrupo']);
+
+                if(isset($_POST['filtro']) && $_POST['filtro']!=0 ){
+                        $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnos($_POST['filtro']);
+                }else{
+                    $this->datos['alumnosGrupo'] = $this->grupoModelo->todosSociosGrupos($id_entrenador);
+                }
+             
+
+
                 $this->datos['testPruebas'] = $this->grupoModelo->obtenerTestPruebas();
                 //var_dump($this->datos['testPruebas']);
                 $this->datos['marcas'] = $this->pruebaModelo->obtenerMarcas();
@@ -77,6 +84,7 @@ class Entrenador extends Controlador{
                          'marca'=>($_POST['marca'])
                          
                       ];  
+
                       //var_dump($nuevaMarca);
                       if ($this->pruebaModelo->agregarMarca($nuevaMarca)) {
                             redireccionar('/entrenador/grupos');
@@ -87,6 +95,33 @@ class Entrenador extends Controlador{
 
 
             }
+
+
+            public function borrarMarca($id){
+                $this->datos['rolesPermitidos'] = [2];         
+                if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                    redireccionar('/usuarios');
+                };
+
+
+                 if($_SERVER['REQUEST_METHOD']=='POST'){
+   
+                      $borrarMarca=[
+                         'id_prueba'=> $_POST['mBorrar'],
+                         'id_usuario'=> trim($_POST['idUsu']),                 
+                      ];  
+                      
+                      if ($this->pruebaModelo->borrarMarcaUsuario($borrarMarca)) {
+                            redireccionar('/entrenador/grupos');
+                        }else{
+                            die('Algo ha fallado!!!');
+                        }  
+                 }
+
+
+            }
+
+
 
 
         // *********** SUBMENU: TEST/PRUEBAS (funciones) ***********  
