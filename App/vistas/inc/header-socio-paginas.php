@@ -24,7 +24,7 @@
 
 <body style="background-color: #F5F5F5;">
 
-    <div class="container-fluid min-vh-100 " style="border: solid; height: 100%;">
+    <div class="container-fluid min-vh-100 " style="height: 100%;">
 
         <header class="p-5 row text-center">
             <div class="col-2" style="padding-left: 50px;">

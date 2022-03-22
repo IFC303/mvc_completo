@@ -119,8 +119,9 @@
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
             <br><br><br><br>
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
-
+                <br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADORES</h1>
+                <br>
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
                     <li class='breadcrumb-level'><a href="<?php echo $miga1 ?>"><?php echo $miga1Nom ?></a></li>

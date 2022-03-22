@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<style>
-  span {
-    display: inline-block;
-    width: 100%px;
-    height: 170px;
-    margin: 10px;
-    background-color: #f9f9f9;
-  }
-  </style>
 
 <head>
     <meta charset="UTF-8">
@@ -33,16 +24,16 @@
 
 <body>
 
-    <span class="border border-5">
     <div class="container-fluid min-vh-100">
         
-        <header class="p-4 row">
+        <header class="p-4 row"  style="background-color:#CCE6FA">
 
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
 
             <br><br><br><br>
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
+                <br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADORES</h1>
             </div>
 
             <br><br><br><br>
@@ -69,5 +60,5 @@
             </div>
 
         </header> 
-        <br><br><br>
-    </span>
+        <br><br>
+ 
