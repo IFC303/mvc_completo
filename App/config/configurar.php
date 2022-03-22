@@ -17,8 +17,8 @@ define('NOMBRE_SITIO', 'Tragamillas');
 define('DB_HOST', '172.17.0.3');
 //define('DB_HOST', 'mysql');
 define('DB_USUARIO', 'root');
-define('DB_PASSWORD', 'toor');
-//define('DB_PASSWORD', 'Admin1234');
+//define('DB_PASSWORD', 'toor');
+define('DB_PASSWORD', 'Admin1234');
 define('DB_NOMBRE', 'tragamillas2');
 
 define('RUTA_Icon', RUTA_URL . '/public/img/icons/');
