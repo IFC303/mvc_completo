@@ -22,3 +22,14 @@ docker network connect tragamillas mysql
 ```bash
 docker network connect tragamillas pma
 ```
+
+# Compose
+```bash
+mkdir docker/nginx/ssl
+```
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout docker/nginx/ssl/privkey.pem -out docker/nginx/ssl/fullchain.pem
+```
+```bash
+docker-compose up -d
+```
