@@ -59,7 +59,7 @@
                 <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
                 <div class="p-3" style="text-align: center;"><h1>INSCRIPCION SOCIO</h1></div>
 
-                <form action="" onsubmit="return validarSoliSocio()" method="POST">
+                <form action="" onsubmit="return validarSoliSocio()" method="POST"> 
                     <div class="row m-3">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
                             <label for="fecha">Fecha Nacimiento <sup>*</sup></label>

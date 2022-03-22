@@ -29,7 +29,17 @@ function validarSoliEvento() {
         return true;
     } else { return false; }
 
+
 }
+
+function validarSoliUsu() {
+    if (dniMayorEdad == true) { comprobarDni = dni("dniAtl"); } else { if (document.getElementById("dniAtl").value == "") { document.getElementById("error").style.display = 'none'; comprobarDni = true; } else { document.getElementById("error").style.display = ''; dni("dniAtl"); } }
+    if (comprobarDni == true && comprobarCorreo == true) {
+        return true;
+    } else { return false; }
+
+}
+
 function validarSoliSocio() {
     if (dniMayorEdad == true) { comprobarDni = dni("dniAtl"); } else { if (document.getElementById("dniAtl").value == "") { document.getElementById("error").style.display = 'none'; comprobarDni = true; } else { document.getElementById("error").style.display = ''; dni("dniAtl"); } }
     if (comprobarDni == true && comprobarCorreo == true) {

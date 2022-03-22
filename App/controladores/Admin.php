@@ -171,7 +171,7 @@ class Admin extends Controlador
 
             $anaUsu = [
                 'socioUsuAna' => trim($_POST["socio"]),
-                'dniUsuAna' => trim($_POST["dni"]),
+                'dniUsuAna' => trim($_POST["dniAtl"]),
                 'nomUsuAna' => trim($_POST["nombre"]),
                 'apelUsuAna' => trim($_POST["apellidos"]),
                 'fecUsuAna' => trim($_POST["fecha"]),
