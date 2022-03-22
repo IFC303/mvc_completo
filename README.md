@@ -25,11 +25,11 @@ docker network connect tragamillas pma
 
 # Compose
 ```bash
-mkdir docker/nginx/ssl
+git clone https://github.com/IFC303/tragamillas && cd tragamillas
 ```
 ```bash
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout docker/nginx/ssl/privkey.pem -out docker/nginx/ssl/fullchain.pem
+mkdir docker/nginx/ssl && openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout docker/nginx/ssl/privkey.pem -out docker/nginx/ssl/fullchain.pem
 ```
 ```bash
-docker-compose up -d
+docker pull ifc303/tragamillas && docker-compose up -d
 ```
