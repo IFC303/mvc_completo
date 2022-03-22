@@ -5,7 +5,9 @@
             background-color: #023ef9;  
             color:white;
         }
-
+        .datos_tabla{
+            text-align:center;
+        }
 </style>
 
 
@@ -24,7 +26,7 @@
 </div>
 
 <br>
-
+<div class="container">
 <div class="tabla" style="border:solid 1px #023ef9">
 
 
@@ -56,16 +58,16 @@
                 <tbody class="table-light">
                         <?php foreach ($datos['soliEventos'] as $usuarios) : ?>
                                 <tr>
-                                        <td><?php echo $usuarios->nombre ?></td>
-                                        <td><?php echo $usuarios->apellidos ?></td>
-                                        <td><?php echo $usuarios->evento ?></td>
-                                        <td><?php echo $usuarios->fecha ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->nombre ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->apellidos ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->evento ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->fecha ?></td>
 
 
 
 
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td>
+                                                <td class="datos_tabla">
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                         </a>
@@ -221,7 +223,7 @@
         </table>
 
 </div>
-
+</div>
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 <script>
         var aceptarBorrar = [];

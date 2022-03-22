@@ -58,6 +58,12 @@
             $miga1Nom = "INGRESOS";
         }elseif ($this->datos['notificaciones'][3] == "GASTOS") {
             $miga1Nom = "GASTOS";
+        }elseif ($this->datos['notificaciones'][3] == "SOCIOSSOL") {
+            $miga1Nom = "SOCIOS";
+        }elseif ($this->datos['notificaciones'][3] == "GRUPOSSOL") {
+            $miga1Nom = "GRUPOS";
+        }elseif ($this->datos['notificaciones'][3] == "EVENTOSSOL") {
+            $miga1Nom = "EVENTOS";
         }
     } else {
         $miga1Nom = "EN MANTENIMIENTO";

@@ -1,5 +1,12 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+<style>
+          .datos_tabla{
+            text-align:center;
+        }
+</style>
 
+
+<div class="container">
 <div class="tabla" style="border:solid 1px #023ef9">
 
         <table class="table table-hover">
@@ -7,15 +14,15 @@
                 <!--CABECERA TABLA-->
                 <thead>
                         <tr style="background-color:#023ef9; color:white;">
-                                <th>ID</th>
-                                <th>NOMBRE</th>
-                                <th>APELLIDOS</th>
-                                <th>EMAIL</th>
-                                <th>TELEFONO</th>
-                                <th>HA SIDO SOCIO</th>
+                                <th class="datos_tabla">ID</th>
+                                <th class="datos_tabla">NOMBRE</th>
+                                <th class="datos_tabla">APELLIDOS</th>
+                                <th class="datos_tabla">EMAIL</th>
+                                <th class="datos_tabla">TELEFONO</th>
+                                <th class="datos_tabla">HA SIDO SOCIO</th>
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                        <th>Acciones</th>
-                                        <th>
+                                        <th class="datos_tabla">Acciones</th>
+                                        <th class="datos_tabla">
                                                 <a onclick="borrarMas()" data-bs-toggle="modal" data-bs-target="#ModalBorrar_mas">
                                                         <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                 </a>
@@ -33,12 +40,12 @@
 
                         <?php foreach ($datos['soliSocio'] as $usuarios) : ?>
                                 <tr>
-                                        <td><?php echo $usuarios->id_solicitud_soc ?></td>
-                                        <td><?php echo $usuarios->nombre ?></td>
-                                        <td><?php echo $usuarios->apellidos ?></td>
-                                        <td><?php echo $usuarios->email ?></td>
-                                        <td><?php echo $usuarios->telefono ?></td>
-                                        <td><?php if ($usuarios->es_socio == 1) {
+                                        <td class="datos_tabla"><?php echo $usuarios->id_solicitud_soc ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->nombre ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->apellidos ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->email ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->telefono ?></td>
+                                        <td class="datos_tabla"><?php if ($usuarios->es_socio == 1) {
                                                         echo "SI";
                                                 } elseif ($usuarios->es_socio == 0) {
                                                         echo "NO";
@@ -48,7 +55,7 @@
 
 
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td>
+                                                <td class="datos_tabla">
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_solicitud_soc ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                         </a>
@@ -278,7 +285,7 @@
 
         </table>
 
-
+</div>
 
 
 </div>

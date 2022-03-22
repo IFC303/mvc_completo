@@ -1,6 +1,6 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
 
-
+<div class="container">
         <div  style="border:solid 1px #023ef9; height: 1%">
         <table class="table table-striped text-center" style = "margin: 0px;"> 
             <thead class="cabezera">
@@ -35,5 +35,6 @@
         </table>
     
         </div>
+    </div>
         
         <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

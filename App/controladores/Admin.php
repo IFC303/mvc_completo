@@ -353,7 +353,7 @@ class Admin extends Controlador
 
         $verSoli = $this->AdminModelo->obtenerSolicitudesSocios();
         $this->datos['soliSocio'] = $verSoli;
-        
+        $this->datos['notificaciones'][3]= "SOCIOSSOL";
         $this->vista('administradores/solicitudes/socios', $this->datos);
     }
 
@@ -395,7 +395,7 @@ class Admin extends Controlador
 
         $verSoli = $this->AdminModelo->obtenerSolicitudesGrupos();
         $this->datos['soliSocioGrupos'] = $verSoli;
-        
+        $this->datos['notificaciones'][3]= "GRUPOSSOL";
         $this->vista('administradores/solicitudes/grupos', $this->datos);
     }
 
@@ -455,7 +455,7 @@ class Admin extends Controlador
                 $this->datos['radioCheck'] = "externo";
             }
         }
-        
+        $this->datos['notificaciones'][3]= "EVENTOSSOL";
         $this->vista('administradores/solicitudes/eventos', $this->datos);
     }
 
