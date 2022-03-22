@@ -46,9 +46,9 @@
                                         <td class="datos_tabla"><?php echo $usuarios->email ?></td>
                                         <td class="datos_tabla"><?php echo $usuarios->telefono ?></td>
                                         <td class="datos_tabla"><?php if ($usuarios->es_socio == 1) {
-                                                        echo "SI";
-                                                } elseif ($usuarios->es_socio == 0) {
                                                         echo "NO";
+                                                } elseif ($usuarios->es_socio == 0) {
+                                                        echo "SI";
                                                 } else {
                                                         echo "";
                                                 } ?></td>
