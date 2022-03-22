@@ -255,7 +255,6 @@
             ["pEven", "colorEven"],
             ["pLicen", "colorLice"],
             ["pEnti", "colorEnti"],
-            ["pTemp", "colorTemp"],
             ["pFact", "colorFact"],
             ["pMens", "colorMens"]
         ];
