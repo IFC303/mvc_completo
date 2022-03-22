@@ -102,7 +102,7 @@
             </div>
         </nav>
 
-        <div class="offcanvas offcanvas-start" id="menu1">
+        <div class="offcanvas offcanvas-start" id="menu1" style="overflow: scroll;">
             <!--HEADER-->
             <div class="offcanvas-header">
                 <a href="<?php echo RUTA_URL ?>/entrenador"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>

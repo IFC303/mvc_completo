@@ -158,7 +158,7 @@
             </div>
 
             <!--MENU-->
-            <div class="offcanvas offcanvas-start" id="menu1">
+            <div class="offcanvas offcanvas-start" id="menu1" style="overflow: scroll;">
                 <div class="offcanvas-header">
                     <a href="<?php echo RUTA_URL ?>/admin"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
                     <a href="<?php echo RUTA_URL ?>/admin">
@@ -292,7 +292,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
+                <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end mt-3">
                     <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
                 </div>
             </div>
