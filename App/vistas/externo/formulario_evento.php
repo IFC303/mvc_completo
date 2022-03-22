@@ -30,6 +30,11 @@
             -webkit-appearance: none;
             margin: 0;
         }
+        
+        #fotoBici{
+            background-image: url("<?php echo RUTA_Foto ?>bici3.png");
+            background-size: 100% 100%;
+        }
 
         input[type=number] {
             -moz-appearance: textfield;
@@ -40,8 +45,7 @@
                 display: none;
             }
         }
-
-        sup {
+        sup{
             color: #023EF9;
             font-weight: bold;
             font-size: small;
@@ -50,20 +54,18 @@
 </head>
 
 <body style="margin: 0px;">
-    <div class="container-fluid min-vh-100 m-0 p-0">
+    <div class="container-fluid min-vh-100 ">
         <div class="row">
-            <div id="fotoBici" class="col-lg-6 col-md-6 col-sm-6 col-xs-0 m-0 p-0">
-                <img src="<?php echo RUTA_Foto ?>bici3.png" width="100%" height="100%">
+            <div id="fotoBici" class="col-lg-5 col-md-5 col-sm-5 m-0 p-0 min-vh-100" >
+
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-0 p-0">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 m-0 p-0">
 
                 <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
-                <div class="p-3" style="text-align: center;">
-                    <h1>INSCRIPCION EVENTO</h1>
-                </div>
+                <div class="p-3" style="text-align: center;"><h1>INSCRIPCION ESCUELA</h1></div>
 
-                <form action="" onsubmit="return validarSoliSocio()" method="POST">
-                    <div class="row m-3">
+                <form action="" onsubmit="return validarSoliSocio()" method="POST"> 
+                <div class="row m-3">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
                             <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
                             <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>

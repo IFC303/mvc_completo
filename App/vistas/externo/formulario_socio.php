@@ -30,6 +30,11 @@
             -webkit-appearance: none;
             margin: 0;
         }
+        
+        #fotoBici{
+            background-image: url("<?php echo RUTA_Foto ?>chicas recortadas.png");
+            background-size: 100% 100%;
+        }
 
         input[type=number] {
             -moz-appearance: textfield;
@@ -51,10 +56,10 @@
 <body style="margin: 0px;">
     <div class="container-fluid min-vh-100 ">
         <div class="row">
-            <div id="fotoBici" class="col-lg-6 col-md-6 col-sm-6 m-0 p-0">
-                <img src="<?php echo RUTA_Foto ?>chicas recortadas.png" width="100%" height="100%" position: absolute;>
+            <div id="fotoBici" class="col-lg-5 col-md-5 col-sm-5 m-0 p-0 min-vh-100" >
+                <!-- <img src="<?php echo RUTA_Foto ?>chicas recortadas.png" width="100%" height="928px"> -->
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-0 p-0">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 m-0 p-0">
 
                 <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
                 <div class="p-3" style="text-align: center;"><h1>INSCRIPCION SOCIO</h1></div>
