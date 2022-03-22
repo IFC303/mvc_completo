@@ -11,7 +11,7 @@ define('RUTA_URL', "http://{$_SERVER['HTTP_HOST']}/tragamillas");
 define('NOMBRE_SITIO', 'Tragamillas');
 
 // Ruta host
-define('DB_HOST', 'localhost');
+//define('DB_HOST', 'localhost');
 
 // Ruta bridge
 // define('DB_HOST', '172.17.0.3');

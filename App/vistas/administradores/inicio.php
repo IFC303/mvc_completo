@@ -155,7 +155,7 @@
     </div>
 
     <!-- TEMPORADAS -->
-    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+    <!-- <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
             <div id="colorTemp" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
                 <a href="<?php echo RUTA_URL ?>/adminLicencias">
@@ -172,7 +172,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- FACTURACION -->
     <div class="col-xs-12 col-md-6 col-xl-4 pt-5">

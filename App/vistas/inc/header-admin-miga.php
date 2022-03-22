@@ -254,14 +254,14 @@
                 </ul>
 
                 <!--MENU TEMPORADAS-->
-                <ul id="mInicioTem">
+                <!-- <ul id="mInicioTem">
                     <li id="mInicioTem">
                         <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>temporadas.svg" width="35" height="35"></div>
                             <div class="col-12">TEMPORADAS</div>
                         </a>
                     </li>
-                </ul>
+                </ul> -->
 
                 <!--MENU FACTURACION-->
                 <ul id="mInicioFac">
