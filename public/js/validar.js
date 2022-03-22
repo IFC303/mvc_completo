@@ -1,41 +1,61 @@
-var dniMayorEdad=false;
+var dniMayorEdad = false;
 
-var errorDni="";
-var errorCorreo="";
+var errorDni = "";
+var errorCorreo = "";
 
-var comprobarDni= false;
+var comprobarDni = false;
 var comprobarCorreo = false;
 function validar() {
-    if(comprobarDni==true && comprobarCorreo == true){
+    if (comprobarDni == true && comprobarCorreo == true) {
         return true;
-    }else{ 
+    } else {
         return false;
     }
-    
+
+}
+
+function validarModifiSocio() {
+    if (document.getElementById("dniCom").value == "") { document.getElementById("error").style.display = 'none'; comprobarDni = true; } else { document.getElementById("error").style.display = ''; dni("dniCom"); }
+    if (document.getElementById("emailCom").value == "") { document.getElementById("errorMail").style.display = 'none'; comprobarCorreo = true; } else { document.getElementById("errorMail").style.display = ''; correo("emailCom"); }
+
+    if (comprobarDni == true && comprobarCorreo == true) {
+        return true;
+    } else { return false; }
+
 }
 
 function validarSoliEvento() {
-    if(comprobarDni==true){
+    if (comprobarDni == true) {
         return true;
-    }else{return false;}
-    
+    } else { return false; }
+
+
 }
-function validarSoliSocio() {
-    if(dniMayorEdad==true){comprobarDni=dni("dniAtl");}else{if(document.getElementById("dniAtl").value==""){document.getElementById("error").style.display='none';comprobarDni=true;}else{document.getElementById("error").style.display='';dni("dniAtl");}}
-    if(comprobarDni==true && comprobarCorreo == true){
+
+function validarSoliUsu() {
+    if (dniMayorEdad == true) { comprobarDni = dni("dniAtl"); } else { if (document.getElementById("dniAtl").value == "") { document.getElementById("error").style.display = 'none'; comprobarDni = true; } else { document.getElementById("error").style.display = ''; dni("dniAtl"); } }
+    if (comprobarDni == true && comprobarCorreo == true) {
         return true;
-    }else{return false;}
-    
+    } else { return false; }
+
+}
+
+function validarSoliSocio() {
+    if (dniMayorEdad == true) { comprobarDni = dni("dniAtl"); } else { if (document.getElementById("dniAtl").value == "") { document.getElementById("error").style.display = 'none'; comprobarDni = true; } else { document.getElementById("error").style.display = ''; dni("dniAtl"); } }
+    if (comprobarDni == true && comprobarCorreo == true) {
+        return true;
+    } else { return false; }
+
 }
 
 function mayorEdad() {
-    
-    var fechaDada= document.getElementById("fecha").value;
+
+    var fechaDada = document.getElementById("fecha").value;
     var values = fechaDada.split("-");
     var dia = values[2];
     var mes = values[1];
     var ano = values[0];
-   
+
 
     // cogemos los valores actuales
     var fecha_hoy = new Date();
@@ -78,27 +98,27 @@ function mayorEdad() {
         dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
     }
 
-    if(edad>=18){
+    if (edad >= 18) {
         /*document.getElementById("esMenor").style.display='none';
         document.getElementById("dniPad").required = false;
         document.getElementById("nomPadre").required = false;
         document.getElementById("apelPadre").required = false;*/
         document.getElementById("dniObli").innerHTML = "DNI <sup>*</sup>";
         document.getElementById("dniAtl").required = true;
-        document.getElementById("error").style.display='';
-        dniMayorEdad=true;
+        document.getElementById("error").style.display = '';
+        dniMayorEdad = true;
 
-    }else{
+    } else {
         /*document.getElementById("esMenor").style.display='';
         document.getElementById("dniPad").required = true;
         document.getElementById("nomPadre").required = true;
         document.getElementById("apelPadre").required = true;*/
         document.getElementById("dniObli").innerHTML = "DNI ";
         document.getElementById("dniAtl").required = false;
-        document.getElementById("error").style.display='none';
-        dniMayorEdad=false;
+        document.getElementById("error").style.display = 'none';
+        dniMayorEdad = false;
     }
-    
+
 }
 
 function dni(m) {
@@ -107,35 +127,35 @@ function dni(m) {
     var letr
     var letra
     var expresion_regular_dni
-   
+
     expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
-   
-    if(expresion_regular_dni.test (dni) == true){
-       numero = dni.substr(0,dni.length-1);
-       letr = dni.substr(dni.length-1,1);
-       numero = numero % 23;
-       letra='TRWAGMYFPDXBNJZSQVHLCKET';
-       letra=letra.substring(numero,numero+1);
-      if (letra!=letr.toUpperCase()) {
-        document.getElementById("error").innerHTML=" ¡LETRA DNI INCORRECTA!";
-        errorDni=" ¡LETRA DNI INCORRECTA! ";
+
+    if (expresion_regular_dni.test(dni) == true) {
+        numero = dni.substr(0, dni.length - 1);
+        letr = dni.substr(dni.length - 1, 1);
+        numero = numero % 23;
+        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        letra = letra.substring(numero, numero + 1);
+        if (letra != letr.toUpperCase()) {
+            document.getElementById("error").innerHTML = " ¡LETRA DNI INCORRECTA!";
+            errorDni = " ¡LETRA DNI INCORRECTA! ";
+            comprobarDni = false;
+            //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
+            return false;
+        } else {
+            document.getElementById("error").innerHTML = "";
+            errorDni = "";
+            comprobarDni = true;
+            return true;
+        }
+    } else {
+        document.getElementById("error").innerHTML = " ¡LETRA DNI INCORRECTA!";
+        errorDni = " ¡LETRA DNI INCORRECTA! ";
         comprobarDni = false;
         //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
         return false;
-       }else{
-        document.getElementById("error").innerHTML="";
-        errorDni="";
-        comprobarDni = true;
-        return true;
-       }
-    }else{
-        document.getElementById("error").innerHTML=" ¡LETRA DNI INCORRECTA!";
-        errorDni=" ¡LETRA DNI INCORRECTA! ";
-        comprobarDni = false;
-        //document.getElementById(m).setCustomValidity("'LETRA DNI INCORRECTA!");
-        return false;
-     }
-  }
+    }
+}
 
 /*function dni(m) {
     var dni = document.getElementById(m).value
@@ -172,21 +192,21 @@ function dni(m) {
 
 }*/
 
-function correo(n){
+function correo(n) {
     var cad = "";
     let re = new RegExp('[\\w]*[@]{1}[\\w]*[.]{1}[\\w]*');
     var correo = document.getElementById(n).value;
 
     if (re.test(correo)) {
-        cad="";
+        cad = "";
         document.getElementById("errorMail").innerHTML = cad;
-        errorCorreo="";
+        errorCorreo = "";
         comprobarCorreo = true;
         return true;
-    }else{ 
-        cad="Correo con formato incorrecto";
+    } else {
+        cad = "Correo con formato incorrecto";
         document.getElementById("errorMail").innerHTML = cad;
-        errorCorreo=" ¡Correo con formato incorrecto! ";
+        errorCorreo = " ¡Correo con formato incorrecto! ";
         comprobarCorreo = false;
         return false;
     }
@@ -199,7 +219,7 @@ function Solo_Texto(e) {
     if (e.keyCode) code = e.keyCode;
     else if (e.which) code = e.which;
     var character = String.fromCharCode(code);
-    var AllowRegex  = /^[\ba-zA-Z\s-]$/;
-    if (AllowRegex.test(character)) return true;     
-    return false; 
+    var AllowRegex = /^[\ba-zA-Z\s-]$/;
+    if (AllowRegex.test(character)) return true;
+    return false;
 }
