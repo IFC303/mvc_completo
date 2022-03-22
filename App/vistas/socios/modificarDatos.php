@@ -39,7 +39,7 @@
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->CCC=="") {echo 'CCC';} else {echo $datosUser->CCC;}?>" name="ccc" id="ccc"></div>
                             <div class="datos col-12" > <input type="password" size="30" placeholder="CONTRASEÑA" name="passw"></div>
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->talla=="") {echo 'TALLA CAMISETA';} else {echo $datosUser->talla;}?>" name="talla"></div>                      
-                            <div class="datos col-12"><input title="Guardar cambios" type="submit" id="guardar" name="guardar" value="GUARDAR"></div>
+                            <div class="datos col-12"><input title="Guardar cambios" class="btn" type="submit" id="guardar" name="guardar" value="GUARDAR"></div>
                             <?php endforeach ?>
                         
                     </div>

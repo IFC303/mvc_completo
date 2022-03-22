@@ -20,13 +20,20 @@
 </head>
 
 <body style="background-color: #F5F5F5;">
-    <div class="container-fluid min-vh-100" style="border: solid; height: 100%;">
-        <header class="p-5 row">
-            <div class="col-3"><img id="logo" src="<?php echo RUTA_Foto ?>logo_tragamillas.png" width="150"></div>
-            <div class="col-7 text-center">
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA SOCIO</h1>
+<div class="container-fluid min-vh-100">
+        
+        <header class="p-4 row"  style="background-color:#CCE6FA">
+
+            <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
+
+            <br><br><br><br>
+            <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
+                <br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE SOCIOS</h1>
             </div>
-            <div class="d-flex col-2 text-center">
+
+            <br><br><br><br>
+            <div class="d-flex col-6 col-md-2 justify-content-end order-2 order-md-3 text-center">
                 <div class="col-12">
                     <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
                         <img src="<?php echo RUTA_Icon ?>salirUsu.svg" width="50" height="50">
@@ -47,4 +54,7 @@
                     </script>
                 </div>
             </div>
-        </header>
+
+        </header> 
+        <br><br>
+ 

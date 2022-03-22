@@ -23,26 +23,27 @@
 
 
 <body>
-    <div class="container-fluid min-vh-100">
+   
+<div class="container-fluid min-vh-100">
+        
+        <header class="p-4 row"  style="background-color:#CCE6FA">
 
-        <header class="p-4 row">
-            <!-- LOGO TRAGAMILLAS-->
-            <div class="col-6 col-md-3 order-1 order-md-1">
-                <img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150">
-            </div>
-            <!-- TITULO ENTRENADORES-->
+            <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
 
+            <br><br><br><br>
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
-                </br>
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ENTRENADOR</h1>
+                <br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ENTRENADORES</h1>
             </div>
-            <!-- LOGOUT-->
+
+            <br><br><br><br>
             <div class="d-flex col-6 col-md-2 justify-content-end order-2 order-md-3 text-center">
                 <div class="col-12">
                     <a aria-current="page" href="<?php echo RUTA_URL ?>/login/logout">
                         <img src="<?php echo RUTA_Icon ?>salirUsu.svg" width="50" height="50">
                     </a>
-                    <h4><?php echo $datos['usuarioSesion']->nombre ?></h4>
+                    <br>
+                    <?php echo $datos['usuarioSesion']->nombre ?>
                     <p id="reloj"></p>
                     <script type="text/javascript">
                         setInterval("verHora()", 500);
@@ -57,4 +58,7 @@
                     </script>
                 </div>
             </div>
-        </header>
+
+        </header> 
+        <br><br>
+ 
