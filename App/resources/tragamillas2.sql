@@ -35,7 +35,8 @@ CREATE TABLE USUARIO(
     talla varchar(5) not null,
     foto varchar(800),
     gir varchar(20),
-    entregado boolean not null,
+    activado boolean,
+    entregado boolean,
     id_rol int,
     primary key (id_usuario),
     constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
