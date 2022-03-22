@@ -128,16 +128,16 @@
 
                                 <div class="mt-3 mb-3">
                                     <label for="destinatario">Email destinatario</label>
-                                    <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="">
+                                    <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="" required>
                                 </div>
                                 <div class="mt-3 mb-3">
                                     <label for="asunto">Asunto</label>
-                                    <input type="text" name="asunto" id="asunto" class="form-control form-control-lg">
+                                    <input type="text" name="asunto" id="asunto" class="form-control form-control-lg" required>
                                 </div>
 
                                 <div class="mt-3 mb-3">
                                     <label for="mensaje">Mensaje</label>
-                                    <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg"></textarea>
+                                    <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg" required></textarea>
                                 </div>
 
                                 <input type="hidden" name="enviarCorreos" id="enviarCorreos" value="">

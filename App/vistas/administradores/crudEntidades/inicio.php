@@ -158,12 +158,12 @@
                                                         <input  type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $entidad->nombre?>" readonly>
                                                     </div>
                                                 </div>
-
+                                                <div class="row">
                                                 <div class="mt-3 mb-3">
                                                     <label for="direccion">Direccion</label>
                                                     <input type="text" name="direccion" id="direccion" class="form-control form-control-lg" value="<?php echo $entidad->direccion?>" readonly>
                                                 </div>
-
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="telefono">Telefono</label>
@@ -174,12 +174,12 @@
                                                         <input type="text" name="email" id="email" class="form-control form-control-lg" value="<?php echo $entidad->email?>" readonly>
                                                     </div>
                                                 </div>
-
+                                                <div class="row">
                                                 <div class="mt-3 mb-3">
                                                     <label for="observaciones">Observaciones</label>
                                                     <input type="text" name="observaciones" id="observaciones" class="form-control form-control-lg" value="<?php echo $entidad->observaciones?>" readonly>
                                                     <br>
-                                                </div>
+                                                </div></div>
 
                                             </div>
                                         </div>  
@@ -214,23 +214,23 @@
                                                         </div>
                                                             <div class="col-6 mt-3 mb-3">
                                                             <label for="nombre">Nombre</label>
-                                                            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $entidad->nombre ?>">
+                                                            <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $entidad->nombre ?>" required>
                                                         </div>
                                                     </div>
                                                   
                                                     <div class="mt-3 mb-3">
                                                         <label for="direccion">Direccion</label>
-                                                        <input type="text" name="direccion" id="direccion" class="form-control form-control-lg" value="<?php echo $entidad->direccion ?>">
+                                                        <input type="text" name="direccion" id="direccion" class="form-control form-control-lg" value="<?php echo $entidad->direccion ?>" required>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-6 mt-3 mb-3">
                                                             <label for="telefono">Telefono</label>
-                                                            <input type="text" name="telefono" id="telefono" class="form-control form-control-lg" value="<?php echo $entidad->telefono ?>">
+                                                            <input type="text" name="telefono" id="telefono" class="form-control form-control-lg" value="<?php echo $entidad->telefono ?>" required>
                                                         </div>
                                                         <div class="col-6 mt-3 mb-3">
                                                             <label for="email">Email</label>
-                                                            <input type="text" name="email" id="email" class="form-control form-control-lg" value="<?php echo $entidad->email?>">
+                                                            <input type="text" name="email" id="email" class="form-control form-control-lg" value="<?php echo $entidad->email?>" required>
                                                         </div>
                                                     </div>
 

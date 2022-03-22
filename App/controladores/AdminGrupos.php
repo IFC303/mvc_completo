@@ -332,7 +332,7 @@ class AdminGrupos extends Controlador
     }
 
                    
-    public function nueva_clase(){
+    public function partGrupo(){
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
 
@@ -347,15 +347,36 @@ class AdminGrupos extends Controlador
             //var_dump($_POST);
 
             $idGrupo=($_POST['idGrupo']);
-            //echo $idGrupo;
-            $aUno=(explode(",",$_POST['alumnosActuales']));
+            $aUno=$_POST['alumnosActuales'];
+            $aCero=$_POST['alumnosActuales'];       
             //var_dump($aUno);
-            $aCero=(explode(",",$_POST['alumnosAntes']));
             //var_dump($aCero);
-
             $this->grupoModelo->cambiarEstadoAlumno($aUno,$aCero,$idGrupo);
-
-            redireccionar('/adminGrupos');
+        //     if (){
+        //         redireccionar('/adminGrupos');
+        //     } else {
+        //         //die('Algo ha fallado!!!');
+        //     }
+        // }else{
+        //     $this->vista('administradores/crudGrupos/inicio', $this->datos);
         }
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -44,7 +44,7 @@
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3"> 
-                    <input type="date" name="fecha" id="fecha" class="form-control form-control-lg">
+                    <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" required>
                 </div>
                 <div class="col-6 mt-3 mb-3">    
                     <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect" onchange="opciones()" required >
@@ -70,7 +70,7 @@
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
-                    <input type="text" name="importe" id="importe" class="form-control form-control-lg">
+                    <input type="text" name="importe" id="importe" class="form-control form-control-lg"required>
                 </div>   
               <!--div personal -->
                 <div class="col-6 mt-3 mb-3" id="inputPersonal" style="display:none">  
@@ -107,12 +107,12 @@
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">  
-                    <input type="text" name="concepto" id="concepto" class="form-control form-control-lg">
+                    <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" required>
                 </div>
                    <!--div ENTIDADES -->
                    <div class="col-6 mt-3 mb-3" id="inputEntidades" style="display:none">  
                     <input class="form-control form-control-lg" list="browsers3" name="browser3" id="browser3">
-                    <datalist id="browsers3" name="inputEntidad">
+                    <datalist id="browsers3" name="inputEntidad" >
                         <?php foreach($datos['entidades'] as $entidad){
                             ?><option value="<?php echo $entidad->id_entidad?>"><?php echo $entidad->nombre?></option><?php
                         }?>    
@@ -149,6 +149,8 @@
                 if(opcion=="personal"){
                     document.getElementById("labelPersonal").style.display ="block";
                     document.getElementById("inputPersonal").style.display = "block";
+                    var soc1=document.getElementById("browser1");
+                    soc1.setAttribute("required",true);
 
                     document.getElementById("labelEntidades").style.display="none";
                     document.getElementById("inputEntidades").style.display = "none";
@@ -162,9 +164,13 @@
 
                     document.getElementById("labelEntidades").style.display="block";
                     document.getElementById("inputEntidades").style.display = "block"; 
+                    var soc3=document.getElementById("browser3");
+                    soc3.setAttribute("required",true);
 
                     document.getElementById("labelSocios").style.display ="block";
-                    document.getElementById("inputSocios").style.display = "block";                
+                    document.getElementById("inputSocios").style.display = "block"; 
+                    var soc2=document.getElementById("browser2");
+                    soc2.setAttribute("required",true);
                 }
         }
 

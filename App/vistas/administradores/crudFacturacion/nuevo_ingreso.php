@@ -33,7 +33,7 @@
 
 
         <!--FORMULARIO AÑADIR-->
-        <form  method="post" class="card-body">
+        <form  method="post" action="<?php echo RUTA_URL ?>/adminFacturacion/nuevoIngreso" class="card-body">
 
                 <div class="row">
                     <div class="col-6">
@@ -47,7 +47,7 @@
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3"> 
-                    <input type="date" name="fecha" id="fecha" class="form-control form-control-lg">
+                    <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" required>
                 </div>
                 <div class="col-6 mt-3 mb-3">    
                     <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect" onchange="opciones()" required >
@@ -77,7 +77,7 @@
 
             <div class="row">
                 <div class="col-6 mt-3 mb-3">
-                    <input type="text" name="importe" id="importe" class="form-control form-control-lg">
+                    <input type="text" name="importe" id="importe" class="form-control form-control-lg" required>
                 </div>   
                 <!--div SOCIOS -->
                  <div class="col-6 mt-3 mb-3" id="inputSocios" style="display:none">  
@@ -132,10 +132,10 @@
             </div>
             <div class="row">
                 <div class="col-6 mt-3 mb-3">  
-                    <input type="text" name="concepto" id="concepto" class="form-control form-control-lg">
+                    <input type="text" name="concepto" id="concepto" class="form-control form-control-lg"required>
                 </div>
                 <div class="col-6 mt-3 mb-3" id="inputEvento" style="display:none" >  
-                    <input class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
+                    <input class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4" >
                     <datalist id="browsers4" name="inputEvento">
                     <select>
                         <?php foreach($datos['eventos'] as $eventos){
@@ -177,39 +177,44 @@
                 document.getElementById("labelSocios").style.display ="none";
                 document.getElementById("labelParticipantes").style.display="block";
                 document.getElementById("labelEntidades").style.display="none";
-
                 document.getElementById("labelEvento").style.display="block";
-                document.getElementById("inputEvento").style.display="block";
 
+                document.getElementById("inputEvento").style.display="block";
                 document.getElementById("inputParticipantes").style.display = "block";
                 document.getElementById("inputEntidades").style.display = "none";
                 document.getElementById("inputSocios").style.display = "none";
+                var soc2=document.getElementById("browser2");
+                soc2.setAttribute("required",true);
+                var soc4=document.getElementById("browser4");
+                soc4.setAttribute("required",true);
 
             }else if (opcion=="cuotas"){
 
                 document.getElementById("labelSocios").style.display ="block";
                 document.getElementById("labelParticipantes").style.display="none";
                 document.getElementById("labelEntidades").style.display="none";
-
                 document.getElementById("labelEvento").style.display="none";
-                document.getElementById("inputEvento").style.display="none";
 
+                document.getElementById("inputEvento").style.display="none";
                 document.getElementById("inputParticipantes").style.display = "none";
                 document.getElementById("inputEntidades").style.display = "none";
                 document.getElementById("inputSocios").style.display = "block";
+                var soc=document.getElementById("browser");
+                soc.setAttribute("required",true);
                 
             }else if(opcion=="otros") {
 
                 document.getElementById("labelSocios").style.display ="none";
                 document.getElementById("labelParticipantes").style.display="none";
                 document.getElementById("labelEntidades").style.display="block";
-
                 document.getElementById("labelEvento").style.display="none";
-                document.getElementById("inputEvento").style.display="none";
 
+                document.getElementById("inputEvento").style.display="none";
                 document.getElementById("inputParticipantes").style.display = "none";
                 document.getElementById("inputEntidades").style.display = "block";
                 document.getElementById("inputSocios").style.display = "none";
+                var soc3=document.getElementById("browser3");
+                soc3.setAttribute("required",true);
             }
         
         }

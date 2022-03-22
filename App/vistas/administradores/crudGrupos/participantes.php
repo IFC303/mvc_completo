@@ -127,8 +127,14 @@ p{
 
 
 <?php
+$info = [];
     foreach($datos['alCero'] as $dato){
-        $info [] = $dato->id_usuario;
+        $info [] = intval($dato->id_usuario);
+    }
+
+$info2 = [];
+    foreach($datos['alUno'] as $dato2){
+        $info2 [] = intval($dato2->id_usuario);
     }
 ?>
 
@@ -140,7 +146,10 @@ p{
 
                         let alumnosCero = <?php echo json_encode($datos['alCero'])?>; 
                         //console.log(alumnosCero)
-                        let cero = <?php echo json_encode($info)?>
+                        let cero = new Array();
+                         cero = <?php echo json_encode($info)?>
+                         //console.log(cero);
+                       
 
                             var alus=document.getElementById("alumnos"); 
 
@@ -168,9 +177,12 @@ p{
                 <div id="cajaAlumnos" class="col-5" ondragover="sobre(event);" ondrop="alumnoUno(event);" >  
                 
                              <script>
-                                     let alumnosUno = <?php echo json_encode($datos['alUno'])?>; 
-                                    console.log(alumnosUno)
-                                    // //let uno = <?php echo json_encode($info)?>
+                                    let alumnosUno = <?php echo json_encode($datos['alUno'])?>; 
+                                    //console.log(alumnosUno)
+                                    let uno = new Array();
+                                    uno = <?php echo json_encode($info2)?>
+                                    //console.log(uno);
+                                   
 
                                 var alusUno=document.getElementById("cajaAlumnos"); 
                                          
@@ -197,13 +209,13 @@ p{
                 </div>
             </div>
 
-            <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/nueva_clase" onsubmit="return addValores()">
+            <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/partGrupo">
             
                 <input type="hidden" id="entrenadorActual" name="entrenadorActual" value="">
                 <input type="hidden" id="entrenadorCero" name="entrenadorCero" value="">
 
-                <input type="hidden" id="alumnosActuales" name="alumnosActuales" value="">                             
-                <input type="hidden" id="alumnosAntes" name="alumnosAntes" value="">
+                <input type="hidden" id="alumnosActuales" name="alumnosActuales[]" value="">                             
+                <input type="hidden" id="alumnosAntes" name="alumnosAntes[]" value="">
 
                 <?php $idGrupo=($datos['id_grupo'])?>
                 <input type="hidden" id="idGrupo" name="idGrupo" value="<?php echo $idGrupo?>">
@@ -213,7 +225,7 @@ p{
                         <input type="submit" class="btn" id="enviar" name="enviar" value="Confirmar">
                     </div>
                     <div class="col-3">
-                        <a href="<?php echo RUTA_URL?>/adminGrupos/nueva_clase">
+                        <a href="<?php echo RUTA_URL?>/adminGrupos/partGrupo">
                             <input type="button" class="btn" id="botonVolver" value="Volver">  
                         </a>
                     </div>
@@ -228,7 +240,7 @@ p{
         
         function arrastre(ev) {
             //var id=document.getElementById(id);
-            //console.log(id);
+            //console.log(ev.target.id);
             ev.dataTransfer.setData('Data',ev.target.id);
         }  
        
@@ -299,7 +311,7 @@ p{
 
            if(clase.className=="alumno"){ 
                 caja.appendChild(document.getElementById(dato));    
-                alumnosUno.push(dato);
+                uno.push(dato);
                       
                    for(var i=0; i<cero.length;i++){
                         //console.log(alumnosCero[i])
@@ -311,16 +323,16 @@ p{
                  //console.log("alumnos cero")               
                  console.log(cero);
                  //console.log("alumnos uno")
-                 console.log(alumnosUno);
+                 console.log(uno);
 
                 //para que no mande string
-                var participaUno = JSON.stringify(alumnosUno); 
+                var participaUno = JSON.stringify(uno); 
                 var partUno=document.getElementById("alumnosActuales");
-                partUno.setAttribute("value",alumnosUno);
+                partUno.setAttribute("value",participaUno);
 
                  var participaCero = JSON.stringify(cero); 
                  var partCero=document.getElementById("alumnosAntes");
-                 partCero.setAttribute("value",cero);
+                 partCero.setAttribute("value",participaCero);
                 
            }else{
                alert("No se puede añadir mas de un entrenador a un grupo");
@@ -344,10 +356,10 @@ p{
                 caja.appendChild(document.getElementById(dato));
                 cero.push(dato);
 
-                 for(var i=0;i<alumnosUno.length;i++){
+                 for(var i=0;i<uno.length;i++){
                      //console.log(alumnosUno[i])
-                     if(alumnosUno[i]==dato){
-                       alumnosUno.splice(i,1);
+                     if(uno[i]==dato){
+                       uno.splice(i,1);
                      }   
                  } 
 
@@ -355,17 +367,17 @@ p{
                 console.log("alumnos Cero vuelta")
                 console.log(cero); 
                 console.log("alumnos Uno vuelta")
-                console.log(alumnosUno);
+                console.log(uno);
                 
                     //para que no mande string
-                    var participaUno = JSON.stringify(alumnosUno); 
+                    var participaUno = JSON.stringify(uno); 
                     var partUno=document.getElementById("alumnosActuales");
                     partUno.setAttribute("value",participaUno);
 
                      //para que no mande string
-                    var participaCero = JSON.stringify(alumnosCero); 
+                    var participaCero = JSON.stringify(cero); 
                     var partCero=document.getElementById("alumnosAntes");
-                    partCero.setAttribute("value",cero);
+                    partCero.setAttribute("value",participaCero);
 
                 
             }else{

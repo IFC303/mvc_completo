@@ -235,7 +235,7 @@
                                                     
                                                     <div class="mt-3 mb-3">
                                                         <label for="nombreTest">Nombre</label>
-                                                        <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>">
+                                                        <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>" required>
                                                     </div>
                                                     
                                                     <div class="mt-3 mb-3">
