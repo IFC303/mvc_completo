@@ -1,2 +1,2 @@
 FROM nginx:1.20
-ADD helloworld.nginx.conf /etc/nginx/conf.d/default.conf
+ADD tragamillas.nginx.conf /etc/nginx/conf.d/default.conf
