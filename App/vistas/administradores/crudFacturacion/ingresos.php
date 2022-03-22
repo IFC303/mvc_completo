@@ -297,7 +297,7 @@
                                                 </div>  
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3"> 
-                                                        <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>">
+                                                        <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>" required>
                                                     </div>
                                                     <div class="col-6 mt-3 mb-3">    
                                                         <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect<?php echo $info->id_ingreso?>" onchange="opciones(this.id)" required >
@@ -327,7 +327,7 @@
 
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
-                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>">
+                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>" required>
                                                     </div>   
                                                     <!--div SOCIOS -->
                                                     <div class="col-6 mt-3 mb-3" id="inputSocios<?php echo $info->id_ingreso?>" style="display:none">  
@@ -379,7 +379,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">  
-                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>">
+                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>" required>
                                                     </div>
                                                     <div class="col-6 mt-3 mb-3" id="inputEvento<?php echo $info->id_ingreso?>" style="display:none" >  
                                                         <input type="text" class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
@@ -488,13 +488,16 @@
                                 document.getElementById("labelSocios"+numero).style.display ="none";
                                 document.getElementById("labelParticipantes"+numero).style.display="block";
                                 document.getElementById("labelEntidades"+numero).style.display="none";
-
                                 document.getElementById("labelEvento"+numero).style.display="block";
-                                document.getElementById("inputEvento"+numero).style.display = "block";
 
+                                document.getElementById("inputEvento"+numero).style.display = "block";
                                 document.getElementById("inputParticipantes"+numero).style.display = "block";
                                 document.getElementById("inputEntidades"+numero).style.display = "none";
                                 document.getElementById("inputSocios"+numero).style.display = "none";
+                                var soc2=document.getElementById("browser2");
+                                soc2.setAttribute("required",true);
+                                var soc4=document.getElementById("browser4");
+                                soc4.setAttribute("required",true);
 
                             }else if (opcion=="cuotas"){
                                 //alert("adios");
@@ -502,26 +505,28 @@
                                 document.getElementById("labelSocios"+numero).style.display ="block";
                                 document.getElementById("labelParticipantes"+numero).style.display="none";
                                 document.getElementById("labelEntidades"+numero).style.display="none";
-
                                 document.getElementById("labelEvento"+numero).style.display="none";
-                                document.getElementById("inputEvento"+numero).style.display="none";
 
+                                document.getElementById("inputEvento"+numero).style.display="none";
                                 document.getElementById("inputParticipantes"+numero).style.display = "none";
                                 document.getElementById("inputEntidades"+numero).style.display = "none";
                                 document.getElementById("inputSocios"+numero).style.display = "block";
+                                var soc=document.getElementById("browser");
+                                soc.setAttribute("required",true);
                                 
                             }else if(opcion=="otros") {
 
                                 document.getElementById("labelSocios"+numero).style.display ="none";
                                 document.getElementById("labelParticipantes"+numero).style.display="none";
                                 document.getElementById("labelEntidades"+numero).style.display="block";
-
                                 document.getElementById("labelEvento"+numero).style.display="none";
-                                document.getElementById("inputEvento"+numero).style.display="none";
 
+                                document.getElementById("inputEvento"+numero).style.display="none";
                                 document.getElementById("inputParticipantes"+numero).style.display = "none";
                                 document.getElementById("inputEntidades"+numero).style.display = "block";
                                 document.getElementById("inputSocios"+numero).style.display = "none";
+                                var soc3=document.getElementById("browser3");
+                                soc3.setAttribute("required",true);
                             }
 
                         }

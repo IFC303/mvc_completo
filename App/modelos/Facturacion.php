@@ -96,9 +96,8 @@ class Facturacion
 
     // AÑADIR GASTO OTROS
     public function agregarGastosOtros($gastos){
-        var_dump($gastos);
-
-        
+        //var_dump($gastos);
+   
         $this->db->query("INSERT INTO G_OTROS (fecha, concepto, importe, id_usuario, id_entidad) 
                           VALUES (:fecha, :concepto, :importe, :id_usuario, :id_entidad)");
 

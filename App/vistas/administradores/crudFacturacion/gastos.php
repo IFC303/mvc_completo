@@ -267,12 +267,12 @@
                                                                 <label for="fecha">Fecha<sup>*</sup></label>
                                                             </div>   
                                                             <div class="col-6">
-                                                            <label for="tipo" class="form-label">Tipo de gasto</label>
+                                                                <label for="tipo" class="form-label">Tipo de gasto</label>
                                                             </div>   
                                                         </div>  
                                                         <div class="row">
                                                             <div class="col-6 mt-3 mb-3"> 
-                                                                <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>">
+                                                                <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>" required>
                                                             </div>
                                                             <div class="col-6 mt-3 mb-3">    
                                                                 <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect<?php echo $info->id_gasto?>" onchange="opciones(this.id)" required >
@@ -300,7 +300,7 @@
 
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
-                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>">
+                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>" required>
                                                     </div>   
                                                     <!--div SOCIOS -->
                                                     <div class="col-6 mt-3 mb-3" id="inputSocios<?php echo $info->id_gasto?>" style="display:none">  
@@ -342,7 +342,7 @@
                                                 
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">      
-                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>">
+                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>" required>
                                                     </div>
                                                     
                                                 <!--div ENTIDADES -->
@@ -459,6 +459,8 @@
                                 document.getElementById("inputEntrenadores"+numero).style.display = "block";
                                 document.getElementById("inputEntidades"+numero).style.display = "none";
                                 document.getElementById("inputSocios"+numero).style.display = "none";
+                                var soc2=document.getElementById("browser2");
+                                soc2.setAttribute("required",true);
                                 
                             }else if(opcion=="otros") {
 
@@ -469,6 +471,11 @@
                                 document.getElementById("inputEntrenadores"+numero).style.display = "none";
                                 document.getElementById("inputEntidades"+numero).style.display = "block";
                                 document.getElementById("inputSocios"+numero).style.display = "block";
+
+                                var soc3=document.getElementById("browser3");
+                                soc3.setAttribute("required",true);
+                                var soc=document.getElementById("browser");
+                                soc.setAttribute("required",true);
                             }
 
                         }

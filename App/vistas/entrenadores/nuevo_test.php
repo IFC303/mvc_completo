@@ -53,7 +53,7 @@
 
         <div class="mt-3 mb-3">
             <label for="nombreTest">Nombre<sup>*</sup></label>
-            <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg">
+            <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" required>
         </div>
 
         <div class="mt-3 mb-3">

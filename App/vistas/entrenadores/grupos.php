@@ -213,13 +213,13 @@
 
                                                     <div class="row"> 
                                                         <div class="col-2">
-                                                            <input type="text" name="marca" id="marca" class="form-control" style="width:100px;">  
+                                                            <input type="text" name="marca" id="marca" class="form-control" style="width:100px;" required>  
                                                         </div>
                                                         <div class="col-1">
                                                             <label for="tiempo"><p>seg.</p></label>
                                                         </div>
                                                         <div class="col-3">
-                                                            <input type="date" name="fecha" id="fecha" class="form-control">    
+                                                            <input type="date" name="fecha" id="fecha" class="form-control" required>    
                                                         </div>
                                                         <div class="col-3">
                                                             <select class="form-select" name="idPrueba" id="idPrueba" style="width:300px;">

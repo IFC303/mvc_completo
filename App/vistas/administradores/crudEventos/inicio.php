@@ -235,12 +235,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->nombre?>">
+                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->nombre?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="tipo">Tipo</label>
-                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>">
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>" required>
                                                     </div>
                                                 </div>
 
@@ -248,12 +248,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_ini">Fecha inicio</label>
-                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg"value="<?php echo $evento->fecha_ini?>">
+                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg"value="<?php echo $evento->fecha_ini?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_fin">Fecha fin</label>
-                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>">
+                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>" required>
                                                     </div>
                                                 </div>
 
@@ -261,12 +261,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="precio">Precio<sup>*</sup></label>
-                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>">
+                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="descuento">Descuento<sup>*</sup></label>
-                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>">
+                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>" required>
                                                     </div>
                                                 </div>
 
@@ -274,12 +274,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_ini_inscrip">Fecha inicio inscripcion<sup>*</sup></label>
-                                                        <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini_inscrip?>">
+                                                        <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini_inscrip?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_fin_inscrip">Fecha fin inscripcion<sup>*</sup></label>
-                                                        <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>">
+                                                        <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>" required>
                                                     </div>
                                                 </div>
 

@@ -245,6 +245,7 @@ class AdminFacturacion extends Controlador{
                             $this->facturacionModelo->borrarIngresoActividades($id_viejo);
                         }
                         $this->facturacionModelo->agregarIngresoOtros($ingresOtros);
+                        redireccionar('/adminFacturacion/ingresos');  
 
                 }elseif ($_POST['tipoSelect']=="cuotas"){
 
@@ -264,6 +265,7 @@ class AdminFacturacion extends Controlador{
                             $this->facturacionModelo->borrarIngresoActividades($id_viejo);
                          }
                         $this->facturacionModelo->agregarIngresoCuotas($ingresCuotas);
+                        redireccionar('/adminFacturacion/ingresos');  
      
                 }elseif ($_POST['tipoSelect']=="actividades"){
                        //var_dump($_POST);
