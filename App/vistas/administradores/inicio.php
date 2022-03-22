@@ -61,13 +61,13 @@
         </div>
         <ul id="mSol">
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
             </li>
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
             </li>
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
             </li>
         </ul>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>

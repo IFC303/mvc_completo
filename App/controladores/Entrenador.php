@@ -62,7 +62,7 @@ class Entrenador extends Controlador{
                 //var_dump($this->datos['testPruebas']);
                 $this->datos['marcas'] = $this->pruebaModelo->obtenerMarcas();
                 //var_dump($this->datos['marcas']);
-
+                $this->datos['miga1']="GRUPOS";
                 $this->vista('entrenadores/grupos', $this->datos);
                 
             }
@@ -132,6 +132,7 @@ class Entrenador extends Controlador{
                     for($i = 0 ;$i<count($this->datos['test']); $i++){
                         $this->datos['test'][$i]->pruebas = $this->pruebaModelo->obtenerPruebasTest($this->datos['test'][$i]->id_test);
                     }
+                    $this->datos['miga1']="TEST";
                     $this->vista('entrenadores/test', $this->datos);
             }
 
@@ -176,6 +177,8 @@ class Entrenador extends Controlador{
                          $this->datos['listaTest'] = $this->testModelo->obtenerTest();
                          //obtenemos las pruebas y lo guardamos en datos['pruebas']
                          $prueba = $this->pruebaModelo->obtenerPruebas();
+                        
+                         $this->datos['nuevoMiga'] = "TEST";
                          $this->datos['pruebas'] = $prueba;
                          $this->vista('entrenadores/nuevo_test', $this->datos);
                     }
@@ -283,6 +286,7 @@ class Entrenador extends Controlador{
                  if($_SERVER['REQUEST_METHOD']=='POST'){
                      $this->datos['emailsEnvio']= $_POST['seleccionados'];
                  } 
+                 $this->datos['miga1']="MENSAJERIA";
                 $this->vista('entrenadores/mensajeria', $this->datos);
             }
 

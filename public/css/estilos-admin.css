@@ -181,3 +181,9 @@ a{
 .row{
     padding: 0;
 }
+
+#notSoliGrupos{
+    float: right; 
+    height: auto; 
+    margin: 0;
+}

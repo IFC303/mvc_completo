@@ -21,6 +21,33 @@
 
 
 <body>
+    <?php
+    $miga1 = "";
+    $miga1Nom = "";
+    $miga2 = "";
+    $miga2Nom = "";
+    $miga3 = "";
+
+    if (isset($this->datos['miga1'])) {
+        if ($this->datos['miga1'] == "GRUPOS") {
+            $miga1Nom = "GRUPOS";
+        } elseif ($this->datos['miga1'] == "TEST") {
+            $miga1Nom = "TEST";
+        } elseif ($this->datos['miga1'] == "MENSAJERIA") {
+            $miga1Nom = "MENSAJERIA";
+        }
+    } else {
+        $miga1Nom = "EN MANTENIMIENTO";
+    }
+
+    if (isset($this->datos['nuevoMiga'])) {
+        if ($this->datos['nuevoMiga'] == "TEST") {
+            $miga1 = RUTA_URL . "/entrenador/test";
+            $miga1Nom = "TEST";
+            $miga2Nom = "NUEVO TEST";
+        } 
+    }
+    ?>
 
     <div class="container-fluid min-vh-100">
         <header class="p-4 row">
@@ -35,7 +62,11 @@
                 </br>
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>">INICIO</a></li>
-                    <li class="breadcrumb-level"><a>ENTRENADOR</a></li>
+                    <li class='breadcrumb-level'><a href="<?php echo $miga1 ?>"><?php echo $miga1Nom ?></a></li>
+                    <?php if (isset($this->datos['nuevoMiga'])) {
+                        echo "<li class='breadcrumb-level'><a href=" . $miga2 . ">" . $miga2Nom . "</a></li>";
+                    }
+                    ?>
                 </ol>
             </div>
 
@@ -103,23 +134,6 @@
                         <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="35" height="35"></div>
                             <div class="col-12">MENSAJERIA</div>
-                        </a>
-                    </li>
-
-                    <!--MENU ESCUELA-->
-                    <li id="mInicioEscuela">
-                        <a href="<?php echo RUTA_URL ?>/socio/escuela" class="nav-link px-0 align-middle">
-                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>escuela.png" width="35" height="35"></div>
-                            <div class="col-12">ESCUELA</div>
-                        </a>
-                    </li>
-
-
-                    <!--MENU EVENTO-->
-                    <li id="mInicioMarcas">
-                        <a href="<?php echo RUTA_URL ?>/socio/eventoSolicitud" class="nav-link px-0 align-middle">
-                            <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>eventos.svg" width="35" height="35"></div>
-                            <div class="col-12">EVENTO</div>
                         </a>
                     </li>
 
