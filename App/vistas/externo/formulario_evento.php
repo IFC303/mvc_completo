@@ -62,7 +62,7 @@
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 m-0 p-0">
 
                 <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
-                <div class="p-3" style="text-align: center;"><h1>INSCRIPCION ESCUELA</h1></div>
+                <div class="p-3" style="text-align: center;"><h1>INSCRIPCION EVENTO</h1></div>
 
                 <form action="" onsubmit="return validarSoliSocio()" method="POST"> 
                 <div class="row m-3">
