@@ -61,8 +61,7 @@
 /*ESTILOS TABLA */
 
         .tabla{
-            border:solid 1px #023ef9;
-            width:50%;   
+            border:solid 1px #023ef9;  
             margin:auto;
         }
         thead tr{

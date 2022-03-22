@@ -23,8 +23,7 @@
 <style>
  
  .tabla{
-            border:solid 1px #023ef9;
-            width:90%;   
+            border:solid 1px #023ef9;   
             margin:auto;
         }
 

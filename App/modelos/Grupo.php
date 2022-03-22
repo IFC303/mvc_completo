@@ -138,11 +138,13 @@ class Grupo
     }
 
 
-    public function agregarEntrenadorGrupo($hoy,$id_grupo,$entrenador){
+    public function agregarEntrenadorGrupo($entrenador, $id_grupo){
+        //var_dump($entrenador[0]);
+     
          $this->db->query("INSERT INTO ENTRENADOR_GRUPO (fecha,id_grupo,id_usuario) VALUES (:hoy,:id_grupo,:entrenador)");
-         $this->db->bind(':hoy', $hoy);
+         $this->db->bind(':hoy', date('Y-m-d'));
          $this->db->bind(':id_grupo',$id_grupo);
-         $this->db->bind(':entrenador',$entrenador);
+         $this->db->bind(':entrenador',$entrenador[0]);
          $this->db->execute();
     }
   
@@ -151,20 +153,23 @@ class Grupo
         //llega array de string
         //var_dump($alumnosActuales);         
          //var_dump($alumnosCero);
-
+         
              foreach($alumnosActuales as $idActuales){
-                  $this->db->query("UPDATE SOCIO_GRUPO SET activo = 1 WHERE id_usuario = :idActual and id_grupo=:idGrupo");
-                  $this->db->bind(':idActual',$idActuales);
-                  $this->db->bind(':idGrupo',$idGrupo);
-                  $this->db->execute();
+                $this->db->query("UPDATE SOCIO_GRUPO SET activo = 1 WHERE id_usuario = $idActuales and id_grupo=$idGrupo");;
+                $this->db->bind(':idActual',$idActuales);
+                $this->db->bind(':idGrupo',$idGrupo);
+                $this->db->execute();
+           
              }
-   
+
               foreach($alumnosCero as $idCero){
                    $this->db->query("UPDATE SOCIO_GRUPO SET activo = 0 WHERE id_usuario = :idCero and id_grupo=:idGrupo");
                    $this->db->bind(':idCero',$idCero);
                    $this->db->bind(':idGrupo',$idGrupo);
-                   $this->db->execute();
-              }    
+                   $this->db->execute();   
+              }     
+              
+              return true;
     }
     
 
