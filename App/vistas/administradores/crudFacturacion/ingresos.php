@@ -43,8 +43,7 @@
 /*ESTILOS TABLA */
 
         .tabla{
-            border:solid 1px #023ef9;
-            width:60%;   
+            border:solid 1px #023ef9;  
             margin:auto;
         }
 

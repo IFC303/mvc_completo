@@ -146,7 +146,7 @@ class AdminGrupos extends Controlador
                 'jueves' => '',
                 'viernes' => ''
             ];
-            $this->datos["nuevo"]="GRUPOS";
+            $this->datos["nuevo"] = "GRUPOS";
             $this->vista('administradores/crudGrupos/nuevo_grupo', $this->datos);
         }
     }
@@ -321,7 +321,8 @@ class AdminGrupos extends Controlador
         $this->datos['entrenadoresGrupo'] = $this->grupoModelo->obtenerEntrenadorGrupo();
         //var_dump($this->datos['entrenadores']);
         //var_dump($this->datos['entrenadoresGrupo']);
-        
+
+
         $this->datos['alCero'] = $this->grupoModelo->obtenerAlumnosCero($id_grupo);
         $this->datos['alUno'] = $this->grupoModelo->obtenerAlumnosUno($id_grupo);
         //var_dump($this->datos['alUno']);
@@ -331,8 +332,9 @@ class AdminGrupos extends Controlador
         $this->vista('administradores/crudGrupos/participantes', $this->datos);
     }
 
-                   
-    public function partGrupo(){
+
+    public function partGrupo()
+    {
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
 
@@ -346,37 +348,26 @@ class AdminGrupos extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //var_dump($_POST);
 
-            $idGrupo=($_POST['idGrupo']);
-            $aUno=$_POST['alumnosActuales'];
-            $aCero=$_POST['alumnosActuales'];       
+            $idGrupo = ($_POST['idGrupo']);
+            $aUno = $_POST['alumnosActuales'];
+            $aCero = $_POST['alumnosAntes'];
+            $aUno = json_decode($_POST['alumnosActuales'][0]);
+            $aCero = json_decode($_POST['alumnosAntes'][0]);
             //var_dump($aUno);
             //var_dump($aCero);
-            $this->grupoModelo->cambiarEstadoAlumno($aUno,$aCero,$idGrupo);
-        //     if (){
-        //         redireccionar('/adminGrupos');
-        //     } else {
-        //         //die('Algo ha fallado!!!');
-        //     }
-        // }else{
-        //     $this->vista('administradores/crudGrupos/inicio', $this->datos);
+
+            $eUno = $_POST['entrenadorActual'];
+            $eUno = json_decode($_POST['entrenadorActual'][0]);
+            if (isset($eUno)) {
+                $this->grupoModelo->agregarEntrenadorGrupo($eUno, $idGrupo);
+            }
+            if ($this->grupoModelo->cambiarEstadoAlumno($aUno, $aCero, $idGrupo)) {
+                redireccionar('/adminGrupos');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        } else {
+            $this->vista('administradores/crudGrupos/inicio', $this->datos);
         }
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

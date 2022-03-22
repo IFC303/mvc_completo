@@ -36,9 +36,7 @@ class Entrenador extends Controlador{
         // *********** SUBMENU: GRUPOS (funciones) ***********  
 
             public function grupos(){
-            
-                
-                
+                    
                $id_entrenador=$this->datos['usuarioSesion']->id_usuario;
                //echo $id_entrenador;
 
@@ -51,7 +49,7 @@ class Entrenador extends Controlador{
 
 
                 if(isset($_POST['filtro']) && $_POST['filtro']!=0 ){
-                        $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnos($_POST['filtro']);
+                    $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnosUno($_POST['filtro']);
                 }else{
                     $this->datos['alumnosGrupo'] = $this->grupoModelo->todosSociosGrupos($id_entrenador);
                 }
