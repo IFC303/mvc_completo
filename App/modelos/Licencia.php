@@ -77,13 +77,8 @@ class Licencia
             $this->db->bind(':imagenLicAdmin',$licenciaNueva['imagenLicAdmin']);
         }
         
-        
-
-        if($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        $this->db->execute();
+            
 
         $this->db->query("UPDATE USUARIO SET gir=:gir WHERE id_usuario=:id;");
 

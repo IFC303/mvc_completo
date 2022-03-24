@@ -66,7 +66,7 @@
             $miga1Nom = "EVENTOS";
         }
     } else {
-        $miga1Nom = "EN MANTENIMIENTO";
+        $miga1Nom = "CUOTAS";
     }
 
     if (isset($this->datos['nuevo'])) {

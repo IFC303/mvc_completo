@@ -124,7 +124,7 @@
 
                             <td class="datos_tabla"><?php echo $licencia->nombre." ".$licencia->apellidos?></td>
                             <td class="datos_tabla"><?php if ($licencia->num_licencia==''){echo '-';}else {echo $licencia->num_licencia;}?></td>
-                            <td class="datos_tabla"><?php if ($licencia->gir=='' || !($licencia->num_licencia=='')){echo '-';}else {echo $licencia->gir;}?></td>
+                            <td class="datos_tabla"><?php if ($licencia->gir=='' || ($licencia->num_licencia!='')){echo '-';}else {echo $licencia->gir;}?></td>
                             <td class="datos_tabla"><?php echo $licencia->tipo?></td>
                             <td class="datos_tabla"><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
                             <td class="datos_tabla"><?php if ($licencia->dorsal==''){echo '-';}else {echo $licencia->dorsal;}?></td>
@@ -306,11 +306,11 @@
                                                     <div class="col-12">
                                                         <label for="regional_nacional">AUTONÓMICA/NACIONAL</label>
                                                         <select name="regional_nacional" id="regional_nacional" class="form-control form-control-lg">
-                                                            <?php if ($licencia->regional_nacional == Autonómica) { ?>
+                                                            <?php if ($licencia->regional_nacional == "Autonómica") { ?>
                                                                 <option value="0">Puedes elegir...</option>
                                                                 <option value="1" selected>Autonómica</option>
                                                                 <option value="2">Nacional</option> <?php
-                                                            }elseif ($licencia->regional_nacional == Nacional) { ?>
+                                                            }elseif ($licencia->regional_nacional == "Nacional") { ?>
                                                                 <option value="0">Puedes elegir...</option>
                                                                 <option value="1">Autonómica</option>
                                                                 <option value="2" selected>Nacional</option><?php
@@ -384,11 +384,11 @@
                                                     <div class="col-12" style="display:none">
                                                         <label for="regional_nacional">AUTONÓMICA/NACIONAL</label>
                                                         <select name="regional_nacional" id="regional_nacional" class="form-control form-control-lg">
-                                                            <?php if ($licencia->regional_nacional == Autonómica) { ?>
+                                                            <?php if ($licencia->regional_nacional == "Autonómica") { ?>
                                                                 <option value="0">Puedes elegir...</option>
                                                                 <option value="1" selected>Autonómica</option>
                                                                 <option value="2">Nacional</option> <?php
-                                                            }elseif ($licencia->regional_nacional == Nacional) { ?>
+                                                            }elseif ($licencia->regional_nacional == "Nacional") { ?>
                                                                 <option value="0">Puedes elegir...</option>
                                                                 <option value="1">Autonómica</option>
                                                                 <option value="2" selected>Nacional</option><?php

@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
                 <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
-                <input type="date" class="form-control form-control-lg" id="fecha" name="fecha" onchange="mayorEdad()">
+                <input type="date" class="form-control form-control-lg" id="fecha" name="fecha" onchange="mayorEdad()" required>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
