@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 // Ruta de la aplicacion
 define('RUTA_APP', dirname(dirname(__FILE__)));
 
