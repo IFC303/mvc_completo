@@ -5,7 +5,7 @@
 <div class="row text-center">
 
     <!-- USUARIO  d-flex justify-content-center -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
 
             <div id="colorUsu" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuUsu">
@@ -43,7 +43,7 @@
     </div>
 
     <!-- SOLICITUDES -->
-    <div class=" col-xs-12 col-md-6 col-xl-4">
+    <div class=" col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
             <div id="colorSoli" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuSol">
                 <img src="<?php echo RUTA_Icon ?>solicitudes.svg" width="100" height="100">
@@ -61,78 +61,121 @@
         </div>
         <ul id="mSol">
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link">SOCIOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
             </li>
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link ">GRUPOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>
             </li>
             <li id="mUsu">
-                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span style="float: right;" class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
+                <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="nav-link ">EVENTOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>
             </li>
         </ul>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
     </div>
 
     <!-- GRUPOS -->
-    <div class=" col-xs-12 col-md-6 col-xl-4">
-        <a href="<?php echo RUTA_URL ?>/adminGrupos">
-            <div>
-                <div id="colorGrup" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                    <img src="<?php echo RUTA_Icon ?>grupos.svg" width="100" height="100">
-                </div>
-                <p id="pGrupo" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">GRUPOS</p>
+    <div class=" col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div>
+            <div id="colorGrup" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                <a href="<?php echo RUTA_URL ?>/adminGrupos">
+                    <div>
+                        <img src="<?php echo RUTA_Icon ?>grupos.svg" width="100" height="100">
+                    </div>
+                </a>
             </div>
-        </a>
+            <div id="color" class="caja mx-auto">
+                <a href="<?php echo RUTA_URL ?>/adminGrupos">
+                    <div>
+                        <p id="pGrupo" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">GRUPOS</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <!-- EVENTOS -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
-        <a href="<?php echo RUTA_URL ?>/adminEventos">
-            <div>
-                <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                    <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
-                </div>
-                <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
-            </div>
-        </a>
-    </div>
-
-    <!-- LICENCIAS -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
-        <a href="<?php echo RUTA_URL ?>/adminLicencias">
-            <div>
-                <div id="colorLice" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                    <img src="<?php echo RUTA_Icon ?>licencias.svg" width="100" height="100">
-                </div>
-                <p id="pLicen" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">LICENCIAS</p>
-            </div>
-        </a>
-    </div>
-
-    <!-- ENTIDADES -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
-        <a href="<?php echo RUTA_URL ?>/adminEntidades">
-            <div>
-                <div id="colorEnti" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                    <img src="<?php echo RUTA_Icon ?>entidad.svg" width="100" height="100">
-                </div>
-                <p id="pEnti" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">ENTIDADES</p>
-            </div>
-        </a>
-    </div>
-
-    <!-- TEMPORADAS -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
-            <div id="colorTemp" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
-                <img src="<?php echo RUTA_Icon ?>temporadas.svg" width="100" height="100">
+            <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                <a href="<?php echo RUTA_URL ?>/adminEventos">
+                    <div>
+                        <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
+                    </div>
+                </a>
             </div>
-            <p id="pTemp" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">TEMPORADAS</p>
+            <div id="color" class="caja mx-auto">
+                <a href="<?php echo RUTA_URL ?>/adminEventos">
+                    <div>
+                        <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
+    <!-- LICENCIAS -->
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div>
+            <div id="colorLice" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                <a href="<?php echo RUTA_URL ?>/adminLicencias">
+                    <div>
+                        <img src="<?php echo RUTA_Icon ?>licencias.svg" width="100" height="100">
+                    </div>
+                </a>
+            </div>
+            <div id="color" class="caja mx-auto">
+                <a href="<?php echo RUTA_URL ?>/adminLicencias">
+                    <div>
+                        <p id="pLicen" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">LICENCIAS</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENTIDADES -->
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div>
+            <div id="colorEnti" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                <a href="<?php echo RUTA_URL ?>/adminEntidades">
+                    <div>
+                        <img src="<?php echo RUTA_Icon ?>entidad.svg" width="100" height="100">
+                    </div>
+                </a>
+            </div>
+            <div id="color" class="caja mx-auto">
+                <a href="<?php echo RUTA_URL ?>/adminEntidades">
+                    <div>
+                        <p id="pEnti" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">ENTIDADES</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEMPORADAS -->
+    <!-- <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div>
+            <div id="colorTemp" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+                <a href="<?php echo RUTA_URL ?>/adminLicencias">
+                    <div>
+                        <img src="<?php echo RUTA_Icon ?>temporadas.svg" width="100" height="100">
+                    </div>
+                </a>
+            </div>
+            <div id="color" class="caja mx-auto">
+                <a href="<?php echo RUTA_URL ?>/adminLicencias">
+                    <div>
+                        <p id="pTemp" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">TEMPORADAS</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div> -->
+
     <!-- FACTURACION -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
             <div id="colorFact" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuFac">
                 <img src="<?php echo RUTA_Icon ?>euro.svg" width="100" height="100">
@@ -176,12 +219,19 @@
                 </td>
             </tr>
 
+            <tr>
+                <td id="mUsu">
+                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas/">
+                        <div>CUOTAS</div>
+                    </a>
+                </td>
+            </tr>
         </table>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
     </div>
 
     <!-- MENSAJERIA -->
-    <div class="col-xs-12 col-md-6 col-xl-4">
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <a href="<?php echo RUTA_URL ?>/adminMensajeria">
             <div>
                 <div id="colorMens" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">
@@ -205,7 +255,6 @@
             ["pEven", "colorEven"],
             ["pLicen", "colorLice"],
             ["pEnti", "colorEnti"],
-            ["pTemp", "colorTemp"],
             ["pFact", "colorFact"],
             ["pMens", "colorMens"]
         ];

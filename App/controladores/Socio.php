@@ -157,6 +157,12 @@ class Socio extends Controlador
 
     public function escuela()
     {
+        $nombrePagina = "ESCUELA";
+        $tituloPagina = "ESCUELA";
+        
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
@@ -199,5 +205,44 @@ class Socio extends Controlador
         $this->vista('socios/formulario_escuela', $this->datos);
         
     }
+
+    public function eventoSolicitud()
+    {
+        $nombrePagina = "EVENTO";
+        $tituloPagina = "EVENTO";
+        
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $agreEvento = [
+                'id_usu' =>trim($datosUser[0]->id_usuario),
+                'even' => trim($_POST['even']),
+            ];
+          
+            if ($this->SocioModelo->eventoSoli($agreEvento)) {
+                redireccionar('/socio');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+
+        $eventos = $this->SocioModelo->obtenerEventos();
+        $this->datos['usuarios']=$datosUser;
+        $this->datos['eventos']=$eventos;
+        $this->vista('socios/formulario_evento', $this->datos);
+        
+    }
+
 
 }

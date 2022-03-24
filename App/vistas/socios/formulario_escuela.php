@@ -1,4 +1,4 @@
-<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
 <div class="container mt-3">
     <style>
         label[id^="error"] {
@@ -18,7 +18,7 @@
     </style>
 
 
-    <form method="post">
+    <form method="post" ENCTYPE="multipart/form-data">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
                 <label for="cat">Categoría (2022) <sup>* </sup></label>

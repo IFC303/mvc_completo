@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,14 +23,17 @@
 </head>
 
 <body>
-    <div class="container-fluid min-vh-100" style="border: solid;">
 
-        <header class="p-4 row">
+    <div class="container-fluid min-vh-100">
+        
+        <header class="p-4 row"  style="background-color:#CCE6FA">
+
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
 
             <br><br><br><br>
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
+                <br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADORES</h1>
             </div>
 
             <br><br><br><br>
@@ -40,11 +44,21 @@
                     </a>
                     <br>
                     <?php echo $datos['usuarioSesion']->nombre ?>
+                    <p id="reloj"></p>
                     <script type="text/javascript">
-                        var d = new Date();
+                        setInterval("verHora()", 500);
 
-                        document.write(d.getHours() + ":" + d.getMinutes());
+                        function verHora() {
+                            let d = new Date();
+                            let minutes = d.getMinutes();
+                            minutes = minutes > 9 ? minutes : '0' + minutes;
+                            let reloj = d.getHours() + ":" + minutes
+                            document.getElementById("reloj").innerHTML = reloj;
+                        }
                     </script>
                 </div>
             </div>
-        </header>
+
+        </header> 
+        <br><br>
+ 

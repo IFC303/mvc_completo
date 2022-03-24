@@ -36,7 +36,14 @@
         }
 
         @media (max-width: 600px) {
-            #fotoBici{display: none;}
+            #fotoBici {
+                display: none;
+            }
+        }
+        sup{
+            color: #023EF9;
+            font-weight: bold;
+            font-size: small;
         }
     </style>
 </head>
@@ -45,71 +52,69 @@
     <div class="container-fluid min-vh-100 m-0 p-0">
         <div class="row">
             <div id="fotoBici" class="col-lg-6 col-md-6 col-sm-6 col-xs-0 m-0 p-0">
-                <img src="http://localhost/tragamillas/public/img/fotos/bici3.png" width="100%" height="100%">
+                <img src="img/fotos/bici3.png" width="100%" height="100%">
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 m-0 p-0">
-                <form action="">
-                    <label for="">¿Eres socio?</label> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="siSocio" name="socio" value="si" onclick="ereSocio();" required><label for="siSocio">SI</label>
-                    <input type="radio" id="noSocio" name="socio" value="no" onclick="ereSocio();" required><label for="noSocio">NO</label>
-                    <label id="prueba"></label>
-                    <br><br>
-                    <label for="">Fecha Nacimiento (atleta) </label><input id="fecha" type="date" onchange="mayorEdad()" required>
-                    <br><br>
+                <form action="#" onsubmit="return validarSoliSocio()">
+                    <div class="row m-3">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
+                            <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>
+                        </div>
 
-                    <div id="esMenor" style="display: none;">
-                        <label for="">DNI (padre) </label><input type="text" value="" id="dniPad" name="dniPad" onblur="return dni(this.id)" style="text-transform:uppercase;"> <label id="error"></label>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="dniAtl" id="dniObli">DNI</label>
+                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl" onchange="return dni(this.id)">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="nomAtl">Nombre <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="apelAtl">Apellidos <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="direc">Dirección <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba la dirección" id="direc" name="direc" required>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="telf">Telefono <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="email">Correo <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="ccc">CCC <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el CCC" id="ccc" name="ccc" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="talla">Talla camiseta <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba la talla" id="talla" name="talla" required>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="">¿Es tu primer año como socio? <sup>*</sup></label> <br>
+                            <input type="radio" id="siFotos" name="fotos" value="si" required><label for="siFotos">SI</label>
+                            <input type="radio" id="noFotos" name="fotos" value="no" required><label for="noFotos">NO</label>
+                        </div>
+                        
                         <br><br>
-                        <label for="">Nombre (padre) </label><input id="nomPadre" type="text" onkeypress="return Solo_Texto(event);">
-                        <br><br>
-                        <label for="">Apellidos (padre) </label><input id="apelPadre" type="text" onkeypress="return Solo_Texto(event);">
-                        <br><br>
+
+                        <label id="error"></label>
+                        <label id="errorMail"></label>
+
+                        <input type="submit" value="enviar">
                     </div>
-
-                    <label for="">DNI (atleta) </label><input type="text" value="" id="dniAtl" name="dniAtl" style="text-transform:uppercase;">
-                    <br><br>
-                    <label for="">Nombre (atleta) </label><input type="text" required onkeypress="return Solo_Texto(event);">
-                    <br><br>
-                    <label for="">Apellidos (atleta) </label><input type="text" required onkeypress="return Solo_Texto(event);">
-                    <br><br>
-                    <label for="">Dirección </label><input type="text" required>
-                    <br><br>
-                    <label for="">Telefono </label><input type="text" value="" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
-                    <br><br>
-                    <label for="">Correo </label><input type="text" value="" id="email" name="email" onblur="return correo(this.id)" required> <label id="errorMail"></label>
-                    <br><br>
-                    <label for="">CCC </label><input type="text" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
-                    <br><br>
-                    <label for="">Categoría (2022) </label><input type="text" required>
-                    <br><br>
-                    <label for="">Grupo entrenamiento </label><input type="text" required>
-                    <br><br>
-                    <label for="">Código GIR </label><input type="text">
-                    <br><br>
-
-                    <label for="">Consiento la toma y el uso de fotos </label> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="siFotos" name="fotos" value="si"><label for="siFotos">SI</label>
-                    <input type="radio" id="noFotos" name="fotos" value="no"><label for="noFotos">NO</label>
-                    <br><br>
-                    <label for="">He leido y acepto el reglamento </label> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" id="siReglamento" name="reglamento" value="si" required><label for="siReglamento">SI</label>
-                    <br><br>
-                    <label for="">Justificante de pago </label><input type="file" required>
-                    <br><br>
-                    <label for="">Foto reciente tamaño carnet </label><input type="file" required>
-                    <br><br>
-
-                    <div id="hacerSoci" style="display: none;">
-                        <label for="" id="borTallaLabel" name="talla">Talla </label><input type="text" id="borTalla">
-                        <br><br>
-                        <label for="" id="borSocioLabel">¿Has sido socio?</label> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" id="siHasSocio" name="hasSocio" value="si" class="borrar"><label for="siHasSocio" id="borSiLabel">SI</label>
-                        <input type="radio" id="noHasSocio" name="hasSocio" value="no" class="borrar"><label for="noHasSocio" id="borNoLabel">NO</label>
-                        <br><br>
-                    </div>
-
-                    <input type="submit" value="enviar">
-
                 </form>
             </div>
         </div>

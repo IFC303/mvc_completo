@@ -3,7 +3,13 @@
 
 <?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
 
-        <form method="POST" ENCTYPE="multipart/form-data" action="<?php echo RUTA_URL ?>/socio/modificarDatos" >
+<style>
+        label[id^="error"] {
+            color: red;
+            font-size: 15px;
+        }
+        </style>
+        <form method="POST" ENCTYPE="multipart/form-data" action="<?php echo RUTA_URL ?>/socio/modificarDatos" onsubmit="return validarModifiSocio()">
             <div class="row">
         
                 <div class="col-4 text-center">
@@ -31,15 +37,17 @@
                     <div class="row" style="height: 100%; font-family: 'Inter', sans-serif;">
                     
                             
-                            <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->dni=="") {echo 'DNI';} else {echo $datosUser->dni;}?>" name="dni"></div>
+                            <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->dni=="") {echo 'DNI';} else {echo $datosUser->dni;}?>" name="dni" id="dniCom" onchange="return validarModifiSocio()"></div>
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->nombre=="") {echo 'NOMBRE';} else {echo $datosUser->nombre;}?>" name="nombre"></div>            
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->apellidos=="") {echo 'APELLIDOS';} else {echo $datosUser->apellidos;}?>" name="apellidos"></div>                     
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->telefono=="") {echo 'TELEFONO';} else {echo $datosUser->telefono;}?>" name="telefono"></div>          
-                            <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->email=="") {echo 'EMAIL';} else {echo $datosUser->email;}?>" name="email"></div>         
+                            <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->email=="") {echo 'EMAIL';} else {echo $datosUser->email;}?>" name="email" id="emailCom" onchange="return validarModifiSocio()"></div>         
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->CCC=="") {echo 'CCC';} else {echo $datosUser->CCC;}?>" name="ccc" id="ccc"></div>
                             <div class="datos col-12" > <input type="password" size="30" placeholder="CONTRASEÑA" name="passw"></div>
                             <div class="datos col-12" > <input type="text" size="30" placeholder="<?php if ($datosUser->talla=="") {echo 'TALLA CAMISETA';} else {echo $datosUser->talla;}?>" name="talla"></div>                      
-                            <div class="datos col-12"><input title="Guardar cambios" type="submit" id="guardar" name="guardar" value="GUARDAR"></div>
+                            <div class="datos col-12"><label id="error"></label>
+                        <label id="errorMail"></label></div>
+                            <div class="datos col-12"><input title="Guardar cambios" class="btn" type="submit" id="guardar" name="guardar" value="GUARDAR"></div>
                             <?php endforeach ?>
                         
                     </div>
@@ -50,9 +58,9 @@
             </div>
         </form>
         
-<?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
+        <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
-
+        <script src="<?php echo RUTA_URL ?>/public/js/validar.js"></script>
 <script>
   var loadFile = function(event) {
     var output = document.getElementById('output');

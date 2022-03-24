@@ -36,16 +36,31 @@ class Entrenador extends Controlador{
         // *********** SUBMENU: GRUPOS (funciones) ***********  
 
             public function grupos(){
+                    
+               $id_entrenador=$this->datos['usuarioSesion']->id_usuario;
+               //echo $id_entrenador;
+
                 $this->datos['grupos'] = $this->grupoModelo->obtenerGrupos();
-              
-                $id_grupo=$_POST['filtro'];
-                //echo $id_grupo;
-                $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnos($id_grupo);
-                //var_dump($this->datos['alumnosGrupo']);
+                $this->datos['todosSociosGrupos'] = $this->grupoModelo->todosSociosGrupos($id_entrenador);
+                //var_dump($this->datos['todosSociosGrupos']);
+
+                $this->datos['todosEntrenadoresGrupos'] = $this->grupoModelo->todosEntrenadoresGrupos($id_entrenador);
+                //var_dump($this->datos['todosEntrenadoresGrupos']);
+
+
+                if(isset($_POST['filtro']) && $_POST['filtro']!=0 ){
+                    $this->datos['alumnosGrupo'] = $this->grupoModelo->obtenerAlumnosUno($_POST['filtro']);
+                }else{
+                    $this->datos['alumnosGrupo'] = $this->grupoModelo->todosSociosGrupos($id_entrenador);
+                }
+             
+
+
                 $this->datos['testPruebas'] = $this->grupoModelo->obtenerTestPruebas();
                 //var_dump($this->datos['testPruebas']);
                 $this->datos['marcas'] = $this->pruebaModelo->obtenerMarcas();
                 //var_dump($this->datos['marcas']);
+                $this->datos['miga1']="GRUPOS";
                 $this->vista('entrenadores/grupos', $this->datos);
                 
             }
@@ -67,6 +82,7 @@ class Entrenador extends Controlador{
                          'marca'=>($_POST['marca'])
                          
                       ];  
+
                       //var_dump($nuevaMarca);
                       if ($this->pruebaModelo->agregarMarca($nuevaMarca)) {
                             redireccionar('/entrenador/grupos');
@@ -79,6 +95,33 @@ class Entrenador extends Controlador{
             }
 
 
+            public function borrarMarca($id){
+                $this->datos['rolesPermitidos'] = [2];         
+                if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                    redireccionar('/usuarios');
+                };
+
+
+                 if($_SERVER['REQUEST_METHOD']=='POST'){
+   
+                      $borrarMarca=[
+                         'id_prueba'=> $_POST['mBorrar'],
+                         'id_usuario'=> trim($_POST['idUsu']),                 
+                      ];  
+                      
+                      if ($this->pruebaModelo->borrarMarcaUsuario($borrarMarca)) {
+                            redireccionar('/entrenador/grupos');
+                        }else{
+                            die('Algo ha fallado!!!');
+                        }  
+                 }
+
+
+            }
+
+
+
+
         // *********** SUBMENU: TEST/PRUEBAS (funciones) ***********  
 
             public function test(){  
@@ -87,6 +130,7 @@ class Entrenador extends Controlador{
                     for($i = 0 ;$i<count($this->datos['test']); $i++){
                         $this->datos['test'][$i]->pruebas = $this->pruebaModelo->obtenerPruebasTest($this->datos['test'][$i]->id_test);
                     }
+                    $this->datos['miga1']="TEST";
                     $this->vista('entrenadores/test', $this->datos);
             }
 
@@ -99,25 +143,42 @@ class Entrenador extends Controlador{
 
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $testNuevo = [
-                            'id_test' => trim($_POST['id_test']),
                             'nombreTest' => trim($_POST['nombreTest']),
                         ];
-                        if ($this->testModelo->agregarTest($testNuevo,$_POST['id_prueba'])) {
-                            redireccionar('/entrenador/test');
+
+                        if(isset($_POST['id_prueba'])){
+                                $ultimoIndice = $this->testModelo->agregarSoloTest($testNuevo);
+                                //echo $ultimoIndice;
+                                if ($this->testModelo->agregarTodo($ultimoIndice,$_POST['id_prueba'])) {
+                                    redireccionar('/entrenador/test');
+                                }else{
+                                    die('Algo ha fallado!!!');
+                                }
                         }else{
-                            die('Algo ha fallado!!!');
+                            if ($this->testModelo->agregarSoloTest($testNuevo)) {
+                                redireccionar('/entrenador/test');
+                            }else{
+                                die('Algo ha fallado!!!');
+                            }
+
                         }
-                    } else{
-                        $this->datos['test'] = (object) [
-                            'id_test' => '',
-                            'nombreTest' => '',
-                        ];
-                        //obtenemos los test
-                        $this->datos['listaTest'] = $this->testModelo->obtenerTest();
-                        //obtenemos las pruebas y lo guardamos en datos['pruebas']
-                        $prueba = $this->pruebaModelo->obtenerPruebas();
-                        $this->datos['pruebas'] = $prueba;
-                        $this->vista('entrenadores/nuevo_test', $this->datos);
+                          
+
+                        redireccionar('/entrenador/test');
+
+                            
+                     } else{
+                         $this->datos['test'] = (object) [
+                             'nombreTest' => '',
+                         ];
+                         //obtenemos los test
+                         $this->datos['listaTest'] = $this->testModelo->obtenerTest();
+                         //obtenemos las pruebas y lo guardamos en datos['pruebas']
+                         $prueba = $this->pruebaModelo->obtenerPruebas();
+                        
+                         $this->datos['nuevoMiga'] = "TEST";
+                         $this->datos['pruebas'] = $prueba;
+                         $this->vista('entrenadores/nuevo_test', $this->datos);
                     }
             }
 
@@ -144,50 +205,65 @@ class Entrenador extends Controlador{
                 }
 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    //var_dump($_POST);
 
                         //recogemos los datos modificados y guardamos en $testModificado
                         $testModificado = [
                             'id_test' => trim($_POST['id_test']),
                             'nombreTest' => trim($_POST['nombreTest']),
                             'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
-                        ];
+                        ];//var_dump($testModificado);
 
-                        $bd = [];
-                        //recogemos los datos de la BBDD (array de objetos) y guardamos en $bd 
-                        $bbdd = $this->testModelo->obtenerTestPrueba($id);
-                        foreach ($bbdd as $objeto){
-                            $bd[]=$objeto->id_prueba;
-                            
-                        }
+                        $pruebas=$testModificado['id_prueba'];
+                        //var_dump($pruebas);
+   
+
+                        //recogemos los datos de la BBDD (array de objetos) y guardamos en $bd
+                          $bd = [];    
+                          $bbdd = $this->testModelo->obtenerTestPrueba($id);
+                          foreach ($bbdd as $objeto){
+                                   $bd[]=$objeto->id_prueba;    
+                          }//var_dump($bd);
                 
-                        $eliminar=[];
-                        $insertar=[];
 
-                        
-                        foreach($bd as $idPrueba){  
-                            if($testModificado['id_prueba']!=null){
-                                //comparacion BBDD con MODIFICADO
-                                if (!in_array($idPrueba,$testModificado['id_prueba'])){
-                                $eliminar[]=$idPrueba;
-                            }
-                            }  
-                          }
+                        //creamos 2 arrays para comparar lo que nos llega nuevo con lo que habia en la bbdd
+                          $eliminar=[];
+                          $insertar=[];
 
-                        if($testModificado['id_prueba']!=null){
-                            foreach($testModificado['id_prueba'] as $idPruebaM){  
-                            //comparacion MODIFICADO con BBDD
-                            if (!in_array($idPruebaM,$bd)){
-                                $insertar[]=$idPruebaM;
-                            }
-                        }
-                        }
+                        //comparacion BBDD con MODIFICADO
+                           if(empty($pruebas)){
+                                foreach($bd as $idPrueba){  
+                                    //echo $idPrueba;
+                                    $eliminar[]=$idPrueba;
+                                }         
+                            } else{
+                                foreach($bd as $idPrueba){ 
+                                    if (!in_array($idPrueba,$pruebas)){ 
+                                    //echo $idPrueba;
+                                    $eliminar[]=$idPrueba;
+                                    }
+                                }
+                            } //echo "array eliminar",
+                            //var_dump($eliminar);
+
+
+                        //comparacion MODIFICADO con BBDD
+                          if($testModificado['id_prueba']!=null){
+                              foreach($testModificado['id_prueba'] as $idPruebaM){  
+                               //si el valor de $idPruebaM no esta en el array $bd - in_array(valor a buscar, array donde buscamos)
+                               if (!in_array($idPruebaM,$bd)){
+                                  $insertar[]=$idPruebaM;
+                                }
+                             }
+                          }//echo "array insertar";
+                          //var_dump($insertar);
                         
             
-                        if ($this->testModelo->modificarTest($eliminar,$insertar,$testModificado)) {
-                            redireccionar('/entrenador/test');
-                        }else{
-                            die('Algo ha fallado!!!');
-                        }
+                          if ($this->testModelo->modificarTest($eliminar,$insertar,$testModificado)) {
+                              redireccionar('/entrenador/test');
+                          }else{
+                              die('Algo ha fallado!!!');
+                          }
             }
 
 
@@ -208,6 +284,7 @@ class Entrenador extends Controlador{
                  if($_SERVER['REQUEST_METHOD']=='POST'){
                      $this->datos['emailsEnvio']= $_POST['seleccionados'];
                  } 
+                 $this->datos['miga1']="MENSAJERIA";
                 $this->vista('entrenadores/mensajeria', $this->datos);
             }
 
@@ -229,7 +306,7 @@ class Entrenador extends Controlador{
             
                     try {
                     //  Configuracion SMTP
-                        $mail->SMTPDebug =2;
+                        //$mail->SMTPDebug =2;
                         $mail->isSMTP();                                       // Activar envio SMTP
                         $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
                         $mail->SMTPAuth  = true;                               // Identificacion SMTP
@@ -251,15 +328,18 @@ class Entrenador extends Controlador{
                         $mail->Body  = $mensaje;
                         $mail->send();
 
+                        echo '<script type="text/javascript">alert("Mensaje enviado correctamente");
+                        window.location.assign("entrenador/mensajeria");
+                        </script>'; 
+
                         
-                        redireccionar('/entrenador/mensajeria');
-                        echo 'El mensaje se ha enviado';
+                       
                     } catch (Exception $e) {
                         echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
                     }
 
                 }
-                    
+                    //redireccionar('/entrenador/mensajeria');
             }
 
 

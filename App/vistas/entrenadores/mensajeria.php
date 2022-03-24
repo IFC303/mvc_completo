@@ -49,6 +49,11 @@
             margin-top:20px;
         }
 
+        #titulo{
+            font-family: 'Anton',sans-serif; 
+            color: #023ef9; 
+            letter-spacing: 5px;
+        }
 
 
 
@@ -64,53 +69,70 @@
 
             <div class="row" style="text-align:center">
                 <div class="col-12"><h4 id="titulo">Envio de mensajeria</h4></div>
+     
             </div>
+
+
+
+        <script>
+
+            var menTodos =  <?php echo json_encode($datos['mensaje'])?>;
+            console.log(menTodos)
+
+            var correos = new Array();
+            console.log(correos);
+        </script>
+
 
 
             <div class="row">
 
                 <!--RADIOS-->  
                 <div class="card bg-light mt-2 col-4"style="border-right:solid 1px #023ef9" >
-                    <div class="form-check" id="check" >
+                <div class="form-check" id="check" >
                         <br>
                         <h6>Selecciona el grupo destinatario</h6>
+                        <br>
 
                         <?php foreach($datos['entrenadorGrupo'] as $entrenadorGrupo){
                             ?>
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input" id="todos" name="todos" value="todos" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->id_grupo?>">
+                            
+                            <div class="col d-flex align-items-center m-2">
+                                <input type="radio" class="form-check-input" id="todos<?php echo $entrenadorGrupo->nombre?>" name="todos" value="todos<?php echo $entrenadorGrupo->nombre?>" data-bs-toggle="modal" data-bs-target="#v<?php echo $entrenadorGrupo->nombre?>">
+                                <label class="form-check-label m-1" for="todos" id="elementSocios"><?php echo $entrenadorGrupo->nombre?></label>
                             </div>
-                            <label class="form-check-label" for="todos" id="elementSocios"><?php echo $entrenadorGrupo->nombre?></label>
-                       
-
 
                 <!--VENTANA MODAL-->
-                <div class="modal" id="v<?php echo $entrenadorGrupo->id_grupo?>">
-                    <div class="modal-dialog">
+                <div class="modal" id="v<?php echo $entrenadorGrupo->nombre?>">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                         
-                            <div class="header">
-                                <h4 class="modal-title">Selecion destinatarios</h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <div class="card-header">
+                            <div class="row">
+                                <h4 class="modal-title col-11"><?php echo $entrenadorGrupo->nombre?></h4>
+                                <button type="button" class="btn-close m-1 col-1" onclick="quitar();" data-bs-dismiss="modal"></button>
+                            </div>
                             </div>
 
                             <div class="modal-body">
-                                <input type="checkbox" id="todos" onClick="marcar_desmarcar(this);"> <label for="todos">Seleccionar todos</label>    
+                                <br>
+                                <input type="checkbox" id="<?php echo $entrenadorGrupo->id_grupo?>" onClick="marcar_desmarcar(this.id);"> <label for="todos">Seleccionar todos</label> 
+                                <hr>   
                                 <div class="mt-3 mb-3">
                                     <?php 
                                   
                                     foreach($datos['mensaje'] as $objeto){
                                         if($objeto->id_grupo==$entrenadorGrupo->id_grupo){  
                                     ?> 
-                                    <input type="checkbox" name="seleccionados" id="<?php echo $objeto->nombre ?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
-                                    <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
-                              
-                                    }}?>     
+                                    <input type="checkbox"  class="<?php echo $objeto->id_grupo?>" name="<?php echo $objeto->id_grupo?>" id="<?php echo $objeto->id_grupo?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
+                                    <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); ?>
+                                    <br>                       
+                                   <?php }}?>     
                                 </div>
                             </div>
 
                             <div class="footer">
-                                <button type="button" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Aceptar</button>
+                                <button type="button" class="btn m-4" style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Aceptar</button>
                             </div>    
                                 
                         </div>
@@ -127,18 +149,18 @@
 
                                 <div class="mt-3 mb-3">
                                     <label for="destinatario">Email destinatario</label>
-                                    <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="">                               
+                                    <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="" required>                               
                                 </div>
                                 <div class="mt-3 mb-3">
                                     <label for="asunto">Asunto</label>
-                                    <input type="text" name="asunto" id="asunto" class="form-control form-control-lg">
+                                    <input type="text" name="asunto" id="asunto" class="form-control form-control-lg" required>
                                 </div>
 
                                 <div class="mt-3 mb-3">
                                     <label for="mensaje">Mensaje</label>
-                                    <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg"></textarea>
+                                    <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg" required></textarea>
                                 </div>
-
+                                <input type="hidden" name="enviarCorreos" id="enviarCorreos" value="">
                                 <input type="submit" class="btn" value="Enviar">
                         </form>
                 </div>
@@ -151,8 +173,86 @@
 
 
 
+        <script>
 
-            <script>
+
+                //FUNCION SELECCIONAR Y DESELECIONAR TODOS A LA VEZ
+                function marcar_desmarcar(todos){
+                    console.log("al entrar")
+
+                    casillas=document.getElementsByClassName(todos);
+                    todos=document.getElementById(todos);
+                    //console.log(casillas);
+
+                    for(i=0;i<casillas.length;i++){
+                        //console.log(casillas[i].id);
+                        if(casillas[i].type == "checkbox"){
+                            casillas[i].setAttribute("checked","true");
+                        if((casillas[i].checked=todos.checked)){
+                                correos.push(casillas[i].value);
+                            // console.log(correos);
+                            } else{
+                                var indice = correos.indexOf(casillas[i].value)
+                                console.log(indice)
+                                correos.splice(indice,1)
+                            }
+                        }
+                    }
+                    console.log(correos);
+                    document.getElementById('destinatario').setAttribute("value",correos);
+                }
+
+
+
+                //SELECCION UNO A UNO
+                function seleccionados(seleccionado){
+                    // console.log("al entrar")
+                    // console.log(correos);
+                    //console.log(seleccionado.value)
+
+                    seleccionado.setAttribute("checked","false");
+                    console.log(seleccionado.checked)
+
+                    if(seleccionado.checked==true){
+                        correos.push(seleccionado.value);
+                        document.getElementById('destinatario').setAttribute("value",correos);
+                    }else{
+                        var ind=correos.indexOf(seleccionado.value)
+                        console.log(ind)
+                        correos.splice(ind,1)
+                        document.getElementById('destinatario').setAttribute("value",correos);   
+                    }     
+                    console.log(correos);    
+                }
+
+
+
+                function aceptar(){
+                    document.getElementById('enviarCorreos').setAttribute("value",correos);
+                }
+
+
+
+                        
+                function quitar(){
+
+                    console.log(correos);
+
+                    correos.splice(0);
+                    document.getElementById('destinatario').setAttribute('value',"");
+                    
+                    console.log(correos)
+
+                }
+
+
+        </script>
+
+
+
+
+
+            <!-- <script>
 
                     function marcar_desmarcar(todos){
                         todos.setAttribute("checked","true");   
@@ -198,5 +298,5 @@
 
 
 
-            </script>
+            </script> -->
 

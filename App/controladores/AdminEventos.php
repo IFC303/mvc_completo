@@ -116,8 +116,6 @@ class AdminEventos extends Controlador{
                     'fecha_fin_inscrip' => trim($_POST['fecha_fin_inscrip']),  
                 ];
    
-             
-
                  if ($this->eventoModelo->editarEvento($evento_modificado)) {
                      redireccionar('/adminEventos');
                  }else{
@@ -127,12 +125,80 @@ class AdminEventos extends Controlador{
          } else {
                 $this->vista('administradores/crudEventos/inicio', $this->datos);
         }
-
-
-
-
-
 }
+
+
+
+        public function participantes($id_evento)
+        {
+            $notific = $this->notificaciones();
+            $this->datos['notificaciones'] = $notific;
+
+             $this->datos['id_evento'] = $id_evento;
+
+             $this->datos['participantesEventos'] = $this->eventoModelo->obtenerParticipantesEventos($id_evento);
+             //var_dump($this->datos['participantesEventos']);
+ 
+            $this->datos["nuevo"]="PARTICIPANTES";
+            $this->vista('administradores/crudEventos/participantes', $this->datos);
+        }
+
+
+
+        public function guardarMarcas($id){
+            $notific = $this->notificaciones();
+            $this->datos['notificaciones'] = $notific;
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                //var_dump($_POST);
+
+                $info=explode("_",$id);
+                $marca=$_POST['marca'];
+                $info['marca']=$marca;    
+                $dorsal=$_POST['dorsal'];
+                $info['dorsal']=$dorsal;
+                $info['id_evento']=$_POST['id_evento'];
+                var_dump($info);
+
+                 if($info[1]=="Externo"){
+                     $this->eventoModelo->guardarMarcasExterno($info);
+                     redireccionar('/adminEventos');
+                 }else{
+                     $this->eventoModelo->guardarMarcasSocio($info);
+                     redireccionar('/adminEventos');
+                 }
+                
+             }else{
+                 $this->vista('administradores/crudEventos/participantes', $this->datos);
+            }
+                
+        }
+
+        
+        public function borrarMarcas($id){
+            $notific = $this->notificaciones();
+            $this->datos['notificaciones'] = $notific;
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                //var_dump($_POST);
+
+                $info=explode("_",$id);  
+                $info['id_evento']=$_POST['id_evento'];
+                var_dump($info);
+
+                  if($info[1]=="Externo"){
+                      $this->eventoModelo->borrarMarcasExterno($info);
+                      redireccionar('/adminEventos');
+                  }else{
+                      $this->eventoModelo->borrarMarcasSocio($info);
+                      redireccionar('/adminEventos');
+                  }
+                
+            //  }else{
+            //      $this->vista('administradores/crudEventos/inicio', $this->datos);
+             }
+                
+        }
 
 
 

@@ -54,6 +54,16 @@
             $miga1Nom = "ENTIDADES";
         }elseif ($this->datos['notificaciones'][3] == "GRUPOS") {
             $miga1Nom = "GRUPOS";
+        }elseif ($this->datos['notificaciones'][3] == "INGRESOS") {
+            $miga1Nom = "INGRESOS";
+        }elseif ($this->datos['notificaciones'][3] == "GASTOS") {
+            $miga1Nom = "GASTOS";
+        }elseif ($this->datos['notificaciones'][3] == "SOCIOSSOL") {
+            $miga1Nom = "SOCIOS";
+        }elseif ($this->datos['notificaciones'][3] == "GRUPOSSOL") {
+            $miga1Nom = "GRUPOS";
+        }elseif ($this->datos['notificaciones'][3] == "EVENTOSSOL") {
+            $miga1Nom = "EVENTOS";
         }
     } else {
         $miga1Nom = "EN MANTENIMIENTO";
@@ -81,7 +91,11 @@
         } elseif ($this->datos['nuevo'] == "EVENTO") {
             $miga1 = RUTA_URL . "/adminEventos";
             $miga1Nom = "EVENTO";
-            $miga2Nom = "NUEVA EVENTO";
+            $miga2Nom = "NUEVO EVENTO";
+        }elseif ($this->datos['nuevo'] == "PARTICIPANTES") {
+            $miga1 = RUTA_URL . "/adminEventos";
+            $miga1Nom = "PARTICIPANTES";
+            $miga2Nom = "NUEVo PARTICIPANTES";
         }elseif ($this->datos['nuevo'] == "LICENCIA") {
             $miga1 = RUTA_URL . "/adminLicencias";
             $miga1Nom = "LICENCIA";
@@ -94,6 +108,14 @@
             $miga1 = RUTA_URL . "/adminGrupos";
             $miga1Nom = "GRUPOS";
             $miga2Nom = "NUEVA GRUPOS";
+        }elseif ($this->datos['nuevo'] == "FACTURACION") {
+            $miga1 = RUTA_URL . "/adminFacturacion/ingresos";
+            $miga1Nom = "INGRESOS";
+            $miga2Nom = "NUEVA INGRESO";
+        }elseif ($this->datos['nuevo'] == "FACTURACION2") {
+            $miga1 = RUTA_URL . "/adminFacturacion/gastos";
+            $miga1Nom = "GASTOS";
+            $miga2Nom = "NUEVO GASTO";
         }
     }
     ?>
@@ -103,8 +125,9 @@
             <div class="col-6 col-md-3 order-1 order-md-1"><img id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png" width="150"></div>
             <br><br><br><br>
             <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
-                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADOR</h1>
-
+                <br>
+                <h1 id="titulo" style="font-family: 'Anton',sans-serif; color: #023EF9; font: bold; letter-spacing: 5px;">ZONA DE ADMINISTRADORES</h1>
+                <br>
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
                     <li class='breadcrumb-level'><a href="<?php echo $miga1 ?>"><?php echo $miga1Nom ?></a></li>
@@ -124,7 +147,7 @@
                     <?php echo $datos['usuarioSesion']->nombre ?>
                     <p id="reloj"></p>
                     <script type="text/javascript">
-                        setInterval("verHora()", 500)
+                        setInterval("verHora()", 500);
 
                         function verHora() {
                             let d = new Date();
@@ -142,7 +165,7 @@
             </div>
 
             <!--MENU-->
-            <div class="offcanvas offcanvas-start" id="menu1">
+            <div class="offcanvas offcanvas-start" id="menu1" style="overflow: scroll;">
                 <div class="offcanvas-header">
                     <a href="<?php echo RUTA_URL ?>/admin"><img src="<?php echo RUTA_Icon ?>inicio.svg" width="50" height="50"></a>
                     <a href="<?php echo RUTA_URL ?>/admin">
@@ -237,14 +260,14 @@
                 </ul>
 
                 <!--MENU TEMPORADAS-->
-                <ul id="mInicioTem">
+                <!-- <ul id="mInicioTem">
                     <li id="mInicioTem">
                         <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link px-0 align-middle">
                             <div id="imgMenu"><img src="<?php echo RUTA_Icon ?>temporadas.svg" width="35" height="35"></div>
                             <div class="col-12">TEMPORADAS</div>
                         </a>
                     </li>
-                </ul>
+                </ul> -->
 
                 <!--MENU FACTURACION-->
                 <ul id="mInicioFac">
@@ -261,6 +284,9 @@
                         <li id="sInicio">
                             <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="nav-link ">GASTOS</a>
                         </li>
+                        <li id="sInicio">
+                            <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas/" class="nav-link ">CUOTAS</a>
+                        </li>
                     </ul>
                 </ul>
 
@@ -273,7 +299,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
+                <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end mt-3">
                     <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
                 </div>
             </div>

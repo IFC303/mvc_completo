@@ -1,5 +1,18 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
 
+<style>
+ .btn{
+            background-color: #023ef9;  
+            color:white;
+        }
+        .datos_tabla{
+            text-align:center;
+        }
+</style>
+
+
+
+
 <div style="text-align: center;">
         <form method="post" id="radioChe" class="card-body" action="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/">
                 <input type="radio" name="opcion" value="socio" id="socio" <?php if ($datos['radioCheck'] == "socio") {
@@ -8,12 +21,12 @@
                 <input type="radio" name="opcion" value="externo" id="externo" <?php if ($datos['radioCheck'] == "externo") {
                                                                                         echo "checked";
                                                                                 } ?>>&nbsp;<label for="externo">Ver solicitudes externo</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input onclick="enviarSociExter()" type="submit" name="enviar" value="Cargar" style="background-color: #023ef9; color:white">
+                <input onclick="enviarSociExter()" class="btn" type="submit" name="enviar" value="Cargar">
         </form>
 </div>
 
 <br>
-
+<div class="container">
 <div class="tabla" style="border:solid 1px #023ef9">
 
 
@@ -45,16 +58,16 @@
                 <tbody class="table-light">
                         <?php foreach ($datos['soliEventos'] as $usuarios) : ?>
                                 <tr>
-                                        <td><?php echo $usuarios->nombre ?></td>
-                                        <td><?php echo $usuarios->apellidos ?></td>
-                                        <td><?php echo $usuarios->evento ?></td>
-                                        <td><?php echo $usuarios->fecha ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->nombre ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->apellidos ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->evento ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->fecha ?></td>
 
 
 
 
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td>
+                                                <td class="datos_tabla">
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                         </a>
@@ -210,7 +223,7 @@
         </table>
 
 </div>
-
+</div>
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 <script>
         var aceptarBorrar = [];

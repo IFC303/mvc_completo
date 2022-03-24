@@ -43,8 +43,7 @@
 /*ESTILOS TABLA */
 
         .tabla{
-            border:solid 1px #023ef9;
-            width:60%;   
+            border:solid 1px #023ef9;  
             margin:auto;
         }
 
@@ -54,6 +53,9 @@
             text-align:center;
         }
 
+        .datos_tabla{
+            text-align:center;
+        }
         .icono{
             width:20px;
             height:20px;
@@ -101,10 +103,10 @@
                             ?>
 
                             <tr>
-                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->id_grupo?></span></td>
-                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->nombre?></span></td>
-                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->fecha_ini?></span></td>
-                                <td><span class="d-flex justyfy-content-center"><?php echo $grupo->fecha_fin?></span></td>
+                                <td class="datos_tabla"><?php echo $grupo->id_grupo?></span></td>
+                                <td class="datos_tabla"><?php echo $grupo->nombre?></span></td>
+                                <td class="datos_tabla"><?php echo $grupo->fecha_ini?></span></td>
+                                <td class="datos_tabla"><?php echo $grupo->fecha_fin?></span></td>
                                 
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <td><span class="d-flex justify-content-center">

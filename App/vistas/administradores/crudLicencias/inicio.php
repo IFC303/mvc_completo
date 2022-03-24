@@ -20,12 +20,10 @@
         }
 
         .modalVer .modal-content{
-            width:40%;
             margin: auto;
         }
 
         #modalEditar{
-            width:50%;
             margin: auto;
         }
 
@@ -136,22 +134,22 @@
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 
                             
-                            <td>
+                            <td class="d-flex justify-content-center">
 
                                 <!--MODAL VER (javascript)-->
                                     
                                     <a data-bs-toggle="modal" data-bs-target="#ModalVer_<?php echo $licencia->id_licencia ?>">
-                                    <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"></img>
+                                    <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"     ></img>
                                     </a>
 
                                     <!-- VENTANA -->
                                     <div class="modal" id="ModalVer_<?php echo $licencia->id_licencia ?>">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
+                                        <div class="modal-content" >
 
                                             <!--Header-->
                                             <div class="modal-header">
-                                                    <h2 class="modal-title">Datos de la liciencia</h2>
+                                                    <h2 class="modal-title">Datos de la licencia</h2>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>                             
                                             </div>
                                             
@@ -325,7 +323,7 @@
                                                             
                                                         </select>
                                                         
-                                                        <br><br>
+                                                        <br>
                                                     </div>
                                                     
                                                     <div class="col-12">
@@ -403,7 +401,7 @@
                                                             
                                                         </select>
                                                         
-                                                        <br><br>
+                                                        <br>
                                                     </div>
                                                     
                                                     <div class="col-12">
@@ -427,7 +425,7 @@
                                                     
                                                     <?php } ?>
                                                     
-                                                    <br>
+                                                    
                                                     <input type="submit" class="btn" value="Confirmar">
                                                     
                                                     

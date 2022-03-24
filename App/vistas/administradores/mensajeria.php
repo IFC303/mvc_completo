@@ -1,7 +1,7 @@
 <?php require_once RUTA_APP.'/vistas/inc/header-admin-miga.php' ?>
 
     <style>
- 
+
         /* #ventana{
             margin: auto;
         } */
@@ -9,14 +9,14 @@
         label, h2, h4,h6{
            color:#023ef9;
         }
-      
+
         .btn{
-            background-color: #023ef9; 
+            background-color: #023ef9;
             color:white;
         }
 
         #botonVolver{
-            background-color:white; 
+            background-color:white;
             color:#023ef9;
             border-color:#023ef9;
         }
@@ -24,14 +24,18 @@
         #elementSocios{
             padding-left:5px;
             margin-top:15px;
-        }       
+        }
 
         #todos{
             margin-left:5px;
             margin-top:20px;
         }
 
-
+        #titulo{
+            font-family: 'Anton',sans-serif; 
+            color: #023ef9; 
+            letter-spacing: 5px;
+        }
 
 
     </style>
@@ -45,61 +49,76 @@
                 <div class="col-12"><h4 id="titulo">Envio de mensajeria</h4></div>
             </div>
 
+            <script>
+
+                var menTodos =  <?php echo json_encode($datos['mensajeTodos'])?>;
+                //console.log(menTodos)
+
+                var correos = new Array();
+                console.log(correos);
+            </script>
 
             <div class="row">
 
-                <!--RADIOS-->  
+                <!--RADIOS-->
                 <div class="card bg-light mt-2 col-4"style="border-right:solid 1px #023ef9" >
                 <div class="form-check" id="check" >
                         <br>
                         <h6>Selecciona el grupo destinatario</h6>
                         <br>
 
-                        <?php 
+                        <?php
                         $destinatarios =['Administradores','Entrenadores','Socios','Tiendas', 'Participantes','Entidades'];
 
                         foreach($destinatarios as $nombre){?>
-                            <div class="col-1">
-                                <input type="radio" class="form-check-input"  name="todos<?php echo $nombre?>" id="todos<?php echo $nombre?>" value="todos<?php echo $nombre?>" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
-                            </div>
-                                <label class="form-check-label" for="todos" id="elementSocios"><?php echo $nombre?></label>
+                            <div class="row">
+                                <div class="col d-flex align-items-center m-2">
+                                    <input type="radio" class="form-check-input"  name="todos" id="todos<?php echo $nombre?>" value="todos<?php echo $nombre?>" data-bs-toggle="modal" data-bs-target="#v<?php echo $nombre?>">
+                                    <label class="form-check-label m-1" for="todos" id="elementSocios"><?php echo $nombre?></label>
+                                </div>
+                                <div class="col-11">
                                     
+                                </div>
+                            </div>
                             <!--VENTANA MODAL-->
                             <div class="modal" id="v<?php echo $nombre?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-md">
                             <div class="modal-content">
-                                   
-                                   
-                                        <div class="header">
-                                            <h4 class="modal-title"><?php echo $nombre?> </h4>
-                                            <button type="button" class="btn-close" onclick="quitar(<?php echo $nombre?>);" data-bs-dismiss="modal"></button>
+
+
+                                        <div class="card-header">
+                                            <div class="row">
+                                                    <h4 class="modal-title col-11"><?php echo $nombre?> </h4>
+                                                    <button type="button" class="btn-close m-1 col-1" id="" onclick="quitar();" data-bs-dismiss="modal"></button>
+                                            </div>
                                         </div>
 
                                         <div class="modal-body">
-                                              <input type="checkbox" id="<?php echo $nombre?>" onClick="marcar_desmarcar(this.id);"> <label for="todos">Seleccionar todos</label>   
+                                            <br>
+                                              <input type="checkbox" id="<?php echo $nombre?>" onClick="marcar_desmarcar(this.id);"> <label for="todos">Seleccionar todos</label>
+                                              <hr>
                                             <div class="mt-3 mb-3">
-                                            <?php 
-                                                foreach($datos['mensajeTodos'] as $objeto){   
-                                                    if($objeto->tipo==$nombre){  
-                                                ?> 
-                                                
-                                                <br> 
+                                            <?php
+                                                foreach($datos['mensajeTodos'] as $objeto){
+                                                    if($objeto->tipo==$nombre){
+                                                ?>
                                                 <input type="checkbox" class="<?php echo $objeto->tipo?>" name="<?php echo $objeto->tipo?>" id="<?php echo $objeto->tipo?>" value="<?php echo $objeto->email?>" onclick="seleccionados(this);">
-                                                <?php   print_r($objeto->nombre."  ".$objeto->apellidos ); 
-                                                }}?>     
+                                                <?php   print_r($objeto->nombre."  ".$objeto->apellidos );
+                                                ?> <br> <?php
+                                                }}?>
                                             </div>
                                         </div>
 
                                         <div class="footer">
-                                            <button type="button" style="background-color: #023ef9; color:white" onclick="aceptar();" data-bs-dismiss="modal">Aceptar</button>
-                                        </div>                            
+                                            <button type="button" class="btn m-4" style="background-color: #023ef9; color:white" onclick="aceptar();" data-bs-dismiss="modal">Aceptar</button>
+                                        </div>
                             </div>
                             </div>
-                            </div> 
+                            </div>
 
                         <?php }?>
 
-                </div>   
+                </div>
                 </div>
 
 
@@ -109,131 +128,101 @@
 
                                 <div class="mt-3 mb-3">
                                     <label for="destinatario">Email destinatario</label>
-                                    <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="">                               
+                                    <input type="text" name="destinatario" id="destinatario" class="form-control form-control-lg" value="" required>
                                 </div>
                                 <div class="mt-3 mb-3">
                                     <label for="asunto">Asunto</label>
-                                    <input type="text" name="asunto" id="asunto" class="form-control form-control-lg">
+                                    <input type="text" name="asunto" id="asunto" class="form-control form-control-lg" required>
                                 </div>
 
                                 <div class="mt-3 mb-3">
                                     <label for="mensaje">Mensaje</label>
-                                    <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg"></textarea>
+                                    <textarea type="text" rows="7" name="mensaje" id="mensaje" class="form-control form-control-lg" required></textarea>
                                 </div>
 
                                 <input type="hidden" name="enviarCorreos" id="enviarCorreos" value="">
                                 <input type="submit" class="btn" value="Enviar">
                         </form>
                 </div>
-            </div>   
+            </div>
         </div>
 
         <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
+
+
+
             <script>
 
+
+                    //FUNCION SELECCIONAR Y DESELECIONAR TODOS A LA VEZ
                     function marcar_desmarcar(todos){
-                        
-                        //console.log(todos);
-                        var mails =[];
-                        
-              
+                        //console.log("al entrar")
+
                         casillas=document.getElementsByClassName(todos);
                         todos=document.getElementById(todos);
                         //console.log(casillas);
-                        
-                        //correos="";  
-   
+
                          for(i=0;i<casillas.length;i++){
-                             //console.log(casillas[i]);
-                             if(casillas[i].type == "checkbox"){    
+                             //console.log(casillas[i].id);
+                             if(casillas[i].type == "checkbox"){
                                  casillas[i].setAttribute("checked","true");
-                               if((casillas[i].checked=todos.checked) & (casillas[i].value!="on")){
-                                    mails.push(casillas[i].value);
-                                    
-                                    //correos=correos+casillas[i].value+",";
-                                //  } else{
-                                //       mails.splice(mails.length);
-                                //   todos.setAttribute("checked","false");
-                                  }                 
-                              }   
-                        } 
-                        console.log(mails);
-                        //correos=correos.slice(0,-1);
-                        //console.log(correos); 
-
-                        var ha=document.getElementById('destinatario').value;
-                        console.log(ha);
-
-                        //pongo valor
-                        document.getElementById('destinatario').setAttribute("value",mails);
-                        //ha.push(mails);
-                        console.log(document.getElementById('destinatario').value);
-
-                        console.log(ha+" "+document.getElementById('destinatario').value);
-                        
-                        document.getElementById('destinatario').setAttribute("value",ha+" "+document.getElementById('destinatario').value);
-                        console.log(ha+" "+document.getElementById('destinatario').value);
-
-                        
-                     
+                               if((casillas[i].checked=todos.checked)){
+                                    correos.push(casillas[i].value);
+                                   // console.log(correos);
+                                   } else{
+                                      var indice = correos.indexOf(casillas[i].value)
+                                       console.log(indice)
+                                       correos.splice(indice,1)
+                                   }
+                              }
+                        }
+                        console.log(correos);
+                        document.getElementById('destinatario').setAttribute("value",correos);
                      }
 
-                    
 
-                
+
                     //SELECCION UNO A UNO
                     function seleccionados(seleccionado){
-                        seleccionado.setAttribute("checked","true");
-                        var correos = [];
-                        casillas=document.getElementsByTagName('input');
+                        // console.log("al entrar")
+                        // console.log(correos);
+                        //console.log(seleccionado.value)
 
-                        for(i=0;i<casillas.length;i++){
-                            if((casillas[i].type=="checkbox") & (casillas[i].checked==true)){
-                                correos.push(casillas[i].value);
-                            }
-                        }   
-                          //console.log(correos); 
-                          document.getElementById('destinatario').setAttribute('value',correos);
+                        seleccionado.setAttribute("checked","false");
+                        console.log(seleccionado.checked)
+                  
+                        if(seleccionado.checked==true){
+                            correos.push(seleccionado.value);
+                            document.getElementById('destinatario').setAttribute("value",correos);
+                        }else{
+                            var ind=correos.indexOf(seleccionado.value)
+                            console.log(ind)
+                            correos.splice(ind,1)
+                            document.getElementById('destinatario').setAttribute("value",correos);   
+                        }     
+                        console.log(correos);    
                     }
 
 
 
-
-
-
-
-
-
                      function aceptar(){
-                        var aceptados=document.getElementById('destinatario').value;
-                        //console.log(aceptados);
+                        document.getElementById('enviarCorreos').setAttribute("value",correos);
                      }
 
 
 
-                     function quitar(todos){
+                     
+                     function quitar(){
+                    
+                        console.log(correos);
+
+                        correos.splice(0);
                         document.getElementById('destinatario').setAttribute('value',"");
-                        console.log(destinatario);
-
-
-                       casillas=document.getElementsByClassName(todos);
-
-
-                       for(i=0;i<casillas.length;i++){
-                            casillas[i].setAttribute("checked",false);
-                       }console.log(casillas);
-                        //todos=document.getElementById(todos);
-                        ///todos.setAttribute("checked","false");
-                        //casillas.setAttribute("checked",false); 
-                     } 
-
-
-
-
-
-                   
-
+                        
+                        console.log(correos)
+       
+                     }
 
 
             </script>

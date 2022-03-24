@@ -1,5 +1,14 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
 
+<style>
+        .datos_tabla{
+            text-align:center;
+        }  
+</style>
+
+
+
+<div class="container">
 <div class="tabla" style="border:solid 1px #023ef9">
 
         <table class="table table-hover">
@@ -12,7 +21,7 @@
                                 <th>FECHA INSCRIPCION</th>
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
                                         <th>Acciones</th>
-                                        <th>
+                                        <th >
                                                 <a onclick="borrarMas()" data-bs-toggle="modal" data-bs-target="#ModalBorrar_mas">
                                                         <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                 </a>
@@ -30,15 +39,15 @@
 
                         <?php foreach ($datos['soliSocioGrupos'] as $usuarios) : ?>
                                 <tr>
-                                        <td><?php echo $usuarios->nombre_usuario ?></td>
-                                        <td><?php echo $usuarios->nombre_grupo ?></td>
-                                        <td><?php echo $usuarios->fecha_inscripcion ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->nombre_usuario ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->nombre_grupo ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->fecha_inscripcion ?></td>
 
 
 
 
                                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td>
+                                                <td class="datos_tabla">
                                                         <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_usuario ?>">
                                                                 <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                                         </a>
@@ -171,6 +180,7 @@
 
         </table>
 
+</div>
 </div>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

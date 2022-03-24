@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  php:
+    container_name: tragamillas
+    build: ./docker/php
+    image: ifc303/tragamillas
+    links:
+      - mysql
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/var/www/html/tragamillas
+      - ./docker/php:/var/logs/xdebug
+    working_dir: /var/www/html
+  nginx:
+    container_name: nginx
+    build: ./docker/nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/html/tragamillas
+      - ./docker/nginx/ssl/:/etc/nginx/ssl/
+  mysql:
+    image: mysql:8.0.27
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: tragamillas
+      MYSQL_USER: tragamillas
+      MYSQL_PASSWORD: passwd
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8085:80
+volumes:
+  dbdata:

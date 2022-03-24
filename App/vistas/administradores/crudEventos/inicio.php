@@ -45,8 +45,7 @@
 /*ESTILOS TABLA */
 
         .tabla{
-            border:solid 1px #023ef9;
-            width:60%;   
+            border:solid 1px #023ef9; 
             margin:auto;
         }
 
@@ -89,12 +88,15 @@
     </style>
 
 
-        <div class="container">
-        <div class="row" style="text-align:center">
+    <div class="container">
+
+            <div class="row" style="text-align:center">
                 <div class="col-12"><h4 id="titulo">Gestion de eventos</h4></div>
             </div>
+
            <div class="tabla" style="border:solid 1px #023ef9">
-            <table class="table table-hover" >
+            
+           <table class="table table-hover" >
 
 
                     <!--CABECERA TABLA-->
@@ -127,10 +129,10 @@
                             <td class="datos_tabla"><?php echo $evento->fecha_fin?></td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
-                            <td>
+                            <td class="d-flex justify-content-center">
 
                                 <!--MODAL VER (javascript)-->
-                                    <img class="icono" id="btnModal_<?php echo $evento->id_evento ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $evento->id_evento ?>);"></img>
+                                    <img class="icono mt-1" id="btnModal_<?php echo $evento->id_evento ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $evento->id_evento ?>);"></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $evento->id_evento ?>" class="modalVer">
@@ -149,12 +151,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->id_evento?>" readonly>
+                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->nombre?>" readonly>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="tipo">Tipo</label>
-                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->id_usuario?>" readonly>
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>" readonly>
                                                     </div>
                                                 </div>
 
@@ -194,7 +196,9 @@
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_fin_inscrip">Fecha fin inscripcion<sup>*</sup></label>
                                                         <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>" readonly>
+                                                    <br>
                                                     </div>
+                                                    
                                                 </div>
 
                                        
@@ -230,12 +234,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->nombre?>">
+                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $evento->nombre?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="tipo">Tipo</label>
-                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>">
+                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $evento->tipo?>" required>
                                                     </div>
                                                 </div>
 
@@ -243,12 +247,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_ini">Fecha inicio</label>
-                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg"value="<?php echo $evento->fecha_ini?>">
+                                                        <input type="date" name="fecha_ini" id="fecha_ini" class="form-control form-control-lg"value="<?php echo $evento->fecha_ini?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_fin">Fecha fin</label>
-                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>">
+                                                        <input type="date" name="fecha_fin" id="fecha_fin" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin?>" required>
                                                     </div>
                                                 </div>
 
@@ -256,12 +260,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="precio">Precio<sup>*</sup></label>
-                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>">
+                                                        <input type="text" name="precio" id="precio" class="form-control form-control-lg" value="<?php echo $evento->precio?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="descuento">Descuento<sup>*</sup></label>
-                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>">
+                                                        <input type="text" name="descuento" id="descuento" class="form-control form-control-lg" value="<?php echo $evento->descuento?>" required>
                                                     </div>
                                                 </div>
 
@@ -269,12 +273,12 @@
                                                 <div class="row">
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_ini_inscrip">Fecha inicio inscripcion<sup>*</sup></label>
-                                                        <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini_inscrip?>">
+                                                        <input type="date" name="fecha_ini_inscrip" id="fecha_ini_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_ini_inscrip?>" required>
                                                     </div>
 
                                                     <div class="col-6 mt-3 mb-3">
                                                         <label for="fecha_fin_inscrip">Fecha fin inscripcion<sup>*</sup></label>
-                                                        <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>">
+                                                        <input type="date" name="fecha_fin_inscrip" id="fecha_fin_inscrip" class="form-control form-control-lg" value="<?php echo $evento->fecha_fin_inscrip?>" required>
                                                     </div>
                                                 </div>
 
@@ -323,6 +327,13 @@
                                         </div>
                                     </div>
                                     </div>
+
+                                     <!-- PARTICIPANTES -->
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="<?php echo RUTA_URL?>/adminEventos/participantes/<?php echo $evento->id_evento?>">
+                                  <img class="icono" src="<?php echo RUTA_Icon?>grupos.svg"></img>
+                                </a> 
+
                             </td>
                             <?php endif ?>
                         </tr>

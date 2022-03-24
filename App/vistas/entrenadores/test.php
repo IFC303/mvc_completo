@@ -61,8 +61,7 @@
 /*ESTILOS TABLA */
 
         .tabla{
-            border:solid 1px #023ef9;
-            width:50%;   
+            border:solid 1px #023ef9;  
             margin:auto;
         }
         thead tr{
@@ -84,8 +83,6 @@
             padding: 30px;
             color:#023ef9;
         }
-
-   
 
         .btn{
             background-color: #023ef9; 
@@ -144,10 +141,10 @@
 
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
-                            <td>
-
+                            <td class="d-flex justify-content-center"> 
+                              
                                 <!--MODAL VER (javascript)-->
-                                    <img  class="icono" id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $test->id_test ?>);"></img>
+                                    <img  class="icono mt-1" id="btnModal_<?php echo $test->id_test ?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $test->id_test ?>);"></img>
 
                                     <!--Ventana-->
                                     <div id="<?php echo $test->id_test ?>" class="modalVer">
@@ -197,27 +194,22 @@
                                                             ?>
                                                                 <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled>    
                                                                 <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
-                                                            endforeach; ?>   
+                                                            endforeach; ?>  
+                                                            
                                                     </div>
-                                            </div>
+                                            </div><br> 
                                             
-                                            <!--Footer-->
-                                            <!-- <div id="footerVer">
-                                                <input class="btn" type="button" id="cerrar_<?php echo $test->id_test ?>" onclick="cerrar(<?php echo $test->id_test ?>);" value="Cerrar" >
-                                                <br>
-                                                <br>
-                                            </div>
-                                         -->
 
                                         </div>  
                                     </div> 
-
+                                    
 
 
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
+                                
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $test->id_test ?>" >
-                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
+                                  <img class="icono justify-content-center" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
@@ -233,7 +225,7 @@
 
                                             <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/editarTest/<?php echo $test->id_test ?>" class="card-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/entrenador/editarTest/<?php echo $test->id_test?>" class="card-body">
                                                    
                                                      <div class="mt-3 mb-3">
                                                         <label for="id_test">Id de test</label>
@@ -242,7 +234,7 @@
                                                     
                                                     <div class="mt-3 mb-3">
                                                         <label for="nombreTest">Nombre</label>
-                                                        <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>">
+                                                        <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-lg" value="<?php echo $test->nombreTest?>" required>
                                                     </div>
                                                     
                                                     <div class="mt-3 mb-3">
@@ -279,19 +271,20 @@
                                         </div>
                                     </div>
                                     </div>
-
+                                   
 
 
 
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
+                                
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $test->id_test ?>" href="<?php echo RUTA_URL?>/entrenador/borrar/<?php echo $test->id_test ?>">
-                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
+                                  <img class="icono justify-content-center " src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
                                     <div class="modal" id="ModalBorrar_<?php echo $test->id_test ?>">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-md">
                                         <div class="modal-content">
 
                                              <!-- Modal Header -->
@@ -313,6 +306,7 @@
                                         </div>
                                     </div>
                                     </div>
+                                
                             </td>
                             <?php endif ?>
                         </tr>

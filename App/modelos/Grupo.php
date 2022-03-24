@@ -1,4 +1,5 @@
 <?php
+// ob_start();
 
 class Grupo
 {
@@ -46,9 +47,15 @@ class Grupo
     }
 
     //obtiene alumnos por el id_grupo (tabla SOCIO_GRUPO)
-    public function obtenerAlumnos($idGrupo){
+    public function obtenerAlumnosUno($idGrupo){
         $this->db->query("SELECT id_grupo, fecha_inscripcion, acepatado, activo, SOCIO_GRUPO.id_usuario, USUARIO.nombre, USUARIO.apellidos 
-        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario");
+        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario and activo=1");
+        $this->db->bind(':idGrupo',$idGrupo);
+        return $this->db->registros();
+    }
+    public function obtenerAlumnosCero($idGrupo){
+        $this->db->query("SELECT id_grupo, fecha_inscripcion, acepatado, activo, SOCIO_GRUPO.id_usuario, USUARIO.nombre, USUARIO.apellidos 
+        from SOCIO_GRUPO, USUARIO WHERE id_grupo = :idGrupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario and activo=0");
         $this->db->bind(':idGrupo',$idGrupo);
         return $this->db->registros();
     }
@@ -132,34 +139,44 @@ class Grupo
     }
 
 
-    public function agregarEntrenadorGrupo($hoy,$id_grupo,$entrenador){
+    public function agregarEntrenadorGrupo($entrenador, $id_grupo){
+        //var_dump($entrenador[0]);
+     
          $this->db->query("INSERT INTO ENTRENADOR_GRUPO (fecha,id_grupo,id_usuario) VALUES (:hoy,:id_grupo,:entrenador)");
-         $this->db->bind(':hoy', $hoy);
+         $this->db->bind(':hoy', date('Y-m-d'));
          $this->db->bind(':id_grupo',$id_grupo);
-         $this->db->bind(':entrenador',$entrenador);
+         $this->db->bind(':entrenador',$entrenador[0]);
          $this->db->execute();
     }
   
 
-    public function cambiarEstadoAlumno($alumnosActuales, $alumnosCero){
-        var_dump($alumnosActuales);
-        var_dump($alumnosCero);
+    public function cambiarEstadoAlumno($alumnosActuales, $alumnosCero,$idGrupo){
+        //llega array de string
+        //var_dump($alumnosActuales);         
+         //var_dump($alumnosCero);
+         
+             foreach($alumnosActuales as $idActuales){
+                $this->db->query("UPDATE SOCIO_GRUPO SET activo = 1 WHERE id_usuario = :idActual and id_grupo=:idGrupo");;
+                $this->db->bind(':idActual',$idActuales);
+                $this->db->bind(':idGrupo',$idGrupo);
+                $this->db->execute();
+           
+             }
 
-        foreach($alumnosActuales as $idActuales){
-             $this->db->query("UPDATE SOCIO_GRUPO SET activo=1 WHERE id_usuario = :idActual");
-             $this->db->bind(':idActual',$idActuales);
-             $this->db->execute();
-        }
-   
-        foreach($alumnosCero as $idCero){
-            $this->db->query("UPDATE SOCIO_GRUPO SET activo=0 WHERE id_usuario = :idCero");
-            $this->db->bind(':idCero',$idCero);
-            $this->db->execute();
-       }
-        
+              foreach($alumnosCero as $idCero){
+                   $this->db->query("UPDATE SOCIO_GRUPO SET activo = 0 WHERE id_usuario = :idCero and id_grupo=:idGrupo");
+                   $this->db->bind(':idCero',$idCero);
+                   $this->db->bind(':idGrupo',$idGrupo);
+                   $this->db->execute();   
+              }     
+              
+              return true;
     }
     
 
+
+
+///ENTRENADOR
     
     public function obtenerTestPruebas(){
         $this->db->query("SELECT TEST_PRUEBA.id_test, TEST_PRUEBA.id_prueba, TEST.nombreTest, PRUEBA.nombrePrueba, PRUEBA.tipo 
@@ -167,6 +184,37 @@ class Grupo
         $this->db->execute();
         return $this->db->registros();
     }
+
+
+    //todos los socios de los grupos de un UNICO ENTRENADOR
+    public function todosSociosGrupos($id_entrenador){
+        $this->db->query("SELECT CATEGORIA.id_categoria, CATEGORIA.nombre as nombre_categoria, USUARIO.id_usuario, USUARIO.nombre, USUARIO.apellidos,
+                        GRUPO.id_grupo,GRUPO.nombre as nombre_grupo,
+                        ENTRENADOR_GRUPO.id_usuario as id_entrenador
+                        from USUARIO,CATEGORIA,CATEGORIA_SOCIO,GRUPO,SOCIO_GRUPO, ENTRENADOR_GRUPO
+                        where CATEGORIA_SOCIO.id_categoria=CATEGORIA.id_categoria and CATEGORIA_SOCIO.id_usuario=USUARIO.id_usuario 
+                        and SOCIO_GRUPO.id_grupo=GRUPO.id_grupo and USUARIO.id_usuario=SOCIO_GRUPO.id_usuario
+                        and ENTRENADOR_GRUPO.id_usuario=:id_entrenador and ENTRENADOR_GRUPO.id_grupo=GRUPO.id_grupo");
+                        $this->db->bind(':id_entrenador',$id_entrenador);
+                        $this->db->execute();
+                        return $this->db->registros();
+    }
+
+    
+    //todos los grupos de un UNICO ENTRENADOR
+    public function todosEntrenadoresGrupos($id_entrenador){
+        $this->db->query("SELECT GRUPO.id_grupo, GRUPO.nombre as nombre_grupo, USUARIO.id_usuario,USUARIO.nombre, USUARIO.apellidos
+            from USUARIO,GRUPO,ENTRENADOR_GRUPO
+            where ENTRENADOR_GRUPO.id_grupo=GRUPO.id_grupo and ENTRENADOR_GRUPO.id_usuario=USUARIO.id_usuario
+            and ENTRENADOR_GRUPO.id_usuario=$id_entrenador");
+        $this->db->execute();
+        return $this->db->registros();
+    }
+
+
+
+    
+    
 
     
 
