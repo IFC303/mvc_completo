@@ -8,13 +8,16 @@ define('RUTA_URL', "https://{$_SERVER['HTTP_HOST']}/tragamillas");
 // Ruta local
 // define('RUTA_URL', "http://localhost/tragamillas");
 
+// Ruta servidor
+// define('RUTA_URL', 'https://80.28.234.191:63443/tragamillas');
+
 define('NOMBRE_SITIO', 'Tragamillas');
 
 // Ruta host
 // define('DB_HOST', 'localhost');
 
 // Ruta bridge
-// define('DB_HOST', '172.17.0.3');
+// define('DB_HOST', '172.17.0.2');
 
 // Ruta dinámica
 define('DB_HOST', 'mysql');

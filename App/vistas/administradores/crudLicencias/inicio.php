@@ -124,7 +124,7 @@
 
                             <td class="datos_tabla"><?php echo $licencia->nombre." ".$licencia->apellidos?></td>
                             <td class="datos_tabla"><?php if ($licencia->num_licencia==''){echo '-';}else {echo $licencia->num_licencia;}?></td>
-                            <td class="datos_tabla"><?php if ($licencia->gir=='' || !($licencia->num_licencia=='')){echo '-';}else {echo $licencia->gir;}?></td>
+                            <td class="datos_tabla"><?php if ($licencia->gir=='' || ($licencia->num_licencia!='')){echo '-';}else {echo $licencia->gir;}?></td>
                             <td class="datos_tabla"><?php echo $licencia->tipo?></td>
                             <td class="datos_tabla"><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
                             <td class="datos_tabla"><?php if ($licencia->dorsal==''){echo '-';}else {echo $licencia->dorsal;}?></td>
