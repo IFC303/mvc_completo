@@ -9,9 +9,9 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./:/var/www/html/tragamillas
-      - ./docker/php:/var/logs/xdebug
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./:/var/www/html/tragamillas:ro
+      - ./docker/php:/var/logs/xdebug:ro
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini:ro
     working_dir: /var/www/html
   nginx:
     container_name: nginx
@@ -26,8 +26,8 @@ services:
       - ./:/var/www/html/tragamillas
       - ./docker/nginx/ssl/:/etc/nginx/ssl/
   mysql:
-    image: mysql:8.0.27
     container_name: mysql
+    build: ./docker/mysql
     environment:
       MYSQL_ROOT_PASSWORD: toor
       MYSQL_DATABASE: tragamillas
@@ -37,7 +37,6 @@ services:
       - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
