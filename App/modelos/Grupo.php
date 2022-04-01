@@ -155,7 +155,7 @@ class Grupo
          //var_dump($alumnosCero);
          
              foreach($alumnosActuales as $idActuales){
-                $this->db->query("UPDATE SOCIO_GRUPO SET activo = 1 WHERE id_usuario = :idActual and id_grupo=:idGrupo");
+                $this->db->query("UPDATE SOCIO_GRUPO SET activo = 1 WHERE id_usuario = :idActual and id_grupo= :idGrupo");;
                 $this->db->bind(':idActual',$idActuales);
                 $this->db->bind(':idGrupo',$idGrupo);
                 $this->db->execute();
