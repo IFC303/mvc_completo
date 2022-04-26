@@ -3,7 +3,6 @@
 class Tienda extends Controlador{
 
 
-
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
         $this->datos['rolesPermitidos'] = [4];          // Definimos los roles que tendran acceso
@@ -15,8 +14,7 @@ class Tienda extends Controlador{
 
 
     public function index(){
-        $this->datos['tienda']=$this->tiendaModelo->obtenerUsuarios();  
-       // $this->datos['tienda'] = $this->Modelo->obtenerEventos();
+        $this->datos['tienda']=$this->tiendaModelo->obtenerEquipacionUsuarios();  
         $this->vista('tiendas/inicio', $this->datos);     
     }
 
@@ -47,14 +45,59 @@ class Tienda extends Controlador{
                 'talla'=>'',
                 'usu'=>''
             ];
-            //$this->datos["nuevo"]="EVENTO";
             $this->vista('tiendas/inicio',$this->datos);
         }
 
-
-
     }
 
+
+    public function borrar_equipacion($id_equipacion){
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->tiendaModelo->borrarEquipacion($id_equipacion)) {
+                redireccionar('/tienda');
+            }else{
+                die('Algo ha fallado!!!');
+            }
+        }else{
+            $this->datos['tienda'] = $this->tiendaModelo->obtenerEquipacionId($id_equipacion);
+            $this->vista('tiendas/inicio', $this->datos);
+        }
+    }
+
+
+    public function editar_equipacion($id_equipacion){
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $equipacion_modificada = [
+                'tipo'=> trim($_POST['tipo']),
+                'talla' => trim($_POST['talla']),
+            ];
+             if ($this->tiendaModelo->editarEquipacion($id_equipacion,$equipacion_modificada)) {
+                 redireccionar('/tienda');
+             }else{
+                 die('Algo ha fallado!!!');
+             }
+        } else {
+            $this->vista('tiendas/inicio', $this->datos);
+        }
+    }
+
+    public function cambiar_estado($id){
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $estado=$_POST['estado'];
+
+             if ($this->tiendaModelo->cambiarEstado($id,$estado)) {
+                 redireccionar('/tienda');
+             }else{
+                 die('Algo ha fallado!!!');
+             }
+        } else {
+            $this->vista('tiendas/inicio', $this->datos);
+        }
+    }
 
 
 

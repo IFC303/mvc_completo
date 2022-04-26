@@ -860,13 +860,14 @@ VALUES
     '332'
   );
 CREATE TABLE EQUIPACION(
-    id_equipacion int primary key,
+    id_equipacion int primary key AUTO_INCREMENT,
     talla varchar(5) not null,
     fecha_peticion date not null,
     id_usuario int,
     id_ingreso_cuota int,
     id_gastos int,
     tipo varchar(100) not null,
+    recogido tinyint(1) not null,
     constraint FK_id_usuario_equipacion foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade

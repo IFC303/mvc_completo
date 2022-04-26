@@ -60,7 +60,7 @@ class Evento{
 
 
     public function editarEvento($evento_modificado){
-        var_dump($evento_modificado);
+        //var_dump($evento_modificado);
         $this->db->query("UPDATE EVENTO SET nombre=:nombre,tipo=:tipo, precio=:precio, descuento=:descuento,fecha_ini=:fecha_ini,fecha_fin=:fecha_fin,
         fecha_ini_inscrip=:fecha_ini_inscrip,fecha_fin_inscrip=:fecha_fin_inscrip WHERE id_evento = :id_evento");
 

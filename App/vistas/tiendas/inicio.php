@@ -110,10 +110,12 @@
                             <th>APELLIDOS</th>
                             <th>EMAIL</th>
                             <th>TELEFONO</th>
-                            <th>TALLA</th>
+                            <th>TIPO</th>
+                            <th>TALLA</th>                           
                             
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[4])):?>
                                 <th>OPCIONES</th>
+                                <th>ENTREGADO</th>
                             <?php endif ?>
                         </tr>
                     </thead>
@@ -123,37 +125,48 @@
                     <tbody class="table-light">
 
                         <?php
+                        $id="";
                         foreach($datos['tienda'] as $tienda): ?>
-                        <tr>
+                        <tr>    
+                            <?php
+                                if($id!=$tienda->id_usuario){
+                                     ?>
+                                
+                                <td class="datos_tabla"><?php echo $tienda->id_usuario?></td>
+                                <td class="datos_tabla"><?php echo $tienda->nombre?></td>
+                                <td class="datos_tabla"><?php echo $tienda->apellidos?></td>
+                                <td class="datos_tabla"><?php echo $tienda->email?></td>
+                                <td class="datos_tabla"><?php echo $tienda->telefono?></td>
 
-                            <td class="datos_tabla"><?php echo $tienda->id_usuario?></td>
-                            <td class="datos_tabla"><?php echo $tienda->nombre?></td>
-                            <td class="datos_tabla"><?php echo $tienda->apellidos?></td>
-                            <td class="datos_tabla"><?php echo $tienda->email?></td>
-                            <td class="datos_tabla"><?php echo $tienda->telefono?></td>
+                            <?php
+                                }else{?>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <?php
+                                }
+
+                            ?>
+
+                            <td class="datos_tabla"><?php echo $tienda->tipo?></td>
                             <td class="datos_tabla"><?php echo $tienda->talla?></td>
+                            
+
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[4])):?>
                             <td class="d-flex justify-content-center">
-
-                                <?php 
-                                  if ($tienda->entregado == 1){ ?>
-                                    <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
-                                  <?php
-                                  }else{?>
-                                    <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
-                                  <?php
-                                  }
-                                ?>
-
-
-
+                                
+                            <?php
+                                if($id!=$tienda->id_usuario){
+                                    $id=$tienda->id_usuario; ?>
                                 <!-- MODAL NUEVO PEDIDO -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalPedido_<?php echo $tienda->id_usuario?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>carrito.svg"></img>
                                 </a>
-
+                                <?php } ?>
                                     <!-- Ventana -->
                                     <div class="modal" id="ModalPedido_<?php echo $tienda->id_usuario?>">
                                     <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -168,6 +181,7 @@
                                             <!-- Body -->
                                             <div class="modal-body">
                                                 <form method="post" action="<?php echo RUTA_URL?>/tienda/nueva_equipacion" class="card-body">
+
                                                     <div class="row">
                                                         <div class="col-6 mt-3 mb-3">
                                                             <label for="tipo">Concepto</label>
@@ -179,19 +193,19 @@
                                                             <input type="text" name="talla" id="talla" class="form-control form-control-lg" required>
                                                         </div>
                                                     </div>
+
                                                       <input type="hidden" name="usu" value="<?php echo $tienda->id_usuario?>">
 
                                                     <br>
                                                     <div class="row">
                                                     <div class="col-3">
                                                         <input type="submit" class="btn" value="Confirmar">
-                                                        <a href="<?php echo RUTA_URL?>/tienda">
+                                                        <!-- <a href="<?php echo RUTA_URL?>/tienda">
                                                             <input type="button" class="btn" id="botonVolver" value="Volver">  
-                                                        </a>
+                                                        </a> -->
                                                     </div>
                                                     </div>
                                                 </form>
-
                                             </div>
 
                                         </div>
@@ -201,47 +215,126 @@
 
 
 
+                                <!-- MODAL EDITAR -->
+                                &nbsp;&nbsp;&nbsp;
+                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $tienda->id_equipacion?>" >
+                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
+                                </a>
+
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalEditar_<?php echo $tienda->id_equipacion ?>">
+                                    <div class="modal-dialog modal-xl modal-dialog-centered">
+                                        <div class="modal-content">
+
+                                            <!-- Header -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">Edicion del pedido</h2>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Body -->
+                                            <div class="modal-body">
+
+                                                <form method="post" action="<?php echo RUTA_URL?>/tienda/editar_equipacion/<?php echo $tienda->id_equipacion?>" class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-6 mt-3 mb-3">
+                                                            <label for="tipo">Concepto</label>
+                                                            <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $tienda->tipo?>" required>
+                                                        </div>
+                                                        <div class="col-6 mt-3 mb-3">
+                                                            <label for="talla">Talla</label>
+                                                            <input type="text" name="talla" id="talla" class="form-control form-control-lg" value="<?php echo $tienda->talla?>" required>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="id_evento" value="<?php echo $evento->id_evento?>">
+                                                    <br>
+                                                    <input type="submit" class="btn" value="Confirmar">
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
 
 
+                                <!-- MODAL BORRAR -->
+                                &nbsp;&nbsp;&nbsp;
+                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/tienda/borrar_equipacion/<?php echo $tienda->id_equipacion?>">
+                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
+                                </a>
+
+                                    <!-- VENTANA -->
+                                    <div class="modal" id="ModalBorrar_<?php echo $tienda->id_equipacion?>">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+
+                                             <!-- Modal Header -->
+                                             <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <h6>Seguro que quiere borrar el pedido?</h6>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <form action="<?php echo RUTA_URL?>/tienda/borrar_equipacion/<?php echo $tienda->id_equipacion?>" method="post">
+                                                    <button type="submit" class="btn">Borrar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </td>
 
 
+                                     <!-- MODAL CAMBIAR ESTADO ENTREGA -->
+                                    <td class="datos_tabla">
+                                            <?php 
+                                        if ($tienda->recogido == 1){ ?>
+                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/tienda/cabiar_estado/<?php echo $tienda->id_equipacion?>">
+                                                <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
+                                            </a>
+                                            <?php
+                                        }else{?>
+                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/tienda/cabiar_estado/<?php echo $tienda->id_equipacion?>">
+                                                <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
+                                            </a>
+                                            <?php
+                                        }
+                                        ?>
 
+                                        <!-- VENTANA -->
+                                        <div class="modal" id="ModalCambiar_<?php echo $tienda->id_equipacion?>">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
 
+                                             <!-- Modal Header -->
+                                             <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
 
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <h6>Va a cambiar el estado del pedido, esta seguro?</h6>
+                                            </div>
 
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <form action="<?php echo RUTA_URL?>/tienda/cambiar_estado/<?php echo $tienda->id_equipacion?>" method="post">
+                                                    <input type="hidden" name="estado" value="<?php echo $tienda->recogido?>">
+                                                    <button type="submit" class="btn">Confirmar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
 
+                                    </td>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            </td>
                             <?php endif ?>
                         </tr>
                         <?php endforeach ?>
