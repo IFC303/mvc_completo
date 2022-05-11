@@ -21,6 +21,7 @@ INSERT INTO
   `ROL` (`id_rol`, `nombre`)
 VALUES
   (4, 'tienda');
+
 CREATE TABLE USUARIO(
     id_usuario int AUTO_INCREMENT,
     dni varchar(11) unique,
@@ -36,7 +37,6 @@ CREATE TABLE USUARIO(
     foto varchar(800),
     gir varchar(20),
     activado boolean,
-    entregado boolean,
     id_rol int,
     primary key (id_usuario),
     constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
@@ -55,7 +55,6 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `entregado`,
     `id_rol`
   )
 VALUES
@@ -72,7 +71,6 @@ VALUES
     '21232f297a57a5a743894a0e4a801fc3',
     'l',
     '',
-    1,
     1
   );
 INSERT INTO
@@ -89,7 +87,6 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `entregado`,
     `id_rol`
   )
 VALUES
@@ -106,7 +103,6 @@ VALUES
     'a990ba8861d2b344810851e7e6b49104',
     'm',
     '',
-    1,
     2
   );
 INSERT INTO
@@ -123,7 +119,6 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `entregado`,
     `id_rol`
   )
 VALUES
@@ -140,7 +135,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -156,7 +150,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -172,7 +165,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -188,7 +180,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -204,7 +195,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -220,7 +210,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -236,7 +225,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -252,7 +240,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -268,7 +255,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   ),
   (
@@ -284,7 +270,6 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    1,
     3
   );
 INSERT INTO
@@ -301,7 +286,6 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `entregado`,
     `id_rol`
   )
 VALUES
@@ -318,7 +302,6 @@ VALUES
     '1a07afe7fc2c54d466d12569f05fb391',
     'xl',
     '',
-    1,
     4
   );
 CREATE TABLE TEMPORADA(
@@ -326,6 +309,7 @@ CREATE TABLE TEMPORADA(
     fecha_inicio date not null,
     fecha_fin date not null
   );
+
 CREATE TABLE USUARIO_x_TEMPORADA(
     id_temp int,
     id_usuario int,
@@ -333,6 +317,7 @@ CREATE TABLE USUARIO_x_TEMPORADA(
     constraint FK_id_temp_usu_temp foreign key (id_temp) references TEMPORADA (id_temp) on delete cascade on update cascade,
     constraint FK_id_usuario_usu_temp foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade
   );
+  
 CREATE TABLE ENTRENADOR(
     id_usuario int,
     sueldo int,
@@ -860,12 +845,14 @@ VALUES
     '332'
   );
 CREATE TABLE EQUIPACION(
-    id_equipacion int primary key,
+    id_equipacion int primary key AUTO_INCREMENT,
     talla varchar(5) not null,
     fecha_peticion date not null,
     id_usuario int,
     id_ingreso_cuota int,
     id_gastos int,
+    tipo varchar(100) not null,
+    recogido tinyint(1) not null,
     constraint FK_id_usuario_equipacion foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade

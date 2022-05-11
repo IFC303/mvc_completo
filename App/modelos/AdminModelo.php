@@ -583,6 +583,15 @@ class AdminModelo
         $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
         $this->db->execute();
 
+
+        //inserta en la tabla EQUIPACION
+        $this->db->query("INSERT INTO EQUIPACION (talla,fecha_peticion,id_usuario,tipo,recogido) 
+                         VALUES (:talla,CURDATE(),:id_usuario,'primera equipacion',0)");
+        $this->db->bind(':talla', $talla);
+        $this->db->bind(':id_usuario',$idUsu);
+        $this->db->execute();
+      
+
         $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
 
         if ($this->db->execute()) {
