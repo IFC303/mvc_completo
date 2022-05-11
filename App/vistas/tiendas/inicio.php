@@ -55,7 +55,7 @@
             text-align:center;
         }
 
-        #datos_tabla{
+        .datos_tabla{
             text-align:center;
         }
 
@@ -85,15 +85,6 @@
             letter-spacing: 5px;
         }
 
-
-
-    /* .mostrar{
-        display: table-row;
-    }
-
-    .ocultar{
-        display:none;
-    } */
 
 
 
@@ -148,11 +139,11 @@
                                 if($id!=$tienda->id_usuario){
                                      ?>
                                 
-                                <td id="datos_tabla"><?php echo $tienda->id_usuario?></td>
-                                <td id="datos_tabla"><?php echo $tienda->nombre?></td>
-                                <td id="datos_tabla"><?php echo $tienda->apellidos?></td>
-                                <td id="datos_tabla"><?php echo $tienda->email?></td>
-                                <td id="datos_tabla"><?php echo $tienda->telefono?></td>
+                                <td class="datos_tabla" id="idUsu" ><?php echo $tienda->id_usuario?></td>
+                                <td class="datos_tabla" id="nombreUsu"><?php echo $tienda->nombre?></td>
+                                <td class="datos_tabla" id="apellidosUsu"><?php echo $tienda->apellidos?></td>
+                                <td class="datos_tabla" id="emailusu"><?php echo $tienda->email?></td>
+                                <td class="datos_tabla" id="telefonoUsu"><?php echo $tienda->telefono?></td>
 
                             <?php
                                 }else{?>
@@ -166,8 +157,8 @@
 
                             ?>
 
-                            <td id="datos_tabla"><?php echo $tienda->tipo?></td>
-                            <td id="datos_tabla"><?php echo $tienda->talla?></td>
+                            <td class="datos_tabla" id="tipoUsu"><?php echo $tienda->tipo?></td>
+                            <td class="datos_tabla" id="tallaUsu"><?php echo $tienda->talla?></td>
                             
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[4])):?>
@@ -383,22 +374,24 @@
         function filtrar(){
             var campo=document.getElementById("filtro");
             var valor=(campo.value).toUpperCase().trim();
-            //console.log(valor);
+            //console.log(valor););
 
             var filas=document.getElementById("tabla").getElementsByTagName("tbody")[0].rows;
             //console.log(filas);
+            
+               for(var i=0; i<filas.length; i++){
+                   console.log(filas[i].cells.namedItem("nombreUsu"))
+                   //var nom=filas[i].cells.namedItem("nombreUsu");
+                   //console.log(nom.innerText.toLocaleUpperCase());
+     
+                   
+            //       if (filas[i].innerText.toUpperCase().indexOf(valor) !== -1 ){
+            //              filas[i].style.display = null;
+            //         } else{
+            //              filas[i].style.display = 'none';
+            //          }
 
-             for(var i=0; i<filas.length; i++){
-                //console.log(filas[i]);
-                var texto=filas[i].innerText;
-                //console.log(texto)
-
-            //     if(texto.indexOf(valor) >= 0){
-            //         filas[i].className="mostrar"
-            //     }else{
-            //         filas[i].className="ocultar"
-            //     }
-             }
+               }
         }
 
 
