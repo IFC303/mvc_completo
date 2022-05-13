@@ -90,10 +90,28 @@ class Socio extends Controlador
         $this->vista('socios/verMarcas', $this->datos);
     }
 
+
+    //************* EQUIPACION *****************/
+    public function equipacion(){
+
+        $tituloPagina = "PEDIR EQUIPACION";
+        $this->datos['tituloPagina']=$tituloPagina;
+
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        //$marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
+        //$this->datos['usuarios']=$marcas;
+
+        $this->vista('socios/equipacion', $this->datos);
+    }
+
+
+
+
     public function licencias(){
 
         $nombrePagina = "SUBIR LICENCIAS";
-        $tituloPagina = "LICENCIAS";
+        $tituloPagina = "MIS LICENCIAS";
         
         $this->datos['nombrePagina']=$nombrePagina;
         $this->datos['tituloPagina']=$tituloPagina;

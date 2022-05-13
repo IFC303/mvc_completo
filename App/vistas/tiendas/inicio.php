@@ -147,11 +147,11 @@
 
                             <?php
                                 }else{?>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td style="visibility:hidden"><?php echo $tienda->id_usuario?></td>
+                                    <td style="visibility:hidden"><?php echo $tienda->nombre?></td>
+                                    <td style="visibility:hidden"><?php echo $tienda->apellidos?></td>
+                                    <td style="visibility:hidden"><?php echo $tienda->email?></td>
+                                    <td style="visibility:hidden"><?php echo $tienda->telefono?></td>
                                     <?php
                                 }
 
@@ -380,18 +380,21 @@
             //console.log(filas);
             
                for(var i=0; i<filas.length; i++){
-                   console.log(filas[i].cells.namedItem("nombreUsu"))
-                   //var nom=filas[i].cells.namedItem("nombreUsu");
-                   //console.log(nom.innerText.toLocaleUpperCase());
-     
-                   
-            //       if (filas[i].innerText.toUpperCase().indexOf(valor) !== -1 ){
-            //              filas[i].style.display = null;
-            //         } else{
-            //              filas[i].style.display = 'none';
-            //          }
+                   console.log(filas[i]);
+                   //console.log(filas[i].innerText.toLocaleUpperCase())
+                   //console.log(filas[i].cells.namedItem("nombreUsu").innerText.toLocaleUpperCase())
+                   if(filas[i].innerText.toLocaleUpperCase().indexOf(valor) !== -1 ){
+                           filas[i].style.display = null;
+                         }else{
+                           filas[i].style.display = 'none';
+                        }
 
-               }
+                  
+                
+     
+                //    
+                       
+            }
         }
 
 

@@ -1,17 +1,17 @@
 a:link, a:visited, a:active {
     text-decoration:none;
 }
-p[id^="p"] {
+/* p[id^="p"] {
     color:  #023EF9;
     border: solid;
     width: 200px;
     height: 100%;
-}
+} */
 
-div[id^="color"]{
+/* div[id^="color"]{
     width: 200px;
     height: 100%;
-}
+} */
 
 #guardar{
     background-color: #023EF9;
@@ -38,7 +38,7 @@ div[id^="color"]{
     cursor: pointer;
 }
 
-.cabezera{
+.cabecera{
     background-color: #023EF9;
     color: white;
 
