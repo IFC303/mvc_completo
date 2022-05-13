@@ -20,7 +20,7 @@
 
 
 
-    <title>AGREGAR LICENCIAS</title>
+    <title>TRAGAMILLAS</title>
 </head>
 
 <body style="background-color: #F5F5F5;">

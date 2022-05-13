@@ -4,8 +4,10 @@
 <div class="container-fluid">
     <main class="row text-center">
 
+        <!-- MENU GRUPOS -->
         <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
             <div>
+                <!-- CAJA ICONO -->
                 <div id="colorGrupos" class="caja mx-auto" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                     <a href="<?php echo RUTA_URL ?>/entrenador/grupos">
                         <div>
@@ -13,6 +15,7 @@
                         </div>
                     </a>
                 </div>
+                <!-- CAJA TEXTO -->
                 <div id="color" class="caja mx-auto">
                     <a href="<?php echo RUTA_URL ?>/entrenador/grupos">
                         <div>
@@ -24,8 +27,10 @@
         </div>
 
 
+        <!-- MENU TEST -->
         <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
             <div>
+                <!-- CAJA ICONO -->
                 <div id="colorTest" class="caja mx-auto" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                     <a href="<?php echo RUTA_URL ?>/entrenador/test">
                         <div>
@@ -33,6 +38,7 @@
                         </div>
                     </a>
                 </div>
+                <!-- CAJA TEXTO -->
                 <div id="color" class="caja mx-auto">
                     <a href="<?php echo RUTA_URL ?>/entrenador/test">
                         <div>
@@ -44,19 +50,22 @@
         </div>
 
 
+        <!-- MENU MENSAJERIA -->
         <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
             <div>
-            <div id="colorMensajeria" class="caja mx-auto" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria">
+                <!-- CAJA ICONO -->
+                <div id="colorMensajeria" class="caja mx-auto" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria">
                         <div>
-                        <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100"></img>
+                            <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100"></img>
                         </div>
                     </a>
                 </div>
+                <!-- CAJA TEXTO -->
                 <div id="color" class="caja mx-auto">
-                <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria">
+                    <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria">
                         <div>
-                        <p id="pMensajeria" class="mx-auto" onmouseover="colorear(colorMensajeria);" onmouseleave="decolorear(colorMensajeria);">MENSAJERIA</p>
+                            <p id="pMensajeria" class="mx-auto" onmouseover="colorear(colorMensajeria);" onmouseleave="decolorear(colorMensajeria);">MENSAJERIA</p>
                         </div>
                     </a>
                 </div>
