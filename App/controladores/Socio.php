@@ -20,12 +20,10 @@ class Socio extends Controlador
         $this->vista('socios/inicio', $this->datos);
     }
 
-    public function modificarDatos()
-    {
+    public function modificarDatos(){
 
         $nombrePagina = "MODIFICAR DATOS";
         $tituloPagina = "MODIFICAR DATOS";
-
         $this->datos['nombrePagina']=$nombrePagina;
         $this->datos['tituloPagina']=$tituloPagina;
 
@@ -33,18 +31,19 @@ class Socio extends Controlador
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
         $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
 
-        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
         }
 
+        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
-           
-            
-            move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$_FILES['foto']['name']);
+       
+            move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion);
 
             $editarDatos = [
                 'dniEdit' => trim($_POST["dni"]),
@@ -57,13 +56,14 @@ class Socio extends Controlador
                 'tallaEdit' => trim($_POST["talla"]),
                 'fotoEdit' => $_FILES['foto']['name'],
             ];
+      
 
-            if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
-                redireccionar('/socio/modificarDatos');
+             if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
+                 redireccionar('/socio/modificarDatos');
 
-            } else {
+             } else {
                 die('Algo ha fallado!!!');
-            }
+             }
         } else {
             $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
             $this->datos['usuarios']=$datosUser;        

@@ -33,7 +33,7 @@ class AdminFacturacion extends Controlador{
 
 
 /*******************************************************/
-/****************FUNCIONES INGRESOS **********************/
+/****************FUNCIONES INGRESOS ********************/
 /*******************************************************/
 
     public function ingresos(){

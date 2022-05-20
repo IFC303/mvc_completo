@@ -94,65 +94,102 @@
 
     </div>
 
-    <!-- EVENTOS -->
+    <!-- MENU EVENTOS -->
     <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
-            <div id="colorEven" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+            <!-- CAJA ICONO -->
+            <div id="colorEven" class="caja mx-auto" onmouseover="colorear(this);" onmouseleave="decolorear(this);" data-bs-toggle="offcanvas" data-bs-target="#">
                 <a href="<?php echo RUTA_URL ?>/adminEventos">
                     <div>
                         <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
                     </div>
                 </a>
             </div>
+             <!-- CAJA TEXTO -->
             <div id="color" class="caja mx-auto">
                 <a href="<?php echo RUTA_URL ?>/adminEventos">
                     <div>
-                        <p id="pEven" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
+                        <p id="pEven" onmouseover="colorear(colorEven);" onmouseleave="decolorear(colorEven);" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">EVENTOS</p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- LICENCIAS -->
+    <!-- MENU LICENCIAS -->
     <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
-            <div id="colorLice" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+            <!-- CAJA ICONO -->
+            <div id="colorLice" onmouseover="colorear(this);" onmouseleave="decolorear(this);" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
                 <a href="<?php echo RUTA_URL ?>/adminLicencias">
                     <div>
                         <img src="<?php echo RUTA_Icon ?>licencias.svg" width="100" height="100">
                     </div>
                 </a>
             </div>
+             <!-- CAJA TEXTO -->
             <div id="color" class="caja mx-auto">
                 <a href="<?php echo RUTA_URL ?>/adminLicencias">
                     <div>
-                        <p id="pLicen" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">LICENCIAS</p>
+                        <p id="pLicen" onmouseover="colorear(colorLice);" onmouseleave="decolorear(colorLice);" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">LICENCIAS</p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- ENTIDADES -->
+    <!-- MENU ENTIDADES -->
     <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <div>
-            <div id="colorEnti" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
+            <!-- CAJA ICONO -->
+            <div id="colorEnti" onmouseover="colorear(this);" onmouseleave="decolorear(this);" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">
                 <a href="<?php echo RUTA_URL ?>/adminEntidades">
                     <div>
                         <img src="<?php echo RUTA_Icon ?>entidad.svg" width="100" height="100">
                     </div>
                 </a>
             </div>
+            <!-- CAJA TEXTO -->
             <div id="color" class="caja mx-auto">
                 <a href="<?php echo RUTA_URL ?>/adminEntidades">
                     <div>
-                        <p id="pEnti" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">ENTIDADES</p>
+                        <p id="pEnti" onmouseover="colorear(colorEnti);" onmouseleave="decolorear(colorEnti);" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#">ENTIDADES</p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
+
+
+
+
+    <!--MENU EQUIPACIONES -->
+    <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div>
+            <div id="colorEquipacion" onmouseover="colorear(this);" onmouseleave="decolorear(this);" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
+                <img src="<?php echo RUTA_Icon ?>carrito.svg" width="100" height="100">
+            </div>
+            <p id="pEquipacion" onmouseover="colorear(colorEquipacion);" onmouseleave="decolorear(colorEquipacion);" class="mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuEqui">EQUIPACIONES</p>
+        </div>
+    </div>
+    <!-- MENU LATERAL EQUIPACION-->
+    <div class="offcanvas offcanvas-start" id="menuEqui">
+        <div class="offcanvas-header">
+            <img src="<?php echo RUTA_Icon?>carrito.svg" width="50" height="50">
+            <h1 class="offcanvas-title">EQUIPACIONES</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <ul id="mEqui">
+            <li id="mEqui"><a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link">PEDIDOS</a></li>
+            <li id="mEqui"><a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="nav-link">GESTION</a></li>
+        </ul>
+        <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">
+            <img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png">
+        </div>
+    </div>
+
+
+
 
     <!-- TEMPORADAS -->
     <!-- <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
@@ -173,6 +210,8 @@
             </div>
         </div>
     </div> -->
+
+
 
     <!-- FACTURACION -->
     <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
@@ -230,10 +269,11 @@
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end"><img class="mi-imagen-abajo-derecha img-fluid w-50" id="logo" src="<?php echo RUTA_Foto ?>/logo_tragamillas.png"></div>
     </div>
 
-    <!-- MENSAJERIA -->
+    <!-- MENU MENSAJERIA -->
     <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
         <a href="<?php echo RUTA_URL ?>/adminMensajeria">
             <div>
+                <!-- CAJA ICONO -->
                 <div id="colorMens" class="caja mx-auto" data-bs-toggle="offcanvas" data-bs-target="#menuMen">
                     <img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="100" height="100">
                 </div>
@@ -246,42 +286,66 @@
 </div>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+
+
+
 <script>
-    window.onload = function() {
-        vOpciones = [
-            ["pUsu", "colorUsu"],
-            ["pSolici", "colorSoli"],
-            ["pGrupo", "colorGrup"],
-            ["pEven", "colorEven"],
-            ["pLicen", "colorLice"],
-            ["pEnti", "colorEnti"],
-            ["pFact", "colorFact"],
-            ["pMens", "colorMens"]
-        ];
 
-        for (let i = 0; i < vOpciones.length; i++) {
-            var elemento = document.getElementById(vOpciones[i][0]);
-            var elemento2 = document.getElementById(vOpciones[i][1]);
-            elemento.onmouseover = function(e) {
-                document.getElementById(vOpciones[i][1]).style.backgroundColor = '#FFBF1C';
-            };
-            elemento.onmouseout = function(e) {
-                document.getElementById(vOpciones[i][1]).style.backgroundColor = '#F5F5F5';
-            };
-            elemento2.onmouseover = function(e) {
-                document.getElementById(vOpciones[i][1]).style.backgroundColor = '#FFBF1C';
-            };
-            elemento2.onmouseout = function(e) {
-                document.getElementById(vOpciones[i][1]).style.backgroundColor = '#F5F5F5';
-            };
-            /*elemento.onclick = function(e) {
-                location.href="http://www.elmiradordelaserrania.com"
-            };
-            elemento2.onclick = function(e) {
-                location.href="http://www.elmiradordelaserrania.com"
-            };*/
 
+
+
+        function colorear(icono) {
+            icono.style.backgroundColor = '#ffbf1c';
         }
 
-    }
+        function decolorear(icono) {
+            icono.style.backgroundColor = '#ffffff';
+        }
+    
+
+
+
+
+
+
+
+    // window.onload = function() {
+    //     vOpciones = [
+    //         ["pUsu", "colorUsu"],
+    //         ["pSolici", "colorSoli"],
+    //         ["pGrupo", "colorGrup"],
+    //         ["pEven", "colorEven"],
+    //         ["pLicen", "colorLice"],
+    //         ["pEnti", "colorEnti"],
+    //         ["pFact", "colorFact"],
+    //         ["pMens", "colorMens"],
+    //         ["pEquipacion", "colorMens"],
+    //     ];
+
+    //     for (let i = 0; i < vOpciones.length; i++) {
+    //         var elemento = document.getElementById(vOpciones[i][0]);
+    //         var elemento2 = document.getElementById(vOpciones[i][1]);
+    //         elemento.onmouseover = function(e) {
+    //             document.getElementById(vOpciones[i][1]).style.backgroundColor = '#FFBF1C';
+    //         };
+    //         elemento.onmouseout = function(e) {
+    //             document.getElementById(vOpciones[i][1]).style.backgroundColor = '#F5F5F5';
+    //         };
+    //         elemento2.onmouseover = function(e) {
+    //             document.getElementById(vOpciones[i][1]).style.backgroundColor = '#FFBF1C';
+    //         };
+    //         elemento2.onmouseout = function(e) {
+    //             document.getElementById(vOpciones[i][1]).style.backgroundColor = '#F5F5F5';
+    //         };
+    //         /*elemento.onclick = function(e) {
+    //             location.href="http://www.elmiradordelaserrania.com"
+    //         };
+    //         elemento2.onclick = function(e) {
+    //             location.href="http://www.elmiradordelaserrania.com"
+    //         };*/
+
+    //     }
+
+    // }
 </script>

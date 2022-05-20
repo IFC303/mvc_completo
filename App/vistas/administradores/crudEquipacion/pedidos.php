@@ -1,5 +1,4 @@
-
-<?php require_once RUTA_APP . '/vistas/inc/header-tienda.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
 
 
 <style>
@@ -91,16 +90,26 @@
     </style>
 
 
+
+
+
+
     <div class="container">
 
-            <div class="row" style="text-align:center">
-                <div class="col-12"><h4 id="titulo">Gestion de equipaciones</h4></div>
+            <div class="row pb-3">
+                <div class="col-4">
+                    <label for="filtro">Filtro por nombre: </label>
+                    <input type="text" name="filtro" id="filtro" class="filtro">
+                </div>   
+                <div class="col-8" style="text-align:center">
+                    <div class="col-12"><h4 id="titulo">Pedidos de equipaciones</h4></div>
+                </div>
             </div>
 
+            
 
-            <label for="filtro">Filtro por nombre: </label>
-            <input type="text" name="filtro" id="filtro" class="filtro">
-            <br><br><br>
+
+            
 
 
            <div class="tabla" style="border:solid 1px #023ef9">
@@ -120,7 +129,7 @@
                             <th>TIPO</th>
                             <th>TALLA</th>                           
                             
-                            <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[4])):?>
+                            <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <th>OPCIONES</th>
                                 <th>ENTREGADO</th>
                             <?php endif ?>
@@ -161,13 +170,13 @@
                             <td class="datos_tabla" id="tallaUsu"><?php echo $tienda->talla?></td>
                             
 
-                            <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[4])):?>
+                            <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                             <td class="d-flex flex-row-reverse">
 
 
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/tienda/borrar_equipacion/<?php echo $tienda->id_equipacion?>">
+                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/adminEquipaciones/borrar_equipacion/<?php echo $tienda->id_equipacion?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
@@ -188,7 +197,7 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/tienda/borrar_equipacion/<?php echo $tienda->id_equipacion?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminEquipaciones/borrar_equipacion/<?php echo $tienda->id_equipacion?>" method="post">
                                                     <button type="submit" class="btn">Borrar</button>
                                                 </form>
                                             </div>
@@ -217,7 +226,7 @@
                                             <!-- Body -->
                                             <div class="modal-body">
 
-                                                <form method="post" action="<?php echo RUTA_URL?>/tienda/editar_equipacion/<?php echo $tienda->id_equipacion?>" class="card-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editar_equipacion/<?php echo $tienda->id_equipacion?>" class="card-body">
                                                     <div class="row">
                                                         <div class="col-6 mt-3 mb-3">
                                                             <label for="tipo">Concepto</label>
@@ -261,7 +270,7 @@
 
                                             <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/tienda/nueva_equipacion" class="card-body">
+                                                <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/nueva_equipacion" class="card-body">
 
                                                     <div class="row">
                                                         <div class="col-6 mt-3 mb-3">
@@ -299,12 +308,12 @@
                                     <td id="datos_tabla">
                                             <?php 
                                         if ($tienda->recogido == 1){ ?>
-                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/tienda/cabiar_estado/<?php echo $tienda->id_equipacion?>">
+                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $tienda->id_equipacion?>">
                                                 <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
                                             </a>
                                             <?php
                                         }else{?>
-                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/tienda/cabiar_estado/<?php echo $tienda->id_equipacion?>">
+                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $tienda->id_equipacion?>" href="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $tienda->id_equipacion?>">
                                                 <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
                                             </a>
                                             <?php
@@ -328,7 +337,7 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/tienda/cambiar_estado/<?php echo $tienda->id_equipacion?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $tienda->id_equipacion?>" method="post">
                                                     <input type="hidden" name="estado" value="<?php echo $tienda->recogido?>">
                                                     <button type="submit" class="btn">Confirmar</button>
                                                 </form>
