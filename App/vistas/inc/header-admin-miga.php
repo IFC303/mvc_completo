@@ -64,6 +64,10 @@
             $miga1Nom = "GRUPOS";
         }elseif ($this->datos['notificaciones'][3] == "EVENTOSSOL") {
             $miga1Nom = "EVENTOS";
+        }elseif ($this->datos['notificaciones'][3] == "PEDIDOS") {
+            $miga1Nom = "PEDIDOS";
+        }elseif ($this->datos['notificaciones'][3] == "GESTION") {
+            $miga1Nom = "GESTION";
         }
     } else {
         $miga1Nom = "CUOTAS";
@@ -289,6 +293,24 @@
                         </li>
                     </ul>
                 </ul>
+
+                   <!--MENU EQUIPACION-->
+                   <ul id="mInicioEqui">
+                        <li id="mInicioEqui">
+                            <a href="#submenuEqui" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <div id="imgMenu"><img src="<?php echo RUTA_Icon?>carrito.svg" width="35" height="35"></div>
+                                <div class="col-12">EQUIPACIONES</div>
+                            </a>
+                        </li>
+                        <ul class="collapse nav flex-column" id="submenuEqui" data-bs-parent="#menu">
+                            <li id="sInicio">
+                                <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link">PEDIDOS</a>
+                            </li>
+                            <li id="sInicio">
+                                <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="nav-link">GESTION</a>
+                            </li>
+                        </ul>
+                    </ul>
 
                 <!--MENU MENSAJERIA-->
                 <ul id="mInicioMen">
