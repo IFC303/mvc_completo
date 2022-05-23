@@ -24,8 +24,13 @@
         <div class="row">
 
                 <div class="col-4 text-center">
-                    <div><img id="output" <?php if ($datosUser->foto=='') {?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;}else {?> src='<?php echo RUTA_ImgDatos.'fotosPerfil/'.$datosUser->foto;} ?>' width="360" height="400" style="border: solid; color: #023EF9;"></div>
-                    <div><label title="Cambia tu foto de perfil" for="editarFoto" class="editarFoto">EDITAR FOTO</label><br><input  accept="image/*" type="file"  onchange="loadFile(event)" style="visibility:hidden;" id="editarFoto" name="foto"> </div>
+                    <div>
+                        <img id="output" <?php if ($datosUser->foto=='') {?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;}else {?> src='<?php echo RUTA_ImgDatos.'fotosPerfil/'.$datosUser->foto;} ?>' width="360" height="400" style="border: solid; color: #023EF9;">
+                    </div>
+                    <div>
+                        <label title="Cambia tu foto de perfil" for="editarFoto" class="editarFoto">EDITAR FOTO</label><br>
+                        <input  accept="image/*" type="file"  onchange="loadFile(event)" style="visibility:hidden;" id="editarFoto" name="foto">
+                    </div>
                 </div>
 
                 <div class="col-8">

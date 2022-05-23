@@ -844,101 +844,115 @@ VALUES
     '100',
     '332'
   );
+
 CREATE TABLE EQUIPACION(
-    id_equipacion int primary key AUTO_INCREMENT,
-    talla varchar(5) not null,
-    fecha_peticion date not null,
-    id_usuario int,
+    id_equipacion int primary key AUTO_INCREMENT,   
+    tipo varchar(100) not null,
+    imagen varchar (800),
+    descripcion varchar (1000),
     id_ingreso_cuota int,
     id_gastos int,
-    tipo varchar(100) not null,
-    recogido tinyint(1) not null,
-    constraint FK_id_usuario_equipacion foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
   );
-INSERT INTO
-  `tragamillas2`.`EQUIPACION` (
-    `id_equipacion`,
-    `talla`,
-    `fecha_peticion`,
-    `id_usuario`,
-    `id_ingreso_cuota`,
-    `id_gastos`
-  )
-VALUES
-  (
-    '1',
-    'xl',
-    '2022-02-18',
-    '33',
-    '000201507444',
-    '1'
-  ),
-  (
-    '2',
-    'xl',
-    '2022-02-18',
-    '331',
-    '000330407092',
-    '2'
-  ),
-  (
-    '3',
-    'xl',
-    '2022-02-18',
-    '332',
-    '000330898570',
-    '3'
-  ),
-  (
-    '4',
-    'xl',
-    '2022-02-18',
-    '333',
-    '000330898570',
-    '3'
-  ),
-  (
-    '5',
-    'xl',
-    '2022-02-18',
-    '334',
-    '000330898570',
-    '3'
-  ),
-  (
-    '6',
-    'xl',
-    '2022-02-18',
-    '335',
-    '000330898570',
-    '3'
-  ),
-  (
-    '7',
-    'xl',
-    '2022-02-18',
-    '335',
-    '000330898570',
-    '3'
-  ),
-  (
-    '8',
-    'xl',
-    '2022-02-18',
-    '335',
-    '000330898570',
-    '3'
-  ),
-  (
-    '9',
-    'xl',
-    '2022-02-18',
-    '335',
-    '000330898570',
-    '3'
-  );
+-- INSERT INTO
+--   `tragamillas2`.`EQUIPACION` (
+--     `id_equipacion`,
+--     `talla`,
+--     `fecha_peticion`,
+--     `id_usuario`,
+--     `id_ingreso_cuota`,
+--     `id_gastos`
+--   )
+-- VALUES
+--   (
+--     '1',
+--     'xl',
+--     '2022-02-18',
+--     '33',
+--     '000201507444',
+--     '1'
+--   ),
+--   (
+--     '2',
+--     'xl',
+--     '2022-02-18',
+--     '331',
+--     '000330407092',
+--     '2'
+--   ),
+--   (
+--     '3',
+--     'xl',
+--     '2022-02-18',
+--     '332',
+--     '000330898570',
+--     '3'
+--   ),
+--   (
+--     '4',
+--     'xl',
+--     '2022-02-18',
+--     '333',
+--     '000330898570',
+--     '3'
+--   ),
+--   (
+--     '5',
+--     'xl',
+--     '2022-02-18',
+--     '334',
+--     '000330898570',
+--     '3'
+--   ),
+--   (
+--     '6',
+--     'xl',
+--     '2022-02-18',
+--     '335',
+--     '000330898570',
+--     '3'
+--   ),
+--   (
+--     '7',
+--     'xl',
+--     '2022-02-18',
+--     '335',
+--     '000330898570',
+--     '3'
+--   ),
+--   (
+--     '8',
+--     'xl',
+--     '2022-02-18',
+--     '335',
+--     '000330898570',
+--     '3'
+--   ),
+--   (
+--     '9',
+--     'xl',
+--     '2022-02-18',
+--     '335',
+--     '000330898570',
+--     '3'
+--   );
+
+
+CREATE TABLE SOLI_EQUIPACION(
+    id_soli_equi int AUTO_INCREMENT,
+    id_usuario int,
+    id_equipacion int, 
+    fecha_peticion date not null,
+    talla varchar(5) not null,
+    recogido tinyint(1) not null,
+    primary key (id_soli_equi, id_usuario, id_equipacion),
+    constraint FK_id_usuario_soli_equi foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
+    constraint FK_id_equipacion_soli_equi foreign key (id_equipacion) references EQUIPACION (id_equipacion) on delete cascade on update cascade
+);
+
+
+
 CREATE TABLE EVENTO(
     id_evento int primary key AUTO_INCREMENT,
     id_usuario int,

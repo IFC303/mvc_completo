@@ -10,7 +10,7 @@ class AdminEquipaciones extends Controlador{
             redireccionar('/');
         }
 
-        $this->equipacion = $this->modelo('Equipacion');
+        $this->equipacionModelo = $this->modelo('Equipacion');
         $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
@@ -28,27 +28,108 @@ class AdminEquipaciones extends Controlador{
   
     public function index(){
         $notific = $this->notificaciones();
-       $this->datos['notificaciones'] = $notific;
-         $this->vista('administradores/crudEquipacion',$this->datos);
+        $this->datos['notificaciones'] = $notific;
+        $this->vista('administradores/crudEquipacion',$this->datos);
      }
 
 
 
 
-
- public function gestion(){
+public function gestion(){
         $notific = $this->notificaciones();
         $notific[3] ="GESTION";
         $this->datos['notificaciones'] = $notific;
+        $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipacion();
         $this->vista('administradores/crudEquipacion/gestion',$this->datos);
+}
+
+
+public function nuevaEquipacion(){
+
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
     }
+
+
+    if($_SERVER['REQUEST_METHOD'] =='POST'){
+        $equipacionNueva = [
+            'nombre' => trim($_POST['nombre']),
+            'descripcion' => trim($_POST['descripcion']),
+        ];
+
+        if($this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
+            redireccionar('/adminEquipaciones/gestion');
+        }else{
+            die('Añgo ha fallado!!');
+        }
+    }else{
+        $this->datos['equipacion'] = (object)[
+            'id_entidad'=>'',
+            'nombre'=>'',
+            'tipo'=>'',
+        ];
+        $this->datos["nuevo"]="ENTIDADES";
+        $this->vista('administradores/crudEntidades/nueva_entidad',$this->datos);
+    }
+    
+}
+
+
+public function borrarEquipacion($id){
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+
+     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+         if ($this->equipacionModelo->borrarEquipacion($id)) {
+             redireccionar('/adminEquipaciones/gestion');
+         }else{
+             die('Algo ha fallado!!!');
+         }
+     }else{
+        $this->datos['equipacion'] = $this->equipacionModelo->obtenerEventoId($id);
+        $this->vista('administradores/crudEventos/inicio', $this->datos);
+     }
+}
+
+
+public function editarEquipacion(){
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+
+    $this->datos['rolesPermitidos'] = [1];          
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $equipacionModificada = [
+                'id_equipacion' => $_POST['id_equipacion'],
+                'tipo' => trim($_POST['nombre']),
+                'descripcion'=> trim($_POST['descripcion'])           
+            ];
+
+             if ($this->equipacionModelo->editarEquipacion($equipacionModificada)) {
+                 redireccionar('/adminEquipaciones/gestion');
+             }else{
+                 die('Algo ha fallado!!!');
+             }
+
+     } else {
+            $this->vista('administradores/crudEventos/inicio', $this->datos);
+    }
+}
+
 
 
 
 public function subirFotos(){
 
-       $archivo = $_FILES['foto']['name'];
-$directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
+    $archivo = $_FILES['foto']['name'];
+      $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
     
   //Si se quiere subir una imagen
 // if (isset($_POST['subir'])) {
@@ -69,7 +150,7 @@ $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
 
 if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
     echo "ok";
-    copy($_FILES['foto']['tmp_name'], $directorio.$archivo);
+    copy($_FILES['foto']['tmp_name'], $directorio."prueba3".".png");
     } else {
     echo "error";
     }
