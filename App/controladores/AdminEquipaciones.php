@@ -1,5 +1,14 @@
 <?php
 
+ use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\SMTP;
+    
+    require_once RUTA_APP.'/librerias/PHPMailer/Exception.php';
+    require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
+    require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
+
+
 class AdminEquipaciones extends Controlador{
 
 
@@ -53,27 +62,29 @@ public function nuevaEquipacion(){
     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
         redireccionar('/usuarios');
     }
-
-
+    
     if($_SERVER['REQUEST_METHOD'] =='POST'){
         $equipacionNueva = [
             'nombre' => trim($_POST['nombre']),
             'descripcion' => trim($_POST['descripcion']),
+            'precio' => trim($_POST['precio']),
+            'temporada' => trim($_POST['temporada']),
+            'foto'=>$_FILES['subirFoto']['name']
         ];
-
-        if($this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
-            redireccionar('/adminEquipaciones/gestion');
-        }else{
-            die('Añgo ha fallado!!');
-        }
-    }else{
-        $this->datos['equipacion'] = (object)[
-            'id_entidad'=>'',
-            'nombre'=>'',
-            'tipo'=>'',
-        ];
-        $this->datos["nuevo"]="ENTIDADES";
-        $this->vista('administradores/crudEntidades/nueva_entidad',$this->datos);
+           if($indice=$this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
+                 $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
+                 copy ( $_FILES['subirFoto']['tmp_name'],$directorio.$indice) ; 
+                 $this->equipacionModelo->renombrar($indice);
+                 redireccionar('/adminEquipaciones/gestion');
+           }else{
+              die('Añgo ha fallado!!');
+           }
+     }else{
+         $this->datos['equipacion'] = (object)[
+             'id_entidad'=>'',
+             'nombre'=>'',
+             'tipo'=>'',
+         ];
     }
     
 }
@@ -82,6 +93,11 @@ public function nuevaEquipacion(){
 public function borrarEquipacion($id){
     $notific = $this->notificaciones();
     $this->datos['notificaciones'] = $notific;
+
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
 
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          if ($this->equipacionModelo->borrarEquipacion($id)) {
@@ -106,17 +122,26 @@ public function editarEquipacion(){
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        var_dump($_POST);
             $equipacionModificada = [
-                'id_equipacion' => $_POST['id_equipacion'],
-                'tipo' => trim($_POST['nombre']),
-                'descripcion'=> trim($_POST['descripcion'])           
+                'nombre' => trim($_POST['nombre']),
+                'descripcion' => trim($_POST['descripcion']),
+                'precio' => trim($_POST['precio']),
+                'temporada' => trim($_POST['temporada']),
+                'foto'=>$_FILES['editarFoto']['name'],
+                'id'=>trim($_POST['idEquipacion'])
             ];
 
-             if ($this->equipacionModelo->editarEquipacion($equipacionModificada)) {
-                 redireccionar('/adminEquipaciones/gestion');
-             }else{
-                 die('Algo ha fallado!!!');
-             }
+            //var_dump($equipacionModificada);
+
+        //     if($indice=$this->equipacionModelo->editarEquipacion($equipacionModificada)){
+        //         $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
+        //         copy ($_FILES['subirFoto']['tmp_name'],$directorio.$indice) ; 
+        //         $this->equipacionModelo->renombrar($indice);
+        //         redireccionar('/adminEquipaciones/gestion');
+        //   }else{
+        //      die('Añgo ha fallado!!');
+        //   }
 
      } else {
             $this->vista('administradores/crudEventos/inicio', $this->datos);
@@ -185,30 +210,114 @@ if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
 
 
 
-
+// ********* PEDIDOS EQUIPACIONES *******
 
 
     public function pedidos(){    
         $notific = $this->notificaciones();
         $notific[3] ="PEDIDOS";
         $this->datos['notificaciones'] = $notific;
-        $this->datos['tienda']=$this->equipacion->obtenerEquipacionUsuarios(); 
+        $this->datos['pedidos']=$this->equipacionModelo->obtenerPedidosUsuarios(); 
         $this->vista('administradores/crudEquipacion/pedidos',$this->datos);
     }
 
-            // ********* PEDIDOS --> BORRADO EQUIPACIONES *******
-            public function borrar_equipacion($id_equipacion){
+            // ********* PEDIDOS --> borrar pedido *******
+            public function borrarPedido($idPedido){
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    if ($this->equipacion->borrarEquipacion($id_equipacion)) {
+                    if ($this->equipacionModelo->borrarPedido($idPedido)) {
                         redireccionar('/adminEquipaciones/pedidos');
                     }else{
                         die('Algo ha fallado!!!');
                     }
                 }else{
-                    $this->datos['tienda'] = $this->equipacion->obtenerEquipacionId($id_equipacion);
+                    $this->datos['tienda'] = $this->equipacion->obtenerEquipacionId($idPedido);
                     $this->vista('adminEquipaciones/pedidos', $this->datos);
                 }
             }
+
+            // ********* PEDIDOS --> cambiar estado a entregado o no *******
+            public function cambiar_estado($id){
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $estado=$_POST['estado'];
+                    if ($this->equipacionModelo->cambiarEstado($id,$estado)) {
+                        redireccionar('/adminEquipaciones/pedidos');
+                    }else{
+                        die('Algo ha fallado!!!');
+                    }
+                }else{
+                    $this->vista('adminEquipaciones/pedidos', $this->datos);
+                }
+            }
+
+            // ********* PEDIDOS --> envio mail avisando de recogida *******
+            public function enviar(){
+                $notific = $this->notificaciones();
+                $this->datos['notificaciones'] = $notific;
+               
+                if($_SERVER['REQUEST_METHOD']=='POST'){
+        
+                    $mail = new PHPMailer();      
+        
+                    //me llega un string y lo paso a array con explode
+                    $destinatario = explode(",",($_POST['destinatario']));
+                    //echo print_r($destinatario);          
+                    $asunto = ($_POST['asunto']);
+                    //echo $asunto;
+                    $mensaje =($_POST['mensaje']);
+                    //echo $mensaje;
+            
+                     try {
+                    // //  Configuracion SMTP
+                        // $mail->SMTPDebug =2;
+                         $mail->isSMTP();                                       // Activar envio SMTP
+                         $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
+                         $mail->SMTPAuth  = true;                               // Identificacion SMTP
+                         $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
+                         $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
+                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                         $mail->Port  = 587;
+                        
+                    // // CONFIGURACION CORREO
+                         $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
+        
+                         foreach($destinatario as $correo){
+                            //echo $correo ."<br>";
+                            $mail->addAddress($correo); // Email destinatario
+                         }
+                          
+                         $mail->isHTML(true);
+                         $mail->Subject = $asunto;
+                         $mail->Body  = $mensaje;
+                         $mail->send();
+        
+                         
+                         echo '<script type="text/javascript">alert("Mensaje enviado correctamente");
+                            window.location.assign("pedidos");
+                            </script>'; 
+         
+                     } catch (Exception $e) {
+                         echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+                     }
+        
+                }
+        
+                //redireccionar('/adminEquipaciones/pedidos');
+                    
+            }
+            
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
             // ********* PEDIDOS --> EDITAR EQUIPACIONES *******
             public function editar_equipacion($id_equipacion){
@@ -227,19 +336,7 @@ if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
                 }
             }
 
-            // ********* PEDIDOS --> CAMBIAR ESTADO *******
-            public function cambiar_estado($id){
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $estado=$_POST['estado'];
-                    if ($this->equipacion->cambiarEstado($id,$estado)) {
-                        redireccionar('/adminEquipaciones/pedidos');
-                    }else{
-                        die('Algo ha fallado!!!');
-                    }
-                } else {
-                    $this->vista('adminEquipaciones/pedidos', $this->datos);
-                }
-            }
+        
 
             // ********* PEDIDOS --> NUEVA EQUIPACION *******
             public function nueva_equipacion(){

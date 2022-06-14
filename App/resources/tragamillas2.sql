@@ -850,93 +850,13 @@ CREATE TABLE EQUIPACION(
     tipo varchar(100) not null,
     imagen varchar (800),
     descripcion varchar (1000),
+    precio int(3) not null,
+    temporada varchar (25),
     id_ingreso_cuota int,
     id_gastos int,
     constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
   );
--- INSERT INTO
---   `tragamillas2`.`EQUIPACION` (
---     `id_equipacion`,
---     `talla`,
---     `fecha_peticion`,
---     `id_usuario`,
---     `id_ingreso_cuota`,
---     `id_gastos`
---   )
--- VALUES
---   (
---     '1',
---     'xl',
---     '2022-02-18',
---     '33',
---     '000201507444',
---     '1'
---   ),
---   (
---     '2',
---     'xl',
---     '2022-02-18',
---     '331',
---     '000330407092',
---     '2'
---   ),
---   (
---     '3',
---     'xl',
---     '2022-02-18',
---     '332',
---     '000330898570',
---     '3'
---   ),
---   (
---     '4',
---     'xl',
---     '2022-02-18',
---     '333',
---     '000330898570',
---     '3'
---   ),
---   (
---     '5',
---     'xl',
---     '2022-02-18',
---     '334',
---     '000330898570',
---     '3'
---   ),
---   (
---     '6',
---     'xl',
---     '2022-02-18',
---     '335',
---     '000330898570',
---     '3'
---   ),
---   (
---     '7',
---     'xl',
---     '2022-02-18',
---     '335',
---     '000330898570',
---     '3'
---   ),
---   (
---     '8',
---     'xl',
---     '2022-02-18',
---     '335',
---     '000330898570',
---     '3'
---   ),
---   (
---     '9',
---     'xl',
---     '2022-02-18',
---     '335',
---     '000330898570',
---     '3'
---   );
 
 
 CREATE TABLE SOLI_EQUIPACION(

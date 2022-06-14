@@ -15,9 +15,12 @@
 
 
                 <div class="container mt-3">
-                        
+
+                    <?php 
+                        foreach($datos['equipacion'] as $equipacion){ //var_dump($equipacion);?>
+                            
                                 <a data-bs-toggle="modal" data-bs-target="#ModalPedido">
-                                 <span class="border border-primary">CAMISETA</span>
+                                 <span class="border border-primary"><?php echo $equipacion->tipo?></span>
                                 </a>
                                 
                                     <!-- Ventana -->
@@ -65,43 +68,10 @@
                                     </div>
                                     </div>
 
+                        
+                   <?php }?>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <span class="border border-primary">PANTALONES</span>
-                        <span class="border border-primary">SUDADERA</span>
-                        <span class="border border-primary">ZAPATILLAS</span>
-                        <span class="border border-primary">PRIMERA EQUIPACION</span>
-                        <span class="border border-primary"></span>
-                        <span class="border border-primary"></span>
-                        <span class="border border-primary"></span>
-                        <span class="border border-primary"></span>
-                        <span class="border border-primary"></span>
                 </div>
 
 

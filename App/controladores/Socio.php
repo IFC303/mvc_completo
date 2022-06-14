@@ -12,6 +12,7 @@ class Socio extends Controlador
         }
 
         $this->SocioModelo = $this->modelo('SocioModelo');
+        $this->equipacionModelo = $this->modelo('Equipacion');
       
     }
 
@@ -98,6 +99,7 @@ class Socio extends Controlador
         $this->datos['tituloPagina']=$tituloPagina;
 
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+        $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipacion();
 
         //$marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
         //$this->datos['usuarios']=$marcas;

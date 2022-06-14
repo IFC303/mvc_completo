@@ -43,9 +43,10 @@
 
 /*ESTILOS TABLA */
 
-        .tabla{
-            border:solid 1px #023ef9; 
+        #tabla{
+            border:solid 2px #023ef9; 
             margin:auto;
+            width: 800px;
         }
 
         thead tr{
@@ -93,72 +94,85 @@
                 <div class="col-12"><h4 id="titulo">Gestion de equipaciones</h4></div>
             </div>
 
-           <div class="tabla" style="border:solid 1px #023ef9">
+
             
-           <table class="table table-hover" >
-
-
+           <table id="tabla" class="table table-hover" >
                     <!--CABECERA TABLA-->
-                    <thead>
-                        <tr style="background-color:#023ef9; color:white">
-                        
-                            <th>NOMBRE</th>   
-                            <th>DESCRIPCION</th>                         
-
+                    <thead style="border-bottom:solid #023ef9">
+                        <tr style="background-color:#023ef9; color:white">                       
+                            <th>NOMBRE</th> 
+                            <th>TEMPORADA</th>  
+                            <th>PRECIO</th>                                   
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <th>OPCIONES</th>
                             <?php endif ?>
                         </tr>
                     </thead>
-
-
                      <!--BODY TABLA-->
                     <tbody class="table-light">
-
                         <?php
                         foreach($datos['equipacion'] as $equipacion): ?>
                         <tr>
-
                             <td class="datos_tabla"><?php echo $equipacion->tipo?></td>
-                            <td class="datos_tabla"><?php echo $equipacion->descripcion?></td>
-
+                            <td class="datos_tabla"><?php echo $equipacion->temporada?></td>
+                            <td class="datos_tabla"><?php echo $equipacion->precio?> €</td>
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                             <td class="d-flex justify-content-center">
 
-                                <!--MODAL VER (javascript)-->
-                                    <img class="icono mt-1" id="btnModal_<?php echo $equipacion->id_equipacion?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir(<?php echo $equipacion->id_equipacion?>);"></img>
 
-                                    <!--Ventana-->
-                                    <div id="<?php echo $equipacion->id_equipacion?>" class="modalVer">
-                                        <div class="modal-content">
+                                <!-- MODAL VER -->
+                                <a data-bs-toggle="modal" data-bs-target="#ModalVer_<?php echo $equipacion->id_equipacion?>">
+                                  <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"></img>
+                                </a>
 
-                                            <!--Header-->
-                                            <div id="headerVer" class="row">
-                                                <h2 class="col-11">Datos de la equipacion</h2>
-                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $equipacion->id_equipacion?>" onclick="cerrar(<?php echo $equipacion->id_equipacion?>);">  
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalVer_<?php echo $equipacion->id_equipacion?>">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                            <!-- Header -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">Info.Equipacion</h2>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
-                                            <hr>
 
-                                            <!--Body-->
-                                            <div id="bodyVer" class="row m-3">
+                                            <!-- Body -->
+                                            <div class="modal-body mb-5">                                             
+                                            <div class="row">
+                                                        <div class="col-5">
+                                                            <div>
+                                                                <img id="outputVer" width="300px" height="300px" 
+                                                                <?php if ($equipacion->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php ;
+                                                                     }else {?> src='<?php echo RUTA_Equipacion.$equipacion->imagen;} ?>'                                                                                             
+                                                                >
+                                                            </div>                                                      
+                                                        </div>
 
-                                                <div class="row">
-                                                    <div class="col-6 mt-3 mb-3">
-                                                        <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $equipacion->tipo?>" readonly>
+                                                        <div class="col-7">
+                                                            <div class="form-floating mb-3 mt-3">
+                                                                <input autocomplete="off" type="text" class="form-control" id="nombre" placeholder="Enter nombre" name="nombre" value="<?php echo $equipacion->tipo?>" readonly>
+                                                                <label for="nombre">Nombre</label>
+                                                            </div>
+                                                            <div class="form-floating mt-3 mb-3">
+                                                                <input autocomplete="off" type="text" class="form-control" id="precio" placeholder="Enter precio" name="precio" value="<?php echo $equipacion->precio?>" readonly>
+                                                                <label for="precio">Precio</label>
+                                                            </div>
+                                                            <div class="form-floating mt-3 mb-4">
+                                                                <input autocomplete="off" type="text" class="form-control" id="temporada" placeholder="Enter temporada" name="temporada" value="<?php echo $equipacion->temporada?>" readonly>
+                                                                <label for="temporada">Temporada</label>
+                                                            </div>                                                                                                                   
+                                                        </div>
                                                     </div>
+                                                                                                
 
-                                                    <div class="col-6 mt-3 mb-3">
+                                                    <div class="form-floating mt-3 mb-3">
+                                                        <textarea type="text" style="height:200px" class="form-control" id="descripcion" placeholder="Enter descripcion" name="descripcion" readonly><?php echo $equipacion->descripcion?></textarea>
                                                         <label for="descripcion">Descripcion</label>
-                                                        <input type="text" name="descripcion" id="descripcion" class="form-control form-control-lg" value="<?php echo $equipacion->descripcion?>" readonly>
                                                     </div>
-                                                </div>
-
                                             </div>
-                    
-                                        </div>  
-                                    </div> 
-
+                                    </div>
+                                    </div>
+                                    </div>
 
 
                                 <!-- MODAL EDITAR -->
@@ -169,56 +183,78 @@
 
                                     <!-- Ventana -->
                                     <div class="modal" id="ModalEditar_<?php echo $equipacion->id_equipacion?>">
-                                    <div class="modal-dialog modal-xl modal-dialog-centered">
-                                        <div class="modal-content">
-
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
                                             <!-- Header -->
                                             <div class="modal-header">
-                                                <h2 class="modal-title">Edicion de la equipacion</h2>
+                                                <h2 class="modal-title">Edicion</h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
-
                                             <!-- Body -->
                                             <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editarEquipacion/<?php echo $equipacion->id_equipacion?>" class="card-body">
-                                                  
-
+                                            <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editarEquipacion/<?php echo $equipacion->id_equipacion?>" class="card-body">                                                 
                                                 <div class="row">
-                                                    <div class="col-6 mt-3 mb-3">
-                                                        <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg"value="<?php echo $equipacion->tipo?>" required>
-                                                    </div>
 
-                                                    <div class="col-6 mt-3 mb-3">
+                                                        <div class="col-5">
+                                                            <div>
+                                                            <img id="outputEdit<?php echo $equipacion->id_equipacion?>" width="300px" height="300px" src='<?php echo RUTA_Equipacion.$equipacion->imagen?>'>
+                                                            </div>                                                      
+                                                        </div>
+
+                                                        <div class="col-7">
+                                                            <div class="form-floating mb-3 mt-3">
+                                                                <input autocomplete="off" type="text" class="form-control" id="nombre" placeholder="Enter nombre" name="nombre" value="<?php echo $equipacion->tipo?>" required>
+                                                                <label for="nombre">Nombre</label>
+                                                            </div>
+                                                            <div class="form-floating mt-3 mb-3">
+                                                                <input autocomplete="off" type="text" class="form-control" id="precio" placeholder="Enter precio" name="precio" value="<?php echo $equipacion->precio?>" required>
+                                                                <label for="precio">Precio</label>
+                                                            </div>
+                                                            <div class="form-floating mt-3 mb-4">
+                                                                <input autocomplete="off" type="text" class="form-control" id="temporada" placeholder="Enter temporada"value="<?php echo $equipacion->temporada?>" name="temporada">
+                                                                <label for="temporada">Temporada</label>
+                                                            </div>                                                                 
+                                                        
+                                                            <label for="editarFoto" class="editarFoto">
+                                                                <input accept="image/*" type="file"  onchange="editFile(event,<?php echo $equipacion->id_equipacion?>)" id="editarFoto" name="editarFoto">  
+                                                            </label>  
+                                                            
+                                                            <input type="hidden" name="idEquipacion" value="<?php echo $equipacion->id_equipacion?>">
+                                                        </div>
+                                                </div>   
+                                                    <div class="form-floating mt-3 mb-3">
+                                                        <textarea autocomplete="off" type="text" style="height:200px" class="form-control" id="descripcion" placeholder="Enter descripcion" name="descripcion"><?php echo $equipacion->descripcion?></textarea>
                                                         <label for="descripcion">Descripcion</label>
-                                                        <input type="text" name="descripcion" id="descripcion" class="form-control form-control-lg" value="<?php echo $equipacion->descripcion?>" required>
                                                     </div>
-                                                </div>
 
-                                                    <input type="hidden" name="id_equipacion" value="<?php echo $equipacion->id_equipacion?>">
 
-                                                    <br>
-                                                    <input type="submit" class="btn" value="Confirmar">
-                                                </form>
-
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <input type="hidden" name="id_equipacion" value="<?php echo $equipacion->id_equipacion?>">
+                                                <input type="submit" class="btn" value="Guardar">                                               
                                             </div>
+                           
+                                            </form>
+                                            </div>
+                                    </div>
+                                    </div>
+                                    </div>
 
-                                        </div>
-                                    </div>
-                                    </div>
+
 
                                 <!-- MODAL BORRAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $equipacion->id_equipacion?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
+
                                     <!-- VENTANA -->
                                     <div class="modal" id="ModalBorrar_<?php echo $equipacion->id_equipacion?>">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
+                                    <div class="modal-content">
 
-                                             <!-- Modal Header -->
-                                             <div class="modal-header">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
@@ -233,20 +269,20 @@
                                                     <button type="submit" class="btn">Borrar</button>
                                                 </form>
                                             </div>
-                                        </div>
                                     </div>
                                     </div>
-
-
+                                    </div>
                             </td>
                             <?php endif ?>
                         </tr>
                         <?php endforeach ?>
                     </tbody>
-
             </table>
 
 
+                   <br>
+
+    
 
                     <!--AÑADIR EQUIPACION-->
                     <div class="col text-center">
@@ -254,51 +290,65 @@
                     </div>
                               <!-- VENTANA -->
                               <div class="modal" id="ModalNuevo">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
+                              <div class="modal-dialog modal-lg modal-dialog-centered">
+                              <div class="modal-content">
 
                                              <!-- Modal Header -->
                                             <div class="modal-header">
+                                                <h2 class="modal-title">Nueva equipacion</h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
                                             <div class="row">
+                                            <form  class="card-body" action="<?php echo RUTA_URL?>/adminEquipaciones/nuevaEquipacion" enctype="multipart/form-data" method="POST">                                     
+                                               
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <div>
+                                                                <img id="output" width="300px" height="300px" src='<?php echo RUTA_Equipacion?>noFoto.jpg'>
+                                                            </div>                                                      
+                                                        </div>
 
-                                                 <form enctype="multipart/form-data" class="card-body" action="<?php echo RUTA_URL?>/adminEquipaciones/nuevaEquipacion" method="POST"> 
-                                                    
-                                                    <label for="foto"> 
-                                                            <img id="output" src="" width="200px" height="200px">    
-                                                            <input accept="image/*" onchange="loadFile(event)" style="visibility:hidden;" type="file" id="foto" name="foto">
-                                                    </label>
-                                        
-                                                    <div class="row mt-3 mb-3">
-                                                        <label for="nombre">Nombre</label>
-                                                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" required>
+                                                        <div class="col-7">
+                                                            <div class="form-floating mb-3 mt-3">
+                                                                <input autocomplete="off" type="text" class="form-control" id="nombre" placeholder="Enter nombre" name="nombre" required>
+                                                                <label for="nombre">Nombre</label>
+                                                            </div>
+                                                            <div class="form-floating mt-3 mb-3">
+                                                                <input autocomplete="off" type="text" class="form-control" id="precio" placeholder="Enter precio" name="precio" required>
+                                                                <label for="precio">Precio</label>
+                                                            </div>
+                                                            <div class="form-floating mt-3 mb-4">
+                                                                <input autocomplete="off" type="text" class="form-control" id="temporada" placeholder="Enter temporada" name="temporada">
+                                                                <label for="temporada">Temporada</label>
+                                                            </div>  
+
+                                                            <label for="subirFoto" class="subirFoto">
+                                                                <input  accept="image/*" type="file"  onchange="loadFile(event)" id="subirFoto" name="subirFoto">  
+                                                            </label>  
+                                                                                                            
+                                                        </div>
                                                     </div>
+                                                                                                
 
-                                                    <div class="row mt-3 mb-3">
+                                                    <div class="form-floating mt-3 mb-3">
+                                                        <textarea autocomplete="off" type="text" style="height:200px" class="form-control" id="descripcion" placeholder="Enter descripcion" name="descripcion"></textarea>
                                                         <label for="descripcion">Descripcion</label>
-                                                        <input type="text" name="descripcion" id="descripcion" class="form-control form-control-lg" required>
                                                     </div>
-                                            </div>
-                                            </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                    <button type="submit" class="btn">Guardar</button>
-                                                
+                                                <input type="submit" name="subir" class="btn" value="Guardar">                                               
                                             </div>
+
                                         </form>
+                                        </div>
                                         </div>
                                     </div>
                                     </div>
-
-                    <br>
-
-            </div>
-        </div>
+                                    </div>
 
         <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
@@ -320,15 +370,23 @@
                          body.style.overflow="visible";
                      }
 
-var loadFile = function(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function() {
-      URL.revokeObjectURL(output.src)
-    }
-  };
 
+                    var loadFile = function(event) {
+                    var output = document.getElementById('output');
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                    output.onload = function() {
+                    URL.revokeObjectURL(output.src)
+                    }
+                    };
 
+                    var editFile = function(event,id) {
+                    var output = document.getElementById('outputEdit'+id);
+                    console.log(output);
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                    output.onload = function() {
+                    URL.revokeObjectURL(output.src)
+                    }
+                    };
 
             </script>
 

@@ -12,18 +12,37 @@ class Equipacion
 
 
     public function obtenerEquipacion(){
-        $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion from EQUIPACION");
+        $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion,precio,temporada from EQUIPACION");
         return $this->db->registros();
     }
+
+    // public function obtenerEquipacionId($id){
+    //     $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion,precio,temporada from EQUIPACION where id_equipacion=");
+    //     $this->db->bind(':id',)
+    //     return $this->db->registros();
+    // }
 
 
     // *********** GESTION EQUIPACIONES: AÑADIR NUEVA ***********
     public function nuevaEquipacion($nuevaEquipacion){     
-        $this->db->query("INSERT INTO EQUIPACION (tipo,descripcion) VALUES (:tipo,:descripcion)");
+        $this->db->query("INSERT INTO EQUIPACION (tipo,descripcion,imagen,precio,temporada) VALUES (:tipo,:descripcion,:imagen,:precio,:temporada)");
         $this->db->bind(':tipo', $nuevaEquipacion['nombre']);
-        $this->db->bind(':descripcion',$nuevaEquipacion['descripcion']);         
+        $this->db->bind(':descripcion',$nuevaEquipacion['descripcion']);     
+        $this->db->bind(':precio',$nuevaEquipacion['precio']);
+        $this->db->bind(':temporada',$nuevaEquipacion['temporada']);
+        $this->db->bind(':imagen',$nuevaEquipacion['foto']);
         if ($this->db->execute()){
             return $this->db->ultimoIndice();
+        }else{
+            return false;
+        }
+    }
+
+    public function renombrar($indice){     
+        $this->db->query("UPDATE EQUIPACION SET imagen=:indice where id_equipacion=$indice");
+        $this->db->bind(':indice', $indice);
+        if ($this->db->execute()){
+            return true;
         }else{
             return false;
         }
@@ -42,10 +61,12 @@ class Equipacion
 
     // *********** GESTION EQUIPACIONES: EDITAR ***********
     public function editarEquipacion($equipacion_modificada){
-          $this->db->query("UPDATE EQUIPACION SET tipo=:tipo, descripcion=:descripcion WHERE id_equipacion=:id");
+          $this->db->query("UPDATE EQUIPACION SET tipo=:tipo, descripcion=:descripcion, precio=:precio, temporada=:temporada WHERE id_equipacion=:id");
           $this->db->bind(':id',$equipacion_modificada['id_equipacion']);
           $this->db->bind(':tipo',$equipacion_modificada['tipo']);
           $this->db->bind(':descripcion',$equipacion_modificada['descripcion']);
+          $this->db->bind(':precio',$equipacion_modificada['precio']);
+          $this->db->bind(':temporada',$equipacion_modificada['temporada']);
           if ($this->db->execute()){
               return true;
           }else{
@@ -55,13 +76,47 @@ class Equipacion
     }
 
 
-
-    public function obtenerEquipacionUsuarios(){
-        $this->db->query("SELECT USUARIO.id_usuario,nombre, apellidos, email, telefono, EQUIPACION.id_equipacion, EQUIPACION.talla, EQUIPACION.tipo, EQUIPACION.recogido 
-                          FROM EQUIPACION, USUARIO WHERE EQUIPACION.id_usuario = USUARIO.id_usuario ORDER BY id_usuario");
+    // *********** PEDIDOS EQUIPACIONES: visualizar todos los pedidos ***********
+    public function obtenerPedidosUsuarios(){
+        $this->db->query("SELECT USUARIO.id_usuario,nombre, apellidos, email, telefono, SOLI_EQUIPACION.id_equipacion, SOLI_EQUIPACION.talla, 
+                          SOLI_EQUIPACION.fecha_peticion, SOLI_EQUIPACION.id_soli_equi, SOLI_EQUIPACION.recogido, EQUIPACION.id_equipacion, EQUIPACION.tipo, EQUIPACION.descripcion
+                          FROM SOLI_EQUIPACION, USUARIO, EQUIPACION 
+                          WHERE SOLI_EQUIPACION.id_usuario = USUARIO.id_usuario and SOLI_EQUIPACION.id_equipacion=EQUIPACION.id_equipacion 
+                          ORDER BY id_usuario");
         return $this->db->registros();
     }
 
+    // *********** PEDIDOS EQUIPACIONES: borrar pedido ***********
+    public function borrarPedido($id_pedido){
+        $this->db->query("DELETE FROM SOLI_EQUIPACION WHERE id_soli_equi =:id_pedido");
+        $this->db->bind(':id_pedido',$id_pedido);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // *********** PEDIDOS EQUIPACIONES: cambiar estado del pedido a entregado o no ***********
+    public function cambiarEstado($id,$estado){
+        if($estado==0){
+            $this->db->query("UPDATE SOLI_EQUIPACION SET recogido=1 WHERE id_soli_equi =:id");
+            $this->db->bind(':id',$id);
+            if ($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            $this->db->query("UPDATE SOLI_EQUIPACION SET recogido=0 WHERE id_soli_equi =:id");
+            $this->db->bind(':id',$id);
+            if ($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
     
 
     public function agregarEquipacion($nuevaEquipacion){     
@@ -81,30 +136,5 @@ class Equipacion
 
 
   
-
-
-    public function cambiarEstado($id,$estado){
-
-        if($estado==0){
-            $this->db->query("UPDATE EQUIPACION SET recogido=1 WHERE id_equipacion =:id_equipacion");
-            $this->db->bind(':id_equipacion',$id);
-
-            if ($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            $this->db->query("UPDATE EQUIPACION SET recogido=0 WHERE id_equipacion =:id_equipacion");
-            $this->db->bind(':id_equipacion',$id);
-
-            if ($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
-    }
 
 }
