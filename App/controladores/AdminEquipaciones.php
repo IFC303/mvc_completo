@@ -1,6 +1,6 @@
 <?php
 
- use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
     use PHPMailer\PHPMailer\SMTP;
     
@@ -42,8 +42,6 @@ class AdminEquipaciones extends Controlador{
      }
 
 
-
-
 public function gestion(){
         $notific = $this->notificaciones();
         $notific[3] ="GESTION";
@@ -71,10 +69,15 @@ public function nuevaEquipacion(){
             'temporada' => trim($_POST['temporada']),
             'foto'=>$_FILES['subirFoto']['name']
         ];
+        
            if($indice=$this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
                  $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
-                 copy ( $_FILES['subirFoto']['tmp_name'],$directorio.$indice) ; 
-                 $this->equipacionModelo->renombrar($indice);
+                 copy ( $_FILES['subirFoto']['tmp_name'],$directorio.$indice.'.jpg') ; 
+                 //damos permisos al archivo para poder eliminarlo
+                 chmod($directorio.$indice.'.jpg',0777);
+      
+                //  $this->equipacionModelo->renombrar($indice,$nom);
+                 
                  redireccionar('/adminEquipaciones/gestion');
            }else{
               die('Añgo ha fallado!!');
@@ -101,6 +104,8 @@ public function borrarEquipacion($id){
 
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          if ($this->equipacionModelo->borrarEquipacion($id)) {
+            $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
+             unlink($directorio.$id.'.jpg');
              redireccionar('/adminEquipaciones/gestion');
          }else{
              die('Algo ha fallado!!!');
@@ -122,26 +127,28 @@ public function editarEquipacion(){
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        var_dump($_POST);
-            $equipacionModificada = [
-                'nombre' => trim($_POST['nombre']),
-                'descripcion' => trim($_POST['descripcion']),
-                'precio' => trim($_POST['precio']),
-                'temporada' => trim($_POST['temporada']),
-                'foto'=>$_FILES['editarFoto']['name'],
-                'id'=>trim($_POST['idEquipacion'])
-            ];
+        
 
-            //var_dump($equipacionModificada);
+             $equipacionModificada = [
+                 'id'=>trim($_POST['idEquipacion']),
+                 'nombre' => (trim($_POST['nombre'])),
+                 'foto'=>$_FILES['editarFoto']['name'],
+                 'descripcion' => trim($_POST['descripcion']),
+                 'precio' => trim($_POST['precio']),
+                 'temporada' => trim($_POST['temporada'])                               
+             ];
 
-        //     if($indice=$this->equipacionModelo->editarEquipacion($equipacionModificada)){
-        //         $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
-        //         copy ($_FILES['subirFoto']['tmp_name'],$directorio.$indice) ; 
-        //         $this->equipacionModelo->renombrar($indice);
-        //         redireccionar('/adminEquipaciones/gestion');
-        //   }else{
-        //      die('Añgo ha fallado!!');
-        //   }
+             $equipacionModificada['foto']=$equipacionModificada['id'].'.jpg';
+                      
+             if($this->equipacionModelo->editarEquipacion($equipacionModificada)){
+                  $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
+                  copy ($_FILES['editarFoto']['tmp_name'],$directorio.$equipacionModificada['id'].'.jpg') ; 
+                  chmod($directorio.$equipacionModificada['id'].'.jpg',0777);
+                  //$this->equipacionModelo->renombrar($equipacionModificada['id']);                           
+                  redireccionar('/adminEquipaciones/gestion');
+            }else{
+               die('Añgo ha fallado!!');
+            }
 
      } else {
             $this->vista('administradores/crudEventos/inicio', $this->datos);
@@ -151,67 +158,7 @@ public function editarEquipacion(){
 
 
 
-public function subirFotos(){
-
-    $archivo = $_FILES['foto']['name'];
-      $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
-    
-  //Si se quiere subir una imagen
-// if (isset($_POST['subir'])) {
-//     //Recogemos el archivo enviado por el formulario
-//     
-//     //Si el archivo contiene algo y es diferente de vacio
-//     if (isset($archivo) && $archivo != "") {
-//        //Obtenemos algunos datos necesarios sobre el archivo
-//        $tipo = $_FILES['foto']['type'];
-//        $tamano = $_FILES['foto']['size'];
-//        $temp = $_FILES['foto']['tmp_name'];
-
-//        //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
-//     //   if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 2000000))) {
-//     //      echo '<div><b>Error. La extensión o el tamaño de los archivos no es correcta.<br/>
-//     //      - Se permiten archivos .gif, .jpg, .png. y de 200 kb como máximo.</b></div>';
-//     //   }
-
-if (is_uploaded_file($_FILES['foto']['tmp_name'])) {
-    echo "ok";
-    copy($_FILES['foto']['tmp_name'], $directorio."prueba3".".png");
-    } else {
-    echo "error";
-    }
-
-
-// if (move_uploaded_file($archivo, $directorio.$archivo)) {
-//              //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
-//              //chmod($directorio.$archivo, 0777);
-//              //Mostramos el mensaje de que se ha subido co éxito
-//              echo 'ok';
-//              //Mostramos la imagen subida
-//              //echo '<p><img src="images/'.$archivo.'"></p>';
-//          }
-//          else {
-//             //Si no se ha podido subir la imagen, mostramos un mensaje de error
-//             echo 'error';
-//          }
-
-
-
-    //   else {
-    //      //Si la imagen es correcta en tamaño y tipo
-    //      //Se intenta subir al servidor
-         
-    //    }
-    //}
- 
-    
-    
-
-}
-
-
-
 // ********* PEDIDOS EQUIPACIONES *******
-
 
     public function pedidos(){    
         $notific = $this->notificaciones();

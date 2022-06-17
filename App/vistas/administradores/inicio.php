@@ -180,7 +180,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <ul id="mEqui">
-            <li id="mEqui"><a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link">PEDIDOS</a></li>
+            <li id="mEqui"><a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link">PEDIDOS <span class="badge bg-danger">4</span></a></li>
             <li id="mEqui"><a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="nav-link">GESTION</a></li>
         </ul>
         <div class="d-flex offcanvas-footer justify-content-center h-100 align-items-end">

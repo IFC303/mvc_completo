@@ -138,12 +138,12 @@
 
                                             <!-- Body -->
                                             <div class="modal-body mb-5">                                             
-                                            <div class="row">
+                                                    <div class="row">
                                                         <div class="col-5">
                                                             <div>
                                                                 <img id="outputVer" width="300px" height="300px" 
                                                                 <?php if ($equipacion->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php ;
-                                                                     }else {?> src='<?php echo RUTA_Equipacion.$equipacion->imagen;} ?>'                                                                                             
+                                                                     }else {?> src='<?php echo RUTA_Equipacion.$equipacion->id_equipacion.'.jpg';} ?>'                                                                                             
                                                                 >
                                                             </div>                                                      
                                                         </div>
@@ -192,12 +192,16 @@
                                             </div>
                                             <!-- Body -->
                                             <div class="modal-body">
-                                            <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editarEquipacion/<?php echo $equipacion->id_equipacion?>" class="card-body">                                                 
+                                            <form method="post" enctype="multipart/form-data"  action="<?php echo RUTA_URL?>/adminEquipaciones/editarEquipacion/<?php echo $equipacion->id_equipacion?>" class="card-body">                                                 
                                                 <div class="row">
 
                                                         <div class="col-5">
                                                             <div>
-                                                            <img id="outputEdit<?php echo $equipacion->id_equipacion?>" width="300px" height="300px" src='<?php echo RUTA_Equipacion.$equipacion->imagen?>'>
+                                                            <img id="outputEdit<?php echo $equipacion->id_equipacion?>" width="300px" height="300px" 
+                                                            <?php if ($equipacion->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php ;
+                                                                     }else {?> src='<?php echo RUTA_Equipacion.$equipacion->id_equipacion.'.jpg';} ?>' 
+                                    
+                                                            >
                                                             </div>                                                      
                                                         </div>
 
@@ -216,7 +220,7 @@
                                                             </div>                                                                 
                                                         
                                                             <label for="editarFoto" class="editarFoto">
-                                                                <input accept="image/*" type="file"  onchange="editFile(event,<?php echo $equipacion->id_equipacion?>)" id="editarFoto" name="editarFoto">  
+                                                                <input accept="image/*" type="file"  onchange="loadFile2(event,<?php echo $equipacion->id_equipacion?>)" id="editarFoto" name="editarFoto" value ="<?php echo $equipacion->imagen?>">  
                                                             </label>  
                                                             
                                                             <input type="hidden" name="idEquipacion" value="<?php echo $equipacion->id_equipacion?>">
@@ -379,10 +383,11 @@
                     }
                     };
 
-                    var editFile = function(event,id) {
+                    var loadFile2 = function(event,id) {
                     var output = document.getElementById('outputEdit'+id);
                     console.log(output);
                     output.src = URL.createObjectURL(event.target.files[0]);
+                    //console.log(output.src);
                     output.onload = function() {
                     URL.revokeObjectURL(output.src)
                     }

@@ -94,6 +94,7 @@ class Socio extends Controlador
 
     //************* EQUIPACION *****************/
     public function equipacion(){
+      
 
         $tituloPagina = "PEDIR EQUIPACION";
         $this->datos['tituloPagina']=$tituloPagina;
@@ -108,6 +109,34 @@ class Socio extends Controlador
     }
 
 
+    public function pedir_equipacion(){
+
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $pedidoEquipacion = [
+                'cantidad' => trim($_POST["cantidad"]),
+                'talla' => trim($_POST["talla"]),
+                'idUsuario' => $idUsuarioSesion,
+                'idEquipacion' => trim($_POST['idEquipacion'])
+            ];
+
+
+             if ($this->equipacionModelo->pedidoEquipacion($pedidoEquipacion) ){
+                 redireccionar('/socio/equipacion');
+
+             } else {
+                die('Algo ha fallado!!!');
+             }
+        } else {
+            $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+            $this->datos['usuarios']=$datosUser;        
+
+            $this->vista('socios/modificarDatos', $this->datos);
+        }
+       
+    }
 
 
     public function licencias(){
