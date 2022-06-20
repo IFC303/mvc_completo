@@ -1,47 +1,37 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio.php' ?>
 
 
-<div class="row text-center inicio" style="font-family: 'Doppio One', sans-serif; ">
+<div class="row text-center d-flex justify-content-center mt-5 inicio" style="font-family: 'Doppio One', sans-serif;">
 
         <!-- MENU MODIFICAR DATOS -->
-        <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div class="col-xs-12 col-md-6 pt-5 mx-5" style="width:300px">
             <div>
                 <!-- CAJA ICONO -->
-                <div id="colorDatos" class="caja mx-auto shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <a href="<?php echo RUTA_URL ?>/socio/modificarDatos">
+                <div id="colorDatos" class="shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/modificarDatos">
                         <div>
                             <img src="<?php echo RUTA_Icon ?>editar.svg" width="100" height="100">
                         </div>
-                    </a>
-                </div>
-                <!-- CAJA TEXTO -->
-                <div id="color" class="caja mx-auto ">
-                    <a href="<?php echo RUTA_URL ?>/socio/modificarDatos">
-                        <div>
-                            <p id="pDatos" class="mx-auto" onmouseover="colorear(colorDatos);" onmouseleave="decolorear(colorDatos);">MIS DATOS</p>
+                         <div>
+                            <p style="margin-top:10px; font-size:20px;">MIS DATOS</p>
                         </div>
                     </a>
-                </div>
+                </div>              
             </div>
         </div>
 
-
+        
         <!-- MENU LICENCIAS -->
-        <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+        <div class="col-xs-12 col-md-6 pt-5 mx-5" style="width:300px">
             <div>
                 <!-- CAJA ICONO -->
-                <div id="colorLicen" class="caja mx-auto shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <a href="<?php echo RUTA_URL ?>/socio/licencias">
+                <div id="colorLicen" class="shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/licencias">
                         <div>
                             <img src="<?php echo RUTA_Icon ?>licencias.svg" width="100" height="100">
                         </div>
-                    </a>
-                </div>
-                <!-- CAJA TEXTO -->
-                <div id="color" class="caja mx-auto">
-                    <a href="<?php echo RUTA_URL ?>/socio/licencias">
                         <div>
-                            <p id="pLicen" class="mx-auto" onmouseover="colorear(colorLicen);" onmouseleave="decolorear(colorLicen);">LICENCIAS</p>
+                            <p style="margin-top:10px; font-size:20px">LICENCIAS</p>
                         </div>
                     </a>
                 </div>
@@ -50,44 +40,38 @@
 
 
         <!-- MENU VER MARCAS -->
-        <div class="col-xs-12 col-md-6 col-xl-4 pt-5" >
+        <div class="col-xs-12 col-md-6 pt-5 mx-5" style="width:300px">
             <div>
                 <!-- CAJA ICONO -->
-                <div id="colorMarcas" class="caja mx-auto shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <a href="<?php echo RUTA_URL ?>/socio/verMarcas">
+                <div id="colorMarcas" class="shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/verMarcas">
                         <div>
                             <img src="<?php echo RUTA_Icon ?>cronometro.svg" width="100" height="100">
                         </div>
-                    </a>
-                </div>
-                <!-- CAJA TEXTO -->
-                <div id="color" class="caja mx-auto">
-                    <a href="<?php echo RUTA_URL ?>/socio/verMarcas">
                         <div>
-                            <p id="pMarcas" class="mx-auto" onmouseover="colorear(colorMarcas);" onmouseleave="decolorear(colorMarcas);">MARCAS</p>
+                            <p style="margin-top:10px; font-size:20px">MARCAS</p>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
 
+ </div>
+
+
+ <div class="row text-center d-flex justify-content-center mt-5" style="font-family: 'Doppio One', sans-serif;">
 
         <!-- MENU PEDIR EQUIPACION -->
-        <div class="col-xs-12 col-md-6 col-xl-4 pt-5" >
+        <div class="col-xs-12 col-md-6 pt-5 mx-5" style="width:300px">
             <div>
                 <!-- CAJA ICONO -->
-                <div id="colorEquipacion" class="caja mx-auto shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <a href="<?php echo RUTA_URL ?>/socio/equipacion">
+                <div id="colorEquipacion" class="shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/equipacion">
                         <div>
-                            <img style="padding-bottom:6px" src="<?php echo RUTA_Icon ?>carrito.svg" width="100" height="100">
+                            <img style="padding-bottom:6px;" src="<?php echo RUTA_Icon ?>carrito.svg" width="100" height="100">
                         </div>
-                    </a>
-                </div>
-                <!-- CAJA TEXTO -->
-                <div id="color" class="caja mx-auto">
-                    <a href="<?php echo RUTA_URL ?>/socio/equipacion">
                         <div>
-                            <p id="pMarcas" class="mx-auto" onmouseover="colorear(colorEquipacion);" onmouseleave="decolorear(colorEquipacion);">EQUIPACION</p>
+                            <p style="margin-top:10px; font-size:20px">EQUIPACION</p>
                         </div>
                     </a>
                 </div>
@@ -95,44 +79,19 @@
         </div>
 
         <!-- APUNTAR A Escuela -->
-         <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
+         <div class="col-xs-12 col-md-6 pt-5 mx-5" style="width:300px">
             <div>
-                <div id="colorEscuela" class="caja mx-auto shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <a href="<?php echo RUTA_URL ?>/socio/escuela">
+                <div id="colorEscuela" class="shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/escuela">
                         <div>
                             <img src="<?php echo RUTA_Icon ?>escuela.png" width="100" height="100">
-                        </div>
-                    </a>
-                </div>
-                <div id="color" class="caja mx-auto">
-                    <a href="<?php echo RUTA_URL ?>/socio/escuela">
-                        <div>
-                            <p id="pEscuela" class="mx-auto" onmouseover="colorear(colorEscuela);" onmouseleave="decolorear(colorEscuela);">INSCRIPCION ESCUELA</p>
+                        </div> <div>
+                            <p style="margin-top:10px; font-size:20px">INSCRIPCION &nbspESCUELA</p>
                         </div>
                     </a>
                 </div>
             </div>
         </div> 
-
-        <!-- Apuntate Evento -->
-         <!-- <div class="col-xs-12 col-md-6 col-xl-4 pt-5">
-            <div>
-                <div id="colorEvento" class="caja mx-auto">
-                    <a href="<?php echo RUTA_URL ?>/socio/eventoSolicitud">
-                        <div>
-                            <img src="<?php echo RUTA_Icon ?>eventos.svg" width="100" height="100">
-                        </div>
-                    </a>
-                </div>
-                <div id="color" class="caja mx-auto">
-                    <a href="<?php echo RUTA_URL ?>/socio/eventoSolicitud">
-                        <div>
-                            <p id="pEvento" class="mx-auto">EVENTO</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>  -->
     </div>
 
 </div>

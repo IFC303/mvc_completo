@@ -1,40 +1,36 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
+<link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
+
 
 <div class="container">
-        <div  style="border:solid 1px #023ef9; height: 1%">
-        <table class="table table-striped text-center" style = "margin: 0px;"> 
-            <thead class="cabezera">
+  
+        <div class="row">
+            <div class="col-12"><h4 id="titulo">Mis marcas personales</h4></div>
+        </div>
+
+        <table id="tabla" class="table table-hover"> 
+            <!--CABECERA TABLA-->
+            <thead>
                 <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Prueba</th>
-                        <th scope="col">Tipo prueba</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Tipo Test</th>
-                
+                    <th>Nombre test</th>  
+                    <th>Prueba</th>
+                    <th>Fecha</th>
+                    <th>Marca</th>                                                    
                 </tr>
             </thead>
-            <tbody>
-                
-                <?php $contador = 0 ;
-                foreach ($datos['usuarios'] as $marcas) : ?>
-                    <?php $contador = $contador +1; ?>
+            <!--BODY TABLA-->
+            <tbody>               
+                <?php foreach ($datos['usuarios'] as $marcas) :?>
                     <tr>
-                        <td scope="row"><?php echo $contador ?></td>
-                        <td scope="col"><?php if ($marcas->nombrePrueba==''){echo '-';}else {echo $marcas->nombrePrueba;}?></td>
-                        <td scope="col"><?php if ($marcas->tipo==''){echo '-';}else {echo $marcas->tipo;}?></td>
-                        <td scope="col"><?php if ($marcas->marca==''){echo '-';}else {echo $marcas->marca;}?></td>
-                        <td scope="col"><?php if ($marcas->fecha==''){echo '-';}else {echo $marcas->fecha;}?></td>
-                        <td scope="col"><?php if ($marcas->nombreTest==''){echo '-';}else {echo $marcas->nombreTest;}?></td>
-                    </tr>
-                    
-                <?php endforeach ?>
-                
-            </tbody>
-            
+                        <td class="datos_tabla"><?php echo $marcas->nombreTest?></td>
+                        <td class="datos_tabla"><?php echo $marcas->tipo.' ('.$marcas->nombrePrueba.')'?></td>
+                        <td class="datos_tabla"><?php echo $marcas->fecha?></td>
+                        <td class="datos_tabla"><?php echo $marcas->marca?></td>
+                    </tr>                   
+                <?php endforeach ?>                
+            </tbody>           
         </table>
-    
-        </div>
-    </div>
+</div>
         
-        <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

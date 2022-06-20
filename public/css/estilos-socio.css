@@ -38,17 +38,5 @@ a:link, a:visited, a:active {
     cursor: pointer;
 }
 
-.cabecera{
-    background-color: #023EF9;
-    color: white;
 
-}   
 
-#volverMarcas{
-    text-align: center;
-    padding-top: 2%;
-}
-
-#agregarLic{
-    width: 300px;
-}

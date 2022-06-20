@@ -866,7 +866,7 @@ CREATE TABLE SOLI_EQUIPACION(
     fecha_peticion date not null,
     talla varchar(5) not null,
     recogido tinyint(1) not null,
-    cantidad int not null
+    cantidad int not null,
     primary key (id_soli_equi, id_usuario, id_equipacion),
     constraint FK_id_usuario_soli_equi foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_id_equipacion_soli_equi foreign key (id_equipacion) references EQUIPACION (id_equipacion) on delete cascade on update cascade

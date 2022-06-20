@@ -8,22 +8,66 @@
   <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/css/styles.css">
 </head>
 
-<body>
-  <section class="login-dark">
-    <form method="post">
-      <h2 class="visually-hidden">Login Form</h2>
-      <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
 
-      <div class="mb-3">
-        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Email" required>
+<style>
+  #ventana{
+    width:530px;
+    height:320px;
+   
+  }
+
+  h3{
+color:white;
+  }
+
+  body{
+    background-image: url(<?php echo RUTA_Icon?>pista.jpg);
+    background-size: cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+ 
+  }
+</style>
+
+
+
+
+<body class="m-0 vh-100 row justify-content-center align-items-center">
+
+
+  <div id="ventana" class="card bg-white card-center col-auto">
+  <form method="post" >
+
+      <div class="row">
+        <div class="d-flex ">
+          <img class="mt-4" style="width:175px; height:80px" src="<?php echo RUTA_Foto?>corredor.png">
+          <img class="mt-4" src="<?php echo RUTA_Foto?>tragamillas_alcañiz.png" width="250px" height="70px">          
+        </div>                  
       </div>
-      <div class="mb-3">
-        <input type="password" name="passw" class="form-control" id="passw" placeholder="Password" required>
+
+      <div class="row justify-content-center">
+        <div class="input-group mb-3 w-75">
+            <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
+            <input type="email" name="email" id="floatingInput" class="form-control form-control-md bg-white" placeholder="Email" required>
+        </div>
       </div>
-      <div class="mb-3">
-        <input type="submit" class="btn btn-primary d-block w-100" value="Login">
+
+      <div class="row justify-content-center">
+        <div class="input-group mb-4 w-75">
+            <label for="password"class="input-group-text"><img src="<?php echo RUTA_Icon?>llave.svg" width="30px"></label>
+            <input type="password" name="passw" id="passw" class="form-control form-control-md" placeholder="Password" required>
+        </div>
       </div>
-    </form>
+      
+     
+      <div class="row justify-content-center">          
+          <button type="submit" class="btn btn-primary"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
+      </div>
+      
+  </form>
+  </div>
+ 
+
 
     <?php if (isset($datos['error']) && $datos['error'] == 'error_1') : ?>
 

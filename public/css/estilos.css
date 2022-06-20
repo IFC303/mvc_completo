@@ -1,7 +1,43 @@
-.pagination {
-    justify-content: center
+
+/*TITULO TABLA */
+#titulo{
+    font-family: 'Anton',sans-serif; 
+    color: #023ef9; 
+    letter-spacing: 5px;
+    text-align:center;
 }
 
-.input-group {
-    justify-content: center;
+/*ESTILOS TABLA */
+#tabla{
+    border:solid 2px #023ef9; 
+    margin:auto;
+    width: 1000px;
+}
+thead{
+    border-bottom:solid #023ef9
+}
+thead tr{
+    background-color:#023ef9; 
+    color:white;
+    text-align:center;
+}
+.datos_tabla{
+    text-align:center;
+}    
+
+/* BOTONES */
+.btn{
+    background-color: #023ef9; 
+    color:white;
+}
+
+#botonVolver{
+    background-color:white; 
+    color:#023ef9;
+    border-color:#023ef9;
+}
+
+
+h2, .info{
+    color:#023ef9;
 }

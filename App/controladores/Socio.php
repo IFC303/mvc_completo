@@ -1,49 +1,49 @@
 <?php
 
-class Socio extends Controlador
-{
-    public function __construct()
-    {
+class Socio extends Controlador{
+
+
+
+    public function __construct(){
         Sesion::iniciarSesion($this->datos);
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
-
         $this->SocioModelo = $this->modelo('SocioModelo');
-        $this->equipacionModelo = $this->modelo('Equipacion');
-      
+        $this->equipacionModelo = $this->modelo('Equipacion');     
     }
 
-    public function index()
-    {
+
+
+// *********** PAGINA PRINCIPAL SOCIO ***********  
+    public function index(){
         $this->vista('socios/inicio', $this->datos);
     }
 
+
+
+// *********** MODIFICAR DATOS ***********  
     public function modificarDatos(){
 
         $nombrePagina = "MODIFICAR DATOS";
         $tituloPagina = "MODIFICAR DATOS";
         $this->datos['nombrePagina']=$nombrePagina;
         $this->datos['tituloPagina']=$tituloPagina;
-
         
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
         $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
 
-
         $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
-        }
+        }       
 
-        
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
-       
+            $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";       
             move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion);
 
             $editarDatos = [
@@ -58,28 +58,25 @@ class Socio extends Controlador
                 'fotoEdit' => $_FILES['foto']['name'],
             ];
       
-
              if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
                  redireccionar('/socio/modificarDatos');
-
              } else {
                 die('Algo ha fallado!!!');
              }
         } else {
             $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
             $this->datos['usuarios']=$datosUser;        
-
             $this->vista('socios/modificarDatos', $this->datos);
-        }
-
-        
+        }       
     }
 
-    public function verMarcas()
-    {
+
+
+// *********** VER MARCAS ***********  
+    public function verMarcas(){
+
         $nombrePagina = "VER MARCAS";
         $tituloPagina = "MARCAS PERSONALES";
-
         $this->datos['nombrePagina']=$nombrePagina;
         $this->datos['tituloPagina']=$tituloPagina;
 
@@ -87,9 +84,30 @@ class Socio extends Controlador
 
         $marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
         $this->datos['usuarios']=$marcas;
-
         $this->vista('socios/verMarcas', $this->datos);
     }
+
+
+// *********** VER LICENCIAS ***********  
+    public function licencias(){
+
+        $nombrePagina = "SUBIR LICENCIAS";
+        $tituloPagina = "MIS LICENCIAS";        
+        $this->datos['nombrePagina']=$nombrePagina;
+        $this->datos['tituloPagina']=$tituloPagina;
+
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+
+        $licencias = $this->SocioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
+        $this->datos['usuarios']=$licencias;     
+        $this->vista('socios/licencias', $this->datos);
+    }
+
+
+
+
+
+
 
 
     //************* EQUIPACION *****************/
@@ -139,23 +157,7 @@ class Socio extends Controlador
     }
 
 
-    public function licencias(){
 
-        $nombrePagina = "SUBIR LICENCIAS";
-        $tituloPagina = "MIS LICENCIAS";
-        
-        $this->datos['nombrePagina']=$nombrePagina;
-        $this->datos['tituloPagina']=$tituloPagina;
-
-
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-        $licencias = $this->SocioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
-        $this->datos['usuarios']=$licencias;
-
-       
-        $this->vista('socios/licencias', $this->datos);
-    }
 
     public function verFoto($idLic){
      
@@ -165,44 +167,7 @@ class Socio extends Controlador
         $this->vista('socios/verFoto',$this->datos);
     }
 
-    public function nuevaLicencia()
-    {
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-      
-
-
-        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
-
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $dir="/var/www/html/tragamillas/public/img/licencias/";
-           
-            
-            move_uploaded_file($_FILES['ImagenLicencia']['tmp_name'], $dir.$_FILES['ImagenLicencia']['name']);
-           
-            $agreLic = [
-                'numLicencia' => trim($_POST['NumLicencia']),
-                'tipoLicencia' => trim($_POST['tipoLicencia']),
-                'federativas' => trim($_POST['federativas']),
-                'dorsal' => trim($_POST['Dorsal']),
-                'fechaCaducidad' => trim($_POST['FechaCaducidad']),
-                'imagenLicencia' => $_FILES['ImagenLicencia']['name'],
-            ];
-
-            if ($this->SocioModelo->agregarLicencia($agreLic, $idUsuarioSesion)) {
-                redireccionar('/socio/licencias');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        } else {
-            $this->vista('socios/agregarLicencia', $this->datos);
-        }
-        
-    }
+   
 
     public function escuela()
     {

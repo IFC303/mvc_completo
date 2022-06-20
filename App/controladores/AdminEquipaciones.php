@@ -60,7 +60,7 @@ public function nuevaEquipacion(){
     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
         redireccionar('/usuarios');
     }
-    
+ 
     if($_SERVER['REQUEST_METHOD'] =='POST'){
         $equipacionNueva = [
             'nombre' => trim($_POST['nombre']),
@@ -70,8 +70,11 @@ public function nuevaEquipacion(){
             'foto'=>$_FILES['subirFoto']['name']
         ];
         
+       
+
            if($indice=$this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
-                 $directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
+                 $directorio = RUTA_APP."/public/img/fotos_equipacion/";
+                
                  copy ( $_FILES['subirFoto']['tmp_name'],$directorio.$indice.'.jpg') ; 
                  //damos permisos al archivo para poder eliminarlo
                  chmod($directorio.$indice.'.jpg',0777);

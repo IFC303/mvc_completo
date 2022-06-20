@@ -29,9 +29,7 @@ class Login extends Controlador
                     redireccionar('/entrenador');
                 } elseif ($this->datos['usuarioSesion']->id_rol == 3) {
                     redireccionar('/socio');
-                } elseif ($this->datos['usuarioSesion']->id_rol == 4) {
-                    redireccionar('/tienda');
-                }
+                } 
             } else {
                 $this->datos['error'] = $error;
 
