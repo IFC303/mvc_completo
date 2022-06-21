@@ -61,7 +61,7 @@ class Equipacion
     }
 
     // *********** GESTION EQUIPACIONES: EDITAR ***********
-    public function editarEquipacion($equipacion_modificada){
+    public function editarEquipacion($id_equipacion,$equipacion_modificada){
           $this->db->query("UPDATE EQUIPACION SET tipo=:tipo, imagen=:imagen, descripcion=:descripcion, precio=:precio, temporada=:temporada WHERE id_equipacion=:id");          
           $this->db->bind(':id',$equipacion_modificada['id']);
           $this->db->bind(':tipo',$equipacion_modificada['nombre']);
@@ -79,7 +79,10 @@ class Equipacion
     }
 
 
-    // *********** PEDIDO EQUIPACIONES DEL SOCIO ***********
+
+// ---------------------------------------------------- PEDIDOS ------------------------------------//
+
+    // *********** PEDIDO EQUIPACIONE DEL SOCIO ***********
     public function pedidoEquipacion($pedidoNuevo){
         $this->db->query("INSERT INTO SOLI_EQUIPACION (id_usuario,id_equipacion,fecha_peticion,talla,recogido,cantidad) VALUES (:idUsu,:idEquipacion,CURDATE(),:talla,'0',:cantidad)");
         $this->db->bind(':idUsu', $pedidoNuevo['idUsuario']);
@@ -95,17 +98,31 @@ class Equipacion
     }
 
 
-    // *********** PEDIDOS EQUIPACIONES: visualizar todos los pedidos ***********
+    // *********** visualizar todos los pedidos ***********
     public function obtenerPedidosUsuarios(){
-        $this->db->query("SELECT USUARIO.id_usuario,nombre, apellidos, email, telefono, SOLI_EQUIPACION.id_equipacion, SOLI_EQUIPACION.talla, 
-                          SOLI_EQUIPACION.fecha_peticion, SOLI_EQUIPACION.id_soli_equi, SOLI_EQUIPACION.recogido, EQUIPACION.id_equipacion, EQUIPACION.tipo, EQUIPACION.descripcion
+        $this->db->query("SELECT SOLI_EQUIPACION.id_soli_equi,USUARIO.id_usuario,nombre, apellidos, email, telefono, SOLI_EQUIPACION.id_equipacion, SOLI_EQUIPACION.talla, EQUIPACION.imagen,
+                          SOLI_EQUIPACION.fecha_peticion, SOLI_EQUIPACION.id_soli_equi, SOLI_EQUIPACION.recogido, EQUIPACION.id_equipacion, EQUIPACION.tipo, SOLI_EQUIPACION.cantidad
                           FROM SOLI_EQUIPACION, USUARIO, EQUIPACION 
                           WHERE SOLI_EQUIPACION.id_usuario = USUARIO.id_usuario and SOLI_EQUIPACION.id_equipacion=EQUIPACION.id_equipacion 
                           ORDER BY id_usuario");
         return $this->db->registros();
     }
 
-    // *********** PEDIDOS EQUIPACIONES: borrar pedido ***********
+
+    // *********** editar pedido (gestion del admin) ***********
+    public function editar_pedido($id,$equipacionModi){
+        $this->db->query("UPDATE SOLI_EQUIPACION SET talla=:talla, cantidad=:cantidad where id_soli_equi=:id");
+        $this->db->bind(':id',$id);
+        $this->db->bind(':cantidad',$equipacionModi['cantidad']);
+        $this->db->bind(':talla',$equipacionModi['talla']);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // *********** borrar pedido ***********
     public function borrarPedido($id_pedido){
         $this->db->query("DELETE FROM SOLI_EQUIPACION WHERE id_soli_equi =:id_pedido");
         $this->db->bind(':id_pedido',$id_pedido);
@@ -116,7 +133,7 @@ class Equipacion
         }
     }
 
-    // *********** PEDIDOS EQUIPACIONES: cambiar estado del pedido a entregado o no ***********
+    // *********** cambiar estado del pedido a entregado o no ***********
     public function cambiarEstado($id,$estado){
         if($estado==0){
             $this->db->query("UPDATE SOLI_EQUIPACION SET recogido=1 WHERE id_soli_equi =:id");

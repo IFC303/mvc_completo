@@ -26,7 +26,7 @@ thead tr{
 }    
 
 /* BOTONES */
-.btn{
+#confirmar{
     background-color: #023ef9; 
     color:white;
 }
@@ -38,6 +38,10 @@ thead tr{
 }
 
 
-h2, .info{
+h2,.info{
     color:#023ef9;
+}
+
+#ventana{
+    margin: auto;
 }

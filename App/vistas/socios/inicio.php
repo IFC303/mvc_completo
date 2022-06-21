@@ -84,7 +84,7 @@
                 <div id="colorEscuela" class="shadow p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                     <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/escuela">
                         <div>
-                            <img src="<?php echo RUTA_Icon ?>escuela.png" width="100" height="100">
+                            <img src="<?php echo RUTA_Icon ?>escuela.png" width="130" height="100">
                         </div> <div>
                             <p style="margin-top:10px; font-size:20px">INSCRIPCION &nbspESCUELA</p>
                         </div>

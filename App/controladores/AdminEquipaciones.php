@@ -199,84 +199,72 @@ public function editarEquipacion(){
                 }
             }
 
-            // ********* PEDIDOS --> envio mail avisando de recogida *******
-            public function enviar(){
-                $notific = $this->notificaciones();
-                $this->datos['notificaciones'] = $notific;
+            // // ********* PEDIDOS --> envio mail avisando de recogida *******
+            // public function enviar(){
+            //     $notific = $this->notificaciones();
+            //     $this->datos['notificaciones'] = $notific;
                
-                if($_SERVER['REQUEST_METHOD']=='POST'){
+            //     if($_SERVER['REQUEST_METHOD']=='POST'){
         
-                    $mail = new PHPMailer();      
+            //         $mail = new PHPMailer();      
         
-                    //me llega un string y lo paso a array con explode
-                    $destinatario = explode(",",($_POST['destinatario']));
-                    //echo print_r($destinatario);          
-                    $asunto = ($_POST['asunto']);
-                    //echo $asunto;
-                    $mensaje =($_POST['mensaje']);
-                    //echo $mensaje;
+            //         //me llega un string y lo paso a array con explode
+            //         $destinatario = explode(",",($_POST['destinatario']));
+            //         //echo print_r($destinatario);          
+            //         $asunto = ($_POST['asunto']);
+            //         //echo $asunto;
+            //         $mensaje =($_POST['mensaje']);
+            //         //echo $mensaje;
             
-                     try {
-                    // //  Configuracion SMTP
-                        // $mail->SMTPDebug =2;
-                         $mail->isSMTP();                                       // Activar envio SMTP
-                         $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
-                         $mail->SMTPAuth  = true;                               // Identificacion SMTP
-                         $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
-                         $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
-                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                         $mail->Port  = 587;
+            //          try {
+            //         // //  Configuracion SMTP
+            //             // $mail->SMTPDebug =2;
+            //              $mail->isSMTP();                                       // Activar envio SMTP
+            //              $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
+            //              $mail->SMTPAuth  = true;                               // Identificacion SMTP
+            //              $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
+            //              $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
+            //              $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            //              $mail->Port  = 587;
                         
-                    // // CONFIGURACION CORREO
-                         $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
+            //         // // CONFIGURACION CORREO
+            //              $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
         
-                         foreach($destinatario as $correo){
-                            //echo $correo ."<br>";
-                            $mail->addAddress($correo); // Email destinatario
-                         }
+            //              foreach($destinatario as $correo){
+            //                 //echo $correo ."<br>";
+            //                 $mail->addAddress($correo); // Email destinatario
+            //              }
                           
-                         $mail->isHTML(true);
-                         $mail->Subject = $asunto;
-                         $mail->Body  = $mensaje;
-                         $mail->send();
+            //              $mail->isHTML(true);
+            //              $mail->Subject = $asunto;
+            //              $mail->Body  = $mensaje;
+            //              $mail->send();
         
                          
-                         echo '<script type="text/javascript">alert("Mensaje enviado correctamente");
-                            window.location.assign("pedidos");
-                            </script>'; 
+            //              echo '<script type="text/javascript">alert("Mensaje enviado correctamente");
+            //                 window.location.assign("pedidos");
+            //                 </script>'; 
          
-                     } catch (Exception $e) {
-                         echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
-                     }
+            //          } catch (Exception $e) {
+            //              echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+            //          }
         
-                }
+            //     }
         
-                //redireccionar('/adminEquipaciones/pedidos');
+            //     //redireccionar('/adminEquipaciones/pedidos');
                     
-            }
+            // }
             
-        
-
-
-
-
-
-
-
-
-
-
-
 
 
             // ********* PEDIDOS --> EDITAR EQUIPACIONES *******
-            public function editar_equipacion($id_equipacion){
+            public function editar_equipacion($id_soli_equi){
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $equipacion_modificada = [
-                        'tipo'=> trim($_POST['tipo']),
+                        'cantidad'=> trim($_POST['cantidad']),
                         'talla' => trim($_POST['talla']),
                     ];
-                    if ($this->equipacion->editarEquipacion($id_equipacion,$equipacion_modificada)) {
+                    if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
                         redireccionar('/adminEquipaciones/pedidos');
                     }else{
                         die('Algo ha fallado!!!');

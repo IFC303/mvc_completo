@@ -44,13 +44,14 @@ class Socio extends Controlador{
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";       
-            move_uploaded_file($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion);
+            copy($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion.'.jpg');
 
             $editarDatos = [
                 'dniEdit' => trim($_POST["dni"]),
                 'nombreEdit' => trim($_POST["nombre"]),
                 'apellidosEdit' => trim($_POST["apellidos"]),
                 'telefonoEdit' => trim($_POST["telefono"]),
+                'direccion' => trim($_POST["direccion"]),
                 'emailEdit' => trim($_POST["email"]),
                 'cccEdit' => trim($_POST["ccc"]),
                 'passwEdit' => trim($_POST["passw"]),
@@ -58,8 +59,13 @@ class Socio extends Controlador{
                 'fotoEdit' => $_FILES['foto']['name'],
             ];
       
+            $directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";       
+            copy($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion.'.jpg');
+            chmod($directorio.$idUsuarioSesion.'.jpg',0777);
+
+
              if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
-                 redireccionar('/socio/modificarDatos');
+                 redireccionar('/socio');
              } else {
                 die('Algo ha fallado!!!');
              }

@@ -38,7 +38,7 @@
 
 
 <div id="ventana" class="card bg-light w-75">
-<h2 class="card-header">Formulario escuela</h2>
+<h2 class="card-header">Inscripción escuela</h2>
 
     <form method="post" ENCTYPE="multipart/form-data" class="card-body">
         <div class="row">
@@ -75,22 +75,22 @@
                 <input type="radio" id="siReglamento" name="reglamento" value="si" required><label for="siReglamento">&nbspSI</label>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-5 mt-3">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
                 <label class="mb-2" for="imagen">Foto reciente tamaño carnet <sup>* </sup></label>
                 <input type="file" id="imagen" name="imgCarnet" accept="image/*" required>
-            </div>
+            </div>       
+        </div>
 
-   
-
-            <div class="row mb-3">
-                <div class="col-3">
-                    <input type="submit" class="btn" value="Confirmar">
-                    <a href="<?php echo RUTA_URL?>/adminEventos">
+        <div class="row justify-content-end mb-3">
+                <div class="col-1">
+                    <input type="submit" id="confirmar" class="btn" value="Confirmar">
+                </div>
+                <div class="col-2 ps-5">
+                    <a href="<?php echo RUTA_URL?>/socio">
                         <input type="button" class="btn" id="botonVolver" value="Volver">  
                     </a>
                 </div>
             </div>
-        </div>
     </form>
     </div>
 

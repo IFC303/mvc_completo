@@ -12,21 +12,26 @@
 <style>
   #ventana{
     width:530px;
-    height:320px;
-   
+    height:320px; 
   }
 
-  h3{
-color:white;
+  h3{ 
+    color:white;
   }
 
   body{
-    background-image: url(<?php echo RUTA_Icon?>pista.jpg);
-    background-size: cover;
-  background-repeat:no-repeat;
-  background-position: center center;
- 
+    background-image: url('<?php echo RUTA_Icon?>pista.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
   }
+
+  .boton{
+    background-color:#023ef9;
+    color:white;
+
+  }
+
 </style>
 
 
@@ -35,7 +40,7 @@ color:white;
 <body class="m-0 vh-100 row justify-content-center align-items-center">
 
 
-  <div id="ventana" class="card bg-white card-center col-auto">
+  <div id="ventana" class="card bg-white card-center bg-opacity-50 col-auto">
   <form method="post" >
 
       <div class="row">
@@ -60,8 +65,8 @@ color:white;
       </div>
       
      
-      <div class="row justify-content-center">          
-          <button type="submit" class="btn btn-primary"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
+      <div class="d-flex justify-content-center">          
+          <button type="submit" class="btn boton w-75"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
       </div>
       
   </form>

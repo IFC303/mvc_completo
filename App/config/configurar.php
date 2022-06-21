@@ -21,11 +21,11 @@ define('DB_HOST', 'localhost');
 // Ruta dinámica
 //define('DB_HOST', 'mysql');
 define('DB_USUARIO', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'toor');
 define('DB_NOMBRE', 'tragamillas2');
 //define('DB_PASSWORD', 'Admin1234');
 
 define('RUTA_Icon', RUTA_URL . '/public/img/icons/');
 define('RUTA_Foto', RUTA_URL . '/public/img/fotos/');
-define('RUTA_ImgDatos', RUTA_URL . '/public/img/');
+define('RUTA_ImgDatos', RUTA_URL . '/public/img/fotosPerfil/');
 define('RUTA_Equipacion', RUTA_URL . '/public/img/fotos_equipacion/');

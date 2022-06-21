@@ -1,46 +1,36 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
 
 
+ 
 
-
-<style>
-  .border {
-    display: inline-block;
-    width: 200px;
-    height: 200px;
-    margin: 7px;
-  }
-  </style>
-
-
-
-                <div class="container mt-3">
-
+                    <div class="container mt-3">
                     <?php 
-                        foreach($datos['equipacion'] as $equipacion){// var_dump($equipacion);?>
-                            
-                                <a data-bs-toggle="modal" data-bs-target="#ModalPedido_<?php echo $equipacion->id_equipacion?>"> 
-                                                                       
-                                        <img class="border" 
-                                            <?php if($equipacion->imagen==''){?>
-                                                src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
-                                            }else{?>
-                                                src='<?php echo RUTA_Equipacion.$equipacion->id_equipacion.'.jpg';}?>'                                
-                                        >
-                                        <span><?php echo $equipacion->tipo?></span>
-                                                                                                                           
-                                </a>
-                             
+                        foreach($datos['equipacion'] as $equipacion){ ?>
+
+                                
+                                    <div class="card float-start ms-4 mb-4" style="width: 18rem;">
+                                    <a data-bs-toggle="modal" data-bs-target="#ModalPedido_<?php echo $equipacion->id_equipacion?>"> 
+                                        <img style="height:220px; " class="card-img-top" <?php if($equipacion->imagen==''){?>
+                                                        src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php ;                                                  
+                                                    }else{?>
+                                                        src='<?php echo RUTA_Equipacion.$equipacion->id_equipacion.'.jpg';}?>'>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $equipacion->tipo?></h5>
+                                            <h5><span class="badge bg-primary"><?php echo $equipacion->precio?> €</span></h5>
+                                        </div>
+                                    </a>
+                                    </div>
+                    
+
                                     <!-- Ventana -->
                                     <div class="modal" id="ModalPedido_<?php echo $equipacion->id_equipacion?>">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                         <div class="modal-content">
 
                                             <!-- Header -->
-                                            <div class="modal-header">
-                                                <h2 class="modal-title">Nuevo pedido: <?php echo $equipacion->tipo?></h2>
+                                            <!-- <div class="modal-header">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
+                                            </div> -->
 
                                             <!-- Body -->
                                             <div class="modal-body">
@@ -56,38 +46,37 @@
                                                                 </div>                                                      
                                                             </div>
 
-                                                            <div class="col-7">
-                                                                <div class="form-control form-floating mt-3 mb-3"style="height:250px">
-                                                                    
-                                                                    <div class="row pt-3 ps-3"><div><p><em>Temporada: </em><?php echo $equipacion->temporada?></p></div></div>
-                                                                    <div class="row pb-3 ps-3"><div><p><em>Precio: </em><?php echo $equipacion->precio?> €</p></div></div>
-                                                                   
-                                                                    <div class="row ps-3"><?php echo $equipacion->descripcion?></div>
-                                                        
-                                                                </div>                                                                                                                                                       
+                                                            <div class="col-7">                                                               
+                                                                <h5 class="card-title"><?php echo $equipacion->tipo?></h5>
+                                                                <h5><span class="badge bg-primary"><?php echo $equipacion->precio?> €</span></h5>
+                                                                <div class="row mt-4 ps-3">Temporada <?php echo $equipacion->temporada?></div>
+                                                                <div class="row mb-5 ps-3"><?php echo $equipacion->descripcion?></div>
+
+                                                                <div class="row mt-5 mb-5">
+                                                                    <div class="col-6">
+                                                                        <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <input class="form-control" id="talla" name="talla" type="text" placeholder="Talla">
+                                                                    </div>
+                                                                </div>    
+
+                                                                 <input type="hidden" name="idEquipacion" id="idEquipacion" value="<?php echo $equipacion->id_equipacion ?>">
+                                                                 <div class="row justify-content-end mt-5">
+                                                                    <div class="col-3">
+                                                                        <input type="submit" class="btn btn-primary" value="Confirmar">
+                                                                    </div>
+                                                                    <div class="col-3">
+                                                                        <a href="<?php echo RUTA_URL?>/socio/equipacion">
+                                                                            <input type="button" class="btn" id="botonVolver" value="Cerrar">  
+                                                                        </a>
+                                                                    </div>                                                                                                      
+                                                                </div>
                                                             </div>                                                             
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                                <div class="form-floating mb-3 mt-3">
-                                                                    <input autocomplete="off" type="text" class="form-control" id="cantidad" placeholder="Enter cantidad" name="cantidad">
-                                                                    <label for="cantidad">Cantidad</label>
-                                                                </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                                <div class="form-floating mt-3 mb-3">
-                                                                    <input autocomplete="off" type="talla" class="form-control" id="talla" placeholder="Enter talla" name="talla">
-                                                                    <label for="talla">Talla</label>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <input type="hidden" name="idEquipacion" id="idEquipacion" value="<?php echo $equipacion->id_equipacion ?>">
-                                                        <input type="submit" class="btn" value="Confirmar">                                               
-                                                    </div>
-
+                                                   
+                                                   
+                                                   
                                                 </form>
                                             </div>
 
@@ -95,13 +84,13 @@
                                     </div>
                                     </div>
 
-                        
+                       
                    <?php }?>
 
 
-                </div>
+                 </div> 
 
-
+           
 
 
 

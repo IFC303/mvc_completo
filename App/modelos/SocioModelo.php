@@ -27,7 +27,7 @@ class SocioModelo
 
     public function actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser){
 
-        $this->db->query("UPDATE USUARIO SET dni=:dni ,nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, CCC=:CCC, passw=:passw, talla=:talla, foto=:foto
+        $this->db->query("UPDATE USUARIO SET dni=:dni ,nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, CCC=:CCC, passw=:passw, talla=:talla, foto=:foto
                            WHERE id_usuario = '$idUsuarioSesion';");
 
 
@@ -62,6 +62,13 @@ class SocioModelo
         }else {
             $this->db->bind(':telefono', $editarDatos['telefonoEdit']);
         }
+
+        if ($editarDatos['direccion']=="") {
+            $this->db->bind(':direccion', $datosUser[0]->direccion);
+        }else {
+            $this->db->bind(':direccion', $editarDatos['direccion']);
+        }
+
 
         if ($editarDatos['cccEdit']=="") {
             $this->db->bind(':CCC', $datosUser[0]->CCC);
