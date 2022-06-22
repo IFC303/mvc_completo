@@ -141,7 +141,7 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_socios/<?php $datBorrar = $usuarios->id_solicitud_soc . "_" . $usuarios->DNI . "_" . $usuarios->nombre . "_" . $usuarios->apellidos . "_" . $usuarios->CCC . "_" . $usuarios->talla . "_" . $usuarios->fecha_nacimiento . "_" . $usuarios->email . "_" . $usuarios->telefono . "_" . $usuarios->direccion . "_" . $usuarios->es_socio;
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_socios/<?php $datBorrar = $usuarios->id_solicitud_soc . "_" . $usuarios->DNI . "_" . $usuarios->nombre . "_" . $usuarios->apellidos . "_" . $usuarios->CCC . "_" . $usuarios->talla . "_" . $usuarios->fecha_nacimiento . "_" . $usuarios->email . "_" . $usuarios->telefono . "_" . $usuarios->direccion . "_" . $usuarios->es_socio . "_" . $usuarios->nom_pa . " _ " .$usuarios->ape_pa . " _ " . $usuarios->dni_pa;
                                                                                                                                                                 echo $datBorrar ?>" method="post">
                                                                                                 <button type="submit">Aceptar</button>
                                                                                         </form>

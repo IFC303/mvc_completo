@@ -17,10 +17,7 @@ INSERT INTO
   `ROL` (`id_rol`, `nombre`)
 VALUES
   (3, 'socio');
-INSERT INTO
-  `ROL` (`id_rol`, `nombre`)
-VALUES
-  (4, 'tienda');
+
 
 CREATE TABLE USUARIO(
     id_usuario int AUTO_INCREMENT,
@@ -38,6 +35,9 @@ CREATE TABLE USUARIO(
     gir varchar(20),
     activado boolean,
     id_rol int,
+    nom_pa varchar (20),
+    ape_pa varchar (50),
+    dni_pa varchar (11),
     primary key (id_usuario),
     constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
   );
@@ -55,7 +55,10 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `id_rol`
+    `id_rol`,
+    `nom_pa`,
+    `ape_pa`,
+    `dni_pa`
   )
 VALUES
   (
@@ -71,7 +74,7 @@ VALUES
     '21232f297a57a5a743894a0e4a801fc3',
     'l',
     '',
-    1
+    1,'sssss','ddddd','87'
   );
 INSERT INTO
   `USUARIO` (
@@ -87,7 +90,10 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `id_rol`
+    `id_rol`,
+   `nom_pa`,
+    `ape_pa`,
+    `dni_pa`
   )
 VALUES
   (
@@ -103,7 +109,7 @@ VALUES
     'a990ba8861d2b344810851e7e6b49104',
     'm',
     '',
-    2
+    2,'wwwwwww','wwww','77777'
   );
 INSERT INTO
   `USUARIO` (
@@ -119,7 +125,10 @@ INSERT INTO
     `passw`,
     `talla`,
     `foto`,
-    `id_rol`
+    `id_rol`,
+  `nom_pa`,
+    `ape_pa`,
+    `dni_pa`
   )
 VALUES
   (
@@ -135,7 +144,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     331,
@@ -150,7 +159,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     332,
@@ -165,7 +174,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     333,
@@ -180,7 +189,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     334,
@@ -195,7 +204,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     335,
@@ -210,7 +219,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     336,
@@ -225,7 +234,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     337,
@@ -240,7 +249,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     338,
@@ -255,7 +264,7 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   ),
   (
     339,
@@ -270,40 +279,9 @@ VALUES
     '1b1844daa452df42c6f9123857ca686c',
     's',
     '',
-    3
+    3,'wwwwwww','wwww','77777'
   );
-INSERT INTO
-  `USUARIO` (
-    `id_usuario`,
-    `dni`,
-    `nombre`,
-    `apellidos`,
-    `email`,
-    `direccion`,
-    `fecha_nacimiento`,
-    `telefono`,
-    `CCC`,
-    `passw`,
-    `talla`,
-    `foto`,
-    `id_rol`
-  )
-VALUES
-  (
-    44,
-    '44',
-    'tienda',
-    'tienda',
-    'tienda@tienda.com',
-    'dire',
-    '2000-1-1',
-    44,
-    '',
-    '1a07afe7fc2c54d466d12569f05fb391',
-    'xl',
-    '',
-    4
-  );
+
 CREATE TABLE TEMPORADA(
     id_temp int primary key,
     fecha_inicio date not null,
@@ -472,14 +450,17 @@ CREATE TABLE SOLICITUD_SOCIO(
     email varchar(40) not null,
     telefono int not null,
     direccion varchar(40) not null,
-    es_socio boolean not null
+    es_socio boolean not null,
+    nom_pa varchar (20),
+    ape_pa varchar (50),
+    dni_pa varchar (11)
   );
   
-INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES
-(1, '16220103C', 'Michael', 'Phelps', '01885542161558896338', 'L', '2001-07-06', 'MichaelPhelps@gmail.com', 640236578, 'Calle Belmonte San Jose 11', 0),
-(2, '55433788Q', 'Usain', 'Bolt', '20808970552360850257', 'L', '1995-07-15', 'UsainBolt@gmail.com', 634266578, 'Calle Caldereros 4', 0),
-(3, '95198519R', 'Eliud', 'Kipchoge', '02164966847214050030', 'S', '1999-06-25', 'EliudKipchoge@gmail.com', 672645713, 'Avenida Huesca', 0),
-(4, '77900901Q', 'Cris', 'Froome', '14901780288828069875', 'L', '2000-11-08', 'CrisFroome@gmail.com', 672645713, 'Avenida Huesca', 0);
+INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`,`nom_pa`,`ape_pa`,`dni_pa`) VALUES
+(1, '16220103C', 'Michael', 'Phelps', '01885542161558896338', 'L', '2001-07-06', 'MichaelPhelps@gmail.com', 640236578, 'Calle Belmonte San Jose 11', 0,'wwwwwww','wwww','77777'),
+(2, '55433788Q', 'Usain', 'Bolt', '20808970552360850257', 'L', '1995-07-15', 'UsainBolt@gmail.com', 634266578, 'Calle Caldereros 4', 0,'sssss','ddddd','87'),
+(3, '95198519R', 'Eliud', 'Kipchoge', '02164966847214050030', 'S', '1999-06-25', 'EliudKipchoge@gmail.com', 672645713, 'Avenida Huesca', 0,'xxxx','rrrr','8966'),
+(4, '77900901Q', 'Cris', 'Froome', '14901780288828069875', 'L', '2000-11-08', 'CrisFroome@gmail.com', 672645713, 'Avenida Huesca', 0,'wwww','gggg','1111');
 
 CREATE TABLE SOCIO(
     id_socio int primary key,

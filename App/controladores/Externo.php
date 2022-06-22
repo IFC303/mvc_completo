@@ -16,13 +16,17 @@ class Externo extends Controlador
             var_dump($_POST);
 
             $anaSoli = [
-                'dniUsuAna' => trim($_POST["dniAtl"]),
+                
                 'nomUsuAna' => trim($_POST["nomAtl"]),
-                'apelUsuAna' => trim($_POST["apelAtl"]),
+                'apelUsuAna' => trim($_POST["apelAtl"]),               
                 'fecUsuAna' => trim($_POST["fecha"]),
-                'direccionUsuAna' => trim($_POST["direc"]),
-                'telUsuAna' => trim($_POST["telf"]),
+                'dniUsuAna' => trim($_POST["dniAtl"]),
+                'nom_pa' =>  trim($_POST['nomPa']),
+                'ape_pa' => trim ($_POST['apePa']),
+                'dni_pa' => trim ($_POST['dniPa']),
                 'emaUsuAna' => trim($_POST["email"]),
+                'direccionUsuAna' => trim($_POST["direc"]),
+                'telUsuAna' => trim($_POST["telf"]),                
                 'cccUsuAna' => trim($_POST["ccc"]),
                 'tallaUsuAna' => trim($_POST["talla"]),
                 'primerAnoSocio' => trim($_POST["priSocio"]),

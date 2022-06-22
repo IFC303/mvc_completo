@@ -545,54 +545,65 @@ class AdminModelo
 
     public function aceptar_solicitudes_socios($datAceptar)
     {
+         //var_dump($datAceptar);
+        //exit;
 
-        $idSoli = $datAceptar[0];
-        $dni = $datAceptar[1];
-        $nombre = $datAceptar[2];
-        $apellidos = $datAceptar[3];
-        $CCC = $datAceptar[4];
-        $talla = $datAceptar[5];
-        $fecha_nacimiento = $datAceptar[6];
-        $email = $datAceptar[7];
-        $telefono = $datAceptar[8];
-        $direccion = $datAceptar[9];
-        $es_socio = $datAceptar[10];
+         $idSoli = $datAceptar[0];
+         $dni = $datAceptar[1];
+         $nombre = $datAceptar[2];
+         $apellidos = $datAceptar[3];
+         $CCC = $datAceptar[4];
+         $talla = $datAceptar[5];
+         $fecha_nacimiento = $datAceptar[6];
+         $email = $datAceptar[7];
+         $telefono = $datAceptar[8];
+         $direccion = $datAceptar[9];
+         $es_socio = $datAceptar[10];
+         $nom_pa = $datAceptar[11];
+         $ape_pa = $datAceptar[12];
+         $dni_pa = $datAceptar[13];
 
-        $this->db->query("INSERT INTO `USUARIO` (`dni`, `nombre`, `apellidos`, `email`, `direccion`, `fecha_nacimiento`, `telefono`, `CCC`, `passw`, `talla`, `activado`, `id_rol`) VALUES 
-        (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:dni), :talla, '1', '3');");
-        $this->db->bind(':dni', $dni);
-        $this->db->bind(':nombre', $nombre);
-        $this->db->bind(':apellidos', $apellidos);
-        $this->db->bind(':CCC', $CCC);
-        $this->db->bind(':talla', $talla);
-        $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
-        $this->db->bind(':email', $email);
-        $this->db->bind(':telefono', $telefono);
-        $this->db->bind(':direccion', $direccion);
-        $this->db->bind(':es_socio', $es_socio);
-        $this->db->execute();
+        // $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol, nom_pa, ape_pa, dni_pa) 
+        //                  VALUES (:dni,:nombre,:apellidos,:email,:direccion,:fecha_nacimiento,:telefono,:CCC,MD5(:dni),:talla,1,3,:nom_pa,:ape_pa,:dni_pa)");
+        // $this->db->bind(':dni', $dni);
+        // $this->db->bind(':nombre', $nombre);
+        // $this->db->bind(':apellidos', $apellidos);
+        // $this->db->bind(':email', $email);
+        // $this->db->bind(':direccion', $direccion);
+        // $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
+        // $this->db->bind(':telefono', $telefono);
+        // $this->db->bind(':CCC', $CCC);
+        // $this->db->bind(':talla', $talla);   
+        // $this->db->bind(':es_socio', $es_socio);
+        // $this->db->bind(':nom_pa',$nom_pa);
+        // $this->db->bind(':ape_pa',$ape_pa);
+        // $this->db->bind(':dni_pa',$dni_pa);
+        // $this->db->execute();
 
-        $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId and `nombre`= :nombreId and `apellidos`= :apellidosId and `email`= :emailId");
-        $this->db->bind(':dniId', $dni);
-        $this->db->bind(':nombreId', $nombre);
-        $this->db->bind(':apellidosId', $apellidos);
-        $this->db->bind(':emailId', $email);
-        $idUsu = $this->db->registros();
-        $idUsu = $idUsu[0]->id_usuario;
 
-        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = $idSoli;");
-        $this->db->execute();
+        //  $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `DNI` = :dni;");
+        //  $this->db->bind(':dni', $dni);
+        //  $this->db->execute();
+
+
+         $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId");
+         $this->db->bind(':dniId', $dni);     
+         $idUsu = $this->db->registros();
+         var_dump ($idUsu);
+         exit;
+         $idUsu = $idUsu[0]->id_usuario;
+
 
 
         //inserta en la tabla EQUIPACION
-        $this->db->query("INSERT INTO EQUIPACION (talla,fecha_peticion,id_usuario,tipo,recogido) 
-                         VALUES (:talla,CURDATE(),:id_usuario,'primera equipacion',0)");
-        $this->db->bind(':talla', $talla);
-        $this->db->bind(':id_usuario',$idUsu);
-        $this->db->execute();
+         $this->db->query("INSERT INTO EQUIPACION (talla,fecha_peticion,id_usuario,tipo,recogido) 
+                          VALUES (:talla,CURDATE(),:id_usuario,'primera equipacion',0)");
+         $this->db->bind(':talla', $talla);
+         $this->db->bind(':id_usuario',$idUsu);
+         $this->db->execute();
       
 
-        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
+         $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idUsu, NULL);");
 
         if ($this->db->execute()) {
             return true;

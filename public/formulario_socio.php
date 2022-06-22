@@ -58,22 +58,33 @@
                 <form action="#" onsubmit="return validarSoliSocio()">
                     <div class="row m-3">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="nomAtl">Nombre (atleta) <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="apelAtl">Apellidos (atleta) <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
                             <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
                             <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="dniAtl" id="dniObli">DNI</label>
+                            <label for="dniAtl" id="dniObli">DNI (atleta)</label>
                             <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl" onchange="return dni(this.id)">
                         </div>
 
+                       
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="nomAtl">Nombre <sup>*</sup></label>
+                            <label for="nomAtl">Nombre (padre o tutor) <sup>*</sup></label>
                             <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="apelAtl">Apellidos <sup>*</sup></label>
+                            <label for="apelAtl">Apellidos (padre o tutor) <sup>*</sup></label>
                             <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
                         </div>
 
@@ -88,7 +99,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="email">Correo <sup>*</sup></label>
+                            <label for="email">Correo (padre o atleta) <sup>*</sup></label>
                             <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
                         </div>
 

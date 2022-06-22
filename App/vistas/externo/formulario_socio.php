@@ -66,24 +66,49 @@
 
                 <form action="" onsubmit="return validarSoliSocio()" method="POST"> 
                     <div class="row m-3">
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
-                            <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>
-                        </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="dniAtl" id="dniObli">DNI</label>
-                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl" >
-                        </div>
-
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="nomAtl">Nombre <sup>*</sup></label>
+                            <label for="nomAtl">Nombre (atleta) <sup>*</sup></label>
                             <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="apelAtl">Apellidos <sup>*</sup></label>
+                            <label for="apelAtl">Apellidos (atleta) <sup>*</sup></label>
                             <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
+                            <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>
+                        </div> -->
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
+                            <input class="form-control" type="date" id="fecha" name="fecha"  required>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="dniAtl" id="dniObli">DNI (atleta)</label>
+                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl" >
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="nomPa">Nombre (padre o tutor) <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomPa" name="nomPa" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="apelPa">Apellidos (padre o tutor) <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apePa" name="apePa" required onkeypress="return Solo_Texto(event);">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="dniPa" id="dniPa">DNI (padreo o tutor)</label>
+                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniPa" name="dniPa" >
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
+                            <label for="email">Correo (atleta o padre) <sup>*</sup></label>
+                            <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
                         </div>
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
@@ -96,10 +121,7 @@
                             <input type="text" class="form-control" placeholder="Escriba el telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
                         </div>
 
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="email">Correo <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
-                        </div>
+                        
 
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
                             <label for="ccc">CCC <sup>*</sup></label>

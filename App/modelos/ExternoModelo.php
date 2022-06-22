@@ -9,36 +9,38 @@ class ExternoModelo
         $this->db = new Base;
     }
 
-    public function obtenerEventos()
-    {
+    public function obtenerEventos(){
         $this->db->query("SELECT * FROM `EVENTO`");
         return $this->db->registros();
     }
 
-    public function anadirSoliSocio($soliSociAnadir)
-    {
-        print_r($soliSociAnadir);
+    public function anadirSoliSocio($soliSociAnadir){
+        //print_r($soliSociAnadir);
         
-        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`) VALUES 
-        (:dniUsu, :nomUsu, :apelUsu, :cccUsu, :tallUsu, :fecUsu, :emaUsu, :telUsu, :direcUsu, :aSocio);");
+        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`,`nom_pa`,`ape_pa`,`dni_pa`) 
+        VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa);");
 
-        $this->db->bind(':dniUsu', $soliSociAnadir['dniUsuAna']);
+        $this->db->bind(':dniUsu', $soliSociAnadir['dniUsuAna']); 
         $this->db->bind(':nomUsu', $soliSociAnadir['nomUsuAna']);
         $this->db->bind(':apelUsu', $soliSociAnadir['apelUsuAna']);
-        $this->db->bind(':fecUsu', $soliSociAnadir['fecUsuAna']);
-        $this->db->bind(':telUsu', $soliSociAnadir['telUsuAna']);
-        $this->db->bind(':emaUsu', $soliSociAnadir['emaUsuAna']);
-        $this->db->bind(':direcUsu', $soliSociAnadir['direccionUsuAna']);
         $this->db->bind(':cccUsu', $soliSociAnadir['cccUsuAna']);
         $this->db->bind(':tallUsu', $soliSociAnadir['tallaUsuAna']);
-        if($soliSociAnadir['primerAnoSocio']=="si"){$soliSociAnadir['primerAnoSocio']=1;}elseif($soliSociAnadir['primerAnoSocio']=="no"){$soliSociAnadir['primerAnoSocio']=0;}
-        $this->db->bind(':aSocio', $soliSociAnadir['primerAnoSocio']);
+        $this->db->bind(':fecUsu', $soliSociAnadir['fecUsuAna']);
+        $this->db->bind(':emaUsu', $soliSociAnadir['emaUsuAna']);
+        $this->db->bind(':telUsu', $soliSociAnadir['telUsuAna']);
+        $this->db->bind(':direcUsu', $soliSociAnadir['direccionUsuAna']);
 
+        if($soliSociAnadir['primerAnoSocio']=="si"){$soliSociAnadir['primerAnoSocio']=1;
+        }elseif($soliSociAnadir['primerAnoSocio']=="no"){$soliSociAnadir['primerAnoSocio']=0;}
+        
+        $this->db->bind(':aSocio', $soliSociAnadir['primerAnoSocio']);       
+        $this->db->bind(':nom_pa',$soliSociAnadir['nom_pa']);  
+        $this->db->bind(':ape_pa',$soliSociAnadir['ape_pa']);  
+        $this->db->bind(':dni_pa',$soliSociAnadir['dni_pa']);     
+        
         if ($this->db->execute()) {
            return true;
-        }else return false;
-
-        
+        }else return false;        
     }
 
     public function anadirSoliEven($agreEvento)
