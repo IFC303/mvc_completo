@@ -153,7 +153,7 @@
                                 <td class="datos_tabla" id="nombreUsu"><?php echo $pedido->nombre?></td>
                                 <td class="datos_tabla" id="apellidosUsu"><?php echo $pedido->apellidos?></td>
                                 <td class="datos_tabla" id="emailusu"><?php echo $pedido->fecha_peticion?></td>
-                                <td class="datos_tabla" id="talla"><?php echo $pedido->talla?></td>
+                                <td class="datos_tabla" id="talla"><?php echo $pedido->tipo?></td>
                             <?php
                                 }else{?>
                                     <td style="visibility:hidden"><?php echo $pedido->id_usuario?></td>
@@ -166,7 +166,7 @@
 
                             ?>
 
-                            <td class="datos_tabla" id="tipoUsu"><?php echo $pedido->tipo?></td>
+                            <td class="datos_tabla" id="tipoUsu"><?php echo $pedido->talla?></td>
                             <td class="datos_tabla" id="telefonoUsu"><?php echo $pedido->cantidad?></td>
                                                      
 

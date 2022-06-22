@@ -137,12 +137,16 @@
                 </table>
             </div>
         </div>
-        <div class="panel">
+
+        <div>
+        <a href="../exportData" class="btn">Exportar a CSV</a>
+        </div>
+        <!-- <div class="panel">
             <?php echo $this->datos['paginator']->createLinks($this->links, 'pagination') ?>
             <h4 id="titulo" class="pagination">
                 <a href="../exportData" class="btn">Exportar a CSV</a>
             </h4>
-        </div>
+        </div> -->
     </div>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

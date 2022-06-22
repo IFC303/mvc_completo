@@ -563,41 +563,37 @@ class AdminModelo
          $ape_pa = $datAceptar[12];
          $dni_pa = $datAceptar[13];
 
-        // $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol, nom_pa, ape_pa, dni_pa) 
-        //                  VALUES (:dni,:nombre,:apellidos,:email,:direccion,:fecha_nacimiento,:telefono,:CCC,MD5(:dni),:talla,1,3,:nom_pa,:ape_pa,:dni_pa)");
-        // $this->db->bind(':dni', $dni);
-        // $this->db->bind(':nombre', $nombre);
-        // $this->db->bind(':apellidos', $apellidos);
-        // $this->db->bind(':email', $email);
-        // $this->db->bind(':direccion', $direccion);
-        // $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
-        // $this->db->bind(':telefono', $telefono);
-        // $this->db->bind(':CCC', $CCC);
-        // $this->db->bind(':talla', $talla);   
-        // $this->db->bind(':es_socio', $es_socio);
-        // $this->db->bind(':nom_pa',$nom_pa);
-        // $this->db->bind(':ape_pa',$ape_pa);
-        // $this->db->bind(':dni_pa',$dni_pa);
-        // $this->db->execute();
+         $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol, nom_pa, ape_pa, dni_pa) 
+                          VALUES (:dni,:nombre,:apellidos,:email,:direccion,:fecha_nacimiento,:telefono,:CCC,MD5(:dni),:talla,1,3,:nom_pa,:ape_pa,:dni_pa)");
+         $this->db->bind(':dni', $dni);
+         $this->db->bind(':nombre', $nombre);
+         $this->db->bind(':apellidos', $apellidos);
+         $this->db->bind(':email', $email);
+         $this->db->bind(':direccion', $direccion);
+         $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
+         $this->db->bind(':telefono', $telefono);
+         $this->db->bind(':CCC', $CCC);
+         $this->db->bind(':talla', $talla);   
+         $this->db->bind(':es_socio', $es_socio);
+         $this->db->bind(':nom_pa',$nom_pa);
+         $this->db->bind(':ape_pa',$ape_pa);
+         $this->db->bind(':dni_pa',$dni_pa);
+         $this->db->execute();
 
 
-        //  $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `DNI` = :dni;");
-        //  $this->db->bind(':dni', $dni);
-        //  $this->db->execute();
+          $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `DNI` = :dni;");
+          $this->db->bind(':dni', $dni);
+          $this->db->execute();
 
 
          $this->db->query("SELECT id_usuario FROM `USUARIO` WHERE `dni`= :dniId");
          $this->db->bind(':dniId', $dni);     
-         $idUsu = $this->db->registros();
-         var_dump ($idUsu);
-         exit;
+         $idUsu = $this->db->registros();        
          $idUsu = $idUsu[0]->id_usuario;
 
-
-
         //inserta en la tabla EQUIPACION
-         $this->db->query("INSERT INTO EQUIPACION (talla,fecha_peticion,id_usuario,tipo,recogido) 
-                          VALUES (:talla,CURDATE(),:id_usuario,'primera equipacion',0)");
+         $this->db->query("INSERT INTO SOLI_EQUIPACION (id_usuario,id_equipacion,fecha_peticion,talla,recogido,cantidad) 
+                          VALUES (:id_usuario,1,CURDATE(),:talla,0,1)");
          $this->db->bind(':talla', $talla);
          $this->db->bind(':id_usuario',$idUsu);
          $this->db->execute();

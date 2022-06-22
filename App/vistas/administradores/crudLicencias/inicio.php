@@ -486,9 +486,13 @@
                     <div class="col text-center">
                         <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminLicencias/nueva_licencia/">Nueva licencia</a>
                     </div>
+                    
                     <br>
 
             </div>
+                    <div class="mt-4">
+                        <a href="<?php echo RUTA_URL?>/adminLicencias/exportarLicencias" class="btn bg-warning">Exportar a Excel</a>
+                    </div>
         </div>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>

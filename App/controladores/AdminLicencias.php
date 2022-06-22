@@ -143,4 +143,47 @@ class AdminLicencias extends Controlador{
             $this->vista('administradores/crudLicencias/inicio', $this->datos);
         }
     }
+
+
+    public function exportarLicencias(){
+
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+        $licencias = $this->licenciaModelo->obtenerSocioLicencia();
+        
+        var_dump ($licencias);
+     
+         $archivo="Archivo.csv";
+         $fp=fopen($archivo,'w');
+        
+fputcsv($fp,$licencias[0]->tipo);
+        //   foreach ($licencias as $lice){
+           
+           
+        //   }
+          fclose($fp);
+          exit;
+
+            
+        //     header("Content-Type: text/csv");
+        //     header("Content-Disposition: attachment; filename="$csv_file"");
+          
+        //     $is_coloumn = true;
+
+        //     if(!empty($this->datos['licencia'])) {
+        //     foreach($this->datos['licencia'] as $lice) {
+        //     if($is_coloumn) {
+        //     fputcsv($fh, array_keys($record));
+
+        //     $is_coloumn = false;
+        //     }
+        //     fputcsv($fh, array_values($record));
+        //     }
+        //     fclose($fh);
+        //     }
+        //     exit;
+           
+    }
+
+
 }

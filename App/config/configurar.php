@@ -21,7 +21,7 @@ define('DB_HOST', 'localhost');
 // Ruta dinámica
 //define('DB_HOST', 'mysql');
 define('DB_USUARIO', 'root');
-define('DB_PASSWORD', 'toor');
+define('DB_PASSWORD', '');
 define('DB_NOMBRE', 'tragamillas2');
 //define('DB_PASSWORD', 'Admin1234');
 
