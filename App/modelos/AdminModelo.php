@@ -22,6 +22,12 @@ class AdminModelo
         return $this->db->rowCount();
     }
 
+    public function notPedidos()
+    {
+        $this->db->query("SELECT * FROM `SOLI_EQUIPACION` WHERE recogido=0");
+        return $this->db->rowCount();
+    }
+
     public function notEventos()
     {
         $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");

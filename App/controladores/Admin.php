@@ -19,6 +19,7 @@ class Admin extends Controlador
         $notific[0] = $this->AdminModelo->notSocio();
         $notific[1] = $this->AdminModelo->notGrupo();
         $notific[2] = $this->AdminModelo->notEventos();
+        $notific[3] = $this->AdminModelo->notPedidos();
         return $notific;
     }
 

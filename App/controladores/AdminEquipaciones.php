@@ -26,13 +26,13 @@ class AdminEquipaciones extends Controlador{
 
    //NOTIFICACIONES
    public function notificaciones()
-   {
-       $notific[0] = $this->AdminModelo->notSocio();
-       $notific[1] = $this->AdminModelo->notGrupo();
-       $notific[2] = $this->AdminModelo->notEventos();
-       
-       return $notific;
-   }
+    {
+        $notific[0] = $this->AdminModelo->notSocio();
+        $notific[1] = $this->AdminModelo->notGrupo();
+        $notific[2] = $this->AdminModelo->notEventos();
+        $notific[3] = $this->AdminModelo->notPedidos();
+        return $notific;
+    }
 
   
     public function index(){
@@ -73,7 +73,7 @@ public function nuevaEquipacion(){
        
 
            if($indice=$this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
-                 $directorio = RUTA_APP."/public/img/fotos_equipacion/";
+                 $directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
                 
                  copy ( $_FILES['subirFoto']['tmp_name'],$directorio.$indice.'.jpg') ; 
                  //damos permisos al archivo para poder eliminarlo

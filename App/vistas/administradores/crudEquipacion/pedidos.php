@@ -4,7 +4,7 @@
 <style>
            /*modal javascript */
 
-           .modalVer{  
+           .modalVer{
             display: none;
             position: fixed;
             z-index: 1;
@@ -15,7 +15,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4); 
+            background-color: rgba(0,0,0,0.4);
         }
 
         .modalVer .modal-content{
@@ -44,12 +44,12 @@
 /*ESTILOS TABLA */
 
         .tabla{
-            border:solid 1px #023ef9; 
+            border:solid 1px #023ef9;
             margin:auto;
         }
 
         thead tr{
-            background-color:#023ef9; 
+            background-color:#023ef9;
             color:white;
             text-align:center;
         }
@@ -68,19 +68,19 @@
             padding: 30px;
             color:#023ef9;
         }
-        
+
         #añadir{
             color:white;
         }
 
         .btn{
-            background-color: #023ef9;  
+            background-color: #023ef9;
             color:white;
         }
 
         #titulo{
-            font-family: 'Anton',sans-serif; 
-            color: #023ef9; 
+            font-family: 'Anton',sans-serif;
+            color: #023ef9;
             letter-spacing: 5px;
         }
 
@@ -96,39 +96,45 @@
 
     <div class="container">
 
-            <div class="row pb-3">
+            <!-- <div class="row pb-3">
                 <div class="col-4">
                     <label for="filtro">Filtro por nombre: </label>
                     <input type="text" name="filtro" id="filtro" class="filtro">
-                </div>   
+                </div>
                 <div class="col-8" style="text-align:center">
+                    <div class="col-12"><h4 id="titulo">Pedidos de equipaciones</h4></div>
+                </div>
+            </div> -->
+
+
+            <div class="row pb-3">
+
+                <div class="col-12" style="text-align:center">
                     <div class="col-12"><h4 id="titulo">Pedidos de equipaciones</h4></div>
                 </div>
             </div>
 
-            
 
 
-            
 
 
            <div class="tabla" style="border:solid 1px #023ef9">
-            
+
            <table id="tabla" class="table table-hover" >
 
 
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr style="background-color:#023ef9; color:white">
-                        
+
                             <th>N SOCIO</th>
                             <th>NOMBRE</th>
                             <th>APELLIDOS</th>
-                            <th>FECHA PEDIDO</th> 
+                            <th>FECHA PEDIDO</th>
                             <th>TIPO</th>
-                            <th>TALLA</th>                               
-                            <th>CANTIDAD</th>                         
-                        
+                            <th>TALLA</th>
+                            <th>CANTIDAD</th>
+
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <th>OPCIONES</th>
                                 <th>ENTREGADO</th>
@@ -143,12 +149,12 @@
                         <?php
                         $id="";
                         foreach($datos['pedidos'] as $pedido): ?>
-                        
-                        <tr>    
+
+                        <tr>
                             <?php
                                 if($id!=$pedido->id_usuario){
                                      ?>
-                                
+
                                 <td class="datos_tabla" id="idUsu" ><?php echo $pedido->id_usuario?></td>
                                 <td class="datos_tabla" id="nombreUsu"><?php echo $pedido->nombre?></td>
                                 <td class="datos_tabla" id="apellidosUsu"><?php echo $pedido->apellidos?></td>
@@ -168,7 +174,7 @@
 
                             <td class="datos_tabla" id="tipoUsu"><?php echo $pedido->talla?></td>
                             <td class="datos_tabla" id="telefonoUsu"><?php echo $pedido->cantidad?></td>
-                                                     
+
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                             <td class="d-flex flex-row-reverse">
@@ -205,7 +211,7 @@
                                     </div>
                                     </div>
 
-                               
+
                                 <!-- MODAL EDITAR -->
                                 &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $pedido->id_soli_equi?>" >
@@ -227,59 +233,59 @@
                                             <div class="modal-body">
 
                                                 <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editar_equipacion/<?php echo $pedido->id_soli_equi?>" class="card-body">
-                                                    <div class="row">  
+                                                    <div class="row">
                                                         <div class="col-6">
                                                                 <div>
-                                                                    <img id="outputVer" width="225px" height="225px" 
+                                                                    <img id="outputVer" width="225px" height="225px"
                                                                     <?php if ($pedido->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
-                                                                        }else {?> src='<?php echo RUTA_Equipacion.$pedido->id_equipacion.'.jpg';} ?>'                                                                                             
+                                                                        }else {?> src='<?php echo RUTA_Equipacion.$pedido->id_equipacion.'.jpg';} ?>'
                                                                     >
-                                                                </div> 
+                                                                </div>
                                                         </div>
-                                                                                                           
+
                                                     <div class="col-6">
                                                         <div class="row w-75 mb-4 ms-3">
                                                                 <label class="cantidad mb-2" for="cantidad">Cantidad <sup>*</sup></label>
-                                                                <input class="form-control ms-3" type="number" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" required>                                                           
+                                                                <input class="form-control ms-3" type="number" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" required>
                                                         </div>
                                                         <div class="row w-75 ms-3">
-                                                            <label class="talla mb-2" for="talla">Talla <sup>*</sup></label>                                                            
+                                                            <label class="talla mb-2" for="talla">Talla <sup>*</sup></label>
                                                             <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->talla?> " required>
                                                         </div>
                                                     </div>
-                                                                                                                          
+
                                                     </div>
-                                                
+
                                                     <br>
                                                     <input type="submit" class="btn" value="Confirmar">
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    </div>                        
+                                    </div>
 
 
-                                
-                                    
+
+
                                 <!-- MODAL NUEVO PEDIDO -->
-                                &nbsp;&nbsp;&nbsp;
+                                <!-- &nbsp;&nbsp;&nbsp;
                                 <a data-bs-toggle="modal" data-bs-target="#ModalPedido_<?php echo $pedido->id_usuario?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>carrito.svg"></img>
-                                </a>
-                               
+                                </a> -->
+
                                     <!-- Ventana -->
-                                    <div class="modal" id="ModalPedido_<?php echo $pedido->id_usuario?>">
+                                    <!-- <div class="modal" id="ModalPedido_<?php echo $pedido->id_usuario?>">
                                     <div class="modal-dialog modal-xl modal-dialog-centered">
-                                        <div class="modal-content">
+                                        <div class="modal-content"> -->
 
                                             <!-- Header -->
-                                            <div class="modal-header">
+                                            <!-- <div class="modal-header">
                                                 <h2 class="modal-title">Nuevo pedido</h2>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
+                                            </div> -->
 
                                             <!-- Body -->
-                                            <div class="modal-body">
+                                            <!-- <div class="modal-body">
                                                 <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/nueva_equipacion" class="card-body">
 
                                                     <div class="row">
@@ -299,102 +305,99 @@
                                                     <br>
                                                     <div class="row">
                                                     <div class="col-3">
-                                                        <input type="submit" class="btn" value="Confirmar">
+                                                        <input type="submit" class="btn" value="Confirmar"> -->
                                                         <!-- <a href="<?php echo RUTA_URL?>/tienda">
-                                                            <input type="button" class="btn" id="botonVolver" value="Volver">  
+                                                            <input type="button" class="btn" id="botonVolver" value="Volver">
                                                         </a> -->
-                                                    </div>
+                                                    <!-- </div>
                                                     </div>
                                                 </form>
                                             </div>
 
                                         </div>
                                     </div>
+                                    </div> -->
+
+
+
+
+                                <!-- MODAL ver-->
+                                &nbsp;&nbsp;&nbsp;
+                                <a data-bs-toggle="modal" data-bs-target="#ModalVer_<?php echo $pedido->id_soli_equi?>" >
+                                  <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"></img>
+                                </a>
+
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalVer_<?php echo $pedido->id_soli_equi?>">
+                                    <div class="modal-dialog modal-md modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                            <!-- Header -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">Informacion del pedido</h2>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Body -->
+                                            <div class="modal-body card-body">
+
+                                                
+                                                    <div class="row ms-1">
+                                                        <div class="col-6">
+                                                                <div>
+                                                                    <img id="outputVer" width="225px" height="225px"
+                                                                    <?php if ($pedido->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
+                                                                        }else {?> src='<?php echo RUTA_Equipacion.$pedido->id_equipacion.'.jpg';} ?>'
+                                                                    >
+                                                                </div>
+                                                        </div>
+
+                                                        <div class="col-6">                               
+                                                            <div class="row w-75 mb-4 ms-3">
+                                                                    <label class="cantidad mb-2" for="cantidad">Cantidad </label>
+                                                                    <input class="form-control ms-3" type="number" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" readonly>
+                                                            </div>
+                                                            <div class="row w-75 ms-3">
+                                                                <label class="talla mb-2" for="talla">Talla </label>
+                                                                <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->talla?> " readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                            <div class="col-6 mb-2">
+                                                                <div class="row w-100 mb-2 ms-1">
+                                                                    <label class="talla mb-2" for="talla">Nombre y apellidos</label>
+                                                                    <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->nombre." ".$pedido->apellidos?> " readonly>
+                                                                </div>
+                                                                <div class="row w-100 mb-2 ms-1">
+                                                                    <label class="talla mb-2" for="talla">Email </label>
+                                                                    <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->email?> " readonly>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-6 mb-5">   
+                                                                <div class="row w-75 mb-2 ms-3">
+                                                                    <label class="talla mb-2" for="talla">Apellidos </label>
+                                                                    <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->apellidos?> " readonly>
+                                                                </div>
+                                                                 <div class="row w-75 mb-2 ms-3">
+                                                                    <label class="talla mb-2" for="talla">Telefono </label>
+                                                                    <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->telefono?> " readonly>
+                                                                </div>
+                                                            
+                                                            </div>      
+                                                        
+                                                        
+                                                    </div>
+                                                        
+                                                       
+                                                    
+
+                                            </div>
                                     </div>
-
-
-      <!--MODAL VER (javascript)-->
-      &nbsp;&nbsp;&nbsp;
-      <img class="icono mt-1" id="btnModal_<?php echo $pedido->id_soli_equi?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir('<?php echo $pedido->id_soli_equi?>');" ></img>
-
-        <!--Ventana-->
-        <div id="<?php echo $pedido->id_soli_equi?>" class="modalVer">
-            <div class="modal-content">
-
-                <!--Header-->
-                <div id="headerVer" class="row">
-                    <h2 class="col-11">Informacion del pedido Nº: <?php echo $pedido->id_soli_equi?></h2>
-                    <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $pedido->id_soli_equi?>" onclick="cerrar('<?php echo $pedido->id_soli_equi?>');">                                              
-                </div><hr>
-
-                <!--Body-->
-                <div id="bodyVer" class="row m-3">
-                    <div class="row">
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="nombre">Nombre</label>
-                            <input  type="text" name="nombre" id="nombre" class="form-control form-control-lg" value="<?php echo $pedido->nombre?>" readonly>
-                        </div>
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="apellidos">Apellidos</label>
-                            <input type="text" name="apellidos" id="apellidos" class="form-control form-control-lg" value="<?php echo $pedido->apellidos?>" readonly>
-                        </div>               
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="email">Email</label>
-                            <input  type="text" name="email" id="email" class="form-control form-control-lg" value="<?php echo $pedido->email?>" readonly>
-                        </div>
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="telefono">Telefono</label>
-                            <input type="text" name="telefono" id="telefono" class="form-control form-control-lg" value="<?php echo $pedido->telefono?>" readonly>
-                        </div>               
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="fecha">Fecha peticion</label>
-                            <input  type="text" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $pedido->fecha_peticion?>" readonly>
-                        </div>
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="talla">Talla</label>
-                            <input type="text" name="talla" id="talla" class="form-control form-control-lg" value="<?php echo $pedido->talla?>" readonly>
-                        </div>               
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="tipo">Tipo</label>
-                            <input  type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $pedido->tipo?>" readonly>
-                        </div>
-                        <div class="col-6 mt-3 mb-3">
-                            <label for="dcantidad">Cantidad</label>
-                            <input type="text" name="cantidad" id="cantidad" class="form-control form-control-lg" value="<?php echo $pedido->cantidad?>" readonly>
-                        </div>            
-                    </div>
-                </div>
-        </div>  
-    </div> 
-
-
-
-                          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    </div>
+                                    </div>
 
 
 
@@ -404,7 +407,7 @@
 
                                      <!-- MODAL CAMBIAR ESTADO ENTREGA -->
                                     <td id="datos_tabla">
-                                            <?php 
+                                            <?php
                                         if ($pedido->recogido == 1){ ?>
                                             <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $pedido->id_soli_equi?>" href="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $pedido->id_soli_equi?>">
                                                 <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
@@ -486,7 +489,7 @@
 
             var filas=document.getElementById("tabla").getElementsByTagName("tbody")[0].rows;
             //console.log(filas);
-            
+
                for(var i=0; i<filas.length; i++){
                    console.log(filas[i]);
                    //console.log(filas[i].innerText.toLocaleUpperCase())
@@ -497,17 +500,17 @@
                            filas[i].style.display = 'none';
                         }
 
-                  
-                
-     
-                //    
-                       
+
+
+
+                //
+
             }
         }
 
 
     window.onload=function(){
-        var filtro=document.getElementById("filtro");        
+        var filtro=document.getElementById("filtro");
         filtro.onkeyup=function(){
             filtrar();
         }

@@ -81,7 +81,7 @@
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="cuenta"class="input-group-text info"><span class="info">CCC</span></label>
-                                <input type="text" name="cuenta" id="cuenta" class="form-control form-control-md" value="<?php echo $datosUser->CCC?>" onchange="return validarModifiSocio()" required>
+                                <input type="text" name="cuenta" id="cuenta" class="form-control form-control-md" value="<?php echo $datosUser->CCC?>" onchange="return validarModifiSocio()">
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="password"class="input-group-text info"><span class="info">Contraseña</span></label>
-                                <input type="password" name="password" id="password" class="form-control form-control-md" required>
+                                <input type="password" name="password" id="password" class="form-control form-control-md">
                                 </div>
                             </div>
                             <div class="col-6 mt-3 mb-3">

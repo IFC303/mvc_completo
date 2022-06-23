@@ -61,7 +61,7 @@ class Equipacion
     }
 
     // *********** GESTION EQUIPACIONES: EDITAR ***********
-    public function editarEquipacion($id_equipacion,$equipacion_modificada){
+    public function editarEquipacion($equipacion_modificada){
           $this->db->query("UPDATE EQUIPACION SET tipo=:tipo, imagen=:imagen, descripcion=:descripcion, precio=:precio, temporada=:temporada WHERE id_equipacion=:id");          
           $this->db->bind(':id',$equipacion_modificada['id']);
           $this->db->bind(':tipo',$equipacion_modificada['nombre']);
