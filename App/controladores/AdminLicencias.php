@@ -151,37 +151,60 @@ class AdminLicencias extends Controlador{
         $this->datos['notificaciones'] = $notific;
         $licencias = $this->licenciaModelo->obtenerSocioLicencia();
         
-        var_dump ($licencias);
-     
-         $archivo="Archivo.csv";
-         $fp=fopen($archivo,'w');
         
-fputcsv($fp,$licencias[0]->tipo);
-        //   foreach ($licencias as $lice){
-           
-           
-        //   }
-          fclose($fp);
-          exit;
+
+        $delimitador = ";";
+        $archivo = "licencias" . date('Y-m-d') . ".csv";
+    
+        //create a file pointer
+        $f = fopen('php://memory', 'w');
+    
+        //nombre columnas
+        $columnas = array('DNI', 'NOMBRE', 'APELLIDOS', 'EMAIL');
+         fputcsv($f, $columnas, $delimitador);
+    
+         // creamos filas con la info
+         foreach ($licencias as $licen) {
+            $fila = array($licen->dni, $licen->nombre, $licen->apellidos, $licen->email);
+            fputcsv($f, $fila, $delimitador);
+        }
+     
+        //al principio del archivo
+        fseek($f, 0);
+    
+     
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $archivo . '";');
+    
+        fpassthru($f);
+
+
+
+        //var_dump($licencias);
+
+        // $archivo="Archivo.csv";
+        // $delimitador=";";
+        // $fp=fopen($archivo,'w');
+
+        //  $columnas = array('DNI', 'NOMBRE', 'APELLIDOS', 'EMAIL');
+        //  fputcsv($fp, $columnas, $delimitador);
+
+        // foreach ($licencias as $licen) {
+        //     $fila = array($licen->dni, $licen->nombre, $licen->apellidos, $licen->email);
+        //     fputcsv($fp, $fila, $delimitador);
+        // }
+
+        // fseek($fp, 0);
+       
+        // //header('Content-Type: text/csv');
+        // //header('Content-Disposition: attachment; filename="' . $archivo . '";');
+
+    
+        //   fclose($fp);
+        //   exit;
 
             
-        //     header("Content-Type: text/csv");
-        //     header("Content-Disposition: attachment; filename="$csv_file"");
-          
-        //     $is_coloumn = true;
 
-        //     if(!empty($this->datos['licencia'])) {
-        //     foreach($this->datos['licencia'] as $lice) {
-        //     if($is_coloumn) {
-        //     fputcsv($fh, array_keys($record));
-
-        //     $is_coloumn = false;
-        //     }
-        //     fputcsv($fh, array_values($record));
-        //     }
-        //     fclose($fh);
-        //     }
-        //     exit;
            
     }
 

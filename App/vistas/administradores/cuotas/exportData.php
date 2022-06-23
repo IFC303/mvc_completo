@@ -1,7 +1,8 @@
 <?php
 
 if (count($datos['cuotas']) > 0) {
-    $delimiter = ",";
+
+    $delimiter = ";";
     $filename = "norma_" . date('Y-m-d') . ".csv";
 
     //create a file pointer
