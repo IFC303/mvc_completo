@@ -212,8 +212,8 @@
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="col-2">
-                                                                    <input type="text" name="marca" id="marca" class="form-control" style="width:100px;" required>
+                                                                <div class="col-3">
+                                                                    <input type="time" name="marca" id="marca" class="form-control" style="width:150px;" step="0.001" required>
                                                                 </div>
                                                                 <div class="col-1">
                                                                     <label for="tiempo">
