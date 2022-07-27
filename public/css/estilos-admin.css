@@ -2,15 +2,15 @@ body{
     background-color: #F5F5F5;
 }
 
-#imgMenu{
-    float: left;
-    margin-left: 20px;
-}
+/*MENU LATERAL */
 
-#fotoMenu{
-    padding: 50px;
-    padding-bottom: 0;
-}
+
+
+
+  
+
+
+
 
 @media (max-width: 600px) {
     #logo{width: 100px;}
@@ -51,25 +51,27 @@ td[id^="m"]:hover {
    background-color: #FFBF1C;
 }
 
-ul[id^="m"]{
+/* ul[id^="m"]{
     text-decoration: none;
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
+} */
 
-li[id^="m"], li[id^="s"]{
+
+
+/* li[id^="m"], li[id^="s"]{
     list-style: none;
     text-decoration: none;
     font-size: 25px;
     letter-spacing: 3px;
     font-family: 'Anton', sans-serif;
-    font-family: 'Doppio One', sans-serif;
-    border: #023EF9 solid 2px; 
+    font-family: 'Doppio One', sans-serif; 
+    border-bottom: #023EF9 solid 1px;
     color: #000000;  
     cursor:pointer;
-    text-align: center;
-}
+   
+} */
 
 li[id^="s"]{
     margin-left: 2%;
@@ -77,10 +79,10 @@ li[id^="s"]{
     background-color: #E6E6E6;
 }
 
-li:hover[id^="m"], li:hover[id^="s"]{
-   background-color: #FFBF1C;
-   color: #000000;
-}
+/* li:hover[id^="m"], li:hover[id^="s"]{
+    background-color: #FFBF1C;
+    color: #000000;
+ } */
 
 
 DIV[id^="color"] {
@@ -104,6 +106,9 @@ sup{
     font-weight: bold;
     font-size: small;
 }
+
+
+
 
 /* modal ver */
 .modalVer{

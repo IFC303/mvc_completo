@@ -612,13 +612,17 @@ INSERT INTO
 VALUES
   (24, 'Jabalina', 'Concursos');
 CREATE TABLE PRUEBA_SOCIO(
+	id int auto_increment,
     id_prueba int,
     id_usuario int,
+    id_test int,
     fecha date,
     marca varchar (50),
-    primary key (id_prueba, id_usuario, fecha),
+    observaciones varchar (200),
+    primary key (id,id_prueba, id_usuario, id_test),
     constraint FK_id_prueba_prueba_socio foreign key (id_prueba) references PRUEBA (id_prueba) on delete cascade on update cascade,
-    constraint FK_id_usuario_prueba_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
+    constraint FK_id_usuario_prueba_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
+	constraint FK_id_test_prueba_socio foreign key (id_test) references TEST (id_test) on delete cascade on update cascade
   );
 CREATE TABLE TEST(
     id_test int primary key AUTO_INCREMENT,

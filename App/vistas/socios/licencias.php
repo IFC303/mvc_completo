@@ -1,5 +1,5 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
-<link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
+
 
 
 <div class="container">
@@ -9,7 +9,7 @@
         </div>
 
 
-        <table id="tabla" class="table table-hover"> 
+        <table id="tabla" class="table"> 
             <!--CABECERA TABLA-->
             <thead>
                 <tr>
@@ -24,7 +24,7 @@
             </thead>
 
             <!--BODY TABLA-->
-            <tbody class="table-light">               
+            <tbody>               
                 <?php foreach ($datos['usuarios'] as $licencias) :?>
                     <tr>
                         <td class="datos_tabla"><?php echo $licencias->num_licencia?></td>

@@ -48,7 +48,7 @@ class Usuario
 
     public function obtenerUsuarioId($id)
     {
-        $this->db->query("SELECT * FROM usuarios WHERE id_usuario = :id");
+        $this->db->query("SELECT * FROM usuario WHERE id_usuario = :id");
         $this->db->bind(':id', $id);
 
         return $this->db->registro();

@@ -12,7 +12,7 @@
 class Entrenador extends Controlador{
 
 
-        // *********** CONSTRUCTOR ***********  
+//**************************************** CONSTRUCTOR *******************************************  
 
             public function __construct(){
                 Sesion::iniciarSesion($this->datos);
@@ -24,16 +24,17 @@ class Entrenador extends Controlador{
                 $this->pruebaModelo = $this->modelo('Prueba');
                 $this->mensajeModelo = $this->modelo('Mensaje');
                 $this->grupoModelo = $this->modelo('Grupo');
+                $this->usuarioModelo = $this->modelo('Usuario');
             }
 
 
-        // *********** PAGINA PRINCIPAL ENTRENADOR ***********  
-
+//**************************************** PANTALLA INICAL ENTRENADOR *******************************************  
+            
             public function index(){
                 $this->vista('entrenadores/inicio', $this->datos);
             }
 
-        // *********** SUBMENU: GRUPOS (funciones) ***********  
+//**************************************** SUBMENU GRUPOS *******************************************  
 
             public function grupos(){
                     
@@ -55,68 +56,70 @@ class Entrenador extends Controlador{
                 }
              
 
-
                 $this->datos['testPruebas'] = $this->grupoModelo->obtenerTestPruebas();
-                //var_dump($this->datos['testPruebas']);
-                $this->datos['marcas'] = $this->pruebaModelo->obtenerMarcas();
-                //var_dump($this->datos['marcas']);
                 $this->datos['miga1']="GRUPOS";
                 $this->vista('entrenadores/grupos', $this->datos);
                 
             }
 
 
+// ------------------------------- ANOTAR MARCAS ------------------------//
+            
             public function marca($id){
                 $this->datos['rolesPermitidos'] = [2];         
                 if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
                     redireccionar('/usuarios');
                 };
+             
 
+                $testPrueba=explode(":",$_POST['idPrueba']);           
 
                  if($_SERVER['REQUEST_METHOD']=='POST'){
    
-                      $nuevaMarca=[
-                         'id_prueba'=> $_POST['idPrueba'],
-                         'id_usuario'=> $id,
-                         'fecha'=> trim($_POST['fecha']),
-                         'marca'=>($_POST['marca'])
-                         
+                      $nuevaMarca=[   
+                        'id_usuario'=> $id,
+                        'id_prueba'=> $testPrueba['1'],
+                        'id_test'=> $testPrueba['0'],
+                        'fecha'=> trim($_POST['fecha']),
+                        'marca'=>($_POST['marca']),                                                
+                        'observaciones'=>($_POST['observaciones'])   
                       ];  
 
-                      //var_dump($nuevaMarca);
                       if ($this->pruebaModelo->agregarMarca($nuevaMarca)) {
                             redireccionar('/entrenador/grupos');
                         }else{
                             die('Algo ha fallado!!!');
                         }  
                  }
-
-
             }
 
+// ------------------------------- VER RESULTADOS DE UN ALUMNO ------------------------//
+
+            public function gru_res($alumno){
+                $id_entrenador=$this->datos['usuarioSesion']->id_usuario;
+
+                $this->datos['un_alu'] = $this->pruebaModelo->obtenermarcasAlumno($alumno);
+                $this->datos['aluInfo'] = $this->usuarioModelo->obtenerUsuarioId($alumno);
+                $this->vista('entrenadores/gru_res', $this->datos);
+            }
+
+// ------------------------------- BORRAR RESULTADO ------------------------//
 
             public function borrarMarca($id){
+              
                 $this->datos['rolesPermitidos'] = [2];         
                 if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
                     redireccionar('/usuarios');
                 };
 
 
-                 if($_SERVER['REQUEST_METHOD']=='POST'){
-   
-                      $borrarMarca=[
-                         'id_prueba'=> $_POST['mBorrar'],
-                         'id_usuario'=> trim($_POST['idUsu']),                 
-                      ];  
-                      
-                      if ($this->pruebaModelo->borrarMarcaUsuario($borrarMarca)) {
-                            redireccionar('/entrenador/grupos');
-                        }else{
-                            die('Algo ha fallado!!!');
-                        }  
-                 }
-
-
+                  if($_SERVER['REQUEST_METHOD']=='POST'){                     
+                       if ($this->pruebaModelo->borrarMarcaUsuario($id)) {
+                             redireccionar('/entrenador/gru_res/'.$_POST['idUsu']);
+                         }else{
+                             die('Algo ha fallado!!!');
+                         }  
+                  }
             }
 
 
@@ -178,7 +181,7 @@ class Entrenador extends Controlador{
                         
                          $this->datos['nuevoMiga'] = "TEST";
                          $this->datos['pruebas'] = $prueba;
-                         $this->vista('entrenadores/nuevo_test', $this->datos);
+                         $this->vista('entrenadores/new_t', $this->datos);
                     }
             }
 

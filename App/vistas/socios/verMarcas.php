@@ -1,5 +1,5 @@
 <?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
-<link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
+
 
 
 <div class="container">

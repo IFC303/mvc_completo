@@ -20,7 +20,7 @@ class Test
 
     public function agregarSoloTest($datos){
         
-        $this->db->query("INSERT INTO TEST (nombreTest) VALUES (:nombre)");
+        $this->db->query("INSERT INTO TEST (nombreTest,fecha_alta) VALUES (:nombre, CURDATE())");
         $this->db->bind(':nombre', $datos['nombreTest']);
         
         if ($this->db->execute()){

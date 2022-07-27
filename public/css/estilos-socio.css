@@ -1,7 +1,7 @@
 a:link, a:visited, a:active {
     text-decoration:none;
 }
- p[id^="p"] {
+p[id^="p"] {
     color:  #023EF9;
     border: solid;
     width: 200px;

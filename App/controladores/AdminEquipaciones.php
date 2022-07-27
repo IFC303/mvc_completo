@@ -70,10 +70,11 @@ public function nuevaEquipacion(){
             'foto'=>$_FILES['subirFoto']['name']
         ];
         
-       
+
 
            if($indice=$this->equipacionModelo->nuevaEquipacion($equipacionNueva)){
-                 $directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+                 //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+                 $directorio="C:/xampp/htdocs/tragamillas/public/img/fotos_equipacion/";
                 
                  copy ( $_FILES['subirFoto']['tmp_name'],$directorio.$indice.'.jpg') ; 
                  //damos permisos al archivo para poder eliminarlo

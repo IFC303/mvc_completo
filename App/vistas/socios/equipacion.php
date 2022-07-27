@@ -17,6 +17,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><?php echo $equipacion->tipo?></h5>
                                             <h5><span class="badge bg-primary"><?php echo $equipacion->precio?> €</span></h5>
+                                          
                                         </div>
                                     </a>
                                     </div>

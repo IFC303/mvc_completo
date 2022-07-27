@@ -24,7 +24,7 @@ class Mensaje
    
 
     public function obtenerEmailGrupo(){
-        $this->db->query("SELECT ENTRENADOR_GRUPO.id_usuario, SOCIO_GRUPO.id_grupo, USUARIO.nombre, apellidos,email 
+        $this->db->query("SELECT ENTRENADOR_GRUPO.id_usuario, SOCIO_GRUPO.id_grupo, USUARIO.nombre, apellidos,SOCIO_GRUPO.id_usuario,email 
         from USUARIO,ENTRENADOR_GRUPO,SOCIO_GRUPO 
         where USUARIO.id_usuario=SOCIO_GRUPO.id_usuario and ENTRENADOR_GRUPO.id_grupo=SOCIO_GRUPO.id_grupo");
         return $this->db->registros();   

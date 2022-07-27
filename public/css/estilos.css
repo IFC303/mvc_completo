@@ -1,3 +1,95 @@
+/*------------------ ESTILO LOGIN-----------------*/
+
+#ventanaLogin{
+    width:530px;
+    height:350px; 
+  }
+
+  #corredorLogin{
+    width:175px; 
+    height:80px;
+  }
+    #letrasLogin{
+        width:250px;
+        height:70px;
+    }
+  h3{ 
+    color:white;
+  }
+
+  #bodyLogin{
+    background-image: url("http://localhost/tragamillas/public/img/icons/pista3.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
+  }
+
+  .boton{
+    background-color:#023ef9;
+    color:white;
+  }
+
+
+/*------------------ ESTILO HEADER -----------------*/
+
+#header{
+    background-color:#CCE6FA;
+}
+#logoHeader{
+    width:150px;
+}
+#tituloHeader{
+    font-family: 'Anton',sans-serif; 
+    color: #023EF9; 
+    font: bold; 
+    letter-spacing: 5px; 
+    padding:25px;
+}
+#salirHeader{
+    width:50px;
+    height:50px;
+}
+
+
+
+/* -----------------MENU LATERAL ----------------- */
+.home{
+    background-color:#CCE6FA;
+}
+#menu1{
+    background-color:white;
+}
+
+.menu1 a:not(.home){
+    padding-top:15px;
+    border-bottom:#CCE6FA solid 2px;
+}
+
+#menu1 a:hover:not(#home) {
+    background-color: #FFBF1C; 
+}
+
+#fotoMenu{
+    padding: 50px;
+    padding-bottom: 0;
+}
+
+.imgMenu{
+    margin-left: 33px;
+    width: 40px;
+    height: 40px;
+} 
+
+.tMenu{
+ padding-left: 20px;
+ color:black;
+ font-size: 22px;
+ font-family: 'Anton', sans-serif;
+ font-family: 'Doppio One', sans-serif;
+} 
+
+
+/*---------------------------- ESTILOS TABLAS -------------------------------------*/
 
 /*TITULO TABLA */
 #titulo{
@@ -7,23 +99,84 @@
     text-align:center;
 }
 
+/*ICONOS ACCIONES */
+.icono{
+    width:20px;
+    height:20px;
+}
+
+
 /*ESTILOS TABLA */
 #tabla{
-    border:solid 2px #023ef9; 
+   /* border:solid 2px #023ef9; */
     margin:auto;
     width: 1000px;
 }
 thead{
-    border-bottom:solid #023ef9
+    border-bottom:solid #023ef9;
 }
+tr:nth-child(even) {
+    background-color: #CCE6FA;
+}
+
 thead tr{
     background-color:#023ef9; 
     color:white;
     text-align:center;
-}
+} 
 .datos_tabla{
     text-align:center;
 }    
+
+
+/*ESTILOS VENTANAS MODALES */
+.modal-title{
+    color:#023ef9;
+}
+
+label{
+   color:#023ef9;
+}
+
+a{
+    color:black;
+    text-decoration: none;
+}
+
+.modalVer{  
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding: 100px 100px 0px 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modalBorrar{  
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding: 100px 100px 0px 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+}
+
+
+#headerVer h2{
+    padding: 30px;
+    color:#023ef9;
+}
+
 
 /* BOTONES */
 #confirmar{
@@ -37,11 +190,16 @@ thead tr{
     border-color:#023ef9;
 }
 
-
-h2,.info{
+label,h2,.info{
     color:#023ef9;
 }
 
 #ventana{
     margin: auto;
 }
+
+
+
+
+
+

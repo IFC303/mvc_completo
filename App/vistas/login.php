@@ -6,70 +6,82 @@
   <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/fonts/ionicons.min.css">
   <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/css/Login-Form-Dark.css">
   <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/assets/css/styles.css">
+
+  <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
 </head>
 
 
-<style>
-  #ventana{
-    width:530px;
-    height:320px; 
-  }
 
-  h3{ 
-    color:white;
-  }
+<body id="bodyLogin" class="m-0 vh-100 row justify-content-center align-items-center">
 
-  body{
-    background-image: url('<?php echo RUTA_Icon?>pista.jpg');
-    background-size:cover;
-    background-repeat:no-repeat;
-    background-position:center center;
-  }
+  <div id="ventanaLogin" class="card bg-white card-center bg-opacity-50 col-auto">
+  
+      <form method="post" >
 
-  .boton{
-    background-color:#023ef9;
-    color:white;
+          <div class="row">
+            <div class="d-flex ">
+              <img class="mt-4" id="corredorLogin" src="<?php echo RUTA_Foto?>corredor.png">
+              <img class="mt-4" id="letrasLogin" src="<?php echo RUTA_Foto?>tragamillas_alcañiz.png">          
+            </div>                  
+          </div>
 
-  }
+          <div class="row justify-content-center">
+            <div class="input-group mb-3 w-75">
+                <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
+                <input type="email" name="email" id="email" class="form-control form-control-md bg-white" placeholder="Email" required>
+            </div>
+          </div>
 
-</style>
+          <div class="row justify-content-center">
+            <div class="input-group mb-4 w-75">
+                <label for="password"class="input-group-text"><img src="<?php echo RUTA_Icon?>llave.svg" width="30px"></label>
+                <input type="password" name="passw" id="passw" class="form-control form-control-md" placeholder="Password" required>
+            </div>
+          </div>
+              
+          <div class="d-flex justify-content-center">          
+              <button type="submit" class="btn boton w-75"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
+          </div>
+      </form>
+  
 
 
+          <div class="row ms-2">
+            <a class="mt-1 ms-5" data-bs-toggle="modal" data-bs-target="#recuperar" href="#"><strong>Recuperar contraseña</strong></a>
+          </div>
+
+          <!-- VENTANA -->
+          <div class="modal" id="recuperar">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content modal-content-md">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h6>Escribe tu email y te enviaremos un correo con tu nueva contraseña</h6>
+                    <div class="row justify-content-center">
+                      <div class="input-group mt-3 mb-3 w-75">
+                        <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
+                        <input type="email" name="email" id="email" class="form-control form-control-md bg-white" placeholder="Email" required>
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                      <form action="<?php echo RUTA_URL?>/adminEntidades/borrar/<?php echo $entidad->id_entidad?>" method="post">
+                          <input type="submit" id="confirmar" class="btn" value="Confirmar">
+                      </form>
+                </div>
+          </div>
+          </div>
+          </div>
 
 
-<body class="m-0 vh-100 row justify-content-center align-items-center">
-
-
-  <div id="ventana" class="card bg-white card-center bg-opacity-50 col-auto">
-  <form method="post" >
-
-      <div class="row">
-        <div class="d-flex ">
-          <img class="mt-4" style="width:175px; height:80px" src="<?php echo RUTA_Foto?>corredor.png">
-          <img class="mt-4" src="<?php echo RUTA_Foto?>tragamillas_alcañiz.png" width="250px" height="70px">          
-        </div>                  
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="input-group mb-3 w-75">
-            <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
-            <input type="email" name="email" id="floatingInput" class="form-control form-control-md bg-white" placeholder="Email" required>
-        </div>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="input-group mb-4 w-75">
-            <label for="password"class="input-group-text"><img src="<?php echo RUTA_Icon?>llave.svg" width="30px"></label>
-            <input type="password" name="passw" id="passw" class="form-control form-control-md" placeholder="Password" required>
-        </div>
-      </div>
-      
-     
-      <div class="d-flex justify-content-center">          
-          <button type="submit" class="btn boton w-75"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
-      </div>
-      
-  </form>
   </div>
  
 
@@ -86,13 +98,15 @@
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
           <use xlink:href="#exclamation-triangle-fill" />
         </svg>
-        <div>
-          Intentelo de nuevo. <strong>El Email y la contraseña no coinciden</strong>
-        </div>
+        <div>Intentelo de nuevo. <strong>El Email y la contraseña no coinciden</strong></div>
       </div>
 
     <?php endif ?>
-  </section>
+
+
   <script src="<?php echo RUTA_URL ?>/public/assets/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
+
+
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
