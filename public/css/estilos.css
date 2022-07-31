@@ -18,7 +18,7 @@
   }
 
   #bodyLogin{
-    background-image: url("http://localhost/tragamillas/public/img/icons/pista3.jpg");
+    background-image: url("http://localhost/tragamillas/public/img/icons/pista2.jpg");
     background-size:cover;
     background-repeat:no-repeat;
     background-position:center center;
@@ -30,74 +30,102 @@
   }
 
 
-/*------------------ ESTILO HEADER -----------------*/
-
-#header{
-    background-color:#CCE6FA;
-}
-#logoHeader{
-    width:150px;
-}
-#tituloHeader{
-    font-family: 'Anton',sans-serif; 
-    color: #023EF9; 
-    font: bold; 
-    letter-spacing: 5px; 
-    padding:25px;
-}
-#salirHeader{
-    width:50px;
-    height:50px;
-}
-
-
-
 /* -----------------MENU LATERAL ----------------- */
-.home{
-    background-color:#CCE6FA;
-}
+
 #menu1{
-    background-color:white;
+    width: 20% ; 
+    float:left;
+    height:100vh;
+    /*background-color:#4e83c9 */
+     /*background-color:#63a2e5*/
+     background-color: #0070c6;
 }
 
-.menu1 a:not(.home){
-    padding-top:15px;
-    border-bottom:#CCE6FA solid 2px;
+#home{   
+    border-bottom:solid white 5px;
+    background-color: #0b2a85;
+    padding-bottom:20px
 }
 
-#menu1 a:hover:not(#home) {
-    background-color: #FFBF1C; 
+#imgHome{
+    margin-left:20px;
+    width:67px; 
+    height:67px;
+    margin-top:-30px
 }
 
-#fotoMenu{
-    padding: 50px;
-    padding-bottom: 0;
+.tHome{
+    padding-left: 13px;
+    color:white;
+    font-size:45px;
 }
 
 .imgMenu{
     margin-left: 33px;
     width: 40px;
     height: 40px;
+    margin-top:-10px;
+    margin-bottom:5px
 } 
 
 .tMenu{
- padding-left: 20px;
- color:black;
+ padding-left: 25px;
+ color:white;
  font-size: 22px;
  font-family: 'Anton', sans-serif;
  font-family: 'Doppio One', sans-serif;
 } 
 
 
+.menu1 a:not(.home){
+    padding-top:15px;
+    border-bottom:white solid 5px;
+}
+
+#menu1 a:hover{
+    background-color: #FFBF1C; 
+}
+
+
+/*------------------ ESTILO HEADER -----------------*/
+
+header{
+    height: 110px;
+    padding: 20px;
+    /* text-align: center; */
+    
+}
+
+#tHead{
+    font-family: 'Anton',sans-serif; 
+    color: #0b2a85;
+    font-size: 40px; 
+    letter-spacing: 5px; 
+    margin-left:100px;
+
+}
+
+/*------------------ ESTILO CONTENIDO / TABLA -----------------*/
+
+
+article{
+    width:79%;
+    float:left
+}
+
+#tabla{
+   /* border:solid 2px #023ef9; */
+    margin:auto;
+    width: 1000px;
+    margin-top: 50px;
+}
+
+
+
+
 /*---------------------------- ESTILOS TABLAS -------------------------------------*/
 
-/*TITULO TABLA */
-#titulo{
-    font-family: 'Anton',sans-serif; 
-    color: #023ef9; 
-    letter-spacing: 5px;
-    text-align:center;
-}
+
 
 /*ICONOS ACCIONES */
 .icono{
@@ -107,11 +135,7 @@
 
 
 /*ESTILOS TABLA */
-#tabla{
-   /* border:solid 2px #023ef9; */
-    margin:auto;
-    width: 1000px;
-}
+
 thead{
     border-bottom:solid #023ef9;
 }
@@ -127,6 +151,11 @@ thead tr{
 .datos_tabla{
     text-align:center;
 }    
+
+
+
+
+
 
 
 /*ESTILOS VENTANAS MODALES */
@@ -176,6 +205,11 @@ a{
     padding: 30px;
     color:#023ef9;
 }
+
+
+
+
+
 
 
 /* BOTONES */

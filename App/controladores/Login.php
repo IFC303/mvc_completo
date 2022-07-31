@@ -13,6 +13,7 @@ class Login extends Controlador
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->datos['email'] = trim($_POST['email']);
             $this->datos['passw'] = md5(trim($_POST['passw']));
+            
             $usuarioSesion = $this->loginModelo->loginEmail($this->datos['email'], $this->datos['passw']);
             if (isset($usuarioSesion) && !empty($usuarioSesion)) {       // si tiene datos el objeto devuelto entramos
                 Sesion::crearSesion($usuarioSesion);

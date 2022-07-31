@@ -1,17 +1,23 @@
-<?php require_once RUTA_APP . '/vistas/inc/header.php' ?>
-<?php require_once RUTA_APP . '/vistas/inc/head_en.php' ?>
+
+<?php require_once RUTA_APP . '/vistas/inc/navE.php' ?>
+
+
+<header>              
+    <div class="row">
+        <div class="col-10"><span id="tHead">Test</span></div>     
+        <div class="col-2">
+            <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
+                <span style="font-size:25px;color:white">Logout</span>
+                <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+            </a>
+        </div>
+    </div>                                 
+</header>
 
 
 
-        <div class="container">
-
-            <div class="row" style="text-align:center">
-                <div class="col-12"><h4 id="titulo">Gestion de test</h4></div>
-            </div>
-            
-
-            <div id="tabla">
-            <table class="table table-hover" >
+            <article>
+            <table id="tabla" class="table"> 
 
                     <!--CABECERA TABLA-->
                     <thead>
@@ -181,14 +187,14 @@
                     <?php endforeach ?>
                     </tbody>
             </table>
-            </div>
+                                                        </article>
 
                 <!--NUEVO TEST-->
                 <div class="col text-center">
                     <a class="btn" id="confirmar" href="<?php echo RUTA_URL?>/entrenador/nuevo_test/">Nuevo test</a>
                 </div>
 
-        </div>
+     
 
 
 

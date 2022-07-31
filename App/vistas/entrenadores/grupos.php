@@ -1,9 +1,20 @@
-<?php require_once RUTA_APP . '/vistas/inc/header.php' ?>
-<?php require_once RUTA_APP . '/vistas/inc/head_en.php' ?>
+
+<?php require_once RUTA_APP . '/vistas/inc/navE.php' ?>
 
 
+<header>              
+    <div class="row">
+        <div class="col-10"><span id="tHead">Grupos</span></div>     
+        <div class="col-2">
+            <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
+                <span style="font-size:25px;color:white">Logout</span>
+                <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+            </a>
+        </div>
+    </div>                                 
+</header>
 
-<div class="container">
+
 
                  
                         <form method="post" action="<?php echo RUTA_URL ?>/entrenador/grupos">
@@ -19,13 +30,12 @@
                                     <?php }
                                     ?>
                                 </select>                                                    
-                        </form>   
-                        <h4 id="titulo">Gestion de grupos y marcas</h4>                                      
+                        </form>                              
           
 
 
-            <div class="tabla">
-            <table class="table table-hover">
+             <article>
+            <table id="tabla" class="table"> 
 
                     <!--CABECERA TABLA-->
                     <thead>
@@ -125,9 +135,9 @@
                         <?php endforeach ?>
                     </tbody>
                 </table>
-                </div>
+                </article>
 
- </div>
+
                 <!--VER TODOS LOS RESULTADOS DEL GRUPO-->
                 <!-- <div class="col text-center">
                         <a class="btn" id="añadir" href="<?php echo RUTA_URL ?>/entrenador/verTodos/">Ver todos</a>

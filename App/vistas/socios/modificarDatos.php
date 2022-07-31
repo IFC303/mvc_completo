@@ -1,23 +1,26 @@
-<?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/nav.php' ?>
 
 
-<style>
-        label[id^="error"] {
-            color: red;
-            font-size: 15px;
-        }      
-
-</style>
-
-    
+        <header>              
+            <div class="row">
+                <div class="col-10"><span id="tHead">Mis datos</span></div>     
+                <div class="col-2">
+                    <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
+                        <span style="font-size:25px;color:white">Logout</span>
+                        <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+                    </a>
+                </div>
+            </div>                                 
+        </header>
 
 
 <?php foreach ($datos['usuarios'] as $datosUser) : ?>
 
 
 <div id="ventana" class="card bg-light card-center w-75">
-    <h2 class="card-header">Modificacion de datos</h2>
+ 
         <form method="POST" class="card-body" ENCTYPE="multipart/form-data" action="<?php echo RUTA_URL ?>/socio/modificarDatos" onsubmit="return validarModifiSocio()">       
+            
             <div class="container">
                 <div class="row">
 
@@ -28,6 +31,7 @@
                                 ?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;
                                 }else {?> src='<?php echo RUTA_ImgDatos.$datosUser->id_usuario.'.jpg';} ?>' width="300" height="320">
                         </div>
+                        
                         <div class="mt-3">
                             <input  accept="image/*" type="file"  onchange="loadFile(event)" id="editarFoto" name="foto">
                         </div>
@@ -39,13 +43,13 @@
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="nombre" class="input-group-text"><span class="info">Nombre</span></label>
-                                <input type="text" name="nombre" id="nombre" class="form-control form-control-md" value="<?php echo $datosUser->nombre?>" required>
+                                <input type="text" name="nombre" id="nombre" class="form-control form-control-md" value="<?php echo $datosUser->nombre?>" readonly>
                                 </div>
                             </div>
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="apellidos" class="input-group-text info"><span class="info">Apellidos</span></label>
-                                <input type="text" name="apellidos" id="apellidos" class="form-control form-control-md" value="<?php echo $datosUser->apellidos?>" required>
+                                <input type="text" name="apellidos" id="apellidos" class="form-control form-control-md" value="<?php echo $datosUser->apellidos?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +79,7 @@
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="dniCom"class="input-group-text info"><span class="info">Dni</span></label>
-                                <input type="text" name="dni" id="dniCom" class="form-control form-control-md" value="<?php echo $datosUser->dni?>" onchange="return validarModifiSocio()" required>
+                                <input type="text" name="dni" id="dniCom" class="form-control form-control-md" value="<?php echo $datosUser->dni?>" onchange="return validarModifiSocio()" readonly>
                                 </div>
                             </div>
                             <div class="col-6 mt-3 mb-3">
@@ -89,12 +93,12 @@
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="password"class="input-group-text info"><span class="info">Contraseña</span></label>
-                                <input type="password" name="password" id="password" class="form-control form-control-md">
+                                <input type="text" name="password" id="password" class="form-control form-control-md">
                                 </div>
                             </div>
                             <div class="col-6 mt-3 mb-3">
                                 <div class="input-group">
-                                <label for="talla"class="input-group-text info"><span class="info">Talla</span></label>
+                                <label for="talla"class="input-group-text info"><span class="info">Talla camiseta</span></label>
                                 <input type="text" name="talla" id="talla" class="form-control form-control-md" value="<?php echo $datosUser->talla?>" required>
                                 </div>
                             </div>

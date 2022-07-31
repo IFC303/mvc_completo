@@ -29,7 +29,7 @@
                             <button type="button" class="btn-close text-reset me-3" data-bs-dismiss="offcanvas"></button>
                         </div>                              
                         <!--OPCIONES-->
-                        <a href="<?php echo RUTA_URL ?>/socio/modificarDatos" class="nav-link align-middle">
+                        <a href="<?php echo RUTA_URL ?>/socio/modificarDatos" class="nav-link align-middle" >
                             <img class="imgMenu" src="<?php echo RUTA_Icon ?>editar.svg"><span class="tMenu">MIS DATOS</span>
                         </a>                          
                         <a href="<?php echo RUTA_URL ?>/socio/licencias" class="nav-link align-middle">
@@ -42,7 +42,7 @@
                             <img class="imgMenu" src="<?php echo RUTA_Icon ?>carrito.svg"><span class="tMenu">EQUIPACION</span>
                         </a>
                         <a href="<?php echo RUTA_URL ?>/socio/escuela" class="nav-link align-middle">
-                            <img class="imgMenu" src="<?php echo RUTA_Icon ?>escuela.png"><span class="tMenu">ESCUELA</span>
+                            <img class="imgMenu" src="<?php echo RUTA_Icon ?>escuela.svg"><span class="tMenu">ESCUELA</span>
                         </a>   
                                                           
                 </div>

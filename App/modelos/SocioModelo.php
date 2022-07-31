@@ -4,52 +4,31 @@ class SocioModelo
 {
     private $db;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Base;
     }
 
 
-    public function obtenerDatosSocio()
-    {
+    public function obtenerDatosSocio(){
         $this->db->query("SELECT * FROM USUARIO WHERE USUARIO.id_rol = '3'");
-
         return $this->db->registros();
     }
 
 
-    public function obtenerDatosSocioId($idUsuarioSesion)
-    {
+    public function obtenerDatosSocioId($idUsuarioSesion){
         $this->db->query("SELECT * FROM USUARIO WHERE USUARIO.id_rol = '3' AND USUARIO.id_usuario = '$idUsuarioSesion'");
-
         return $this->db->registros();
     }
+
+
+    /*********** ACTUALIZAR DATOS SOCIO **********/
 
     public function actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser){
 
-        $this->db->query("UPDATE USUARIO SET dni=:dni ,nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, CCC=:CCC, passw=:passw, talla=:talla, foto=:foto
+        $this->db->query("UPDATE USUARIO SET email=:email, telefono=:telefono, direccion=:direccion, CCC=:CCC, passw=:passw, talla=:talla, foto=:foto
                            WHERE id_usuario = '$idUsuarioSesion';");
 
-
-        //print_r($datosUser); exit();
-        //vinculamos los valores
-        if ($editarDatos['dniEdit']=="") {
-            $this->db->bind(':dni', $datosUser[0]->dni);
-        }else {
-            $this->db->bind(':dni', $editarDatos['dniEdit']);
-        }
-
-        if ($editarDatos['nombreEdit']=="") {
-            $this->db->bind(':nombre', $datosUser[0]->nombre);
-        }else {
-            $this->db->bind(':nombre', $editarDatos['nombreEdit']);
-        }
-        
-        if ($editarDatos['apellidosEdit']=="") {
-            $this->db->bind(':apellidos', $datosUser[0]->apellidos);
-        }else {
-            $this->db->bind(':apellidos', $editarDatos['apellidosEdit']);
-        }
+        //print_r($editarDatos); exit();
         
         if ($editarDatos['emailEdit']=="") {
             $this->db->bind(':email', $datosUser[0]->email);
@@ -68,7 +47,6 @@ class SocioModelo
         }else {
             $this->db->bind(':direccion', $editarDatos['direccion']);
         }
-
 
         if ($editarDatos['cccEdit']=="") {
             $this->db->bind(':CCC', $datosUser[0]->CCC);
@@ -94,13 +72,14 @@ class SocioModelo
             $this->db->bind(':foto', $editarDatos['fotoEdit']);
         }
         
-        //ejecutamos
         if ($this->db->execute()) {
             return true;
         } else {
             return false;
         }
     }
+
+
 
     public function obtenerMarcas()
     {

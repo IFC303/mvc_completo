@@ -21,7 +21,7 @@
           <div class="row">
             <div class="d-flex ">
               <img class="mt-4" id="corredorLogin" src="<?php echo RUTA_Foto?>corredor.png">
-              <img class="mt-4" id="letrasLogin" src="<?php echo RUTA_Foto?>tragamillas_alcañiz.png">          
+              <img class="mt-4" id="letrasLogin" src="<?php echo RUTA_Foto?>todo.png">          
             </div>                  
           </div>
 
@@ -39,7 +39,7 @@
             </div>
           </div>
               
-          <div class="d-flex justify-content-center">          
+          <div class="d-flex justify-content-center" >          
               <button type="submit" class="btn boton w-75"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
           </div>
       </form>

@@ -1,44 +1,22 @@
-<?php require_once RUTA_APP . '/vistas/inc/header-socio-paginas.php' ?>
-<div class="container mt-3">
-    <style>
-        /* label[id^="error"] {
-            color: red;
-            font-size: 15px;
-        }
-
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
+<?php require_once RUTA_APP . '/vistas/inc/nav.php' ?>
   
-        input[type=number] {
-            -moz-appearance: textfield;
-        } */
-#ventana{
-            margin: auto;
-        }
-        label, h2{
-           color:#023ef9;
-        }
-      
-        .btn{
-            background-color: #023ef9; 
-            color:white;
-        }
 
-        #botonVolver{
-            background-color:white; 
-            color:#023ef9;
-            border-color:#023ef9;
-        }
-
-    </style>
+        <header>              
+            <div class="row">
+                <div class="col-10"><span id="tHead">Inscripciones</span></div>     
+                <div class="col-2">
+                    <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
+                        <span style="font-size:25px;color:white">Logout</span>
+                        <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+                    </a>
+                </div>
+            </div>                                 
+        </header>
 
 
 
 <div id="ventana" class="card bg-light w-75">
-<h2 class="card-header">Inscripción escuela</h2>
+
 
     <form method="post" ENCTYPE="multipart/form-data" class="card-body">
         <div class="row">
@@ -95,4 +73,6 @@
     </div>
 
     <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+
     <script src="<?php echo RUTA_URL ?>/public/js/validar.js"></script>
