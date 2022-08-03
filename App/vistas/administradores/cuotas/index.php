@@ -1,4 +1,4 @@
-<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
 

@@ -225,53 +225,55 @@
 
 
 
-<!------------------------------ MENU LATERALES --------------------------->
+<!------------------------------ SUBMENUS LATERALES --------------------------->
 
 <!-- USUARIOS -->
- <div class="menu1 offcanvas offcanvas-start" id="menuUsu">
-    <div class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon ?>usuario.svg" width="50" height="50">
-        <h1 class="offcanvas-title">USUARIOS</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>      
-    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="tMenu nav-link">ADMIN</a>          
-    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="tMenu nav-link ">ENTRENADORES</a>            
-    <a href="<?php echo RUTA_URL ?>/admin/crud_socios" class="tMenu nav-link ">SOCIOS</a>        
+ <div class="menu1 offcanvas offcanvas-start" id="menuUsu" style="background-color:#0070c6;">
+    <div id="home" class="offcanvas-header home">
+        <img src="<?php echo RUTA_Icon ?>usuario.png" width="50" height="50">
+        <h1 class="offcanvas-title text-white">USUARIOS</h1>
+        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>  
+   <div>
+    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="tMenu nav-link text-white">ADMIN</span> </a>          
+    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="tMenu nav-link text-white">ENTRENADORES</a>            
+    <a href="<?php echo RUTA_URL ?>/admin/crud_socios" class="tMenu nav-link text-white">SOCIOS</a>  
+    </div>   
 </div>
 
 <!-- SOLICITUDES -->
-<div class=" menu1 offcanvas offcanvas-start" id="menuSol">
-    <div class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon ?>solicitudes.svg" width="50" height="50">
-        <h1 class="offcanvas-title">SOLICITUDES</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+<div class=" menu1 offcanvas offcanvas-start" id="menuSol" style="background-color:#0070c6;">
+    <div id="home" class="offcanvas-header home">
+        <img src="<?php echo RUTA_Icon ?>solicitudes.png" width="50" height="50">
+        <h1 class="offcanvas-title text-white">SOLICITUDES</h1>
+        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
-    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="tMenu nav-link">SOCIOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
-    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class=" tMenu nav-link ">GRUPOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>         
-    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="tMenu nav-link ">EVENTOS<span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
+    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="tMenu nav-link text-white">SOCIOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
+    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class=" tMenu nav-link text-white ">GRUPOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>         
+    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
 </div>
 
 <!-- EQUIPACIONES -->
-<div class="menu1 offcanvas offcanvas-start" id="menuEqui">
-    <div class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon?>carrito.svg" width="50" height="50">
-        <h1 class="offcanvas-title">EQUIPACIONES</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+<div class="menu1 offcanvas offcanvas-start" id="menuEqui" style="background-color:#0070c6;">
+    <div id="home" class="offcanvas-header home">
+        <img src="<?php echo RUTA_Icon?>carrito.png" width="50" height="50">
+        <h1 class="offcanvas-title text-white">EQUIPACIONES</h1>
+        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
-    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="tMenu nav-link">PEDIDOS <span class="badge bg-danger" id="notSoliGrupos"><?php print_r($datos['notificaciones'][3]);  ?></span></a>
-    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="tMenu nav-link">GESTION</a>   
+    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="tMenu nav-link text-white">PEDIDOS <span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][3]);  ?></span></a>
+    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="tMenu nav-link text-white">GESTION</a>   
 </div>
 
 <!-- FACTURACION -->
-<div class=" menu1 offcanvas offcanvas-start" id="menuFac">
-    <div class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon ?>euro.svg" width="50" height="50">
-        <h1 class="offcanvas-title">FACTURACION</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>            
+<div class=" menu1 offcanvas offcanvas-start" id="menuFac" style="background-color:#0070c6;">
+    <div id="home" class="offcanvas-header home">
+        <img src="<?php echo RUTA_Icon ?>euro.png" width="50" height="50">
+        <h1 class="offcanvas-title text-white">FACTURACION</h1>
+        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>            
     </div> 
-    <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="tMenu nav-link">INGRESOS</a>          
-    <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="tMenu nav-link">GASTOS</a>      
-    <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas" class="tMenu nav-link">CUOTAS</a>      
+    <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="tMenu nav-link text-white">INGRESOS</a>          
+    <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="tMenu nav-link text-white">GASTOS</a>      
+    <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas" class="tMenu nav-link text-white">CUOTAS</a>      
 </div>
 
 

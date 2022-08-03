@@ -82,6 +82,9 @@
     border-bottom:white solid 5px;
 }
 
+.menu1 a:hover{
+    background-color: #FFBF1C; 
+}
 #menu1 a:hover{
     background-color: #FFBF1C; 
 }

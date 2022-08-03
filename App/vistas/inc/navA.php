@@ -32,37 +32,37 @@
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 
             </a>                                     
 
-            <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link">
+            <a href="<?php echo RUTA_URL ?>" class="nav-link">
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">USUARIOS</span>
             </a>                          
-            <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link" >
+            <a href="<?php echo RUTA_URL ?>" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">SOLICITUDES</span>
             </a>                           
-            <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link">                           
+            <a href="<?php echo RUTA_URL ?>/adminGrupos" class="nav-link">                           
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">GRUPOS</span>                                                          
             </a>   
-            <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link">
+            <a href="<?php echo RUTA_URL ?>/adminEventos" class="nav-link">
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">EVENTOS</span>
             </a>                          
-            <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link" >
+            <a href="<?php echo RUTA_URL ?>/adminLicencias" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">LICENCIAS</span>
             </a>                           
-            <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link">                           
+            <a href="<?php echo RUTA_URL ?>/adminEntidades" class="nav-link">                           
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">ENTIDADES</span>                                                          
             </a>         
-            <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link">
+            <a href="<?php echo RUTA_URL ?>" class="nav-link">
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">EQUIPACIONES</span>
             </a>                          
-            <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link" >
+            <a href="<?php echo RUTA_URL ?>" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">TEMPORADAS</span>
             </a>                           
-            <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link">                           
+            <a href="<?php echo RUTA_URL ?>" class="nav-link">                           
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">RANKINGS</span>                                                          
             </a>     
-            <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link">
+            <a href="<?php echo RUTA_URL ?>" class="nav-link">
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">FACTURACION</span>
             </a>                          
-            <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link" >
+            <a href="<?php echo RUTA_URL ?>/adminMensajeria" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">MENSAJERIA</span>
             </a>                           
                           
