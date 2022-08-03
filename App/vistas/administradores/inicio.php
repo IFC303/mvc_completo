@@ -86,7 +86,7 @@
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
                 <div id="colorUsu" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuUsu">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>usuario.svg" width="60" height="60"></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>usuario.png" width="60" height="60"></div>
                         <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">USUARIOS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                     </div>                              
                 </div>     
@@ -95,7 +95,7 @@
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
                 <div id="colorSoli" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuSol">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>solicitudes.svg" width="60" height="60"></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>solicitudes.png" width="60" height="60"></div>
                         <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">SOLICITUDES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                     </div>                              
                 </div>     
@@ -105,7 +105,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminGrupos">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>grupos.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>grupos.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">GRUPOS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -122,7 +122,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminEventos">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>eventos.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EVENTOS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -134,7 +134,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminLicencias">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>licencias.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>licencias.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">LICENCIAS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -145,7 +145,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminEntidades">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>entidad.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>entidad.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">ENTIDADES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -160,7 +160,7 @@
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
                 <div id="colorEquip" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.svg" width="60" height="60"></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.png" width="60" height="60"></div>
                         <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EQUIPACIONES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                     </div>                              
                 </div>     
@@ -171,7 +171,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminTemporadas">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">TEMPORADAS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -182,7 +182,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminRankings">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">RANKINGS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -197,7 +197,7 @@
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
                 <div id="colorFact" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuFac">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>euro.svg" width="60" height="60"></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>euro.png" width="60" height="60"></div>
                         <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">FACTURACION</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                     </div>                              
                 </div>     
@@ -207,7 +207,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminMensajeria">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>mensajeria.svg" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>mensajeria.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">MENSAJERIA</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 

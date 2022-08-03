@@ -150,6 +150,11 @@
                                                                                 </div>
 
                                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
+                                                                                        <label for="verHaSido">Ha sido socio: </label>
+                                                                                        <label name="verHaSido" class="form-control form-control-lg"><?php if($usuarios->ha_sido==0){echo "NO";}elseif($usuarios->ha_sido==1){echo "SI";} ?></label>
+                                                                                </div>
+
+                                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
                                                                                         <label for="verAct">Activado: </label>
                                                                                         <label name="verAct" class="form-control form-control-lg"><?php if($usuarios->activado==0){echo "DESACTIVADO";}elseif($usuarios->activado==1){echo "ACTIVADO";} ?></label>
                                                                                 </div>

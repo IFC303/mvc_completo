@@ -15,13 +15,91 @@
 
 
 
-<div id="ventana" class="card bg-light w-75">
+        <article>
+        <div class="d-flex align-items-center justify-content-around mt-5 ">
+             
+
+                        <!-- FORMULARIO ESCUELA-->               
+                        <div class="col-6 col-xs-12 col-md-6 " style="width:500px">                           
+                                <div class="shadow-lg p-3 mb-3" style="height:650px; background-color:white">                               
+
+                                    <div class="row">
+                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#264475"><img src="<?php echo RUTA_Icon ?>escuela.png" width="70" height="60"></div>
+                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">INSCRIPCION ESCUELA</p></div>                                       
+                                    </div>
+
+                                    <form method="post" ENCTYPE="multipart/form-data" class="card-body">
+
+                                        <div class="row mt-4 w-100">
+                                            <label for="grup">Grupo entrenamiento</label>
+                                            <select class="form-control ms-2" name="grup" id="grup" required>
+                                                <option value=""></option>
+                                                <?php foreach ($datos['grupos'] as $gru) : ?>
+                                                    <option value="<?php echo $gru->id_grupo ?>"><?php echo $gru->nombre ?></option>
+                                                <?php endforeach ?>
+                                            </select>                        
+                                        </div>
+
+                                        <div class="row mt-4 w-100">                                          
+                                            <label for="cat">Categoría</label>
+                                            <select class="form-control ms-2" name="cat" id="cat" required>
+                                                <option value=""></option>
+                                                <?php foreach ($datos['categorias'] as $cat) : ?>
+                                                    <option value="<?php echo $cat->id_categoria ?>"><?php echo $cat->nombre ?></option>
+                                                <?php endforeach ?>
+                                            </select>                                          
+                                        </div>
+                                        
+                                        <div class="row">
+                                        <div class="col d-flex align-items-center mt-5">
+                                            <label class="me-3">Consiento la toma y el uso de fotos</label>
+                                            <input type="radio" id="siFotos" name="fotos" value="si" required><label for="siFotos">&nbspSI</label><span style="margin-left: 20px;"></span>
+                                            <input type="radio" id="noFotos" name="fotos" value="no" required><label for="noFotos">&nbspNO</label>                 
+                                        </div>
+                                        </div>
+                                     
+                                        <div class="row">
+                                        <div class="col d-flex align-items-center mt-3">
+                                            <label class="me-3">He leido y acepto el reglamento</label>
+                                            <input type="radio" id="siReglamento" name="reglamento" value="si" required><label for="siReglamento">&nbspSI</label>                        
+                                        </div>
+                                        </div>
+
+                                        <!-- <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mt-3 mb-5">
+                                            <label class="mb-2" for="imagen">Foto reciente tamaño carnet</label>
+                                            <input type="file" id="imagen" name="imgCarnet" accept="image/*" required>
+                                        </div> 
+                                        </div> -->
+                                        
+                                        <div class="row justify-content-center">
+                                            <input type="submit" id="confirmar" class="btn w-25 " value="Confirmar">
+                                        </div>
+
+                                    </form>
+                                </div>
+                           
+                        </div>
+
+                        <!-- MENU VER MARCAS -->
+                        <div class="col-6 col-xs-12 col-md-6 " style="width:500px">
+                                <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:650px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">                               
+                                    <div class="row">
+                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
+                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">INSCRIPCION EVENTO</p></div>
+                                    </div>
+                                </div>
+                        </div>
+    </div>
+</article>
+
+
+ <!-- <div id="ventana" class="card card-m bg-light w-75">
 
 
     <form method="post" ENCTYPE="multipart/form-data" class="card-body">
         <div class="row">
 
-          
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3 mt-3">
                 <label for="cat">Categoría<sup>* </sup></label>
                 <select class="form-control" name="cat" id="cat" required>
@@ -70,7 +148,11 @@
                 </div>
             </div>
     </form>
-    </div>
+    </div>  -->
+
+
+
+
 
     <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 

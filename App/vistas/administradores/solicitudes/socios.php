@@ -1,4 +1,4 @@
-<?php require_once RUTA_APP . '/vistas/inc/header-admin-miga.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 <style>
           .datos_tabla{
             text-align:center;
@@ -45,10 +45,10 @@
                                         <td class="datos_tabla"><?php echo $usuarios->apellidos ?></td>
                                         <td class="datos_tabla"><?php echo $usuarios->email ?></td>
                                         <td class="datos_tabla"><?php echo $usuarios->telefono ?></td>
-                                        <td class="datos_tabla"><?php if ($usuarios->es_socio == 1) {
-                                                        echo "NO";
-                                                } elseif ($usuarios->es_socio == 0) {
+                                        <td class="datos_tabla"><?php if ($usuarios->ha_sido == 1) {
                                                         echo "SI";
+                                                } elseif ($usuarios->ha_sido == 0) {
+                                                        echo "NO";
                                                 } else {
                                                         echo "";
                                                 } ?></td>
@@ -141,9 +141,13 @@
                                                                                 <div class="modal-footer">
 
                                                                                         <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_socios/<?php $datBorrar = $usuarios->id_solicitud_soc . "_" . $usuarios->DNI . "_" . $usuarios->nombre . "_" . $usuarios->apellidos . "_" . $usuarios->CCC . "_" . $usuarios->talla . "_" . $usuarios->fecha_nacimiento . "_" . $usuarios->email . "_" . $usuarios->telefono . "_" . $usuarios->direccion . "_" . $usuarios->es_socio . "_" . $usuarios->nom_pa . " _ " .$usuarios->ape_pa . " _ " . $usuarios->dni_pa;
-                                                                                                                                                                echo $datBorrar ?>" method="post">
-                                                                                                <button type="submit">Aceptar</button>
+                                                                                        <form action="<?php echo RUTA_URL ?>/admin/aceptar_solicitudes_socios/<?php $datBorrar = $usuarios->id_solicitud_soc?>" method="post">
+                                                                                                
+                                                                                                
+                                                                                                <input type="hidden" name="datAceptar" value="<?php $datBorrar = $usuarios->id_solicitud_soc . "_" . $usuarios->DNI . "_" . $usuarios->nombre . "_" . $usuarios->apellidos . "_" . $usuarios->CCC . "_" . $usuarios->talla . "_" . $usuarios->fecha_nacimiento . "_" . $usuarios->email . "_" . $usuarios->telefono . "_" . $usuarios->direccion . "_" . $usuarios->ha_sido . "_" . $usuarios->nom_pa . " _ " .$usuarios->ape_pa . " _ " . $usuarios->dni_pa;
+                                                                                                                                                                echo $datBorrar ?>">
+                                                                                                
+                                                                                                <input type="submit" value="Aceptar">
                                                                                         </form>
                                                                                 </div>
                                                                         </div>

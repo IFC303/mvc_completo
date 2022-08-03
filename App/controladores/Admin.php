@@ -1,5 +1,14 @@
 <?php
 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require_once RUTA_APP.'/librerias/PHPMailer/Exception.php';
+require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
+require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
+
 class Admin extends Controlador
 {
     public function __construct()
@@ -212,23 +221,96 @@ class Admin extends Controlador
     }
 
 
-     public function aceptar_solicitudes_socios($datAceptar)
-    {
+     public function aceptar_solicitudes_socios($id){
+
+        //hay que enviar mail al socio con la contraseña : nombreNSolicitud
         //var_dump($datAceptar);
         //exit;
+        $datos = trim($_POST["datAceptar"]);
+        //echo($eso);
+        //exit;
+
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
 
-        $datAceptar = explode ( '_', $datAceptar);
+        $datAceptar = explode ( '_', $datos);
         
+        $pass='Password: :'.$datAceptar[2].$datAceptar[0];
+        $correo='Usuario: '.$datAceptar[7];
+
+        //echo $pass;
+        //echo $correo;
+        //exit;
+
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             if ($this->AdminModelo->aceptar_solicitudes_socios($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_socios');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
-    }
+
+
+                    redireccionar('/admin/crud_solicitudes_socios');
+
+
+
+                    $mail = new PHPMailer();
+
+
+                // //me llega un string y lo paso a array con explode
+                // // $destinatario = explode(",",($_POST['destinatario']));
+                // // echo print_r($destinatario);   
+    
+                // // $asunto = ($_POST['asunto']);
+                // // echo $asunto;
+                // // $mensaje =($_POST['mensaje']);
+                // // echo $mensaje;
+        
+                  try {
+                // // //  Configuracion SMTP
+                     $mail->SMTPDebug =2;
+                      $mail->isSMTP();                                       // Activar envio SMTP
+                      $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
+                      $mail->SMTPAuth  = true;                               // Identificacion SMTP
+                      $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
+                //      //$mail->Password  = 'sbrdesign1234';	  
+                      $mail->Password = 'ncrihzkexawuolwn';                // Contraseña SMTP
+                      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                      $mail->Port  = 587;
+                    
+                // // // CONFIGURACION CORREO
+                      $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
+    
+                //     //  foreach($destinatario as $correo){
+                //     //      echo $correo ."<br>";
+                //     //       $mail->addAddress($correo); // Email destinatario
+                //     //  }
+                      
+                      $mail->addAddress('sielma712@gmail.com');
+                      $mail->isHTML(true);
+                      $mail->Subject = 'Aprobacion solicitud de socio';
+                      $mail->Body  = 'Bienvenido al club Tragamillas Alcañiz!Tu solicitud de socio ha sido aprobada. Aqui tienes tu usuario y 
+                                        contraseña para acceder a la aplicacion del Tragamillas Alcañiz: '.$pass.''.$correo;
+                      
+                      $mail->send($correo);
+    
+               
+                    //   echo '<script type="text/javascript">alert("Solicitud aceptada.Enviado email al usuario con usuario y password.");
+                    //  window.location.assign("adminMensajeria/mensajeria.php");
+                    //  </script>'; 
+     
+                  } catch (Exception $e) {
+                      echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+                  }
+
+                 }else{
+                     die('Algo ha fallado!!!');
+                }
+        }else{
+            
+            $this->vista('administradores/solicitudes/socios', $this->datos);
+         }
+
+}    
+   
 
     public function borrar_solicitudes_socios($datBorrar)
     {

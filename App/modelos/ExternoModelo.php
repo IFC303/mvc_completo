@@ -17,7 +17,7 @@ class ExternoModelo
     public function anadirSoliSocio($soliSociAnadir){
         //print_r($soliSociAnadir);
         
-        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`,`nom_pa`,`ape_pa`,`dni_pa`) 
+        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`) 
         VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa);");
 
         $this->db->bind(':dniUsu', $soliSociAnadir['dniUsuAna']); 

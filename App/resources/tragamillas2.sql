@@ -1,27 +1,51 @@
+
 DROP SCHEMA IF EXISTS tragamillas2;
 CREATE SCHEMA tragamillas2;
 use tragamillas2;
+
+
+
+/****** TABLA ROLES ******/
 CREATE TABLE ROL(
   id_rol int primary key,
   nombre varchar(30) not null
 );
-INSERT INTO
-  `ROL` (`id_rol`, `nombre`)
-VALUES
-  (1, 'admin');
-INSERT INTO
-  `ROL` (`id_rol`, `nombre`)
-VALUES
-  (2, 'entrenador');
-INSERT INTO
-  `ROL` (`id_rol`, `nombre`)
-VALUES
-  (3, 'socio');
+
+INSERT INTO `ROL` (`id_rol`, `nombre`) VALUES (1, 'admin'), (2, 'entrenador'), (3, 'socio');
 
 
+
+/***** TABLA SOLCITUD SOCIO *****/
+
+CREATE TABLE SOLICITUD_SOCIO(
+    id_solicitud_soc int primary key AUTO_INCREMENT,
+    DNI varchar (11),
+    nombre varchar(20) not null,
+    apellidos varchar(30) not null,
+    CCC varchar(25) not null,
+    talla varchar(5) not null,
+    fecha_nacimiento date not null,
+    email varchar(40) not null,
+    telefono int not null,
+    direccion varchar(40) not null,
+    ha_sido boolean not null,
+    nom_pa varchar (20),
+    ape_pa varchar (50),
+    dni_pa varchar (11)
+  );
+  
+INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`) VALUES
+(1, '16220103C', 'Michael', 'Phelps', '01885542161558896338', 'L', '2001-07-06', 'MichaelPhelps@gmail.com', 640236578, 'Calle Belmonte San Jose 11', 0,'wwwwwww','wwww','77777'),
+(2, '55433788Q', 'Usain', 'Bolt', '20808970552360850257', 'L', '1995-07-15', 'UsainBolt@gmail.com', 634266578, 'Calle Caldereros 4', 0,'sssss','ddddd','87'),
+(3, '95198519R', 'Eliud', 'Kipchoge', '02164966847214050030', 'S', '1999-06-25', 'EliudKipchoge@gmail.com', 672645713, 'Avenida Huesca', 0,'xxxx','rrrr','8966'),
+(4, '77900901Q', 'Cris', 'Froome', '14901780288828069875', 'L', '2000-11-08', 'CrisFroome@gmail.com', 672645713, 'Avenida Huesca', 0,'wwww','gggg','1111');
+
+
+
+/****** TABLA USUARIO ******/
 CREATE TABLE USUARIO(
     id_usuario int AUTO_INCREMENT,
-    dni varchar(11) unique,
+    dni varchar(11),
     nombre varchar(20) not null,
     apellidos varchar(30) not null,
     email varchar(40) not null,
@@ -33,6 +57,7 @@ CREATE TABLE USUARIO(
     talla varchar(5) not null,
     foto varchar(800),
     gir varchar(20),
+    ha_sido boolean,
     activado boolean,
     id_rol int,
     nom_pa varchar (20),
@@ -41,246 +66,15 @@ CREATE TABLE USUARIO(
     primary key (id_usuario),
     constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
   );
-INSERT INTO
-  `USUARIO` (
-    `id_usuario`,
-    `dni`,
-    `nombre`,
-    `apellidos`,
-    `email`,
-    `direccion`,
-    `fecha_nacimiento`,
-    `telefono`,
-    `CCC`,
-    `passw`,
-    `talla`,
-    `foto`,
-    `id_rol`,
-    `nom_pa`,
-    `ape_pa`,
-    `dni_pa`
-  )
-VALUES
-  (
-    11,
-    '11',
-    'admin',
-    'admin',
-    'admin@admin.com',
-    'dire',
-    '2000-1-1',
-    11,
-    '',
-    '21232f297a57a5a743894a0e4a801fc3',
-    'l',
-    '',
-    1,'sssss','ddddd','87'
-  );
-INSERT INTO
-  `USUARIO` (
-    `id_usuario`,
-    `dni`,
-    `nombre`,
-    `apellidos`,
-    `email`,
-    `direccion`,
-    `fecha_nacimiento`,
-    `telefono`,
-    `CCC`,
-    `passw`,
-    `talla`,
-    `foto`,
-    `id_rol`,
-   `nom_pa`,
-    `ape_pa`,
-    `dni_pa`
-  )
-VALUES
-  (
-    22,
-    '22',
-    'entrenador',
-    'entrenador',
-    'entrenador@entrenador.com',
-    'dire',
-    '2000-1-1',
-    22,
-    '',
-    'a990ba8861d2b344810851e7e6b49104',
-    'm',
-    '',
-    2,'wwwwwww','wwww','77777'
-  );
-INSERT INTO
-  `USUARIO` (
-    `id_usuario`,
-    `dni`,
-    `nombre`,
-    `apellidos`,
-    `email`,
-    `direccion`,
-    `fecha_nacimiento`,
-    `telefono`,
-    `CCC`,
-    `passw`,
-    `talla`,
-    `foto`,
-    `id_rol`,
-  `nom_pa`,
-    `ape_pa`,
-    `dni_pa`
-  )
-VALUES
-  (
-    33,
-    '33',
-    'socio',
-    'socio',
-    'socio@socio.com',
-    'dire',
-    '2000-1-1',
-    33,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    331,
-    '331',
-    'socio1',
-    'socio1',
-    'socio1@socio.com',
-    'dire',
-    '2000-1-1',
-    331,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    332,
-    '332',
-    'socio2',
-    'socio2',
-    'socio2@socio.com',
-    'dire',
-    '2000-1-1',
-    332,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    333,
-    '333',
-    'socio3',
-    'socio3',
-    'socio3@socio.com',
-    'dire',
-    '2000-1-1',
-    333,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    334,
-    '334',
-    'socio4',
-    'socio4',
-    'socio4@socio.com',
-    'dire',
-    '2000-1-1',
-    334,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    335,
-    '335',
-    'socio5',
-    'socio5',
-    'socio5@socio.com',
-    'dire',
-    '2000-1-1',
-    335,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    336,
-    '336',
-    'socio6',
-    'socio6',
-    'socio6@socio.com',
-    'dire',
-    '2000-1-1',
-    336,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    337,
-    '337',
-    'socio7',
-    'socio7',
-    'socio7@socio.com',
-    'dire',
-    '2000-1-1',
-    337,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    338,
-    '338',
-    'socio8',
-    'socio8',
-    'socio8@socio.com',
-    'dire',
-    '2000-1-1',
-    338,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  ),
-  (
-    339,
-    '339',
-    'socio9',
-    'socio9',
-    'socio9@socio.com',
-    'dire',
-    '2000-1-1',
-    339,
-    '',
-    '1b1844daa452df42c6f9123857ca686c',
-    's',
-    '',
-    3,'wwwwwww','wwww','77777'
-  );
+
+INSERT INTO `USUARIO` (`id_usuario`,`dni`,`nombre`,`apellidos`,`email`,`direccion`,`fecha_nacimiento`,`telefono`,
+`CCC`,`passw`,`talla`,`foto`,`id_rol`,`nom_pa`,`ape_pa`,`dni_pa`) VALUES 
+(11,'11','admin','admin','admin@admin.com','dire','2000-1-1',11,'','21232f297a57a5a743894a0e4a801fc3','l','',1,'sssss','ddddd','87'),
+(22,'22','entrenador','entrenador','entrenador@entrenador.com','dire','2000-1-1',22,'','a990ba8861d2b344810851e7e6b49104','m','',2,'wwwwwww','wwww','77777'),
+(33,'33','socio','socio','socio@socio.com','dire','2000-1-1',33,'','1b1844daa452df42c6f9123857ca686c','s','',3,'wwwwwww','wwww','77777');
+
+
+
 
 CREATE TABLE TEMPORADA(
     id_temp int primary key,
@@ -439,28 +233,15 @@ CREATE TABLE HORARIO_GRUPO(
     constraint FK_id_horario_horario_grupo foreign key (id_horario) references HORARIO (id_horario) on delete cascade on update cascade,
     constraint FK_id_grupo_horario_grupo foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade
   );
-CREATE TABLE SOLICITUD_SOCIO(
-    id_solicitud_soc int primary key AUTO_INCREMENT,
-    DNI varchar (11) unique,
-    nombre varchar(20) not null,
-    apellidos varchar(30) not null,
-    CCC varchar(25) not null,
-    talla varchar(5) not null,
-    fecha_nacimiento date not null,
-    email varchar(40) not null,
-    telefono int not null,
-    direccion varchar(40) not null,
-    es_socio boolean not null,
-    nom_pa varchar (20),
-    ape_pa varchar (50),
-    dni_pa varchar (11)
-  );
-  
-INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `es_socio`,`nom_pa`,`ape_pa`,`dni_pa`) VALUES
-(1, '16220103C', 'Michael', 'Phelps', '01885542161558896338', 'L', '2001-07-06', 'MichaelPhelps@gmail.com', 640236578, 'Calle Belmonte San Jose 11', 0,'wwwwwww','wwww','77777'),
-(2, '55433788Q', 'Usain', 'Bolt', '20808970552360850257', 'L', '1995-07-15', 'UsainBolt@gmail.com', 634266578, 'Calle Caldereros 4', 0,'sssss','ddddd','87'),
-(3, '95198519R', 'Eliud', 'Kipchoge', '02164966847214050030', 'S', '1999-06-25', 'EliudKipchoge@gmail.com', 672645713, 'Avenida Huesca', 0,'xxxx','rrrr','8966'),
-(4, '77900901Q', 'Cris', 'Froome', '14901780288828069875', 'L', '2000-11-08', 'CrisFroome@gmail.com', 672645713, 'Avenida Huesca', 0,'wwww','gggg','1111');
+
+
+
+
+
+
+
+
+/***** TABLA SOCIO *****/
 
 CREATE TABLE SOCIO(
     id_socio int primary key,
@@ -468,19 +249,12 @@ CREATE TABLE SOCIO(
     constraint FK_id_socio_socio foreign key (id_socio) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_familiar_socio foreign key (familiar) references SOCIO (id_socio) on delete cascade on update cascade
   );
-INSERT INTO
-  `tragamillas2`.`SOCIO` (`id_socio`, `familiar`)
-VALUES
-  (33, 33),
-  (331, 33),
-  (332, 33),
-  (333, 33),
-  (334, 33),
-  (335, 33),
-  (336, 33),
-  (337, 33),
-  (338, 33),
-  (339, 33);
+
+INSERT INTO `tragamillas2`.`SOCIO` (`id_socio`, `familiar`) VALUES  (33, 33);
+
+
+
+
 CREATE TABLE SOCIO_GRUPO(
     id_grupo int,
     id_usuario int,
@@ -494,10 +268,7 @@ CREATE TABLE SOCIO_GRUPO(
     constraint FK_id_usuario_socio_grupo foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 
-  INSERT INTO `SOCIO_GRUPO` (`id_grupo`, `id_usuario`, `fecha_inscripcion`, `acepatado`, `activo`, `id_categoria`, `foto`) VALUES
-(7, 335, '2022-03-22', 0, 0, 4, 'socioCarnet_335.jpg'),
-(7, 336, '2022-03-22', 0, 0, 4, 'socioCarnet_336.jpeg'),
-(7, 337, '2022-03-22', 0, 0, 4, 'socioCarnet_337.avif');
+
 
 CREATE TABLE LICENCIA(
     id_licencia int primary key AUTO_INCREMENT,
@@ -510,132 +281,78 @@ CREATE TABLE LICENCIA(
     regional_nacional varchar (10),
     constraint FK_id_usuario_licencia foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
+
+
+
+
+/***** TABLA PRUEBA *****/
+
 CREATE TABLE PRUEBA(
     id_prueba int primary key,
     nombrePrueba varchar(30) not null,
     tipo varchar(40) not null
   );
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (1, '60 m', 'Velocidad');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (2, '80 m', 'Velocidad');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (3, '100 m', 'Velocidad');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (4, '200 m', 'Velocidad');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (5, '400 m', 'Velocidad');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (6, '600 m', 'Medio fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (7, '800 m ', 'Medio fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (8, '1500 m ', 'Medio fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (9, 'Milla', 'Medio fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (10, '5000 m ', 'Fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (11, '10000 m', 'Fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (12, 'Media maraton', 'Fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (13, 'Maraton', 'Fondo');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (14, '60', 'Obstaculos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (15, '80', 'Obstaculos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (16, '110', 'Obstaculos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (17, '3000', 'Obstaculos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (18, 'Longitud', 'Concursos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (19, 'Altura', 'Concursos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (20, 'Triple salto', 'Concursos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (21, 'Pertiga', 'Concursos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (22, 'Peso', 'Concursos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
-  (23, 'Martillo', 'Concursos');
-INSERT INTO
-  `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`)
-VALUES
+
+
+INSERT INTO `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`) VALUES
+  (1, '60 m', 'Velocidad'),
+  (2, '80 m', 'Velocidad'),
+  (3, '100 m', 'Velocidad'),
+  (4, '200 m', 'Velocidad'),
+  (5, '400 m', 'Velocidad'),
+  (6, '600 m', 'Medio fondo'),
+  (7, '800 m ', 'Medio fondo'),
+  (8, '1500 m ', 'Medio fondo'),
+  (9, 'Milla', 'Medio fondo'),
+  (10, '5000 m ', 'Fondo'),
+  (11, '10000 m', 'Fondo'),
+  (12, 'Media maraton', 'Fondo'),
+  (13, 'Maraton', 'Fondo'),
+  (14, '60', 'Obstaculos'),
+  (15, '80', 'Obstaculos'),
+  (16, '110', 'Obstaculos'),
+  (17, '3000', 'Obstaculos'),
+  (18, 'Longitud', 'Concursos'),
+  (19, 'Altura', 'Concursos'),
+  (20, 'Triple salto', 'Concursos'),
+  (21, 'Pertiga', 'Concursos'),
+  (22, 'Peso', 'Concursos'),
+  (23, 'Martillo', 'Concursos'),
   (24, 'Jabalina', 'Concursos');
-CREATE TABLE PRUEBA_SOCIO(
-	id int auto_increment,
-    id_prueba int,
-    id_usuario int,
-    id_test int,
-    fecha date,
-    marca varchar (50),
-    observaciones varchar (200),
-    primary key (id,id_prueba, id_usuario, id_test),
-    constraint FK_id_prueba_prueba_socio foreign key (id_prueba) references PRUEBA (id_prueba) on delete cascade on update cascade,
-    constraint FK_id_usuario_prueba_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
-	constraint FK_id_test_prueba_socio foreign key (id_test) references TEST (id_test) on delete cascade on update cascade
-  );
+
+
+/***** TABLA TEST *****/
+
 CREATE TABLE TEST(
     id_test int primary key AUTO_INCREMENT,
     nombreTest varchar (30)
   );
-INSERT INTO
-  `TEST` (`id_test`, `nombreTest`)
-VALUES
-  (1, 'test primavera');
-INSERT INTO
-  `TEST` (`id_test`, `nombreTest`)
-VALUES
+
+INSERT INTO `TEST` (`id_test`, `nombreTest`) VALUES
+  (1, 'test primavera'),
   (2, 'test invierno');
+
+
+/***** TABLA PRUEBA-SOCIO *****/
+
+CREATE TABLE PRUEBA_SOCIO(
+	  id int auto_increment,
+    id_prueba int,
+    id_socio int,
+    id_test int,
+    fecha date,
+    marca varchar (50),
+    observaciones varchar (200),
+    primary key (id,id_prueba, id_socio, id_test),
+    constraint FK_id_prueba_prueba_socio foreign key (id_prueba) references PRUEBA (id_prueba) on delete cascade on update cascade,
+    constraint FK_id_socio_prueba_socio foreign key (id_socio) references SOCIO (id_socio) on delete cascade on update cascade,
+	  constraint FK_id_test_prueba_socio foreign key (id_test) references TEST (id_test) on delete cascade on update cascade
+  );
+
+
+
+
+
 CREATE TABLE TEST_PRUEBA(
     id_test int,
     id_prueba int,
@@ -643,6 +360,10 @@ CREATE TABLE TEST_PRUEBA(
     constraint FK_id_test_test_prueba foreign key (id_test) references TEST (id_test) on delete cascade on update cascade,
     constraint FK_id_prueba_test_prueba foreign key (id_prueba) references PRUEBA (id_prueba) on delete cascade on update cascade
   );
+
+
+
+
 CREATE TABLE CATEGORIA(
     id_categoria int primary key,
     nombre varchar (40) not null,
@@ -685,6 +406,8 @@ INSERT INTO
   )
 VALUES
   ('4', 'ADULTO', '14', '99');
+
+
 CREATE TABLE CATEGORIA_SOCIO(
     id_categoria int,
     id_usuario int,
@@ -694,10 +417,7 @@ CREATE TABLE CATEGORIA_SOCIO(
     constraint FK_id_usuario_categoria_socio foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
 
-  INSERT INTO `CATEGORIA_SOCIO` (`id_categoria`, `id_usuario`, `fecha`) VALUES
-(4, 335, '2000-01-01'),
-(4, 336, '2000-01-01'),
-(4, 337, '2000-01-01');
+
 
 CREATE TABLE OTRAS_ENTIDADES(
     id_entidad varchar (10) primary key,
@@ -743,33 +463,7 @@ CREATE TABLE G_OTROS(
     constraint FK_id_usuario_g_otros foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
     constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
-INSERT INTO
-  `tragamillas2`.`G_OTROS` (
-    `id_gastos`,
-    `fecha`,
-    `concepto`,
-    `importe`,
-    `id_usuario`,
-    `id_entidad`
-  )
-VALUES
-  ('1', '2022-02-18', 'equipacion', '15', '33', '1'),
-  (
-    '2',
-    '2022-02-18',
-    'equipacion',
-    '15',
-    '331',
-    '1'
-  ),
-  (
-    '3',
-    '2022-02-18',
-    'equipacion',
-    '15',
-    '332',
-    '1'
-  );
+
 CREATE TABLE I_CUOTAS(
     id_ingreso_cuota int primary key AUTO_INCREMENT,
     fecha date not null,
@@ -793,41 +487,6 @@ VALUES
     'CUOTA SOCIO TRAGAMILLAS',
     '30',
     '33'
-  ),
-  (
-    '000330407092',
-    '2021-02-18',
-    'CUOTA SOCIO TRAGAMILLAS',
-    '30',
-    '331'
-  ),
-  (
-    '000330898570',
-    '2021-02-18',
-    'CUOTA SOCIO TRAGAMILLAS',
-    '100',
-    '332'
-  ),
-  (
-    '000330898571',
-    '2022-02-18',
-    'CUOTA SOCIO TRAGAMILLAS',
-    '100',
-    '332'
-  ),
-  (
-    '000330898572',
-    '2022-02-18',
-    'CUOTA SOCIO TRAGAMILLAS',
-    '100',
-    '332'
-  ),
-  (
-    '000330898573',
-    '2022-02-18',
-    'CUOTA SOCIO TRAGAMILLAS',
-    '100',
-    '332'
   );
 
 CREATE TABLE EQUIPACION(
@@ -879,6 +538,7 @@ CREATE TABLE EVENTO(
 (3, NULL, 'Campus Atletismo', 'campus', 100, '0', '2022-04-12', '2022-04-20', '2022-03-22', '2022-04-05'),
 (4, NULL, 'Triatlón Estanca', 'triatlón', 20, '0', '2022-06-04', '2022-06-05', '2022-03-22', '2022-05-20');
 
+
 CREATE TABLE SOLICITUD_SOCIO_EVENTO(
     id_usuario int,
     id_evento int,
@@ -893,11 +553,8 @@ CREATE TABLE SOLICITUD_SOCIO_EVENTO(
   );
 
   INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES
-(33, 1, '2022-03-22'),
-(331, 1, '2022-03-22'),
-(332, 1, '2022-03-22'),
-(333, 1, '2022-03-22'),
-(334, 1, '2022-03-22');
+(33, 1, '2022-03-22');
+
 
 CREATE TABLE SOCIO_EVENTO(
     id_usuario int,

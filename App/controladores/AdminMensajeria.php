@@ -76,12 +76,13 @@ class AdminMensajeria extends Controlador
     
              try {
             // //  Configuracion SMTP
-                // $mail->SMTPDebug =2;
+                $mail->SMTPDebug =2;
                  $mail->isSMTP();                                       // Activar envio SMTP
                  $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
                  $mail->SMTPAuth  = true;                               // Identificacion SMTP
                  $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
-                 $mail->Password  = 'sbrdesign1234';	                     // Contraseña SMTP
+                 //$mail->Password  = 'sbrdesign1234';	  
+                 $mail->Password = 'ncrihzkexawuolwn';                // Contraseña SMTP
                  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                  $mail->Port  = 587;
                 
@@ -98,7 +99,7 @@ class AdminMensajeria extends Controlador
                  $mail->Body  = $mensaje;
                  $mail->send();
 
-                 
+               
                  echo '<script type="text/javascript">alert("Mensaje enviado correctamente");
                     window.location.assign("adminMensajeria/mensajeria.php");
                     </script>'; 

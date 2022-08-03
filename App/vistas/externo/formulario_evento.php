@@ -54,73 +54,101 @@
 </head>
 
 <body style="margin: 0px;">
-    <div class="container-fluid min-vh-100 ">
-        <div class="row">
-            <div id="fotoBici" class="col-lg-5 col-md-5 col-sm-5 m-0 p-0 min-vh-100" >
 
-            </div>
+    <div class="container-fluid min-vh-100 ">
+    <div class="row">
+
+            <div id="fotoBici" class="col-lg-5 col-md-5 col-sm-5 m-0 p-0 min-vh-100" ></div>
+
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 m-0 p-0">
 
                 <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
                 <div class="p-3" style="text-align: center;"><h1>INSCRIPCION EVENTO</h1></div>
 
                 <form action="" onsubmit="return validarSoliSocio()" method="POST"> 
-                <div class="row m-3">
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="fecha">Fecha Nacimiento <sup>*</sup></label>
-                            <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>
+                <div class="row mt-4">
+
+                        <div class="row mt-3 mb-3">
+                            <div class="col-5">
+                                <div class="input-group">
+                                   <label for="nomAtl" class="input-group-text">Nombre <sup>*</sup></label>
+                                    <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="input-group">
+                                  <label for="apelAtl" class="input-group-text">Apellidos <sup>*</sup></label>
+                                <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="dniAtl" id="dniObli">DNI</label>
-                            <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl">
+
+                        <div class="row mt-4 mb-4">
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <label for="fecha" class="input-group-text">Fecha Nacimiento <sup>*</sup></label>
+                                    <input class="form-control" type="date" id="fecha" name="fecha" onchange="mayorEdad()" required>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="input-group">
+                                    <label for="dniAtl" class="input-group-text" id="dniObli">DNI</label>
+                                    <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl">
+                                </div>
+                            </div>                           
                         </div>
 
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="nomAtl">Nombre <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
+                        <div class="row mt-3 mb-5">
+                            <div class="col-12 input-group">
+                                <label for="direc" class="input-group-text">Dirección <sup>*</sup></label>
+                                <input type="text" class="form-control" placeholder="Escriba la dirección" id="direc" name="direc" required>
+                            </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="apelAtl">Apellidos <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
+                        <div class="row mb-4">
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <label for="telf" class="input-group-text">Telefono <sup>*</sup></label>
+                                    <input type="text" class="form-control" placeholder="Escriba el telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="input-group">
+                                    <label for="email" class="input-group-text">Correo <sup>*</sup></label>
+                                    <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
+                                </div>
+                            </div>                           
                         </div>
 
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="direc">Dirección <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba la dirección" id="direc" name="direc" required>
+
+                        <div class="row mt-4 mb-3">
+                            <div class="col-6 w-50 input-group">
+                                <label for="even" class="input-group-text">EVENTOS <sup>* </sup></label>
+                                    <select class="form-control" name="even" id="even" required>
+                                        <option value=""></option>
+                                        <?php foreach ($datos['eventos'] as $even) : ?>
+                                        <option value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                            </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="telf">Telefono <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba el telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="email">Correo <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
-                            <label for="even">EVENTOS <sup>* </sup></label>
-                            <select class="form-control" name="even" id="even" required>
-                                <option value=""></option>
-                                <?php foreach ($datos['eventos'] as $even) : ?>
-                                    <option value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
 
                         <label id="error"></label>
                         <label id="errorMail"></label>
 
-                        <input type="submit" value="enviar">
-                    </div>
+                        <input type="submit" class="btn btn-primary mt-4 ms-3 w-25" value="Enviar">
+
+                </div>
                 </form>
+
             </div>
         </div>
     </div>
 </body>
 
 </html>
+
+
 <script src="<?php echo RUTA_URL ?>/public/js/validar.js"></script>

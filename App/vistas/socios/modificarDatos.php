@@ -17,7 +17,7 @@
 <?php foreach ($datos['usuarios'] as $datosUser) : ?>
 
 
-<div id="ventana" class="card bg-light card-center w-75">
+<div id="ventana" class="card shadow-lg card-center" style="margin-top:60px;width:65%; background-color:white">
  
         <form method="POST" class="card-body" ENCTYPE="multipart/form-data" action="<?php echo RUTA_URL ?>/socio/modificarDatos" onsubmit="return validarModifiSocio()">       
             
@@ -40,13 +40,13 @@
 
                     <div class="col-9">
                         <div class="row">
-                            <div class="col-6 mt-3 mb-3">
+                            <div class="col-5 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="nombre" class="input-group-text"><span class="info">Nombre</span></label>
                                 <input type="text" name="nombre" id="nombre" class="form-control form-control-md" value="<?php echo $datosUser->nombre?>" readonly>
                                 </div>
                             </div>
-                            <div class="col-6 mt-3 mb-3">
+                            <div class="col-6 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="apellidos" class="input-group-text info"><span class="info">Apellidos</span></label>
                                 <input type="text" name="apellidos" id="apellidos" class="form-control form-control-md" value="<?php echo $datosUser->apellidos?>" readonly>
@@ -54,21 +54,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 mt-3 mb-3">
+
+                            <div class="col-5 ms-3 mt-3 mb-3">
+                                <div class="input-group">
+                                <label for="dniCom"class="input-group-text info"><span class="info">Dni</span></label>
+                                <input type="text" name="dni" id="dniCom" class="form-control form-control-md" value="<?php echo $datosUser->dni?>" onchange="return validarModifiSocio()" readonly>
+                                </div>
+                            </div>
+                            <div class="col-6 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="telefono"class="input-group-text info"><span class="info">Telefono</span></label>
                                 <input type="text" name="telefono" id="telefono" class="form-control form-control-md" value="<?php echo $datosUser->telefono?>" required>
                                 </div>
                             </div>
-                            <div class="col-6 mt-3 mb-3">
-                                <div class="input-group">
-                                <label for="correo"class="input-group-text info"><span class="info">Email</span></label>
-                                <input type="text" name="correo" id="correo" class="form-control form-control-md" value="<?php echo $datosUser->email?>" onchange="return validarModifiSocio()" required>
-                                </div>
-                            </div>
+                          
                         </div>
-                        <div class="row">
-                            <div class="col-12 mt-3 mb-3">
+                        <div class="row">                            
+                            <div class="col-11 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="direccion"class="input-group-text info"><span class="info">Direccion</span></label>
                                 <input type="text" name="direccion" id="direccion" class="form-control form-control-md" value="<?php echo $datosUser->direccion?>" required>
@@ -76,30 +78,31 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 mt-3 mb-3">
-                                <div class="input-group">
-                                <label for="dniCom"class="input-group-text info"><span class="info">Dni</span></label>
-                                <input type="text" name="dni" id="dniCom" class="form-control form-control-md" value="<?php echo $datosUser->dni?>" onchange="return validarModifiSocio()" readonly>
-                                </div>
-                            </div>
-                            <div class="col-6 mt-3 mb-3">
-                                <div class="input-group">
-                                <label for="cuenta"class="input-group-text info"><span class="info">CCC</span></label>
-                                <input type="text" name="cuenta" id="cuenta" class="form-control form-control-md" value="<?php echo $datosUser->CCC?>" onchange="return validarModifiSocio()">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mt-3 mb-3">
+                            <div class="col-5 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="password"class="input-group-text info"><span class="info">Contraseña</span></label>
                                 <input type="text" name="password" id="password" class="form-control form-control-md">
                                 </div>
                             </div>
-                            <div class="col-6 mt-3 mb-3">
+                             <div class="col-6 ms-3 mt-3 mb-3">
+                                <div class="input-group">
+                                <label for="correo"class="input-group-text info"><span class="info">Email</span></label>
+                                <input type="text" name="correo" id="correo" class="form-control form-control-md" value="<?php echo $datosUser->email?>" onchange="return validarModifiSocio()" required>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="row">                           
+                            <div class="col-5 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="talla"class="input-group-text info"><span class="info">Talla camiseta</span></label>
                                 <input type="text" name="talla" id="talla" class="form-control form-control-md" value="<?php echo $datosUser->talla?>" required>
+                                </div>
+                            </div> 
+                            <div class="col-6 ms-3 mt-3 mb-3">
+                                <div class="input-group">
+                                <label for="cuenta"class="input-group-text info"><span class="info">CCC</span></label>
+                                <input type="text" name="cuenta" id="cuenta" class="form-control form-control-md" value="<?php echo $datosUser->CCC?>" onchange="return validarModifiSocio()">
                                 </div>
                             </div>
                         </div>
