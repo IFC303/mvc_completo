@@ -150,19 +150,19 @@
                         
 
                         <div class="row mb-3">
-                            <p>Rellena los siguientes campo solo si eres menor</p>
+                            <p>Rellena los siguientes campos solo si eres menor de edad</p>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-5">
                                 <div class="input-group">
-                                    <label for="nomPa" class="input-group-text">Nombre (padre o tutor) <sup>*</sup></label>
+                                    <label for="nomPa" class="input-group-text">Nombre (padre o tutor)</label>
                                     <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomPa" name="nomPa" onkeypress="return Solo_Texto(event);">
                                 </div>
                             </div>
                             <div class="col-7">
                                 <div class="input-group">
-                                    <label for="apelPa" class="input-group-text">Apellidos (padre o tutor)<sup>*</sup></label>
+                                    <label for="apelPa" class="input-group-text">Apellidos (padre o tutor)</label>
                                     <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apePa" name="apePa"  onkeypress="return Solo_Texto(event);">
                                 </div>
                             </div>

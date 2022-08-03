@@ -14,8 +14,9 @@ class ExternoModelo
         return $this->db->registros();
     }
 
+
+    // ******************** REGISTRA LA SOLICITUD DE SOCIO ******************* //
     public function anadirSoliSocio($soliSociAnadir){
-        //print_r($soliSociAnadir);
         
         $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`) 
         VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa);");
@@ -30,8 +31,10 @@ class ExternoModelo
         $this->db->bind(':telUsu', $soliSociAnadir['telUsuAna']);
         $this->db->bind(':direcUsu', $soliSociAnadir['direccionUsuAna']);
 
-        if($soliSociAnadir['primerAnoSocio']=="si"){$soliSociAnadir['primerAnoSocio']=1;
-        }elseif($soliSociAnadir['primerAnoSocio']=="no"){$soliSociAnadir['primerAnoSocio']=0;}
+        if($soliSociAnadir['primerAnoSocio']=="si"){
+            $soliSociAnadir['primerAnoSocio']=1;
+        }elseif($soliSociAnadir['primerAnoSocio']=="no"){
+            $soliSociAnadir['primerAnoSocio']=0;}
         
         $this->db->bind(':aSocio', $soliSociAnadir['primerAnoSocio']);       
         $this->db->bind(':nom_pa',$soliSociAnadir['nom_pa']);  
@@ -40,15 +43,15 @@ class ExternoModelo
         
         if ($this->db->execute()) {
            return true;
-        }else return false;        
+        }else 
+            return false;        
     }
 
-    public function anadirSoliEven($agreEvento)
-    {
-        $this->db->query("INSERT INTO EXTERNO (DNI, nombre, apellidos, fecha_nacimiento, email, telefono) VALUES 
-        (:dniUsu, :nomUsu, :apelUsu, :fecUsu, :emaUsu, :telUsu);");
+
+    public function anadirSoliEven($agreEvento){
+        $this->db->query("INSERT INTO EXTERNO (DNI, nombre, apellidos, fecha_nacimiento, email, telefono) 
+        VALUES (:dniUsu, :nomUsu, :apelUsu, :fecUsu, :emaUsu, :telUsu);");
         
-        print_r($agreEvento);
         $this->db->bind(':dniUsu', $agreEvento['dniUsuAna']);
         $this->db->bind(':nomUsu', $agreEvento['nomUsuAna']);
         $this->db->bind(':apelUsu', $agreEvento['apelUsuAna']);
