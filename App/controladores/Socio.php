@@ -13,6 +13,7 @@ class Socio extends Controlador{
         }
         $this->SocioModelo = $this->modelo('SocioModelo');
         $this->equipacionModelo = $this->modelo('Equipacion');     
+        $this->eventoModelo = $this->modelo('Evento');   
     }
 
 
@@ -172,13 +173,12 @@ class Socio extends Controlador{
 
    
 
-    public function escuela()
-    {
-        $nombrePagina = "ESCUELA";
-        $tituloPagina = "ESCUELA";
+    public function escuela(){
+        // $nombrePagina = "ESCUELA";
+        // $tituloPagina = "ESCUELA";
         
-        $this->datos['nombrePagina']=$nombrePagina;
-        $this->datos['tituloPagina']=$tituloPagina;
+        // $this->datos['nombrePagina']=$nombrePagina;
+        // $this->datos['tituloPagina']=$tituloPagina;
 
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
@@ -189,6 +189,7 @@ class Socio extends Controlador{
         }
 
         $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+        $this->datos['usuarios']=$datosUser;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -214,14 +215,51 @@ class Socio extends Controlador{
             }
         }
 
+
+
+        
         $categorias = $this->SocioModelo->obtenerCategorias();
-        $grupos = $this->SocioModelo->obtenergrupos();
-        $this->datos['usuarios']=$datosUser;
         $this->datos['categorias']=$categorias;
+        $grupos = $this->SocioModelo->obtenergrupos();
         $this->datos['grupos']=$grupos;
+        $eventos = $this->eventoModelo->obtenerEventos();
+        $this->datos['eventos']=$eventos;
+              
         $this->vista('socios/formulario_escuela', $this->datos);
         
     }
+
+
+    public function ins_evento(){
+
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
+
+        //var_dump($datosUser);
+  
+        $id_evento= (trim($_POST['id_evento']));
+    
+
+        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+      
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if ($this->SocioModelo->eventoSoli($id_evento,$datosUser)) {
+                redireccionar('/socio');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+
+    }
+
+
+
 
     public function eventoSolicitud()
     {

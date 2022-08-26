@@ -53,8 +53,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
 
+                        <div class="row">
                             <div class="col-5 ms-3 mt-3 mb-3">
                                 <div class="input-group">
                                 <label for="dniCom"class="input-group-text info"><span class="info">Dni</span></label>
@@ -66,9 +66,9 @@
                                 <label for="telefono"class="input-group-text info"><span class="info">Telefono</span></label>
                                 <input type="text" name="telefono" id="telefono" class="form-control form-control-md" value="<?php echo $datosUser->telefono?>" required>
                                 </div>
-                            </div>
-                          
+                            </div>                          
                         </div>
+                        
                         <div class="row">                            
                             <div class="col-11 ms-3 mt-3 mb-3">
                                 <div class="input-group">
@@ -118,16 +118,10 @@
                 </div>
             </div>
 
-            <div class="row justify-content-end mb-2">
-                <div class="col-1">
-                    <input type="submit" id="confirmar" class="btn" value="Confirmar">
-                </div>
-                <div class="col-1">
-                    <a href="<?php echo RUTA_URL?>/socio">
-                        <input type="button" class="btn" id="botonVolver" value="Volver">  
-                    </a>
-                </div>
-            </div>
+            <div class="d-flex justify-content-end mb-2 me-4">
+                <input type="submit" id="confirmar" class="btn" value="Confirmar">
+            </div>   
+       
         </form>
 </div> 
         

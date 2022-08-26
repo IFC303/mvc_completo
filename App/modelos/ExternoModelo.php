@@ -48,29 +48,36 @@ class ExternoModelo
     }
 
 
-    public function anadirSoliEven($agreEvento){
-        $this->db->query("INSERT INTO EXTERNO (DNI, nombre, apellidos, fecha_nacimiento, email, telefono) 
-        VALUES (:dniUsu, :nomUsu, :apelUsu, :fecUsu, :emaUsu, :telUsu);");
-        
-        $this->db->bind(':dniUsu', $agreEvento['dniUsuAna']);
-        $this->db->bind(':nomUsu', $agreEvento['nomUsuAna']);
-        $this->db->bind(':apelUsu', $agreEvento['apelUsuAna']);
-        $this->db->bind(':fecUsu', $agreEvento['fecUsuAna']);
-        $this->db->bind(':telUsu', $agreEvento['telUsuAna']);
-        $this->db->bind(':emaUsu', $agreEvento['emaUsuAna']);
-        $this->db->execute();
-        $id_usu = $this->db->ultimoIndice();
+    public function obtener_soli_eventos(){
+        $this->db->query("SELECT * FROM SOLICITUD_EXTER_EVENTO");
 
-        $this->db->query("INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES ($id_usu, :id_even, :fecha);");
+        return $this->db->registros();
 
-        $this->db->bind(':id_even', $agreEvento['evenUsuAna']);
-        $this->db->bind(':fecha', date('Y-m-d'));
-          
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
     }
+
+    // public function anadirSoliEven($agreEvento){
+    //     $this->db->query("INSERT INTO EXTERNO (DNI, nombre, apellidos, fecha_nacimiento, email, telefono) 
+    //     VALUES (:dniUsu, :nomUsu, :apelUsu, :fecUsu, :emaUsu, :telUsu);");
+        
+    //     $this->db->bind(':dniUsu', $agreEvento['dniUsuAna']);
+    //     $this->db->bind(':nomUsu', $agreEvento['nomUsuAna']);
+    //     $this->db->bind(':apelUsu', $agreEvento['apelUsuAna']);
+    //     $this->db->bind(':fecUsu', $agreEvento['fecUsuAna']);
+    //     $this->db->bind(':telUsu', $agreEvento['telUsuAna']);
+    //     $this->db->bind(':emaUsu', $agreEvento['emaUsuAna']);
+    //     $this->db->execute();
+    //     $id_usu = $this->db->ultimoIndice();
+
+    //     $this->db->query("INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES ($id_usu, :id_even, :fecha);");
+
+    //     $this->db->bind(':id_even', $agreEvento['evenUsuAna']);
+    //     $this->db->bind(':fecha', date('Y-m-d'));
+          
+    //     if ($this->db->execute()) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
 }

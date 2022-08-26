@@ -21,6 +21,7 @@ class Admin extends Controlador
         }
 
         $this->AdminModelo = $this->modelo('AdminModelo');
+        $this->externoModelo = $this->modelo('ExternoModelo');
     }
     //NOTIFICACIONES
     public function notificaciones()
@@ -448,7 +449,6 @@ public function crud_solicitudes_grupos()
 
 // ************************************* SOLICITUDES EVENTOS **************************************//
 
-    
     //SOLICITUDES SELECCIONADAS EVENTOS
     public function borrar_solicitudes_seleccionadas_eventosSoci()
     {
@@ -524,32 +524,40 @@ public function crud_solicitudes_grupos()
 
 
     //SOLICITUD EVENTOS
-    public function crud_solicitudes_eventos($sociExter)
-    {
+    public function crud_solicitudes_eventos(){
+
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
 
-        $verSoliExter = $this->AdminModelo->obtenerSolicitudesEvenExter();
-        $verSoliSoci = $this->AdminModelo->obtenerSolicitudesEvenSoci();
-        if($sociExter=="socio"){
-            $this->datos['soliEventos'] = $verSoliSoci;
-        }elseif($sociExter=="externo"){
-            $this->datos['soliEventos'] = $verSoliSoci;
-        }
-        $this->datos['radioCheck'] = $sociExter;
         
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if($_POST["opcion"]=="socio") {
-                $this->datos['soliEventos'] = $verSoliSoci;
-                $this->datos['radioCheck'] = "socio";
-            } elseif($_POST["opcion"]=="externo"){
-                $this->datos['soliEventos'] = $verSoliExter;
-                $this->datos['radioCheck'] = "externo";
-            }
-        }
+        $this->datos['soliEvento']=$this->externoModelo->obtener_soli_eventos();
+
+      
+
+        // $verSoliExter = $this->AdminModelo->obtenerSolicitudesEvenExter();
+        // $verSoliSoci = $this->AdminModelo->obtenerSolicitudesEvenSoci();
+
+        // if($sociExter=="socio"){
+        //     $this->datos['soliEventos'] = $verSoliSoci;
+        // }elseif($sociExter=="externo"){
+        //     $this->datos['soliEventos'] = $verSoliSoci;
+        // }
+        // $this->datos['radioCheck'] = $sociExter;
+        
+        // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //     if($_POST["opcion"]=="socio") {
+        //         $this->datos['soliEventos'] = $verSoliSoci;
+        //         $this->datos['radioCheck'] = "socio";
+        //     } elseif($_POST["opcion"]=="externo"){
+        //         $this->datos['soliEventos'] = $verSoliExter;
+        //         $this->datos['radioCheck'] = "externo";
+        //     }
+        // }
         $this->datos['notificaciones'][3]= "EVENTOSSOL";
         $this->vista('administradores/solicitudes/eventos', $this->datos);
     }
+
+
 
     public function borrar_solicitudes_EvenSoci($datBorrar)
     {

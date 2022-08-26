@@ -1,15 +1,23 @@
 <?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
-<style>
-          .datos_tabla{
-            text-align:center;
-        }
-</style>
 
 
-<div class="container">
-<div class="tabla" style="border:solid 1px #023ef9">
+        <header>              
+            <div class="row">
+                <div class="col-10"><span id="tHead">Solicitudes para socio</span></div>     
+                <div class="col-2">
+                    <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
+                        <span style="font-size:25px;color:white">Logout</span>
+                        <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+                    </a>
+                </div>
+            </div>                                 
+        </header>
 
-        <table class="table table-hover">
+<article>
+
+
+
+        <table id="tabla" class="table table-hover">
 
                 <!--CABECERA TABLA-->
                 <thead>
@@ -289,10 +297,7 @@
 
         </table>
 
-</div>
-
-
-</div>
+        </article>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 

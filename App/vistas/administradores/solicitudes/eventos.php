@@ -1,19 +1,20 @@
 <?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 
-<style>
- .btn{
-            background-color: #023ef9;  
-            color:white;
-        }
-        .datos_tabla{
-            text-align:center;
-        }
-</style>
 
 
+        <header>              
+            <div class="row">
+                <div class="col-10"><span id="tHead">Solicitudes eventos</span></div>     
+                <div class="col-2">
+                    <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
+                        <span style="font-size:25px;color:white">Logout</span>
+                        <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+                    </a>
+                </div>
+            </div>                                 
+        </header>
 
-
-<div style="text-align: center;">
+<!-- <div style="text-align: center;">
         <form method="post" id="radioChe" class="card-body" action="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/">
                 <input type="radio" name="opcion" value="socio" id="socio" <?php if ($datos['radioCheck'] == "socio") {
                                                                                         echo "checked";
@@ -23,14 +24,13 @@
                                                                                 } ?>>&nbsp;<label for="externo">Ver solicitudes externo</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input onclick="enviarSociExter()" class="btn" type="submit" name="enviar" value="Cargar">
         </form>
-</div>
+</div> -->
 
-<br>
-<div class="container">
-<div class="tabla" style="border:solid 1px #023ef9">
+<article>
 
 
-        <table class="table table-hover">
+
+        <table id="tabla" class="table table-hover">
 
                 <!--CABECERA TABLA-->
                 <thead>
@@ -56,10 +56,10 @@
 
 
                 <tbody class="table-light">
-                        <?php foreach ($datos['soliEventos'] as $usuarios) : ?>
+                        <?php foreach ($datos['soliEvento'] as $usuarios) : ?>
                                 <tr>
-                                        <td class="datos_tabla"><?php echo $usuarios->nombre ?></td>
-                                        <td class="datos_tabla"><?php echo $usuarios->apellidos ?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->id_externo?></td>
+                                        <td class="datos_tabla"><?php echo $usuarios->id_evento?></td>
                                         <td class="datos_tabla"><?php echo $usuarios->evento ?></td>
                                         <td class="datos_tabla"><?php echo $usuarios->fecha ?></td>
 
@@ -221,9 +221,14 @@
                 </tbody>
 
         </table>
+                                                                                </article>
 
-</div>
-</div>
+
+
+
+
+
+
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 <script>
         var aceptarBorrar = [];

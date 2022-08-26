@@ -250,7 +250,8 @@
     </div>
     <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="tMenu nav-link text-white">SOCIOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
     <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class=" tMenu nav-link text-white ">GRUPOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>         
-    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
+    <!-- <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>  -->
+    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
 </div>
 
 <!-- EQUIPACIONES -->

@@ -571,7 +571,7 @@ CREATE TABLE EXTERNO(
     id_evento int,
     nombre varchar (30) not null,
     apellidos varchar (50) not null,
-    DNI varchar (11) unique,
+    DNI varchar (11),
     fecha_nacimiento date not null,
     email varchar (50) not null,
     telefono int not null,

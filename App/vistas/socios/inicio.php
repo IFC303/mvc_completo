@@ -121,7 +121,7 @@
                             </a>
                         </div>
 
-                        <!-- APUNTAR A ESCUELA -->
+                        <!-- INSCRIPCIONES-->
                         <div class="col-6 col-xs-12 col-md-6 pt-5 mx-5" style="width:450px">
                             <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/escuela">
                                 <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:150px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">                               

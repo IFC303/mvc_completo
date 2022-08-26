@@ -186,14 +186,30 @@ class SocioModelo
         }
     }
 
-    public function eventoSoli($agreEvento)
-    {
-        $this->db->query("INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES (:id_usu, :id_even, :fecha);");
+//**********TODOS SOLICITUDES EVENTOS ****************** */
+    public function eventoSoli($idEvento,$datosUser){
+        //echo $datosUser[0]->fecha_nacimiento;
+        //exit;
+  
+        $this->db->query("INSERT INTO `EXTERNO` (`id_evento`, `nombre`, `apellidos`,`dni`,`fecha_nacimiento`,`email`,`telefono`) 
+        VALUES (:id_evento, :nombre, :apellidos, :dni, :fecha_nacimiento, :email, :telefono);");
         
-        $this->db->bind(':id_usu', $agreEvento["id_usu"]);
-        $this->db->bind(':id_even', $agreEvento["even"]);
+        $this->db->bind(':id_evento', $idEvento);
+        $this->db->bind(':nombre', $datosUser[0]->nombre);
+        $this->db->bind(':apellidos', $datosUser[0]->apellidos);
+        $this->db->bind(':dni', $datosUser[0]->dni);
+        $this->db->bind(':fecha_nacimiento', $datosUser[0]->fecha_nacimiento);
+        $this->db->bind(':email', $datosUser[0]->email);
+        $this->db->bind(':telefono', $datosUser[0]->telefono);
+        $this->db->execute();
+        $id_usu = $this->db->ultimoIndice();
+
+        $this->db->query("INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES ($id_usu, :id_even, :fecha);");
+
+        $this->db->bind(':id_even', $idEvento);
         $this->db->bind(':fecha', date('Y-m-d'));
           
+
         if ($this->db->execute()) {
             return true;
         } else {
