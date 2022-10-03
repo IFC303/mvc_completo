@@ -136,7 +136,7 @@
 
         
           
-            <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
+            <!-- <div class="col-xs-12 col-md-7 text-center order-3 order-md-2">
                 <ol class="breadcrumb v1 justify-content-center">
                     <li class="breadcrumb-level"><a href="<?php echo RUTA_URL ?>/admin">INICIO</a></li>
                     <li class='breadcrumb-level'><a href="<?php echo $miga1 ?>"><?php echo $miga1Nom ?></a></li>
@@ -146,16 +146,16 @@
                     ?>
                 </ol>
             </div>
-       
+        -->
 
 
             <!--BOTON MENU LATERAL-->                         
-            <div class="col-12 order-4" id="fotoMenu">
+            <!-- <div class="col-12 order-4" id="fotoMenu">
                 <div style="width: 50px; height: 50px; cursor:pointer;" data-bs-toggle="offcanvas" data-bs-target="#menu1">
                     <img src="<?php echo RUTA_Icon ?>menu.svg" width="50" height="50">
                 </div>
             </div>              
-    
+     -->
             <!--MENU-->
             <div class="menu1 offcanvas offcanvas-start" id="menu1">
 

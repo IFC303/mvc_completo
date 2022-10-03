@@ -539,35 +539,37 @@ CREATE TABLE EVENTO(
 (4, NULL, 'Triatlón Estanca', 'triatlón', 20, '0', '2022-06-04', '2022-06-05', '2022-03-22', '2022-05-20');
 
 
-CREATE TABLE SOLICITUD_SOCIO_EVENTO(
-    id_usuario int,
-    id_evento int,
-    fecha date,
-    primary key (
-      id_usuario,
-      id_evento,
-      fecha
-    ),
-    constraint FK_id_usuario_solicitud_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
-    constraint FK_id_evento_solicitud_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
-  );
+-- CREATE TABLE SOLICITUD_SOCIO_EVENTO(
+--     id_usuario int,
+--     id_evento int,
+--     fecha date,
+--     primary key (
+--       id_usuario,
+--       id_evento,
+--       fecha
+--     ),
+--     constraint FK_id_usuario_solicitud_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
+--     constraint FK_id_evento_solicitud_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
+--   );
 
-  INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES
-(33, 1, '2022-03-22');
+--   INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES
+-- (33, 1, '2022-03-22');
 
 
-CREATE TABLE SOCIO_EVENTO(
-    id_usuario int,
-    id_evento int,
-    marca varchar (50),
-    fecha date not null,
-    dorsal int,
-    primary key (id_usuario, id_evento),
-    constraint FK_id_usuario_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
-    constraint FK_id_evento_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
-  );
-CREATE TABLE EXTERNO(
-    id_externo int primary key AUTO_INCREMENT,
+-- CREATE TABLE SOCIO_EVENTO(
+--     id_usuario int,
+--     id_evento int,
+--     marca varchar (50),
+--     fecha date not null,
+--     dorsal int,
+--     primary key (id_usuario, id_evento),
+--     constraint FK_id_usuario_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
+--     constraint FK_id_evento_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
+--   );
+
+
+CREATE TABLE PARTICIPANTE(
+    id_participante int primary key AUTO_INCREMENT,
     id_evento int,
     nombre varchar (30) not null,
     apellidos varchar (50) not null,
@@ -575,48 +577,54 @@ CREATE TABLE EXTERNO(
     fecha_nacimiento date not null,
     email varchar (50) not null,
     telefono int not null,
-    dorasl int,
+    dorsal int,
     marca varchar (50),
-    constraint FK_id_evento_externo foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
+    constraint FK_id_evento_participante foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 
-  INSERT INTO `EXTERNO` (`id_externo`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`, `email`, `telefono`, `dorasl`, `marca`) VALUES
+INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`, `email`, `telefono`, `dorsal`, `marca`) VALUES
 (1, NULL, 'Maria', 'Gracia', '73386618N', '1995-07-14', 'MariaGracia@gamil.com', 457215485, NULL, NULL),
 (2, NULL, 'Jose', 'Rodriguez', '99922045V', '1997-08-14', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL),
 (3, NULL, 'Daniel', 'Perez', '07063289N', '2000-07-08', 'DanielPerez@gamil.com', 640685678, NULL, NULL),
 (4, NULL, 'Carmen', 'Martin', '03081415J', '2001-08-11', 'CarmenMartin@gmail.com', 640297865, NULL, NULL);
 
-CREATE TABLE SOLICITUD_EXTER_EVENTO(
-    id_externo int,
+ CREATE TABLE SOLICITUD_EVENTO(
+    id_solicitud int AUTO_INCREMENT,
     id_evento int,
     fecha date,
-    primary key (
-      id_externo,
-      id_evento,
-      fecha
-    ),
-    constraint FK_id_externo_solicitud_exter_evento foreign key (id_externo) references EXTERNO (id_externo) on delete cascade on update cascade,
-    constraint FK__id_eventosolicitud_exter_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
+    nombre varchar (30) not null,
+    apellidos varchar (50) not null,
+    DNI varchar (11),
+    fecha_nacimiento date not null,
+    direccion varchar (250) not null,
+    email varchar (50) not null,
+    telefono int not null,
+
+    primary key (id_solicitud,id_evento),
+
+     constraint FK__id_evento_solicitud_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 
-  INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES
-(1, 1, '2022-03-22'),
-(2, 1, '2022-03-22'),
-(3, 1, '2022-03-22'),
-(4, 1, '2022-03-22');
+--   INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES
+-- (1, 1, '2022-03-22'),
+-- (2, 1, '2022-03-22'),
+-- (3, 1, '2022-03-22'),
+-- (4, 1, '2022-03-22');
 
 CREATE TABLE I_ACTIVIDADES(
     id_ingreso_actividades int primary key AUTO_INCREMENT,
-    id_externo int,
+    id_participante int,
     id_usuario int,
     id_evento int not null,
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    constraint FK_id_externo_ing_actividades foreign key (id_externo) references EXTERNO (id_externo) on delete cascade on update cascade,
+    constraint FK_id_participante_ing_actividades foreign key (id_participante) references PARTICIPANTE (id_participante) on delete cascade on update cascade,
     constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
     constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
   );
+
+
 create view GRUPOS_Y_HORARIOS as
 select
   HORARIO_GRUPO.id_grupo,
@@ -634,6 +642,8 @@ from
 where
   HORARIO_GRUPO.id_grupo = GRUPO.id_grupo
   and HORARIO_GRUPO.id_horario = HORARIO.id_horario;
+
+
 create view INGRESOS as
 select
   id_ingreso_actividades as id_ingreso,
@@ -661,6 +671,8 @@ select
   'otros' as tipo
 from
   I_OTROS;
+
+
 create view GASTOS as
 select
   id_gastos as id_gasto,
@@ -679,80 +691,84 @@ select
   'personal' as tipo
 FROM
   G_PERSONAL;
-create view PARTICIPANTE AS
-select
-  SOCIO_EVENTO.id_usuario AS id_participante,
-  id_evento,
-  USUARIO.nombre,
-  USUARIO.apellidos,
-  "socio" as tipoParticipante
-from
-  SOCIO_EVENTO,
-  USUARIO
-WHERE
-  SOCIO_EVENTO.id_usuario = USUARIO.id_usuario
-union
-SELECT
-  id_externo as id_participante,
-  id_evento,
-  nombre,
-  apellidos,
-  "externo" as tipoParticipante
-from
-  EXTERNO;
-create view EMAIL as
-select
-  nombre,
-  apellidos,
-  email,
-  "Administradores" as tipo
-from
-  USUARIO
-where
-  id_rol = 1
-UNION
-select
-  nombre,
-  apellidos,
-  email,
-  "Entrenadores" as tipo
-from
-  USUARIO
-where
-  id_rol = 2
-union
-select
-  nombre,
-  apellidos,
-  email,
-  "Socios" as tipo
-from
-  USUARIO
-where
-  id_rol = 3
-union
-select
-  nombre,
-  apellidos,
-  email,
-  "Tiendas" as tipo
-from
-  USUARIO
-where
-  id_rol = 4
-union
-select
-  nombre,
-  apellidos,
-  email,
-  "Participantes" as tipo
-from
-  EXTERNO
-union
-select
-  nombre,
-  "" as apellidos,
-  email,
-  "Entidades" as tipo
-from
-  OTRAS_ENTIDADES;
+
+
+-- create view PARTICIPANTE AS
+-- select
+--   SOCIO_EVENTO.id_usuario AS id_participante,
+--   id_evento,
+--   USUARIO.nombre,
+--   USUARIO.apellidos,
+--   "socio" as tipoParticipante
+-- from
+--   SOCIO_EVENTO,
+--   USUARIO
+-- WHERE
+--   SOCIO_EVENTO.id_usuario = USUARIO.id_usuario
+-- union
+-- SELECT
+--   id_externo as id_participante,
+--   id_evento,
+--   nombre,
+--   apellidos,
+--   "externo" as tipoParticipante
+-- from
+--   EXTERNO;
+
+
+-- create view EMAIL as
+-- select
+--   nombre,
+--   apellidos,
+--   email,
+--   "Administradores" as tipo
+-- from
+--   USUARIO
+-- where
+--   id_rol = 1
+-- UNION
+-- select
+--   nombre,
+--   apellidos,
+--   email,
+--   "Entrenadores" as tipo
+-- from
+--   USUARIO
+-- where
+--   id_rol = 2
+-- union
+-- select
+--   nombre,
+--   apellidos,
+--   email,
+--   "Socios" as tipo
+-- from
+--   USUARIO
+-- where
+--   id_rol = 3
+-- union
+-- select
+--   nombre,
+--   apellidos,
+--   email,
+--   "Tiendas" as tipo
+-- from
+--   USUARIO
+-- where
+--   id_rol = 4
+-- union
+-- select
+--   nombre,
+--   apellidos,
+--   email,
+--   "Participantes" as tipo
+-- from
+--   EXTERNO
+-- union
+-- select
+--   nombre,
+--   "" as apellidos,
+--   email,
+--   "Entidades" as tipo
+-- from
+--   OTRAS_ENTIDADES;

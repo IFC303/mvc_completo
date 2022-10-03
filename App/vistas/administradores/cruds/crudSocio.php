@@ -3,7 +3,7 @@
 
         <header>
         <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Gestion de administradores</span></div>
+                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Gestion de socios</span></div>
                 <div class="col-2 mt-2">
                         <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
                                 <span>Logout</span>
@@ -89,7 +89,7 @@
                                                         <div class="col-5">
                                                         <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                 <label for="dniAtl" class="input-group-text datInfo" id="dniObli">DNI </label>
-                                                                <input type="text" class="form-control form-control-md" id="dniAtl" value="<?php echo $usuarios->dni?>"readonly name="dniAtl">  
+                                                                <input type="text" class="form-control form-control-md" id="dniAtl" value="<?php echo $usuarios->dni?>" name="dniAtl" readonly>  
                                                         </div> 
                                                         </div>
 
@@ -111,7 +111,7 @@
 
                                                         <div class="col-7">
                                                         <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
-                                                                <label for="email" class="input-group-text datInfo">Correo <sup>*</sup></label>
+                                                                <label for="email" class="input-group-text datInfo">Email <sup>*</sup></label>
                                                                 <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $usuarios->email?>"readonly>
                                                         </div>
                                                         </div>
@@ -140,7 +140,46 @@
                                                                 <input type="text" class="form-control form-control-md" name="verTalla" id="verTalla" value="<?php echo $usuarios->talla?>" readonly> 
                                                         </div>
                                                         </div>
+                                                        <div class="col-3">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="verEsSocio" class="input-group-text"><span class="info">Ha sido socio:</span></label>
+                                                                <input type="text" class="form-control form-control-md" name="verEsSocio" id="verEsSocio" 
+                                                                        value="<?php if ($usuarios->ha_sido == 0) {
+                                                                                        echo "No";
+                                                                                } else{
+                                                                                        echo "Si";
+                                                                                }?>" readonly> 
+                                                        </div>
+                                                        </div>
 
+                                                </div>
+
+                                                <p class="mt-4 mb-3 titulito">Datos padre / tutor <span >(solo si es menor)</span></p> 
+
+                                                <div class="row">
+                                                        <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="nom_pa" class="input-group-text"><span class="info">Nombre</span></label>
+                                                                <input type="text" class="form-control form-control-md"  name="nom_pa" id="nom_pa" value="<?php echo $usuarios->nom_pa?>" readonly>    
+                                                        </div> 
+                                                        </div>
+
+                                                        <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="ape_pa" class="input-group-text"><span class="info">Apellidos</span></label> 
+                                                                <input type="text" class="form-control form-control-md"  name="ape_pa" id="ape_pa" value="<?php echo $usuarios->ape_pa?>" readonly>        
+                                                        </div>
+                                                        </div>
+                                                </div>  
+
+
+                                                <div class="row">
+                                                        <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="dni_pa" class="input-group-text"><span class="info">DNI</span></label>
+                                                                <input type="text" class="form-control form-control-md" id="dni_pa" name="dni_pa" value="<?php echo $usuarios->dni_pa?>" readonly>    
+                                                        </div> 
+                                                        </div>
                                                 </div>
                                         </div>
                                         </div>
@@ -175,7 +214,7 @@
                                         <div class="modal-body info mb-3">                         
                                         <div class="row ms-1 me-1"> 
 
-                                        <form method="post" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php echo $usuarios->id_usuario?>">
+                                        <form method="post" action="<?php echo RUTA_URL ?>/admin/editarSocio/<?php echo $usuarios->id_usuario?>">
                                                         <div class="row">
                                                                 <div class="col-5">
                                                                         <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -196,7 +235,7 @@
                                                                 <div class="col-5">
                                                                 <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                                         <label for="dniAtl" class="input-group-text datInfo" id="dniObli">DNI </label>
-                                                                        <input type="text" class="form-control form-control-md" id="dniAtl" value="<?php echo $usuarios->dni?>" name="dniAtl" required>  
+                                                                        <input type="text" class="form-control form-control-md" id="dniAtl" value="<?php echo $usuarios->dni?>" name="dniAtl">  
                                                                 </div> 
                                                                 </div>
 
@@ -247,11 +286,46 @@
                                                                         <input type="text" class="form-control form-control-md" name="verTalla" id="verTalla" value="<?php echo $usuarios->talla?>"> 
                                                                 </div>
                                                                 </div>
-
                                                         </div>
 
-                                                </div>
-                                                </div>
+                                                        <div class="row">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="" class="me-3">¿Has sido socio alguna vez? <sup>*</sup></label> <br>
+                                                                <input class="me-2" type="radio" id="siSocio" name="priSocio" value="si" required><label for="siSocio">&nbspSI</label><span style="margin-left: 20px;"></span>
+                                                                <input class="me-2" type="radio" id="noSocio" name="priSocio" value="no" required><label for="noSocio">&nbspNO</label>  
+                                                        </div>
+                                                        </div>
+
+                                                        <p class="mt-4 mb-3 titulito">Datos padre / tutor <span >(solo si es menor)</span></p> 
+
+                                                        <div class="row">
+                                                                <div class="col-5">
+                                                                <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                        <label for="nom_pa" class="input-group-text"><span class="info">Nombre</span></label>
+                                                                        <input type="text" class="form-control form-control-md"  name="nom_pa" id="nom_pa" value="<?php echo $usuarios->nom_pa?>">    
+                                                                </div> 
+                                                                </div>
+
+                                                                <div class="col-7">
+                                                                <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                        <label for="ape_pa" class="input-group-text"><span class="info">Apellidos</span></label> 
+                                                                        <input type="text" class="form-control form-control-md"  name="ape_pa" id="ape_pa" value="<?php echo $usuarios->ape_pa?>">        
+                                                                </div>
+                                                                </div>
+                                                        </div>  
+
+
+                                                        <div class="row">
+                                                                <div class="col-5">
+                                                                <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                        <label for="dni_pa" class="input-group-text"><span class="info">DNI</span></label>
+                                                                        <input type="text" class="form-control form-control-md" id="dni_pa" name="dni_pa" value="<?php echo $usuarios->dni_pa?>">    
+                                                                </div> 
+                                                                </div>
+                                                        </div>
+
+                                                        </div>
+                                                        </div>
                                         
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer mb-3 me-4">                            
@@ -287,7 +361,7 @@
 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL ?>/admin/borrarAdmin/<?php echo $usuarios->id_usuario?>" method="post">                                                                                                                                        
+                                                <form action="<?php echo RUTA_URL ?>/admin/borrarSocio/<?php echo $usuarios->id_usuario?>" method="post">                                                                                                                                        
                                                 <input type="submit" class="btn" name="borrar" id="confirmar" value="Borrar">   
                                                 </form>
                                                 </div>
@@ -304,7 +378,7 @@
  </table>
 
 
-        <!-- AÑADIR NUEVO ADMIN-->
+        <!-- AÑADIR NUEVO SOCIO-->
         <div class="col text-center mt-5">
         <a data-bs-toggle="modal" data-bs-target="#nuevo">
         <input type="button" style="background-color: #023ef9; color:white" class="btn" value="AÑADIR NUEVO">
@@ -317,7 +391,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header ">
-                        <p class="modal-title">Alta de administradores</p> 
+                        <p class="modal-title">Alta de socios</p> 
                         <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -325,7 +399,7 @@
                 <div class="modal-body info">                         
                 <div class="row ms-1 me-1">                                                                                                           
                                                     
-                        <form action="<?php echo RUTA_URL?>/admin/nuevoAdmin" method="post">
+                        <form action="<?php echo RUTA_URL?>/admin/nuevoSocio" method="post">
                                 <div class="row">
                                         <div class="col-5">
                                                 <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -346,7 +420,7 @@
                                         <div class="col-5">
                                         <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
                                                 <label for="dniAtl" class="input-group-text datInfo" id="dniObli">DNI </label>
-                                                <input type="text" class="form-control form-control-md" id="dniAtl" placeholder="Escriba el DNI" name="dniAtl" required>  
+                                                <input type="text" class="form-control form-control-md" id="dniAtl" placeholder="Escriba el DNI" name="dniAtl">  
                                         </div> 
                                         </div>
 
@@ -396,8 +470,44 @@
                                                 <label for="verTalla" class="input-group-text datInfo"><span class="info">Talla:</span></label>
                                                 <input type="text" class="form-control form-control-md" name="verTalla" id="verTalla" placeholder="Escriba la talla" > 
                                         </div>
+                                        </div>    
+                                </div>
+
+                                <div class="row">
+                                <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                        <label for="" class="me-3">¿Has sido socio alguna vez? <sup>*</sup></label> <br>
+                                        <input class="me-2" type="radio" id="siSocio" name="priSocio" value="si" required><label for="siSocio">&nbspSI</label><span style="margin-left: 20px;"></span>
+                                        <input class="me-2" type="radio" id="noSocio" name="priSocio" value="no" required><label for="noSocio">&nbspNO</label>  
+                                </div>
+                                </div> 
+                                                                 
+
+                                <p class="mt-4 mb-3 titulito">Datos padre / tutor <span >(solo si es menor)</span></p> 
+
+                                <div class="row">
+                                        <div class="col-5">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                <label for="nom_pa" class="input-group-text"><span class="info">Nombre</span></label>
+                                                <input type="text" class="form-control form-control-md"  name="nom_pa" id="nom_pa" placeholder="Escriba el nombre">    
+                                        </div> 
                                         </div>
 
+                                        <div class="col-7">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                <label for="ape_pa" class="input-group-text"><span class="info">Apellidos</span></label> 
+                                                <input type="text" class="form-control form-control-md"  name="ape_pa" id="ape_pa" placeholder="Escriba los apellidos" >        
+                                        </div>
+                                        </div>
+                                </div>  
+
+
+                                <div class="row">
+                                        <div class="col-5">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                <label for="dni_pa" class="input-group-text"><span class="info">DNI</span></label>
+                                                <input type="text" class="form-control form-control-md" id="dni_pa" name="dni_pa" placeholder="Escriba el DNI">    
+                                        </div> 
+                                        </div>
                                 </div>
 
                                 
@@ -443,4 +553,3 @@
         return false;
     }
 </script>
-

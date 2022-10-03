@@ -1,53 +1,24 @@
 <?php require_once RUTA_APP.'/vistas/inc/navA.php' ?>
 
-    <style>
-
-        /* #ventana{
-            margin: auto;
-        } */
-
-        label, h2, h4,h6{
-           color:#023ef9;
-        }
-
-        .btn{
-            background-color: #023ef9;
-            color:white;
-        }
-
-        #botonVolver{
-            background-color:white;
-            color:#023ef9;
-            border-color:#023ef9;
-        }
-
-        #elementSocios{
-            padding-left:5px;
-            margin-top:15px;
-        }
-
-        #todos{
-            margin-left:5px;
-            margin-top:20px;
-        }
-
-        #titulo{
-            font-family: 'Anton',sans-serif; 
-            color: #023ef9; 
-            letter-spacing: 5px;
-        }
+        <header>
+        <div class="row mb-5">
+                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Envio de mensajeria</span></div>
+                <div class="col-2 mt-2">
+                        <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
+                                <span>Logout</span>
+                                <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                        </a>
+                </div>
+        </div>                                   
+        </header>
 
 
-    </style>
 
 
         <!--RADIO SELECCION-->
+        <article>
         <div class="container">
 
-
-            <div class="row" style="text-align:center">
-                <div class="col-12"><h4 id="titulo">Envio de mensajeria</h4></div>
-            </div>
 
             <script>
 
@@ -57,6 +28,10 @@
                 var correos = new Array();
                 console.log(correos);
             </script>
+
+
+
+
 
             <div class="row">
 
@@ -146,6 +121,7 @@
                 </div>
             </div>
         </div>
+        </article>
 
         <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 

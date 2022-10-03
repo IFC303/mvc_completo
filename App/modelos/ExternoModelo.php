@@ -48,36 +48,81 @@ class ExternoModelo
     }
 
 
+
+
+// *****************************************  SOLICITUDES EVENTOS   ******************************************//
+
+
+    //********* REGISTRA SOLICITUD ************/
+      public function anadir_soli_eve($soli_eve){
+
+            $this->db->query("INSERT INTO SOLICITUD_EVENTO (id_evento, fecha, nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono) 
+            VALUES (:evento, CURDATE(), :nombre, :apellidos,:dni, :fecha_naci, :direccion, :email, :telefono);");
+            
+            $this->db->bind(':nombre', $soli_eve['nombre']);
+            $this->db->bind(':apellidos', $soli_eve['apellidos']);
+            $this->db->bind(':fecha_naci', $soli_eve['fecha_naci']);
+            $this->db->bind(':dni', $soli_eve['dni']);
+            $this->db->bind(':direccion', $soli_eve['direccion']);
+            $this->db->bind(':telefono', $soli_eve['telefono']);
+            $this->db->bind(':email', $soli_eve['email']);
+            $this->db->bind(':evento', $soli_eve['evento']);
+            
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+    // ******** VISUALIZA TODAS LAS SOLICITUDES ******* //
     public function obtener_soli_eventos(){
-        $this->db->query("SELECT * FROM SOLICITUD_EXTER_EVENTO");
-
-        return $this->db->registros();
-
+            $this->db->query("SELECT id_solicitud, SOLICITUD_EVENTO.id_evento, EVENTO.nombre as nombre_evento, fecha, SOLICITUD_EVENTO.nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono
+            FROM SOLICITUD_EVENTO, EVENTO where EVENTO.id_evento=SOLICITUD_EVENTO.id_evento order by id_solicitud");
+            return $this->db->registros();
     }
 
-    // public function anadirSoliEven($agreEvento){
-    //     $this->db->query("INSERT INTO EXTERNO (DNI, nombre, apellidos, fecha_nacimiento, email, telefono) 
-    //     VALUES (:dniUsu, :nomUsu, :apelUsu, :fecUsu, :emaUsu, :telUsu);");
+
+    // ******** BORRA SOLICITUD ******* //
+    public function borrar_soli_eve($id){
+            $this->db->query("DELETE FROM SOLICITUD_EVENTO WHERE id_solicitud=:id");
+            $this->db->bind(':id', $id);
+            
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+  // ******** ACEPTAR SOLICITUD ******* //
+    public function aceptar_soli_even($aceptar){
+
+        $this->db->query("INSERT INTO PARTICIPANTE (id_evento,nombre, apellidos, DNI, fecha_nacimiento, email, telefono) 
+        VALUES (:evento, :nombre, :apellidos,:dni, :fecha_naci,:telefono, :email);");
         
-    //     $this->db->bind(':dniUsu', $agreEvento['dniUsuAna']);
-    //     $this->db->bind(':nomUsu', $agreEvento['nomUsuAna']);
-    //     $this->db->bind(':apelUsu', $agreEvento['apelUsuAna']);
-    //     $this->db->bind(':fecUsu', $agreEvento['fecUsuAna']);
-    //     $this->db->bind(':telUsu', $agreEvento['telUsuAna']);
-    //     $this->db->bind(':emaUsu', $agreEvento['emaUsuAna']);
-    //     $this->db->execute();
-    //     $id_usu = $this->db->ultimoIndice();
+        $this->db->bind(':evento', $aceptar['evento']);
+        $this->db->bind(':nombre', $aceptar['nombre']);
+        $this->db->bind(':apellidos', $aceptar['apellidos']);
+        $this->db->bind(':dni', $aceptar['dni']);
+        $this->db->bind(':fecha_naci', $aceptar['f_naci']);       
+        $this->db->bind(':telefono', $aceptar['telefono']);
+        $this->db->bind(':email', $aceptar['email']);
 
-    //     $this->db->query("INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES ($id_usu, :id_even, :fecha);");
+        $this->db->execute(); 
 
-    //     $this->db->bind(':id_even', $agreEvento['evenUsuAna']);
-    //     $this->db->bind(':fecha', date('Y-m-d'));
-          
-    //     if ($this->db->execute()) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+        $this->db->query("DELETE FROM  SOLICITUD_EVENTO WHERE `id_solicitud` = :id;");
+        $this->db->bind(':id', $aceptar['id']);
+  
+        if ($this->db->execute()) {
+             return true;
+         } else {
+             return false;
+         }
+        
+    }
+
+
 
 }

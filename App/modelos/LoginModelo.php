@@ -19,6 +19,26 @@ class LoginModelo
         return $this->db->registro();
     }
 
+    
+    public function recuperar($socio){
+        $this->db->query("SELECT email FROM USUARIO WHERE id_usuario=:socio");
+        $this->db->bind(':socio', $socio);
+        return $this->db->registro();
+    }
+
+    public function cambiarPass($password,$id){
+    
+        $this->db->query("UPDATE usuario SET passw=MD5(:passw) where id_usuario=:id");
+        $this->db->bind(':passw', $password);
+        $this->db->bind(':id', $id);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
     /*public function registroSesion($id_usuario)
     {

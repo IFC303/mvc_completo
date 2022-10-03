@@ -64,17 +64,18 @@
             </nav>
 
   
-            <header>
-                <div class="row">
-                    <div class="col-10 d-flex align-items-center justify-content-center"><span id="tHead" style="color:#0b2a85">Panel del administrador</span></div>
-                    <div class="col-2 mt-2">
-                        <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
-                            <span style="font-size:25px;color:white">Logout</span>
-                            <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+    
+        <header>
+        <div class="row mb-5">
+                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Panel del administrador</span></div>
+                <div class="col-2 mt-2 ">
+                        <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
+                                <span>Logout</span>
+                                <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
                         </a>
-                    </div>
-                </div>                                   
-            </header>
+                </div>
+        </div>                                   
+        </header>
 
 
 
@@ -87,7 +88,7 @@
                 <div id="colorUsu" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuUsu">
                     <div class="row">
                         <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>usuario.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">USUARIOS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                        <div class="col-8"><p style="margin-top:10px; margin-left:30px; font-size:20px">USUARIOS</p><p style="font-size:14px;margin-top:-15px;  margin-left:30px;">Altas, bajas y modificaciones de usuarios</p></div>
                     </div>                              
                 </div>     
             </div>
@@ -96,7 +97,7 @@
                 <div id="colorSoli" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuSol">
                     <div class="row">
                         <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>solicitudes.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">SOLICITUDES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">SOLICITUDES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Confirmacion y anulacion de solicitudes</p></div>
                     </div>                              
                 </div>     
             </div>
@@ -106,7 +107,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>grupos.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">GRUPOS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">GRUPOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -123,7 +124,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EVENTOS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EVENTOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Creacion de nuevos eventos</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -135,7 +136,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>licencias.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">LICENCIAS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">LICENCIAS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -146,7 +147,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>entidad.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">ENTIDADES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">ENTIDADES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -161,7 +162,7 @@
                 <div id="colorEquip" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
                     <div class="row">
                         <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EQUIPACIONES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EQUIPACIONES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Gestion de pedidos y de nuevos</p></div>
                     </div>                              
                 </div>     
             </div>
@@ -172,7 +173,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">TEMPORADAS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">TEMPORADAS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -182,8 +183,8 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminRankings">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">RANKINGS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>ranking.png" width="60" height="60"></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">RANKINGS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -198,7 +199,7 @@
                 <div id="colorFact" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuFac">
                     <div class="row">
                         <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>euro.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">FACTURACION</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">FACTURACION</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                     </div>                              
                 </div>     
             </div>
@@ -208,7 +209,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>mensajeria.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">MENSAJERIA</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">MENSAJERIA</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -251,7 +252,7 @@
     <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="tMenu nav-link text-white">SOCIOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
     <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class=" tMenu nav-link text-white ">GRUPOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>         
     <!-- <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/socio" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a>  -->
-    <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
+    <a href="<?php echo RUTA_URL ?>/externo/crud_solicitudes_eventos" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
 </div>
 
 <!-- EQUIPACIONES -->

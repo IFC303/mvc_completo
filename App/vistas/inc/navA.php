@@ -21,6 +21,32 @@
 </head>
 
 
+<style>
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: rgb(142, 193, 231 );
+}
+
+</style>
+
 <body>
 
 
@@ -30,41 +56,103 @@
       
             <a id="home" href="<?php echo RUTA_URL ?>/socio" class="nav-link">
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 
-            </a>                                     
+            </a>                                       
+            
+            <!--DESPLEGABLE USUARIOS-->
+            <div class="sidenav">
+                <a class="dropdown-btn">
+                    <img class="imgMenu" src="<?php echo RUTA_Icon ?>usuario.png"><span class="tMenu">USUARIOS</span>
+                </a>
+                <div class="dropdown-container">
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="nav-link"><span class="tMenu ms-5 ps-5">ADMIN</span></a>
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link "><span class="tMenu ms-5 ps-5">ENTRENADORES</span></a>
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_socios" class="nav-link "><span class="tMenu ms-5 ps-5">SOCIOS</span></a>
+                </div>
+            </div>
+            
 
-            <a href="<?php echo RUTA_URL ?>" class="nav-link">
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">USUARIOS</span>
-            </a>                          
-            <a href="<?php echo RUTA_URL ?>" class="nav-link" >
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">SOLICITUDES</span>
-            </a>                           
+              <!--DESPLEGABLE SOLICITUDES-->
+                <div class="sidenav">
+                    <a class="dropdown-btn">
+                        <img class="imgMenu" src="<?php echo RUTA_Icon ?>solicitudes.png"><span class="tMenu">SOLICITUDES</span>
+                    </a>
+                    <div class="dropdown-container">
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link"><span class="tMenu ms-5 ps-5">SOCIOS</span></a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link "><span class="tMenu ms-5 ps-5">EVENTOS</span></a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link "><span class="tMenu ms-5 ps-5">GRUPOS</span></a>
+                    </div>
+                </div>
+            
+                          
             <a href="<?php echo RUTA_URL ?>/adminGrupos" class="nav-link">                           
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">GRUPOS</span>                                                          
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">GRUPOS</span>                                                          
             </a>   
+
             <a href="<?php echo RUTA_URL ?>/adminEventos" class="nav-link">
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">EVENTOS</span>
-            </a>                          
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>eventos.png"><span class="tMenu">EVENTOS</span>
+            </a>       
+
             <a href="<?php echo RUTA_URL ?>/adminLicencias" class="nav-link" >
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">LICENCIAS</span>
-            </a>                           
-            <a href="<?php echo RUTA_URL ?>/adminEntidades" class="nav-link">                           
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">ENTIDADES</span>                                                          
-            </a>         
-            <a href="<?php echo RUTA_URL ?>" class="nav-link">
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">EQUIPACIONES</span>
-            </a>                          
-            <a href="<?php echo RUTA_URL ?>" class="nav-link" >
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">TEMPORADAS</span>
-            </a>                           
-            <a href="<?php echo RUTA_URL ?>" class="nav-link">                           
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">RANKINGS</span>                                                          
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>licencias.png"><span class="tMenu">LICENCIAS</span>
             </a>     
-            <a href="<?php echo RUTA_URL ?>" class="nav-link">
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">FACTURACION</span>
-            </a>                          
+
+            <a href="<?php echo RUTA_URL ?>/adminEntidades" class="nav-link">                           
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>entidad.png"><span class="tMenu">ENTIDADES</span>                                                          
+            </a>         
+
+            <!--DESPLEGABLE EQUIPACIONES-->
+            <div class="sidenav">
+                <a class="dropdown-btn">
+                    <img class="imgMenu" src="<?php echo RUTA_Icon ?>carrito.png"><span class="tMenu">EQUIPACIONES</span>
+                </a>
+                <div class="dropdown-container">
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="nav-link"><span class="tMenu ms-5 ps-5">PEDIDOS</span></a>
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link "><span class="tMenu ms-5 ps-5">GESTION</span></a>
+                </div>
+            </div>
+                         
+            <a href="<?php echo RUTA_URL ?>" class="nav-link" >
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>temporadas.png"><span class="tMenu">TEMPORADAS</span>
+            </a>    
+
+            <a href="<?php echo RUTA_URL ?>" class="nav-link">                           
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>ranking.png"><span class="tMenu">RANKINGS</span>                                                          
+            </a>     
+
+
+            <!--DESPLEGABLE FACTURACION-->
+            <div class="sidenav">
+                <a class="dropdown-btn">
+                    <img class="imgMenu" src="<?php echo RUTA_Icon ?>euro.png"><span class="tMenu">FACTURACION</span>
+                </a>
+                <div class="dropdown-container">
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="nav-link"><span class="tMenu ms-5 ps-5">INGRESOS</span></a>
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link "><span class="tMenu ms-5 ps-5">GASTOS</span></a>
+                    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link "><span class="tMenu ms-5 ps-5">CUOTAS</span></a>
+                </div>
+            </div>
+                       
             <a href="<?php echo RUTA_URL ?>/adminMensajeria" class="nav-link" >
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">MENSAJERIA</span>
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">MENSAJERIA</span>
             </a>                           
                           
        
         </nav>
+
+
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+        } else {
+        dropdownContent.style.display = "block";
+        }
+    });
+    }
+</script>

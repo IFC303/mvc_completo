@@ -3,7 +3,7 @@
 
         <header>
         <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Gestion de administradores</span></div>
+                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Gestion de entrenadores</span></div>
                 <div class="col-2 mt-2">
                         <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
                                 <span>Logout</span>
@@ -175,7 +175,7 @@
                                         <div class="modal-body info mb-3">                         
                                         <div class="row ms-1 me-1"> 
 
-                                        <form method="post" action="<?php echo RUTA_URL ?>/admin/editarUsuario/<?php echo $usuarios->id_usuario?>">
+                                        <form method="post" action="<?php echo RUTA_URL ?>/admin/editarEnt/<?php echo $usuarios->id_usuario?>">
                                                         <div class="row">
                                                                 <div class="col-5">
                                                                         <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -287,7 +287,7 @@
 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL ?>/admin/borrarAdmin/<?php echo $usuarios->id_usuario?>" method="post">                                                                                                                                        
+                                                <form action="<?php echo RUTA_URL ?>/admin/borrarEnt/<?php echo $usuarios->id_usuario?>" method="post">                                                                                                                                        
                                                 <input type="submit" class="btn" name="borrar" id="confirmar" value="Borrar">   
                                                 </form>
                                                 </div>
@@ -317,7 +317,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header ">
-                        <p class="modal-title">Alta de administradores</p> 
+                        <p class="modal-title">Alta de entrenadores</p> 
                         <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -325,7 +325,7 @@
                 <div class="modal-body info">                         
                 <div class="row ms-1 me-1">                                                                                                           
                                                     
-                        <form action="<?php echo RUTA_URL?>/admin/nuevoAdmin" method="post">
+                        <form action="<?php echo RUTA_URL?>/admin/nuevoEnt" method="post">
                                 <div class="row">
                                         <div class="col-5">
                                                 <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
@@ -443,4 +443,3 @@
         return false;
     }
 </script>
-

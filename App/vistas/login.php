@@ -27,7 +27,7 @@
 
           <div class="row justify-content-center">
             <div class="input-group mb-3 w-75">
-                <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
+                <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>email.svg" width="30px"></label>
                 <input type="email" name="email" id="email" class="form-control form-control-md bg-white" placeholder="Email" required>
             </div>
           </div>
@@ -35,9 +35,9 @@
           <div class="row justify-content-center">
             <div class="input-group mb-4 w-75">
                 <label for="password"class="input-group-text"><img src="<?php echo RUTA_Icon?>llave.svg" width="30px"></label>
-                <input type="password" name="passw" id="passw" class="form-control form-control-md" placeholder="Password" required>
+                <input type="password" name="passw" id="passw" class="form-control form-control-md" placeholder="Password" required>               
             </div>
-          </div>
+          </div> 
               
           <div class="d-flex justify-content-center" >          
               <button type="submit" class="btn boton w-75"><img src="<?php echo RUTA_Icon?>candado.png" width="35px">Login</button>                         
@@ -51,10 +51,11 @@
           </div>
 
           <!-- VENTANA -->
-          <div class="modal" id="recuperar">
+          <div class="modal fade" id="recuperar">
           <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content modal-content-md">
 
+          <form action="<?php echo RUTA_URL?>/login/recuperar/" method="post">
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -62,21 +63,27 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <h6>Escribe tu email y te enviaremos un correo con tu nueva contraseña</h6>
+                    <h6>Escribe tu email y numero de socio y te enviaremos un correo con tu nueva contraseña</h6>
                     <div class="row justify-content-center">
                       <div class="input-group mt-3 mb-3 w-75">
-                        <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
+                        <label for="email"class="input-group-text"><img src="<?php echo RUTA_Icon?>email.svg" width="30px"></label>
                         <input type="email" name="email" id="email" class="form-control form-control-md bg-white" placeholder="Email" required>
                       </div>
                     </div>
+                    <div class="row justify-content-center">
+                      <div class="input-group mt-3 mb-3 w-75">
+                        <label for="socio" class="input-group-text"><img src="<?php echo RUTA_Icon?>usuario.svg" width="30px"></label>
+                        <input type="text" name="socio" id="socio" class="form-control form-control-md bg-white" placeholder="Nº socio" required>
+                      </div>
+                    </div>
                 </div>
-
+               
                 <!-- Modal footer -->
-                <div class="modal-footer">
-                      <form action="<?php echo RUTA_URL?>/adminEntidades/borrar/<?php echo $entidad->id_entidad?>" method="post">
-                          <input type="submit" id="confirmar" class="btn" value="Confirmar">
-                      </form>
+                <div class="modal-footer">                  
+                    <input type="submit" id="confirmar" class="btn" value="Confirmar">     
                 </div>
+            </form>
+
           </div>
           </div>
           </div>
@@ -110,3 +117,5 @@
 
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+

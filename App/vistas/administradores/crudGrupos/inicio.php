@@ -1,84 +1,22 @@
 <?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 
-    <style>
-      /*modal javascript */
 
-      .modalVer{  
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding: 100px 100px 0px 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4); 
-        }
-
-        .modalVer .modal-content{
-            width:60%;
-            margin: auto;
-        }
-
-        #modalEditar{
-            width:60%;
-            margin: auto;
-        }
-
-        .modal-title{
-            color:#023ef9;
-        }
-
-        label{
-           color:#023ef9;
-        }
-
-        a{
-            color:black;
-            text-decoration: none;
-        }
-
-/*ESTILOS TABLA */
-
-        .tabla{
-            border:solid 1px #023ef9;  
-            margin:auto;
-        }
-
-        thead tr{
-            background-color:#023ef9; 
-            color:white;
-            text-align:center;
-        }
-
-        .datos_tabla{
-            text-align:center;
-        }
-        .icono{
-            width:20px;
-            height:20px;
-        }
+        <header>
+        <div class="row mb-5">
+                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Gestion de grupos</span></div>
+                <div class="col-2 mt-2">
+                        <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
+                                <span>Logout</span>
+                                <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                        </a>
+                </div>
+        </div>                                   
+        </header>
 
 
-        #headerVer h2{
-            padding: 30px;
-            color:#023ef9;
-        }
-        
-       
-        .btn{
-            background-color: #023ef9; 
-            color:white;
-        }
-      
+<article>
 
-    </style>
-
-        <div class="container">
-            <div class="tabla">
-                <table class="table table-hover">
+        <table id="tabla" class="table">
 
 
                     <!--CABECERA TABLA-->
@@ -496,19 +434,27 @@
                         </tr>
                         <?php endforeach ?>       
                     </tbody>
-                </table>
-
+                    
+</table>
 
                     <!--CREAR NUEVO GRUPO Y AÑADIR PARTICIPANTES-->
-                    <div class="col text-center">
+                    <div class="col text-center mt-5">
                         <a class="btn" style="background-color: #023ef9; color:white" href="<?php echo RUTA_URL?>/adminGrupos/nuevo_grupo/">Crear grupo</a>
                     </div>
-                    <br>
-            </div>
-        </div>
+
+</article>
 
 
-        <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+
+
+                    
+                    
+           
+
+
+
      
 <script>
 

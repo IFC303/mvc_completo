@@ -224,3 +224,6 @@ function Solo_Texto(e) {
     if (AllowRegex.test(character)) return true;
     return false;
 }
+
+
+

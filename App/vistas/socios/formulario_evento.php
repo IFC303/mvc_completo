@@ -18,7 +18,7 @@
     </style>
 
 
-    <form method="post">
+    <form action="" method="post">
         <div class="row">
 
             <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3 mt-3">
@@ -53,7 +53,8 @@
 
             <label id="error"></label>
             <div class="col-12">
-                <input type="submit" value="Enviar" style="background-color: #023ef9; color:white;">
+                <button type="submit" value="Enviar" style="background-color: #023ef9; color:white;" onclick="conf();"> ENVIAR</button>
+                
             </div>
 
 
@@ -62,3 +63,11 @@
 
     <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
     <script src="<?php echo RUTA_URL ?>/public/js/validar.js"></script>
+
+    <script>
+
+        function confi(){
+            console.log("juas");
+        }
+
+    </script>

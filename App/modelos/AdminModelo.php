@@ -30,281 +30,272 @@ class AdminModelo
 
     public function notEventos()
     {
-        $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
-        $notExter = $this->db->rowCount();
-        $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
-        $notSoci = $this->db->rowCount();
-        $not = $notExter + $notSoci;
-        return $not;
+        $this->db->query("SELECT * FROM SOLICITUD_EVENTO");
+        return $this->db->rowCount();
     }
+
+    // public function notEventos()
+    // {
+    //     $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
+    //     $notExter = $this->db->rowCount();
+    //     $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
+    //     $notSoci = $this->db->rowCount();
+    //     $not = $notExter + $notSoci;
+    //     return $not;
+    // }
 
     //CRUDS USUARIOS
-    public function obtenerUsuarios($rol)
-    {
-        if ($rol == 2) {
-            $this->db->query("SELECT * FROM USUARIO u, ENTRENADOR e WHERE id_rol = $rol and u.id_usuario=e.id_usuario");
-            return $this->db->registros();
-        } else {
-            $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
-            return $this->db->registros();
-        }
-    }
+    // public function obtenerUsuarios($rol)
+    // {
+    //     if ($rol == 2) {
+    //         $this->db->query("SELECT * FROM USUARIO u, ENTRENADOR e WHERE id_rol = $rol and u.id_usuario=e.id_usuario");
+    //         return $this->db->registros();
+    //     } else {
+    //         $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
+    //         return $this->db->registros();
+    //     }
+    // }
 
-    public function borrarUsuario($idUsuario)
-    {
-        $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
-        $this->db->bind(':id_usu', $idUsuario);
 
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
-    public function editarUsuario($usuEditar)
-    {
-        if ($usuEditar['SueldoEdit'] != "" && $usuEditar['SueldoEdit'] != NULL) {
-            $this->db->query("UPDATE `ENTRENADOR` SET `sueldo` = :sueldoEdit WHERE `id_usuario` = :id_usuEdit;");
-            $this->db->bind(':id_usuEdit', $usuEditar['idEdit']);
-            $this->db->bind(':sueldoEdit', $usuEditar['SueldoEdit']);
-            $this->db->execute();
-        }
 
-        $coma = 0;
-        $dniMet = false;
-        $nomMet = false;
-        $apeMet = false;
-        $fecMet = false;
-        $emaMet = false;
-        $telMet = false;
-        $passMet = false;
-        $cccMet = false;
-        $tallMet = false;
-        $fotMet = false;
-        $actMet = false;
-        $rolMet = false;
-        $girMet = false;
-        $cad = "UPDATE `USUARIO` SET ";
+// ********************************* ADMINISTRADORES **************************//
 
-        if (($usuEditar['dniEdit'] != "") && ($usuEditar['dniEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `dni` = :dniUsu";
-            } else {
-                $cad = $cad . " `dni` = :dniUsu";
-                $coma = 1;
-            }
-            $dniMet = true;
-        }
-        if (($usuEditar['nomEdit'] != "") && ($usuEditar['nomEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `nombre` = :nomUsu";
-            } else {
-                $cad = $cad . " `nombre` = :nomUsu";
-                $coma = 1;
-            }
-            $nomMet = true;
-        }
-        if (($usuEditar['apelEdit'] != "") && ($usuEditar['apelEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `apellidos` = :apelUsu";
-            } else {
-                $cad = $cad . " `apellidos` = :apelUsu";
-                $coma = 1;
-            }
-            $apeMet = true;
-        }
-        if (($usuEditar['fecEdit'] != "") && ($usuEditar['fecEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `fecha_nacimiento` = :fecUsu";
-            } else {
-                $cad = $cad . " `fecha_nacimiento` = :fecUsu";
-                $coma = 1;
-            }
-            $fecMet = true;
-        }
-        if (($usuEditar['telEdit'] != "") && ($usuEditar['telEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `telefono` = :telUsu";
-            } else {
-                $cad = $cad . " `telefono` = :telUsu";
-                $coma = 1;
-            }
-            $telMet = true;
-        }
-        if (($usuEditar['emaEdit'] != "") && ($usuEditar['emaEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `email` = :emaUsu";
-            } else {
-                $cad = $cad . " `email` = :emaUsu";
-                $coma = 1;
-            }
-            $emaMet = true;
-        }
-        if (($usuEditar['direcEdit'] != "") && ($usuEditar['direcEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `direccion` = :direUsu";
-            } else {
-                $cad = $cad . " `direccion` = :direUsu";
-                $coma = 1;
-            }
-            $emaMet = true;
-        }
-        if (($usuEditar['passEdit'] != "") && ($usuEditar['passEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `passw` = MD5(:passUsu)";
-            } else {
-                $cad = $cad . " `passw` = MD5(:passUsu)";
-                $coma = 1;
-            }
-            $passMet = true;
-        }
-        if (($usuEditar['CCCEdit'] != "") && ($usuEditar['CCCEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `CCC` = :cccUsu";
-            } else {
-                $cad = $cad . " `CCC` = :cccUsu";
-                $coma = 1;
-            }
-            $cccMet = true;
-        }
-        if (($usuEditar['TallaEdit'] != "") && ($usuEditar['TallaEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `talla` = :tallUsu";
-            } else {
-                $cad = $cad . " `talla` = :tallUsu";
-                $coma = 1;
-            }
-            $tallMet = true;
-        }
-        if (($usuEditar['FotoEdit'] != "") && ($usuEditar['FotoEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `foto` = :fotUsu";
-            } else {
-                $cad = $cad . " `foto` = :fotUsu";
-                $coma = 1;
-            }
-            $fotMet = true;
-        }
-        if (($usuEditar['ActEdit'] != "") && ($usuEditar['ActEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `activado` = :actUsu";
-            } else {
-                $cad = $cad . " `activado` = :actUsu";
-                $coma = 1;
-            }
-            $actMet = true;
-        }
-        if (($usuEditar['RolEdit'] != "") && ($usuEditar['RolEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `id_rol` = :idRolUsu";
-            } else {
-                $cad = $cad . " `id_rol` = :idRolUsu";
-                $coma = 1;
-            }
-            $rolMet = true;
-        }
+public function obtenerAdmin(){
+    $this->db->query("SELECT * FROM USUARIO WHERE id_rol = 1");
+    return $this->db->registros();
+}
 
-        if (($usuEditar['GirEdit'] != "") && ($usuEditar['GirEdit'] != null)) {
-            if ($coma == 1) {
-                $cad = $cad . ", `gir` = :girUsu";
-            } else {
-                $cad = $cad . " `gir` = :girUsu";
-                $coma = 1;
-            }
-            $girMet = true;
-        }
 
-        $cad = $cad . " WHERE `id_usuario` = :idUsu;";
 
-        $this->db->query("$cad");
-        $this->db->bind(':idUsu', $usuEditar['idEdit']);
-        if ($dniMet == true) {
-            $this->db->bind(':dniUsu', $usuEditar['dniEdit']);
-        }
-        if ($nomMet == true) {
-            $this->db->bind(':nomUsu', $usuEditar['nomEdit']);
-        }
-        if ($apeMet == true) {
-            $this->db->bind(':apelUsu', $usuEditar['apelEdit']);
-        }
-        if ($fecMet == true) {
-            $this->db->bind(':fecUsu', $usuEditar['fecEdit']);
-        }
-        if ($emaMet == true) {
-            $this->db->bind(':emaUsu', $usuEditar['emaEdit']);
-        }
-        if ($emaMet == true) {
-            $this->db->bind(':direUsu', $usuEditar['direcEdit']);
-        }
-        if ($telMet == true) {
-            $this->db->bind(':telUsu', $usuEditar['telEdit']);
-        }
-        if ($passMet == true) {
-            $this->db->bind(':passUsu', $usuEditar['passEdit']);
-        }
-        if ($cccMet == true) {
-            $this->db->bind(':cccUsu', $usuEditar['CCCEdit']);
-        }
-        if ($tallMet == true) {
-            $this->db->bind(':tallUsu', $usuEditar['TallaEdit']);
-        }
-        if ($fotMet == true) {
-            $this->db->bind(':fotUsu', $usuEditar['FotoEdit']);
-        }
-        if ($actMet == true) {
-            $this->db->bind(':actUsu', $usuEditar['ActEdit']);
-        }
-        if ($rolMet == true) {
-            $this->db->bind(':idRolUsu', $usuEditar['RolEdit']);
-        }
-        if ($girMet == true) {
-            $this->db->bind(':girUsu', $usuEditar['GirEdit']);
-        }
+ public function nuevoAdmin($nuevo_admin){
+  
+        $pass=$nuevo_admin['nombre'].'-'.$nuevo_admin['telefono'];
+ 
+        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol) 
+                          VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, 1, 1);");
 
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+         $this->db->bind(':nombre', $nuevo_admin['nombre']);
+         $this->db->bind(':apellidos', $nuevo_admin['apellidos']);
+         $this->db->bind(':dni', $nuevo_admin['dni']);
+         $this->db->bind(':fecha_naci', $nuevo_admin['fecha_naci']);
+         $this->db->bind(':telefono', $nuevo_admin['telefono']);
+         $this->db->bind(':email',$nuevo_admin['email']);
+         $this->db->bind(':direccion', $nuevo_admin['direccion']);
+         $this->db->bind(':ccc', $nuevo_admin['ccc']);
+         $this->db->bind(':talla', $nuevo_admin['talla']);
 
-    public function anadirUsuario($usuAnadir)
-    {
-        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, foto, activado, id_rol) 
-        VALUES (:dniUsu, :nomUsu, :apelUsu, :emaUsu, :direcUsu, :fecUsu, :telUsu, :cccUsu, MD5(:passUsu), :tallUsu, :fotUsu, :actUsu, :idRolUsu);");
+         $this->db->bind(':pass', $pass);
+         $this->db->execute();
 
-        $this->db->bind(':dniUsu', $usuAnadir['dniUsuAna']);
-        $this->db->bind(':nomUsu', $usuAnadir['nomUsuAna']);
-        $this->db->bind(':apelUsu', $usuAnadir['apelUsuAna']);
-        $this->db->bind(':fecUsu', $usuAnadir['fecUsuAna']);
-        $this->db->bind(':telUsu', $usuAnadir['telUsuAna']);
-        $this->db->bind(':emaUsu', $usuAnadir['emaUsuAna']);
-        $this->db->bind(':direcUsu', $usuAnadir['direccionUsuAna']);
-        $this->db->bind(':cccUsu', "");
-        $this->db->bind(':passUsu', $usuAnadir['passUsuAna']);
-        $this->db->bind(':tallUsu', "");
-        $this->db->bind(':fotUsu', "");
-        $this->db->bind(':actUsu', "1");
-        $this->db->bind(':idRolUsu', $usuAnadir['rolUsuAna']);
-        $this->db->execute();
         $idSoci = $this->db->ultimoIndice();
-        if ($usuAnadir['socioUsuAna'] == "si") {
-            $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
-            $this->db->execute();
-        }
-        if ($usuAnadir['rolUsuAna'] == 2) {
-            if ($usuAnadir['sueldoUsuAna'] != "" && $usuAnadir['sueldoUsuAna'] != NULL) {
-                $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($idSoci, :suel);");
-                $this->db->bind(':suel', $usuAnadir['sueldoUsuAna']);
-            } else {
-                $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`) VALUES ($idSoci);");
-            }
-            $this->db->execute();
-        }
+        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
 
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+ }
+
+ public function borrarAdmin($id){
+
+     $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
+     $this->db->bind(':id_usu', $id);
+
+     if ($this->db->execute()) {
+         return true;
+     } else {
+         return false;
+     }
+ }
+
+
+ public function editarAdmin($id,$editar_admin){
+  
+        $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, fecha_nacimiento=:fecha_naci, 
+                        telefono=:telefono, CCC=:ccc, talla=:talla WHERE id_usuario=:id");
+
+        $this->db->bind(':nombre', $editar_admin['nombre']);
+        $this->db->bind(':apellidos', $editar_admin['apellidos']);
+        $this->db->bind(':dni', $editar_admin['dni']);
+        $this->db->bind(':fecha_naci', $editar_admin['fecha_naci']);
+        $this->db->bind(':telefono', $editar_admin['telefono']);
+        $this->db->bind(':email',$editar_admin['email']);
+        $this->db->bind(':direccion', $editar_admin['direccion']);
+        $this->db->bind(':ccc', $editar_admin['ccc']);
+        $this->db->bind(':talla', $editar_admin['talla']);
+        $this->db->bind(':id', $id);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+}
+
+
+// ********************************* ENTRENADORES **************************//
+
+public function obtenerEnt(){
+    $this->db->query("SELECT * FROM USUARIO WHERE id_rol = 2");
+    return $this->db->registros();
+}
+
+
+public function nuevoEnt($nuevo_ent){
+  
+    $pass=$nuevo_ent['nombre'].'-'.$nuevo_ent['telefono'];
+
+    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol) 
+                      VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, 1, 2);");
+
+     $this->db->bind(':nombre', $nuevo_ent['nombre']);
+     $this->db->bind(':apellidos', $nuevo_ent['apellidos']);
+     $this->db->bind(':dni', $nuevo_ent['dni']);
+     $this->db->bind(':fecha_naci', $nuevo_ent['fecha_naci']);
+     $this->db->bind(':telefono', $nuevo_ent['telefono']);
+     $this->db->bind(':email',$nuevo_ent['email']);
+     $this->db->bind(':direccion', $nuevo_ent['direccion']);
+     $this->db->bind(':ccc', $nuevo_ent['ccc']);
+     $this->db->bind(':talla', $nuevo_ent['talla']);
+
+     $this->db->bind(':pass', $pass);
+     $this->db->execute();
+
+    $idSoci = $this->db->ultimoIndice();
+
+    $this->db->query("INSERT INTO ENTRENADOR (`id_usuario`, `sueldo`) VALUES ($idSoci, NULL);");
+    $this->db->execute();
+
+    $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
+
+    if ($this->db->execute()) {
         return true;
+    } else {
+        return false;
     }
+}
+
+public function borrarEnt($id){
+
+ $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
+ $this->db->bind(':id_usu', $id);
+
+ if ($this->db->execute()) {
+     return true;
+ } else {
+     return false;
+ }
+}
+
+
+public function editarEnt($id,$editar_ent){
+
+    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, fecha_nacimiento=:fecha_naci, 
+                    telefono=:telefono, CCC=:ccc, talla=:talla WHERE id_usuario=:id");
+
+    $this->db->bind(':nombre', $editar_ent['nombre']);
+    $this->db->bind(':apellidos', $editar_ent['apellidos']);
+    $this->db->bind(':dni', $editar_ent['dni']);
+    $this->db->bind(':fecha_naci', $editar_ent['fecha_naci']);
+    $this->db->bind(':telefono', $editar_ent['telefono']);
+    $this->db->bind(':email',$editar_ent['email']);
+    $this->db->bind(':direccion', $editar_ent['direccion']);
+    $this->db->bind(':ccc', $editar_ent['ccc']);
+    $this->db->bind(':talla', $editar_ent['talla']);
+    $this->db->bind(':id', $id);
+
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+// ********************************* SOCIOS **************************//
+
+public function obtenerSocios(){
+    $this->db->query("SELECT * FROM USUARIO WHERE id_rol = 3");
+    return $this->db->registros();
+}
+
+public function nuevoSocio($nuevo_soc){
+  
+    $pass=$nuevo_soc['nombre'].'-'.$nuevo_soc['telefono'];
+
+    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla,ha_sido, activado, id_rol,nom_pa,ape_pa,dni_pa) 
+                      VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :priSocio, 1, 3, :nomPa, :apePa, :dniPa);");
+
+     $this->db->bind(':nombre', $nuevo_soc['nombre']);
+     $this->db->bind(':apellidos', $nuevo_soc['apellidos']);
+     $this->db->bind(':dni', $nuevo_soc['dni']);
+     $this->db->bind(':fecha_naci', $nuevo_soc['fecha_naci']);
+     $this->db->bind(':telefono', $nuevo_soc['telefono']);
+     $this->db->bind(':email',$nuevo_soc['email']);
+     $this->db->bind(':direccion', $nuevo_soc['direccion']);
+     $this->db->bind(':ccc', $nuevo_soc['ccc']);
+     $this->db->bind(':talla', $nuevo_soc['talla']);
+     $this->db->bind(':priSocio', $nuevo_soc['priSocio']);
+     $this->db->bind(':nomPa', $nuevo_soc['nomPa']);
+     $this->db->bind(':apePa', $nuevo_soc['apePa']);
+     $this->db->bind(':dniPa', $nuevo_soc['dniPa']);
+
+     $this->db->bind(':pass', $pass);
+     $this->db->execute();
+
+    $idSoci = $this->db->ultimoIndice();
+
+    $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
+
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+    public function borrarSocio($id){
+        $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
+        $this->db->bind(':id_usu', $id);  
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+   public function editarSocio($id,$editar_soc){
+
+    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, fecha_nacimiento=:fecha_naci, 
+                    telefono=:telefono, CCC=:ccc, talla=:talla, ha_sido=:priSocio, nom_pa=:nomPa, ape_pa=:apePa, dni_pa=:dniPa WHERE id_usuario=:id");
+
+    $this->db->bind(':nombre', $editar_soc['nombre']);
+    $this->db->bind(':apellidos', $editar_soc['apellidos']);
+    $this->db->bind(':dni', $editar_soc['dni']);
+    $this->db->bind(':fecha_naci', $editar_soc['fecha_naci']);
+    $this->db->bind(':telefono', $editar_soc['telefono']);
+    $this->db->bind(':email',$editar_soc['email']);
+    $this->db->bind(':direccion', $editar_soc['direccion']);
+    $this->db->bind(':ccc', $editar_soc['ccc']);
+    $this->db->bind(':talla', $editar_soc['talla']);
+    $this->db->bind(':priSocio', $editar_soc['priSocio']);
+    $this->db->bind(':nomPa', $editar_soc['nomPa']);
+    $this->db->bind(':apePa', $editar_soc['apePa']);
+    $this->db->bind(':dniPa', $editar_soc['dniPa']);
+    $this->db->bind(':id', $id);
+
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+  //********************************************************************************************************************************************** */
 
     //SOLICITUD SELECCIONADAS SOCIOS
     public function borrar_solicitudes_seleccionadas_socios($datBorrar)
@@ -411,123 +402,6 @@ class AdminModelo
         return true;
     }
 
-    //SOLICITUD SELECCIONADAS EVENTOS
-    public function borrar_solicitudes_seleccionadas_eventosSoci($datBorrar)
-    {
-        foreach ($datBorrar as $idBorrar) {
-            $idBorrar = explode('_', $idBorrar);
-
-            $idUsu = $idBorrar[0];
-            $idEvento = $idBorrar[1];
-            $fecha = $idBorrar[2];
-
-            $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO` WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
-            $this->db->bind(':id_usu', $idUsu);
-            $this->db->bind(':id_even', $idEvento);
-            $this->db->bind(':id_fecha', $fecha);
-            $this->db->execute();
-        }
-
-        return true;
-    }
-
-    public function borrar_solicitudes_seleccionadas_eventosExter($datBorrar)
-    {
-        foreach ($datBorrar as $idBorrar) {
-            $idBorrar = explode('_', $idBorrar);
-
-            $idUsu = $idBorrar[0];
-            $idEvento = $idBorrar[1];
-            $fecha = $idBorrar[2];
-
-            $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
-            $this->db->bind(':id_usu', $idUsu);
-            $this->db->bind(':id_even', $idEvento);
-            $this->db->bind(':id_fecha', $fecha);
-            $this->db->execute();
-        }
-
-        return true;
-    }
-
-    public function aceptar_solicitudes_seleccionadas_eventosSoci($datAceptar)
-    {
-        foreach ($datAceptar as $idAceptar) {
-            $idAceptar = explode('_', $idAceptar);
-
-            $idUsu = $idAceptar[0];
-            $idEvento = $idAceptar[1];
-            $fecha = $idAceptar[2];
-            
-            $dorsal = 1;
-            $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
-            $this->db->bind(':id_even', $idEvento);
-            $dorsalExterno = $this->db->registros();
-            $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
-            $this->db->bind(':id_even', $idEvento);
-            $dorsalSocio = $this->db->registros();
-    
-            if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
-                $dorsal = ($dorsalExterno[0]->dorasl) + 1;
-            } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
-                $dorsal = ($dorsalSocio[0]->dorsal) + 1;
-            }
-    
-            $this->db->query("INSERT INTO `SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`, `dorsal`) VALUES (:id_usu, :id_even, :id_fecha, $dorsal);");
-            $this->db->bind(':id_usu', $idUsu);
-            $this->db->bind(':id_even', $idEvento);
-            $this->db->bind(':id_fecha', $fecha);
-            $this->db->execute();
-    
-            $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO`WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
-            $this->db->bind(':id_usu', $idUsu);
-            $this->db->bind(':id_even', $idEvento);
-            $this->db->bind(':id_fecha', $fecha);
-    
-            $this->db->execute();
-        }
-
-        return true;
-    }
-
-    public function aceptar_solicitudes_seleccionadas_eventosExter($datAceptar)
-    {
-        foreach ($datAceptar as $idAceptar) {
-            $idAceptar = explode('_', $idAceptar);
-
-            $idUsu = $idAceptar[0];
-            $idEvento = $idAceptar[1];
-            $fecha = $idAceptar[2];
-
-            $dorsal = 1;
-            $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
-            $this->db->bind(':id_even', $idEvento);
-            $dorsalExterno = $this->db->registros();
-            $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
-            $this->db->bind(':id_even', $idEvento);
-            $dorsalSocio = $this->db->registros();
-
-            if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
-                $dorsal = ($dorsalExterno[0]->dorasl) + 1;
-            } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
-                $dorsal = ($dorsalSocio[0]->dorsal) + 1;
-            }
-
-            $this->db->query("UPDATE `EXTERNO` SET `id_evento` = :id_even, `dorasl` = $dorsal WHERE `id_externo` = :id_usu;");
-            $this->db->bind(':id_usu', $idUsu);
-            $this->db->bind(':id_even', $idEvento);
-            $this->db->execute();
-
-            $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha;");
-            $this->db->bind(':id_usu', $idUsu);
-            $this->db->bind(':id_even', $idEvento);
-            $this->db->bind(':id_fecha', $fecha);
-
-            $this->db->execute();
-        }
-
-        return true;
-    }
 
 
     //SOLICITUD SOCIOS
@@ -549,51 +423,39 @@ class AdminModelo
         }
     }
 
-    public function aceptar_solicitudes_socios($datAceptar)
+    public function aceptar_solicitudes_socios($aceptarSocio)
     {
-         //var_dump($datAceptar);
-       // exit;
-
-         $idSoli = $datAceptar[0];
-         $dni = $datAceptar[1];
-         $nombre = $datAceptar[2];
-         $apellidos = $datAceptar[3];
-         $CCC = $datAceptar[4];
-         $talla = $datAceptar[5];
-         $fecha_nacimiento = $datAceptar[6];
-         $email = $datAceptar[7];
-         $telefono = $datAceptar[8];
-         $direccion = $datAceptar[9];
-         $ha_sido = $datAceptar[10];
-         $nom_pa = $datAceptar[11];
-         $ape_pa = $datAceptar[12];
-         $dni_pa = $datAceptar[13];
-
-        $pass=$nombre.$idSoli;
+        //var_dump($aceptarSocio);
+      
+        $pass=$aceptarSocio['nombre'].$aceptarSocio['id'];
+        //echo $pass;
+        //exit;
          //MD5(:idSoli)
 
          $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, ha_sido,activado, id_rol,nom_pa, ape_pa, dni_pa) 
                           VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_nacimiento, :telefono, :CCC, MD5(:pass), :talla, :ha_sido,1,3,:nom_pa,:ape_pa,:dni_pa)");
         
-         $this->db->bind(':dni', $dni);
-         $this->db->bind(':nombre', $nombre);
-         $this->db->bind(':apellidos', $apellidos);
-         $this->db->bind(':email', $email);
-         $this->db->bind(':direccion', $direccion);
-         $this->db->bind(':fecha_nacimiento', $fecha_nacimiento);
-         $this->db->bind(':telefono', $telefono);
-         $this->db->bind(':CCC', $CCC);
-         $this->db->bind(':pass', $pass);
-         $this->db->bind(':talla', $talla); 
-         $this->db->bind(':ha_sido', $ha_sido);
-         $this->db->bind(':nom_pa',$nom_pa);
-         $this->db->bind(':ape_pa',$ape_pa);
-         $this->db->bind(':dni_pa',$dni_pa);
-         $this->db->execute();
+        $this->db->bind(':nombre', $aceptarSocio['nombre']);
+        $this->db->bind(':apellidos', $aceptarSocio['apellidos']);
+        $this->db->bind(':dni', $aceptarSocio['dni']);
+        $this->db->bind(':fecha_nacimiento', $aceptarSocio['fecha']);
+        $this->db->bind(':telefono', $aceptarSocio['telefono']);
+        $this->db->bind(':email', $aceptarSocio['email']);
+        $this->db->bind(':direccion', $aceptarSocio['direccion']);
+        $this->db->bind(':CCC', $aceptarSocio['cuenta']);
+        $this->db->bind(':talla', $aceptarSocio['talla']);
+        $this->db->bind(':ha_sido', $aceptarSocio['socio']);
+        $this->db->bind(':nom_pa', $aceptarSocio['nom_pa']);
+        $this->db->bind(':ape_pa', $aceptarSocio['ape_pa']);
+        $this->db->bind(':dni_pa', $aceptarSocio['dni_pa']);
+
+        $this->db->bind(':pass', $pass);
+
+        $this->db->execute();
 
 
-        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :idSoli;");
-        $this->db->bind(':idSoli', $idSoli);
+        $this->db->query("DELETE FROM `SOLICITUD_SOCIO` WHERE `id_solicitud_soc` = :id;");
+        $this->db->bind(':id', $aceptarSocio['id']);
         //$this->db->execute();
 
 
@@ -662,129 +524,6 @@ class AdminModelo
         }
     }
 
-    //SOLICITUD EVENTOS
-    public function obtenerSolicitudesEvenSoci()
-    {
-        $this->db->query("SELECT e.nombre as evento ,u.nombre, u.apellidos, s.fecha, s.id_usuario as id, s.id_evento FROM `SOLICITUD_SOCIO_EVENTO` s, `EVENTO` e, `USUARIO` u WHERE s.id_usuario= u.id_usuario and s.id_evento=e.id_evento");
-        return $this->db->registros();
-    }
+  
 
-    public function obtenerSolicitudesEvenExter()
-    {
-        $this->db->query("SELECT e.nombre as evento ,u.nombre, u.apellidos, s.fecha, s.id_externo as id, s.id_evento FROM `SOLICITUD_EXTER_EVENTO` s, `EVENTO` e, `EXTERNO` u WHERE s.id_externo= u.id_externo and s.id_evento=e.id_evento;");
-        return $this->db->registros();
-    }
-
-
-
-    public function borrar_solicitudes_EvenSoci($datBorrar)
-    {
-        $idUsu = $datBorrar[0];
-        $idEvento = $datBorrar[1];
-        $fecha = $datBorrar[2];
-
-        $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO` WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_even', $idEvento);
-        $this->db->bind(':id_fecha', $fecha);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function borrar_solicitudes_EvenExter($datBorrar)
-    {
-        $idUsu = $datBorrar[0];
-        $idEvento = $datBorrar[1];
-        $fecha = $datBorrar[2];
-
-        $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_even', $idEvento);
-        $this->db->bind(':id_fecha', $fecha);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function aceptar_solicitudes_EvenExter($datAceptar)
-    {
-        $idUsu = $datAceptar[0];
-        $idEvento = $datAceptar[1];
-        $fecha = $datAceptar[2];
-
-        $dorsal = 1;
-        $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
-        $this->db->bind(':id_even', $idEvento);
-        $dorsalExterno = $this->db->registros();
-        $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
-        $this->db->bind(':id_even', $idEvento);
-        $dorsalSocio = $this->db->registros();
-
-        if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
-            $dorsal = ($dorsalExterno[0]->dorasl) + 1;
-        } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
-            $dorsal = ($dorsalSocio[0]->dorsal) + 1;
-        }
-
-        $this->db->query("UPDATE `EXTERNO` SET `id_evento` = :id_even, `dorasl` = $dorsal WHERE `id_externo` = :id_usu;");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_even', $idEvento);
-        $this->db->execute();
-
-        $this->db->query("DELETE FROM `SOLICITUD_EXTER_EVENTO` WHERE `id_externo` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha;");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_even', $idEvento);
-        $this->db->bind(':id_fecha', $fecha);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function aceptar_solicitudes_EvenSoci($datAceptar)
-    {
-        $idUsu = $datAceptar[0];
-        $idEvento = $datAceptar[1];
-        $fecha = $datAceptar[2];
-
-        $dorsal = 1;
-        $this->db->query("SELECT dorasl FROM `EXTERNO` WHERE id_evento=:id_even ORDER BY `dorasl` DESC;");
-        $this->db->bind(':id_even', $idEvento);
-        $dorsalExterno = $this->db->registros();
-        $this->db->query("SELECT dorsal FROM `SOCIO_EVENTO` WHERE id_evento=:id_even ORDER BY `dorsal` DESC;");
-        $this->db->bind(':id_even', $idEvento);
-        $dorsalSocio = $this->db->registros();
-
-        if (($dorsalExterno[0]->dorasl) > ($dorsalSocio[0]->dorsal)) {
-            $dorsal = ($dorsalExterno[0]->dorasl) + 1;
-        } elseif (($dorsalSocio[0]->dorsal) > ($dorsalExterno[0]->dorasl)) {
-            $dorsal = ($dorsalSocio[0]->dorsal) + 1;
-        }
-
-        $this->db->query("INSERT INTO `SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`, `dorsal`) VALUES (:id_usu, :id_even, :id_fecha, $dorsal);");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_even', $idEvento);
-        $this->db->bind(':id_fecha', $fecha);
-        $this->db->execute();
-
-        $this->db->query("DELETE FROM `SOLICITUD_SOCIO_EVENTO`WHERE `id_usuario` = :id_usu AND `id_evento` = :id_even AND `fecha` = :id_fecha");
-        $this->db->bind(':id_usu', $idUsu);
-        $this->db->bind(':id_even', $idEvento);
-        $this->db->bind(':id_fecha', $fecha);
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

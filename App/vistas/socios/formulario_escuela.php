@@ -13,7 +13,7 @@
             </div>                                 
         </header>
 
-
+   
 
         <article>
         <div class="d-flex align-items-center justify-content-around mt-5 ">
@@ -108,7 +108,7 @@
                          
 
                                     <div class="row justify-content-center">
-                                        <input type="submit" id="confirmar" class="btn w-25 mt-5 " value="Confirmar">
+                                        <input type="submit" id="confirmar" class="btn w-25 mt-5 " value="Confirmar" onclick="conf()">
                                     </div>
                                     </form>
 
@@ -182,3 +182,9 @@
 
 
     <script src="<?php echo RUTA_URL ?>/public/js/validar.js"></script>
+
+<script>
+    function conf(){
+        alert('Solicitud enviada con exito.En breve, te confirmaremos via email');
+    }
+</script>

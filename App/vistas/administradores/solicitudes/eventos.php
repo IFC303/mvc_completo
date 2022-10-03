@@ -2,17 +2,18 @@
 
 
 
-        <header>              
-            <div class="row">
-                <div class="col-10"><span id="tHead">Solicitudes eventos</span></div>     
-                <div class="col-2">
-                    <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span style="font-size:25px;color:white">Logout</span>
-                        <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
-                    </a>
-                </div>
-            </div>                                 
+        <header>
+        <div class="row mb-5">
+        <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Solicitudes para eventos</span></div>
+        <div class="col-2 mt-2">
+        <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
+        <span>Logout</span>
+        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+        </a>
+        </div>
+        </div>                                   
         </header>
+
 
 <!-- <div style="text-align: center;">
         <form method="post" id="radioChe" class="card-body" action="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos/">
@@ -26,202 +27,207 @@
         </form>
 </div> -->
 
-<article>
+        <article>
+                <table id="tabla" class="table">
 
-
-
-        <table id="tabla" class="table table-hover">
-
-                <!--CABECERA TABLA-->
-                <thead>
-                        <tr style="background-color:#023ef9; color:white; text-align: center;">
+                        <!--CABECERA TABLA-->
+                        <thead>
+                        <tr>
+                                <th>ID</th>          
                                 <th>NOMBRE</th>
                                 <th>APELLIDOS</th>
                                 <th>EVENTO</th>
                                 <th>FECHA SOLICITUD</th>
+                                <th>EMAIL</th>
+                                <th>TELEFONO</th>
+                                
+
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                        <th>Acciones</th>
-                                        <th>
-                                                <a onclick="borrarMas()" data-bs-toggle="modal" data-bs-target="#ModalBorrar_mas">
-                                                        <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
-                                                </a>
-                                                &nbsp;
-                                                <a onclick="aceptarMas()" data-bs-toggle="modal" data-bs-target="#ModalAceptar_mas">
-                                                        <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
-                                                </a>
-                                        </th>
+                                        <th>ACCIONES</th>
+                        
                                 <?php endif ?>
                         </tr>
-                </thead>
+                        </thead>
 
 
-                <tbody class="table-light">
+                        <tbody>
                         <?php foreach ($datos['soliEvento'] as $usuarios) : ?>
                                 <tr>
-                                        <td class="datos_tabla"><?php echo $usuarios->id_externo?></td>
-                                        <td class="datos_tabla"><?php echo $usuarios->id_evento?></td>
-                                        <td class="datos_tabla"><?php echo $usuarios->evento ?></td>
-                                        <td class="datos_tabla"><?php echo $usuarios->fecha ?></td>
+                                <td class="datos_tabla"><?php echo $usuarios->id_solicitud?></td>                               
+                                <td class="datos_tabla"><?php echo $usuarios->nombre?></td>
+                                <td class="datos_tabla"><?php echo $usuarios->apellidos?></td>
+                                <td class="datos_tabla"><?php echo $usuarios->nombre_evento?></td>
+                                <td class="datos_tabla"><?php echo $usuarios->fecha?></td>
+                                <td class="datos_tabla"><?php echo $usuarios->email?></td>
+                                <td class="datos_tabla"><?php echo $usuarios->telefono?></td>
+                                
+
+
+                                <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
+                                <td class="datos_tabla">
+
+
+                                        <!-- MODAL BORRAR-->
+                                        <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id_solicitud?>">
+                                        <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
+                                        </a>
+                                        <div class="modal" id="ModalBorrar_<?php echo $usuarios->id_solicitud?>">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                <p>Va a <b>BORRAR</b> la solicitud de <?php echo $usuarios->nombre. " " . $usuarios->apellidos?> al evento <?php echo $usuarios->nombre_evento?></p>
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                <form action="<?php echo RUTA_URL ?>/externo/borrar_soli_eve/<?php echo $usuarios->id_solicitud?>" method="post">
+                                                <button type="submit">Borrar</button>
+                                                </form>       
+                                                </div>
+
+                                        </div>
+                                        </div>
+                                        </div>
 
 
 
+                                        <!-- MODAL ACEPTAR-->
+                                        <a data-bs-toggle="modal" data-bs-target="#ModalConfirmar_<?php echo $usuarios->id_solicitud ?>">
+                                        <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
+                                        </a>
+                                        
 
-                                        <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
-                                                <td class="datos_tabla">
-                                                        <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $usuarios->id ?>">
-                                                                <img src="<?php echo RUTA_Icon ?>x1.png" width="30" height="30"></img>
-                                                        </a>
-                                                        &nbsp;
-                                                        <a data-bs-toggle="modal" data-bs-target="#ModalAceptar_<?php echo $usuarios->id ?>">
-                                                                <img src="<?php echo RUTA_Icon ?>tick.png" width="30" height="30"></img>
-                                                        </a>
+                                        <div class="modal" id="ModalConfirmar_<?php echo $usuarios->id_solicitud ?>">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
 
-                                                        <div class="modal" id="ModalBorrar_<?php echo $usuarios->id ?>">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header mb-3 ">
+                                                <p class="modal-title">SOLICITUD Nº: <?php echo $usuarios->id_solicitud?></p> 
+                                                <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                        </div>
 
-                                                                                <!-- Modal Header -->
-                                                                                <div class="modal-header">
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                                                </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body info">                         
+                                        <div class="row ms-1 me-1">                                              
+                                                                                                    
+                                                    
+                                        <form action="<?php echo RUTA_URL ?>/externo/aceptar_soli_even/<?php echo $usuarios->id_solicitud?>" method="post">
+                                                
+                                        
+                                                <div class="row mb-4">
+                                                        <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="fecha" class="input-group-text"><span class="info">Fecha solicitud:</span></label>
+                                                                <input type="text" class="form-control form-control-md" name="fecha" id="fecha" value="<?php echo $usuarios->fecha?>" readonly> 
+                                                        </div> 
+                                                        </div> 
 
-                                                                                <!-- Modal body -->
-                                                                                <div class="modal-body">
-                                                                                        <p>Seguro que quiere borrar la solicitud de <?php echo $usuarios->nombre . " " . $usuarios->apellidos ?> del evento <?php echo $usuarios->evento ?></p>
-                                                                                </div>
-
-                                                                                <!-- Modal footer -->
-                                                                                <div class="modal-footer">
-
-                                                                                        <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <?php if ($datos['radioCheck'] == "socio") {
-                                                                                                $rutaCrud = RUTA_URL . "/admin/borrar_solicitudes_EvenSoci/";
-                                                                                        } elseif ($datos['radioCheck'] == "externo") {
-                                                                                                $rutaCrud = RUTA_URL . "/admin/borrar_solicitudes_EvenExter/";
-                                                                                        } ?>
-                                                                                        <form action="<?php $datBorrar = $usuarios->id . "_" . $usuarios->id_evento . "_" . $usuarios->fecha;
-                                                                                                        echo $rutaCrud . $datBorrar ?>" method="post">
-                                                                                                <button type="submit">Borrar</button>
-                                                                                        </form>
-                                                                                </div>
-                                                                        </div>
-                                                                </div>
+                                                        <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="nombre_evento" class="input-group-text"><span class="info">Evento:</span></label>
+                                                                <input type="text" class="form-control form-control-md" name="nombre_evento" id="nombre_evento" value="<?php echo $usuarios->nombre_evento?>" readonly> 
+                                                        </div>
+                                                        </div>
+       
+                                                </div>
+                                                         
+                                        
+                                                <div class="row">
+                                                        <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="nombre" class="input-group-text datInfo"><span class="info">Nombre</span></label>
+                                                                <input type="text" class="form-control form-control-md" name="nombre" id="nombre" value="<?php echo $usuarios->nombre?>" >    
+                                                        </div> 
                                                         </div>
 
-                                                        <div class="modal" id="ModalAceptar_<?php echo $usuarios->id ?>">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
+                                                        <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="apellidos" class="input-group-text"><span class="info">Apellidos</span></label> 
+                                                                <input type="text" class="form-control form-control-md"  name="apellidos" id="apellidos" value="<?php echo $usuarios->apellidos?>" >        
+                                                        </div>
+                                                        </div>
+                                                </div>  
 
-                                                                                <!-- Modal Header -->
-                                                                                <div class="modal-header">
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                                                </div>
-
-                                                                                <!-- Modal body -->
-                                                                                <div class="modal-body">
-                                                                                        <p>Seguro que quiere aceptar la solicitud de <?php echo $usuarios->nombre . " " . $usuarios->apellidos ?> del evento <?php echo $usuarios->evento ?></p>
-                                                                                </div>
-
-                                                                                <!-- Modal footer -->
-                                                                                <div class="modal-footer">
-
-                                                                                        <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        </form>
-                                                                                        <?php if ($datos['radioCheck'] == "socio") {
-                                                                                                $rutaCrud = RUTA_URL . "/admin/aceptar_solicitudes_EvenSoci/";
-                                                                                        } elseif ($datos['radioCheck'] == "externo") {
-                                                                                                $rutaCrud = RUTA_URL . "/admin/aceptar_solicitudes_EvenExter/";
-                                                                                        } ?>
-                                                                                        <form action="<?php $datBorrar = $usuarios->id . "_" . $usuarios->id_evento . "_" . $usuarios->fecha;
-                                                                                                        echo $rutaCrud . $datBorrar ?>" method="post">
-                                                                                                <button type="submit">Aceptar</button>
-                                                                                        </form>
-                                                                                </div>
-                                                                        </div>
-                                                                </div>
+                                                <div class="row">
+                                                        <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="dni" class="input-group-text"><span class="info">DNI</span></label>
+                                                                <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $usuarios->DNI?>" >    
+                                                        </div> 
                                                         </div>
 
-                                                        <div class="modal" id="ModalBorrar_mas">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
+                                                        <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="f_naci" class="input-group-text"><span class="info">Fecha Nacimiento</span></label>
+                                                                <input type="date" class="form-control form-control-md" name="f_naci" id="f_naci" value="<?php echo $usuarios->fecha_nacimiento?>" > 
+                                                        </div>
+                                                        </div>
+                                                </div> 
 
-                                                                                <!-- Modal Header -->
-                                                                                <div class="modal-header">
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                                                </div>
 
-                                                                                <!-- Modal body -->
-                                                                                <div class="modal-body">
-                                                                                        <p>¿Seguro que quiere borrar las solicitudes seleccionadas?</p>
-                                                                                </div>
+                                                <div class="row">
+                                                        <div class="col-12">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="direccion" class="input-group-text"><span class="info">Direccion</span></label>
+                                                                <input type="text" class="form-control form-control-md" name="direccion" id="direccion" value="<?php echo $usuarios->direccion?>" > 
+                                                        </div> 
+                                                        </div> 
+                                                </div>
 
-                                                                                <!-- Modal footer -->
-                                                                                <div class="modal-footer">
 
-                                                                                        <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <?php if ($datos['radioCheck'] == "socio") {
-                                                                                                $rutaAcepBorr = RUTA_URL . "/admin/borrar_solicitudes_seleccionadas_eventosSoci";
-                                                                                        } elseif ($datos['radioCheck'] == "externo") {
-                                                                                                $rutaAcepBorr = RUTA_URL . "/admin/borrar_solicitudes_seleccionadas_eventosExter";
-                                                                                        } ?>
-                                                                                        <form action="<?php echo $rutaAcepBorr ?>" method="post">
-                                                                                                <div style="display: none;">
-                                                                                                        <input name="borrarMas" id="borrarMas" type="text">
-                                                                                                </div>
-                                                                                                <button type="submit">Borrar</button>
-                                                                                        </form>
-                                                                                </div>
-                                                                        </div>
-                                                                </div>
+                                                <div class="row">
+                                                        <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="telefono" class="input-group-text"><span class="info">Telefono</span></label>
+                                                                <input type="text" class="form-control form-control-md" name="telefono" id="telefono" value="<?php echo $usuarios->telefono?>" > 
+                                                        </div>
                                                         </div>
 
-                                                        <div class="modal" id="ModalAceptar_mas">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
-
-                                                                                <!-- Modal Header -->
-                                                                                <div class="modal-header">
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                                                </div>
-
-                                                                                <!-- Modal body -->
-                                                                                <div class="modal-body">
-                                                                                        <p>¿Seguro que quiere aceptar las solicitudes seleccionadas?</p>
-                                                                                </div>
-
-                                                                                <!-- Modal footer -->
-                                                                                <div class="modal-footer">
-
-                                                                                        <button style="background-color: #023ef9; color:white" data-bs-dismiss="modal">Cerrar</button>
-                                                                                        <?php if ($datos['radioCheck'] == "socio") {
-                                                                                                $rutaAcepBorr = RUTA_URL . "/admin/aceptar_solicitudes_seleccionadas_eventosSoci";
-                                                                                        } elseif ($datos['radioCheck'] == "externo") {
-                                                                                                $rutaAcepBorr = RUTA_URL . "/admin/aceptar_solicitudes_seleccionadas_eventosExter";
-                                                                                        } ?>
-                                                                                        <form action="<?php echo $rutaAcepBorr ?>" method="post">
-                                                                                                <div style="display: none;">
-                                                                                                        <input name="aceptarMas" id="aceptarMas" type="text">
-                                                                                                </div>
-                                                                                                <button type="submit">Aceptar</button>
-                                                                                        </form>
-                                                                                </div>
-                                                                        </div>
-                                                                </div>
+                                                        <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                                <label for="email" class="input-group-text"><span class="info">Email</span></label> 
+                                                                <input type="text" class="form-control form-control-md" name="email" id="email"  value="<?php echo $usuarios->email?>" > 
                                                         </div>
+                                                        </div>
+                                                </div>
 
-                                                </td>
+                                                                                               
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer mb-3 me-4">     
+                                                
+                                                <input type="hidden" name="id_evento" value="<?php echo $usuarios->id_evento?>">
+                                                <input type="submit" class="btn" name="aceptar" id="confirmar" value="Confirmar">  
+                                                </form>                                    
+                                        </div>
 
-                                                <td>
-                                                        <?php $datosAcepBorr = $usuarios->id . "_" . $usuarios->id_evento . "_" . $usuarios->fecha; ?>
-                                                        <input type="checkbox" name="masAcepDene" id="<?php echo $datosAcepBorr ?>" value="<?php echo $datosAcepBorr ?>" onchange="borrarAceptarId(this.id)">
-                                                </td>
-                                        <?php endif ?>
+                                </div>
+                                </div>
+                                </div>
+
+
+
+
+
+
+                                </td>                                              
+                                <?php endif ?>
                                 </tr>
                         <?php endforeach ?>
-                </tbody>
+                        </tbody>
 
-        </table>
-                                                                                </article>
+                </table>
+        </article>
 
 
 
@@ -247,15 +253,7 @@
                 }
         }
 
-        function borrarMas() {
-                document.getElementById("borrarMas").value = "";
-                document.getElementById("borrarMas").value = aceptarBorrar.toString();
-        }
 
-        function aceptarMas() {
-                document.getElementById("aceptarMas").value = "";
-                document.getElementById("aceptarMas").value = aceptarBorrar.toString();
-        }
 
         function enviarSociExter(){
                 if(document.getElementById("externo").checked==true){
