@@ -58,17 +58,10 @@
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 
             </a>                                       
             
-            <!--DESPLEGABLE USUARIOS-->
-            <div class="sidenav">
-                <a class="dropdown-btn">
-                    <img class="imgMenu" src="<?php echo RUTA_Icon ?>usuario.png"><span class="tMenu">USUARIOS</span>
-                </a>
-                <div class="dropdown-container">
-                    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="nav-link"><span class="tMenu ms-5 ps-5">ADMIN</span></a>
-                    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link "><span class="tMenu ms-5 ps-5">ENTRENADORES</span></a>
-                    <a href="<?php echo RUTA_URL ?>/admin/crud_socios" class="nav-link "><span class="tMenu ms-5 ps-5">SOCIOS</span></a>
-                </div>
-            </div>
+
+            <a href="<?php echo RUTA_URL ?>/adminUsuarios" class="nav-link">                           
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>usuario.png"><span class="tMenu">USUARIOS</span>                                                          
+            </a> 
             
 
               <!--DESPLEGABLE SOLICITUDES-->

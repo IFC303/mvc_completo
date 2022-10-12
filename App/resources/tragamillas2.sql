@@ -11,7 +11,7 @@ CREATE TABLE ROL(
   nombre varchar(30) not null
 );
 
-INSERT INTO `ROL` (`id_rol`, `nombre`) VALUES (1, 'admin'), (2, 'entrenador'), (3, 'socio');
+INSERT INTO `ROL` (`id_rol`, `nombre`) VALUES (1, 'Administradores'), (2, 'Entrenadores'), (3, 'Socios');
 
 
 
@@ -419,38 +419,30 @@ CREATE TABLE CATEGORIA_SOCIO(
 
 
 
+/********** TABLA ENTIDADES *******/
 CREATE TABLE OTRAS_ENTIDADES(
-    id_entidad varchar (10) primary key,
+    id_entidad int primary key AUTO_INCREMENT,
+    cif varchar (15),
     nombre varchar (40) not null,
     direccion varchar (200) not null,
     telefono int(9) not null,
     email varchar(50) null,
     observaciones varchar (30)
   );
-INSERT INTO
-  `tragamillas2`.`OTRAS_ENTIDADES` (
-    `id_entidad`,
-    `nombre`,
-    `direccion`,
-    `telefono`,
-    `email`,
-    `observaciones`
-  )
-VALUES
-  (
-    '1',
-    'adidas',
-    'direccion',
-    '123456789',
-    'email@email.com',
-    'observaciones'
-  );
+
+INSERT INTO `tragamillas2`.`OTRAS_ENTIDADES` (`id_entidad`,`nombre`,`direccion`,`telefono`,`email`,`observaciones`)
+VALUES ('1','adidas','direccion','123456789','email@email.com','observaciones');
+
+
+
+
+
 CREATE TABLE I_OTROS(
     id_ingreso_otros int primary key AUTO_INCREMENT,
     fecha date not null,
     concepto varchar (500) not null,
     importe int not null,
-    id_entidad varchar (10),
+    id_entidad int,
     constraint FK_id_entidad_i_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
 CREATE TABLE G_OTROS(
@@ -459,7 +451,7 @@ CREATE TABLE G_OTROS(
     concepto varchar (500) not null,
     importe int not null,
     id_usuario int,
-    id_entidad varchar(10),
+    id_entidad int,
     constraint FK_id_usuario_g_otros foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
     constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
@@ -517,14 +509,14 @@ CREATE TABLE SOLI_EQUIPACION(
 );
 
 
-
+/********** TABLA EVENTOS *******/
 CREATE TABLE EVENTO(
     id_evento int primary key AUTO_INCREMENT,
     id_usuario int,
     nombre varchar (50) not null,
     tipo varchar (30) not null,
     precio int,
-    descuento varchar (20),
+    descripcion varchar (20),
     fecha_ini date not null,
     fecha_fin date not null,
     fecha_ini_inscrip date not null,
@@ -532,7 +524,7 @@ CREATE TABLE EVENTO(
     constraint FK_id_usuario_evento foreign key (id_usuario) references ENTRENADOR (id_usuario) on delete cascade on update cascade
   );
 
-  INSERT INTO `EVENTO` (`id_evento`, `id_usuario`, `nombre`, `tipo`, `precio`, `descuento`, `fecha_ini`, `fecha_fin`, `fecha_ini_inscrip`, `fecha_fin_inscrip`) VALUES
+INSERT INTO `EVENTO` (`id_evento`, `id_usuario`, `nombre`, `tipo`, `precio`, `descripcion`, `fecha_ini`, `fecha_fin`, `fecha_ini_inscrip`, `fecha_fin_inscrip`) VALUES
 (1, NULL, '10k Alcañiz', 'carrera', 10, '0', '2022-04-10', '2022-04-11', '2022-03-15', '2022-04-04'),
 (2, NULL, 'III Triatlón Escolar', 'triatlón', 10, '0', '2022-05-01', '2022-05-02', '2022-03-22', '2022-04-22'),
 (3, NULL, 'Campus Atletismo', 'campus', 100, '0', '2022-04-12', '2022-04-20', '2022-03-22', '2022-04-05'),
@@ -575,6 +567,7 @@ CREATE TABLE PARTICIPANTE(
     apellidos varchar (50) not null,
     DNI varchar (11),
     fecha_nacimiento date not null,
+    direccion varchar (100),
     email varchar (50) not null,
     telefono int not null,
     dorsal int,
@@ -582,11 +575,11 @@ CREATE TABLE PARTICIPANTE(
     constraint FK_id_evento_participante foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 
-INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`, `email`, `telefono`, `dorsal`, `marca`) VALUES
-(1, NULL, 'Maria', 'Gracia', '73386618N', '1995-07-14', 'MariaGracia@gamil.com', 457215485, NULL, NULL),
-(2, NULL, 'Jose', 'Rodriguez', '99922045V', '1997-08-14', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL),
-(3, NULL, 'Daniel', 'Perez', '07063289N', '2000-07-08', 'DanielPerez@gamil.com', 640685678, NULL, NULL),
-(4, NULL, 'Carmen', 'Martin', '03081415J', '2001-08-11', 'CarmenMartin@gmail.com', 640297865, NULL, NULL);
+INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`,`direccion` , `email`, `telefono`, `dorsal`, `marca`) VALUES
+(1, 1, 'Maria', 'Gracia', '73386618N', '1995-07-14','', 'MariaGracia@gamil.com', 457215485, NULL, NULL),
+(2, 2, 'Jose', 'Rodriguez', '99922045V', '1997-08-14','', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL),
+(3, 3, 'Daniel', 'Perez', '07063289N', '2000-07-08','', 'DanielPerez@gamil.com', 640685678, NULL, NULL),
+(4, 4, 'Carmen', 'Martin', '03081415J', '2001-08-11','', 'CarmenMartin@gmail.com', 640297865, NULL, NULL);
 
  CREATE TABLE SOLICITUD_EVENTO(
     id_solicitud int AUTO_INCREMENT,

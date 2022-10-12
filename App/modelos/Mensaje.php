@@ -33,9 +33,9 @@ class Mensaje
 
 //**********************MENSAJERIA ADMIN******************************** */
 
-    public function obtenerEmailsTodos(){
-        $this->db->query("SELECT * FROM EMAIL");
-        return $this->db->registros();
+     public function obtenerEmailsTodos(){
+         $this->db->query("SELECT usuario.id_rol, rol.nombre as tipo, usuario.nombre,apellidos,email FROM USUARIO, rol where usuario.id_rol=rol.id_rol");
+         return $this->db->registros();
     }
 
    public function obtenerEmailEntidades(){
@@ -53,11 +53,6 @@ class Mensaje
 
     // public function obtenerEmailSocios(){
     //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=3");
-    //     return $this->db->registros();
-    // }
-
-    // public function obtenerEmailTiendas(){
-    //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=4");
     //     return $this->db->registros();
     // }
 

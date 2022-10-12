@@ -43,7 +43,7 @@
                         <br>
 
                         <?php
-                        $destinatarios =['Administradores','Entrenadores','Socios','Tiendas', 'Participantes','Entidades'];
+                        $destinatarios =['Administradores','Entrenadores','Socios','Participantes','Entidades'];
 
                         foreach($destinatarios as $nombre){?>
                             <div class="row">

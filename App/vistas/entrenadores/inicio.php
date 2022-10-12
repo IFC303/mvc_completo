@@ -43,7 +43,7 @@
                 <div class="card shadow-lg mt-5 w-75 h-75">
 
                     <img class="card-img mt-3" <?php if ($datos['usuarioSesion']->foto==''){
-                                ?> src='<?php echo RUTA_Icon?>usuario.png'<?php ;
+                                ?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;
                                 }else {?> src='<?php echo RUTA_ImgDatos.$datos['usuarioSesion']->id_usuario.'.jpg';} ?>' width="275" height="275">
 
 

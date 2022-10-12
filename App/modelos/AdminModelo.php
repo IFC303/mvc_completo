@@ -44,87 +44,24 @@ class AdminModelo
     //     return $not;
     // }
 
-    //CRUDS USUARIOS
-    // public function obtenerUsuarios($rol)
-    // {
-    //     if ($rol == 2) {
-    //         $this->db->query("SELECT * FROM USUARIO u, ENTRENADOR e WHERE id_rol = $rol and u.id_usuario=e.id_usuario");
-    //         return $this->db->registros();
-    //     } else {
-    //         $this->db->query("SELECT * FROM USUARIO WHERE id_rol = $rol");
-    //         return $this->db->registros();
-    //     }
-    // }
 
 
+//**************************** CRUD DE USUARIOS (ver, borrar, nuevo, editar) ***************************************/
 
-
-// ********************************* ADMINISTRADORES **************************//
-
-public function obtenerAdmin(){
-    $this->db->query("SELECT * FROM USUARIO WHERE id_rol = 1");
+public function obtenerUsuarios(){
+    $this->db->query("SELECT * FROM USUARIO order by id_rol");
     return $this->db->registros();
 }
 
 
-
- public function nuevoAdmin($nuevo_admin){
-  
-        $pass=$nuevo_admin['nombre'].'-'.$nuevo_admin['telefono'];
- 
-        $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol) 
-                          VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, 1, 1);");
-
-         $this->db->bind(':nombre', $nuevo_admin['nombre']);
-         $this->db->bind(':apellidos', $nuevo_admin['apellidos']);
-         $this->db->bind(':dni', $nuevo_admin['dni']);
-         $this->db->bind(':fecha_naci', $nuevo_admin['fecha_naci']);
-         $this->db->bind(':telefono', $nuevo_admin['telefono']);
-         $this->db->bind(':email',$nuevo_admin['email']);
-         $this->db->bind(':direccion', $nuevo_admin['direccion']);
-         $this->db->bind(':ccc', $nuevo_admin['ccc']);
-         $this->db->bind(':talla', $nuevo_admin['talla']);
-
-         $this->db->bind(':pass', $pass);
-         $this->db->execute();
-
-        $idSoci = $this->db->ultimoIndice();
-        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
-
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
- }
-
- public function borrarAdmin($id){
-
-     $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
-     $this->db->bind(':id_usu', $id);
-
-     if ($this->db->execute()) {
-         return true;
-     } else {
-         return false;
-     }
- }
+public function obtenerRoles(){
+        $this->db->query("SELECT * FROM ROL");
+        return $this->db->registros();
+}
 
 
- public function editarAdmin($id,$editar_admin){
-  
-        $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, fecha_nacimiento=:fecha_naci, 
-                        telefono=:telefono, CCC=:ccc, talla=:talla WHERE id_usuario=:id");
-
-        $this->db->bind(':nombre', $editar_admin['nombre']);
-        $this->db->bind(':apellidos', $editar_admin['apellidos']);
-        $this->db->bind(':dni', $editar_admin['dni']);
-        $this->db->bind(':fecha_naci', $editar_admin['fecha_naci']);
-        $this->db->bind(':telefono', $editar_admin['telefono']);
-        $this->db->bind(':email',$editar_admin['email']);
-        $this->db->bind(':direccion', $editar_admin['direccion']);
-        $this->db->bind(':ccc', $editar_admin['ccc']);
-        $this->db->bind(':talla', $editar_admin['talla']);
+public function borrar_usuario($id){
+        $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id");
         $this->db->bind(':id', $id);
 
         if ($this->db->execute()) {
@@ -135,164 +72,124 @@ public function obtenerAdmin(){
 }
 
 
-// ********************************* ENTRENADORES **************************//
+public function nuevo_usuario($nuevo){
 
-public function obtenerEnt(){
-    $this->db->query("SELECT * FROM USUARIO WHERE id_rol = 2");
-    return $this->db->registros();
-}
+    $pass=$nuevo['nombre'].'-'.$nuevo['telefono'];
 
+    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, foto, ha_sido, activado, id_rol, nom_pa, ape_pa, dni_pa) 
+                    VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :foto, :pri_socio, 1, :rol, :nom_pa, :ape_pa, :dni_pa);");
 
-public function nuevoEnt($nuevo_ent){
-  
-    $pass=$nuevo_ent['nombre'].'-'.$nuevo_ent['telefono'];
-
-    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, activado, id_rol) 
-                      VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, 1, 2);");
-
-     $this->db->bind(':nombre', $nuevo_ent['nombre']);
-     $this->db->bind(':apellidos', $nuevo_ent['apellidos']);
-     $this->db->bind(':dni', $nuevo_ent['dni']);
-     $this->db->bind(':fecha_naci', $nuevo_ent['fecha_naci']);
-     $this->db->bind(':telefono', $nuevo_ent['telefono']);
-     $this->db->bind(':email',$nuevo_ent['email']);
-     $this->db->bind(':direccion', $nuevo_ent['direccion']);
-     $this->db->bind(':ccc', $nuevo_ent['ccc']);
-     $this->db->bind(':talla', $nuevo_ent['talla']);
-
-     $this->db->bind(':pass', $pass);
-     $this->db->execute();
-
-    $idSoci = $this->db->ultimoIndice();
-
-    $this->db->query("INSERT INTO ENTRENADOR (`id_usuario`, `sueldo`) VALUES ($idSoci, NULL);");
-    $this->db->execute();
-
-    $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
-
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-public function borrarEnt($id){
-
- $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
- $this->db->bind(':id_usu', $id);
-
- if ($this->db->execute()) {
-     return true;
- } else {
-     return false;
- }
-}
+        $this->db->bind(':nombre', $nuevo['nombre']);
+        $this->db->bind(':apellidos', $nuevo['apellidos']);
+        $this->db->bind(':dni', $nuevo['dni']);
+        $this->db->bind(':fecha_naci', $nuevo['fecha_naci']);
+        $this->db->bind(':telefono', $nuevo['telefono']);
+        $this->db->bind(':email',$nuevo['email']);
+        $this->db->bind(':direccion', $nuevo['direccion']);
+        $this->db->bind(':ccc', $nuevo['ccc']);
+        $this->db->bind(':talla', $nuevo['talla']);
+        $this->db->bind(':foto', $nuevo['foto']);
+        $this->db->bind(':rol', $nuevo['id_rol']);
+        $this->db->bind(':pri_socio', $nuevo['pri_socio']);
+        $this->db->bind(':nom_pa', $nuevo['nom_pa']);
+        $this->db->bind(':ape_pa', $nuevo['ape_pa']);
+        $this->db->bind(':dni_pa', $nuevo['dni_pa']);
 
 
-public function editarEnt($id,$editar_ent){
+        $this->db->bind(':pass', $pass);
+        $this->db->execute();
 
-    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, fecha_nacimiento=:fecha_naci, 
-                    telefono=:telefono, CCC=:ccc, talla=:talla WHERE id_usuario=:id");
-
-    $this->db->bind(':nombre', $editar_ent['nombre']);
-    $this->db->bind(':apellidos', $editar_ent['apellidos']);
-    $this->db->bind(':dni', $editar_ent['dni']);
-    $this->db->bind(':fecha_naci', $editar_ent['fecha_naci']);
-    $this->db->bind(':telefono', $editar_ent['telefono']);
-    $this->db->bind(':email',$editar_ent['email']);
-    $this->db->bind(':direccion', $editar_ent['direccion']);
-    $this->db->bind(':ccc', $editar_ent['ccc']);
-    $this->db->bind(':talla', $editar_ent['talla']);
-    $this->db->bind(':id', $id);
-
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
-}
+        $id_usu = $this->db->ultimoIndice();
+        $rol_usu=$nuevo['id_rol'];
 
 
-// ********************************* SOCIOS **************************//
+        if($nuevo['foto']!=''){
+            //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD
+            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotosPerfil/";       
+            copy($_FILES['foto']['tmp_name'], $directorio.$id_usu.'.jpg');
+            chmod($directorio.$id_usu.'.jpg',0777);
 
-public function obtenerSocios(){
-    $this->db->query("SELECT * FROM USUARIO WHERE id_rol = 3");
-    return $this->db->registros();
-}
-
-public function nuevoSocio($nuevo_soc){
-  
-    $pass=$nuevo_soc['nombre'].'-'.$nuevo_soc['telefono'];
-
-    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla,ha_sido, activado, id_rol,nom_pa,ape_pa,dni_pa) 
-                      VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :priSocio, 1, 3, :nomPa, :apePa, :dniPa);");
-
-     $this->db->bind(':nombre', $nuevo_soc['nombre']);
-     $this->db->bind(':apellidos', $nuevo_soc['apellidos']);
-     $this->db->bind(':dni', $nuevo_soc['dni']);
-     $this->db->bind(':fecha_naci', $nuevo_soc['fecha_naci']);
-     $this->db->bind(':telefono', $nuevo_soc['telefono']);
-     $this->db->bind(':email',$nuevo_soc['email']);
-     $this->db->bind(':direccion', $nuevo_soc['direccion']);
-     $this->db->bind(':ccc', $nuevo_soc['ccc']);
-     $this->db->bind(':talla', $nuevo_soc['talla']);
-     $this->db->bind(':priSocio', $nuevo_soc['priSocio']);
-     $this->db->bind(':nomPa', $nuevo_soc['nomPa']);
-     $this->db->bind(':apePa', $nuevo_soc['apePa']);
-     $this->db->bind(':dniPa', $nuevo_soc['dniPa']);
-
-     $this->db->bind(':pass', $pass);
-     $this->db->execute();
-
-    $idSoci = $this->db->ultimoIndice();
-
-    $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($idSoci, NULL);");
-
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-    public function borrarSocio($id){
-        $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id_usu");
-        $this->db->bind(':id_usu', $id);  
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
+            $foto=$id_usu.'.jpg';
+            $this->db->query("UPDATE USUARIO SET foto=:id where id_usuario=:id;");
+            $this->db->bind(':id', $foto);
+            $this->db->execute();
         }
-    }
+        
 
 
-   public function editarSocio($id,$editar_soc){
+        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($id_usu, NULL);");
+        $this->db->execute();
 
-    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, fecha_nacimiento=:fecha_naci, 
-                    telefono=:telefono, CCC=:ccc, talla=:talla, ha_sido=:priSocio, nom_pa=:nomPa, ape_pa=:apePa, dni_pa=:dniPa WHERE id_usuario=:id");
 
-    $this->db->bind(':nombre', $editar_soc['nombre']);
-    $this->db->bind(':apellidos', $editar_soc['apellidos']);
-    $this->db->bind(':dni', $editar_soc['dni']);
-    $this->db->bind(':fecha_naci', $editar_soc['fecha_naci']);
-    $this->db->bind(':telefono', $editar_soc['telefono']);
-    $this->db->bind(':email',$editar_soc['email']);
-    $this->db->bind(':direccion', $editar_soc['direccion']);
-    $this->db->bind(':ccc', $editar_soc['ccc']);
-    $this->db->bind(':talla', $editar_soc['talla']);
-    $this->db->bind(':priSocio', $editar_soc['priSocio']);
-    $this->db->bind(':nomPa', $editar_soc['nomPa']);
-    $this->db->bind(':apePa', $editar_soc['apePa']);
-    $this->db->bind(':dniPa', $editar_soc['dniPa']);
-    $this->db->bind(':id', $id);
+        if($rol_usu=='2'){
+            $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($id_usu, NULL);");
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else{
+            return true;
+        }      
+ }
 
-    if ($this->db->execute()) {
+
+
+ public function editar_usuario($nuevo,$id){
+
+    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
+    fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, talla=:talla, foto=:foto, ha_sido=:pri_socio, id_rol=:rol , nom_pa=:nom_pa, ape_pa=:ape_pa, dni_pa=:dni_pa where id_usuario=:id;");
+
+     $this->db->bind(':nombre', $nuevo['nombre']);
+     $this->db->bind(':apellidos', $nuevo['apellidos']);
+     $this->db->bind(':dni', $nuevo['dni']);
+     $this->db->bind(':fecha_naci', $nuevo['fecha_naci']);
+     $this->db->bind(':telefono', $nuevo['telefono']);
+     $this->db->bind(':email',$nuevo['email']);
+     $this->db->bind(':direccion', $nuevo['direccion']);
+     $this->db->bind(':ccc', $nuevo['ccc']);
+     $this->db->bind(':talla', $nuevo['talla']);
+     $this->db->bind(':foto', $nuevo['foto']);
+     $this->db->bind(':rol', $nuevo['id_rol']);
+     $this->db->bind(':pri_socio', $nuevo['pri_socio']);
+     $this->db->bind(':nom_pa', $nuevo['nom_pa']);
+     $this->db->bind(':ape_pa', $nuevo['ape_pa']);
+     $this->db->bind(':dni_pa', $nuevo['dni_pa']);
+
+     $this->db->bind(':id', $id);
+     
+     $this->db->execute();
+
+
+    $rol_usu=$nuevo['id_rol'];
+
+     if($rol_usu=='2'){
+
+        $this->db->query("SELECT count(id_usuario) as total from entrenador where id_usuario=$id;");
+        $total= $this->db->registros();
+
+       if($total[0]->total==0){
+            $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($id, NULL);");
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+       }else{
+            $this->db->query("UPDATE ENTRENADOR SET id_usuario=$id  where id_usuario=$id;");
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }       
+       }
+    }else{
         return true;
-    } else {
-        return false;
-    }
+    } 
 }
+
+
+
 
 
   //********************************************************************************************************************************************** */

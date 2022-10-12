@@ -28,7 +28,7 @@
                         <div>
                             <img id="output" 
                             <?php if ($datosUser->foto==''){
-                                ?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;
+                                ?> src='<?php echo RUTA_Icon?>usuario.svg' <?php ;
                                 }else {?> src='<?php echo RUTA_ImgDatos.$datosUser->id_usuario.'.jpg';} ?>' width="300" height="320">
                         </div>
                         

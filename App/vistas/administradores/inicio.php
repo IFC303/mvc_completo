@@ -41,7 +41,7 @@
                 <div class="card shadow-lg mt-5 w-75 h-75">
 
                     <img class="card-img mt-3" <?php if ($datos['usuarioSesion']->foto==''){
-                                ?> src='<?php echo RUTA_Icon?>usuario.png'<?php ;
+                                ?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;
                                 }else {?> src='<?php echo RUTA_ImgDatos.$datos['usuarioSesion']->id_usuario.'.jpg';} ?>' width="275" height="275">
 
 
@@ -84,13 +84,15 @@
 
         <div class="row d-flex justify-content-center inicio" style="font-family: 'Doppio One', sans-serif;">
 
-            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
-                <div id="colorUsu" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuUsu">
-                    <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>usuario.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px; margin-left:30px; font-size:20px">USUARIOS</p><p style="font-size:14px;margin-top:-15px;  margin-left:30px;">Altas, bajas y modificaciones de usuarios</p></div>
-                    </div>                              
-                </div>     
+            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminUsuarios">
+                    <div id="colorUsuarios" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                        <div class="row">
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#023ef9"><img src="<?php echo RUTA_Icon ?>usuario.png" width="60" height="60"></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">USUARIOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Crea nuevos usuarios de la aplicacion</p></div>
+                        </div>                              
+                    </div> 
+                </a>
             </div>
 
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
@@ -123,8 +125,8 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminEventos">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EVENTOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Creacion de nuevos eventos</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#023ef9"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EVENTOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Crea nuevos eventos y gestiona los participantes</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -146,8 +148,8 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminEntidades">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>entidad.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">ENTIDADES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#023ef9"><img src="<?php echo RUTA_Icon ?>entidad.png" width="60" height="60"></div>
+                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">ENTIDADES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Gestion de las entidades colaboradoras con el club</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -228,19 +230,6 @@
 
 <!------------------------------ SUBMENUS LATERALES --------------------------->
 
-<!-- USUARIOS -->
- <div class="menu1 offcanvas offcanvas-start" id="menuUsu" style="background-color:#0070c6;">
-    <div id="home" class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon ?>usuario.png" width="50" height="50">
-        <h1 class="offcanvas-title text-white">USUARIOS</h1>
-        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>  
-   <div>
-    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="tMenu nav-link text-white">ADMIN</span> </a>          
-    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="tMenu nav-link text-white">ENTRENADORES</a>            
-    <a href="<?php echo RUTA_URL ?>/admin/crud_socios" class="tMenu nav-link text-white">SOCIOS</a>  
-    </div>   
-</div>
 
 <!-- SOLICITUDES -->
 <div class=" menu1 offcanvas offcanvas-start" id="menuSol" style="background-color:#0070c6;">
@@ -294,4 +283,7 @@
     function decolorear(icono) {
       icono.style.backgroundColor = '#ffffff';
     }
+
+
+
 </script>

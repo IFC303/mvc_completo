@@ -173,6 +173,10 @@ thead tr{
     background-color:rgb(235, 245, 255);
 }
 
+.azul{
+    background-color:rgb(235, 245, 255);
+}
+
 .titulito{
   text-align: left; 
   font-size: 24px;
@@ -239,15 +243,38 @@ a{
 
 /* BOTONES */
 #confirmar{
+    background-color: #0070c6; 
+    color:white;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+#anadir{
+    background-color: #0070c6; 
+    color:white;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+#borrar{
     background-color: #0b2a85; 
     color:white;
+    font-weight:bold;
+    letter-spacing:1px;
 }
 
 #botonVolver{
     background-color:white; 
-    color:#023ef9;
-    border-color:#023ef9;
+    color:#0070c6;
+    border-color:#0070c6;
+    border: solid 2px;
+    letter-spacing:1px;
+    font-weight: bold;
 }
+
+
+
+
 
 label,h2{
     color:#023ef9;

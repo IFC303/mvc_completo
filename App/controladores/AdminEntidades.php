@@ -13,29 +13,15 @@ class AdminEntidades extends Controlador{
             $this->AdminModelo = $this->modelo('AdminModelo');
     }
 
-    //NOTIFICACIONES
-    public function notificaciones()
-    {
-        $notific[0] = $this->AdminModelo->notSocio();
-        $notific[1] = $this->AdminModelo->notGrupo();
-        $notific[2] = $this->AdminModelo->notEventos();
-        $notific[3] ="ENTIDADES";
-        
-        return $notific;
-    }
+
 
     public function index(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
         $this->datos['entidad']=$this->entidadModelo->obtenerEntidades();
-        $this->vista('administradores/crudEntidades/inicio',$this->datos);
+        $this->vista('administradores/entidad',$this->datos);
     }
 
     
     public function nuevaEntidad(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
 
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -44,7 +30,7 @@ class AdminEntidades extends Controlador{
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
             $entidadNueva = [
-                'id_entidad' => trim($_POST['id_entidad']),
+                'cif' => trim($_POST['cif']),
                 'nombre' => trim($_POST['nombre']),
                 'direccion' => trim($_POST['direccion']),
                 'telefono' => trim($_POST['telefono']),
@@ -61,17 +47,23 @@ class AdminEntidades extends Controlador{
             $this->datos['entidad'] = (object)[
                 'id_entidad'=>'',
                 'nombre'=>'',
-                'tipo'=>'',
+                'direccion' => '',
+                'telefono' => '',
+                'email' => '',
+                'observaciones' => '',
             ];
-            $this->datos["nuevo"]="ENTIDADES";
-            $this->vista('administradores/crudEntidades/nueva_entidad',$this->datos);
+
+            $this->vista('administradores/entidad',$this->datos);
         }
     }
 
 
     public function borrar($id){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
+
+        $this->datos['rolesPermitidos'] = [1];         
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->entidadModelo->borrarEntidad($id)) {
@@ -81,15 +73,13 @@ class AdminEntidades extends Controlador{
             }
         }else{
             $this->datos['entidad'] = $this->entidadModelo->obtenerEntidadId($id);
-            $this->vista('administradores/crudEntidades/inicio', $this->datos);
+            $this->vista('administradores/entidad', $this->datos);
         }
     }
 
 
 
     public function editarEntidad($id){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -97,10 +87,8 @@ class AdminEntidades extends Controlador{
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-                //recogemos los datos modificados y guardamos en $grupo_modificado
                 $entidad_modificada = [
-                    'id_entidad' => trim($_POST['id_entidad']),
+                    'cif' => trim($_POST['cif']),
                     'nombre' => trim($_POST['nombre']), 
                     'direccion' => trim($_POST['direccion']),
                     'telefono' => trim($_POST['telefono']),
@@ -108,14 +96,14 @@ class AdminEntidades extends Controlador{
                     'observaciones' => trim($_POST['observaciones']),
                 ];
    
-                if ($this->entidadModelo->editarEntidad($entidad_modificada)) {
+                if ($this->entidadModelo->editarEntidad($entidad_modificada,$id)) {
                     redireccionar('/adminEntidades');
                 }else{
                     die('Algo ha fallado!!!');
                 }
 
          } else {
-                $this->vista('administradores/crudEntidades/inicio', $this->datos);
+                $this->vista('administradores/entidad', $this->datos);
         }
 
 

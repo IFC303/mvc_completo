@@ -1,205 +1,240 @@
 <?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="<?php echo RUTA_URL?>/public/css/estilos.css">
-    <!-- <link rel="stylesheet" href="css/estilos.css"> -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-
-    <title><?php echo NOMBRE_SITIO?></title>
-
-</head>
-
-<style>
- 
- .tabla{
-            border:solid 1px #023ef9;   
-            margin:auto;
-        }
-
-        thead tr{
-            background-color:#023ef9; 
-            color:white;
-            text-align:center;
-        }
-
-        .datos_tabla{
-            text-align:center;
-        }
+        <header>
+        <div class="row mb-5">
+                <div class="col-10 d-flex align-items-center justify-content-center"><span id="textoHead">Participantes del evento</span></div>
+                <div class="col-2 mt-2">
+                        <a type="button" id="botonLogout" class="btn"  href="<?php echo RUTA_URL ?>/login/logout">
+                                <span>Logout</span>
+                                <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                        </a>
+                </div>
+        </div>                                   
+        </header>
 
 
 
- 
- #ventana{
-    margin: auto;
-    width:60%;
-    background-color:#EBECEC;
-} 
+        <article>
 
-label, h2,p,h4{
-   color:#023ef9;
-}
-
-p{
-    margin-left:35px;
-}
-
-.btn{
-    background-color: #023ef9; 
-    color:white;
-    margin-left:35px;
-}
-
-#botonVolver{
-    background-color:#023ef9; 
-    color:white;
-    border-color:#023ef9;
-}
-
-#entrenadores, #alumnos,#cajaEntrenador,#cajaAlumnos{
-    background-color:white;
-}
-
-#titulo{
-            font-family: 'Anton',sans-serif; 
-            color: #023ef9; 
-            letter-spacing: 5px;
-        }
-</style>
-
-
-
-<body>
-<div class="container">
-        <div class="row" style="text-align:center">
-                <div class="col-12"><h4 id="titulo">Participantes del evento</h4></div>
-            </div>
-           <div class="tabla" style="border:solid 1px #023ef9">
-            <table class="table table-hover" >
-
+            <table id="tabla" class="table">
 
                     <!--CABECERA TABLA-->
                     <thead>
-                        <tr style="background-color:#023ef9; color:white">
-
-                            <th>TIPO PARTICIPANTE</th>
+                        <tr>
                             <th>NOMBRE</th>
                             <th>APELLIDOS</th>
-                            <th>DNI</th>
+                            <th>TELEFONO</th>
                             <th>EMAIL</th>
                             <th>DORSAL</th>
                             <th>MARCA</th>
-                            
-
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
-                                <th></th>
+                                <th>OPCIONES</th>
                             <?php endif ?>
                         </tr>
                     </thead>
 
-
-                    <?php 
-                        $id_evento=$datos['id_evento'][0];
-                        //echo $id_evento;  
-                        //var_dump($datos['participantesEventos']);
-                        
-                    ?>
-
                      <!--BODY TABLA-->
-                    <tbody class="table-light">
+                    <tbody>
 
                         <?php
                         foreach($datos['participantesEventos'] as $pEventos): ?>
                         <tr>
 
-                            <td class="datos_tabla"><?php echo $pEventos->tipo?></td>
                             <td class="datos_tabla"><?php echo $pEventos->nombre?></td>
                             <td class="datos_tabla"><?php echo $pEventos->apellidos?></td>
-                            <td class="datos_tabla"><?php echo $pEventos->dni?></td>
+                            <td class="datos_tabla"><?php echo $pEventos->telefono?></td>
                             <td class="datos_tabla"><?php echo $pEventos->email?></td>
-                            <td class="datos_tabla"><input type="text" id="<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" style="width:100px" oninput="cambiarDorsal(this,this.id);" value="<?php echo $pEventos->dorsal?>"></td>
-                            <td class="datos_tabla"><input type="text" id="<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" style="width:100px" oninput="cambiarMarca(this,this.id)" value="<?php echo $pEventos->marca?>"></td>
+                            <td class="datos_tabla"><?php echo $pEventos->dorsal?></td>
+                            <td class="datos_tabla"><?php echo $pEventos->marca?></td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                             <td>
 
-    
-                                 <!-- BOTON ACEPTAR-->
-                                 &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" id="<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" data-bs-target="#ModalAceptar_<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" >
-                                  <img class="icono" width="30" height="30" src="<?php echo RUTA_Icon?>tick.png"></img>
+
+                            <!-- EDITAR PARTICIPANTE -->
+                            <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $pEventos->id_participante?>">
+                            <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
+                            </a>
+
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalEditar_<?php echo $pEventos->id_participante?>">
+                                    <div class="modal-dialog  modal-dialog-centered modal-xl">
+                                    <div class="modal-content">
+
+                                            <!-- Header -->
+                                            <div class="modal-header azul">
+                                                <p class="modal-title ms-3">Edicion</p> 
+                                                <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Body -->
+                                            <div class="modal-body info ">                         
+                                            <div class="row ms-1 me-1"> 
+
+                                            <form method="post" action="<?php echo RUTA_URL?>/adminEventos/editar_participante/<?php echo $pEventos->id_participante?>">
+                                                  
+                                                <div class="row mt-4">
+                                                    <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="nombre" class="input-group-text datInfo">Nombre <sup>*</sup></label>
+                                                            <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $pEventos->nombre?>" required>    
+                                                        </div> 
+                                                    </div>
+
+                                                    <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="apellidos" class="input-group-text datInfo">Apellidos<sup>*</sup></label>
+                                                            <input type="text" class="form-control form-control-md" id="apellidos" name="apellidos" value="<?php echo $pEventos->apellidos?>"  required >
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                        
+                                                <div class="row mt-2">
+                                                    <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="fecha_naci" class="input-group-text datInfo">Fecha nacimiento <sup>*</sup></label>
+                                                            <input type="date" class="form-control form-control-md" id="fecha_naci" name="fecha_naci" value="<?php echo $pEventos->fecha_nacimiento?>" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="dni" class="input-group-text datInfo">DNI</label>
+                                                            <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $pEventos->DNI?>" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="direccion" class="input-group-text datInfo">Direccion </label>
+                                                            <input type="text" class="form-control form-control-md" id="direccion" name="direccion" value="<?php echo $pEventos->direccion?>" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row mt-2">
+                                                    <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="telefono" class="input-group-text datInfo">Telefono <sup>*</sup></label>
+                                                            <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $pEventos->telefono?>"  required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="email" class="input-group-text datInfo">Correo</label>
+                                                            <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $pEventos->email?>" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="d-flex justify-content-end">
+                                                    <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                                                </div> 
+                                                        
+                  
+
+                                            </form>
+
+                                            </div>
+                                            </div>
+
+                                    </div>
+                                    </div>
+                                    </div>
+
+
+                              <!-- BORRAR PARTICIPANTE -->
+                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $pEventos->id_participante?>">
+                                  <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
-                                    <div class="modal" id="ModalAceptar_<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>">
+                                    <div class="modal" id="ModalBorrar_<?php echo $pEventos->id_participante?>">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
+                                    <div class="modal-content">
 
-                                             <!-- Modal Header -->
-                                             <div class="modal-header"> 
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <h6>Marca y dorsal registrados correctamente</h6>
+                                            <div class="modal-body mt-3">
+                                            <p>Estas seguro que quiere <b>BORRAR</b> al participante <b><?php echo $pEventos->nombre.' '.$pEventos->apellidos?></b> ? </p>
                                             </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminEventos/guardarMarcas/<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" method="post">
-                                                        <input type="hidden" name="marca" id="marca<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" value="">
-                                                        <input type="hidden" name="dorsal" id="dorsal<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" value="">
-                                                        <input type="hidden" name="id_evento" id="id_evento" value="<?php echo $datos['id_evento'][0]?>">
-                                                    <button type="submit" class="btn" >Volver</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-
-
-
-                                <!-- MODAL BORRAR -->
-                                &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>">
-                                  <img class="icono" width="30" height="30" src="<?php echo RUTA_Icon?>x1.png"></img>
-                                </a>
-
-                                    <!-- VENTANA -->
-                                    <div class="modal" id="ModalBorrar_<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-
-                                             <!-- Modal Header -->
-                                             <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <h6>Seguro que quiere borrar al participante <?php echo $pEventos->nombre." ".$pEventos->apellidos ?></h6>
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminEventos/borrarMarcas/<?php echo $pEventos->id_usuario."_".$pEventos->tipo?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminEventos/borrar_participante/<?php echo $pEventos->id_participante?>" method="post">
                                                     <input type="hidden" name="id_evento" id="id_evento" value="<?php echo $datos['id_evento'][0]?>">
-                                                    <button type="submit" class="btn">Borrar</button>
+                                                    <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
                                                 </form>
                                             </div>
-                                        </div>
+
                                     </div>
                                     </div>
+                                    </div>
+
+
+                                <!-- ANOTAR MARCA Y DORSAL -->
+                                <a data-bs-toggle="modal" data-bs-target="#ModalAnotar_<?php echo $pEventos->id_participante?>">
+                                  <img class="icono" src="<?php echo RUTA_Icon?>cronometro.svg"></img>
+                                </a>
+
+                                    <!-- Ventana -->
+                                    <div class="modal" id="ModalAnotar_<?php echo $pEventos->id_participante?>">
+                                    <div class="modal-dialog  modal-dialog-centered modal-md">
+                                    <div class="modal-content">
+
+                                            <!-- Header -->
+                                            <div class="modal-header azul">
+                                                <p class="modal-title ms-3">Dorsal y marca</p> 
+                                                <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                            </div>
+  
+                                            <!-- Body -->
+                                            <div class="modal-body info ">                         
+                                            <div class="row ms-1 me-1"> 
+
+                                            <form method="post" action="<?php echo RUTA_URL?>/adminEventos/anotar_marca/<?php echo $pEventos->id_participante?>">
+                                                  
+                                                <div class="row mt-2">
+                                                    <div class="col-5">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="dorsal" class="input-group-text datInfo">Dorsal <sup>*</sup></label>
+                                                            <input type="text" class="form-control form-control-md" id="dorsal" name="dorsal" value="<?php echo $pEventos->dorsal?>" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-7">
+                                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                                            <label for="marca" class="input-group-text datInfo">Marca <sup>*</sup></label>
+                                                            <input type="time" step="0.001" class="form-control form-control-md" id="marca" name="marca" value="<?php echo $pEventos->marca?>" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class=" d-flex justify-content-end">
+                                                    <input type="submit" class="btn mt-4 mb-2 " name="aceptar" id="confirmar" value="Confirmar">        
+                                                </div> 
+                  
+
+                                            </form>
+
+                                            </div>
+                                            </div>
+
+                                    </div>
+                                    </div>
+                                    </div>
+
+                               
                             </td>
                             <?php endif ?>
                         </tr>
@@ -209,40 +244,108 @@ p{
 
             </table>
 
-                    <!--AÑADIR-->
-                    <div class="col text-center">
-                        <a class="btn" id="botonVolver" href="<?php echo RUTA_URL?>/adminEventos">Volver</a>
+
+             <!-- AÑADIR PARTICIPANTE -->
+            <div class="col text-center mt-5">
+                <a data-bs-toggle="modal" data-bs-target="#nuevo">
+                    <input type="button" id="anadir" class="btn me-2" value="AÑADIR">
+                </a>
+                <a class="btn" id="botonVolver" href="<?php echo RUTA_URL?>/adminEventos">VOLVER</a>
+            </div>
+
+
+            <div class="modal" id="nuevo">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header azul">
+                        <p class="modal-title ms-3">Alta de participantes</p> 
+                        <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body info">                         
+                <div class="row ms-1 me-1">                                                                                                           
+                                                    
+                        <form action="<?php echo RUTA_URL?>/adminEventos/nuevo_participante" method="post">
+
+                                <div class="row mt-4">
+                                    <div class="col-5">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="nombre" class="input-group-text datInfo">Nombre <sup>*</sup></label>
+                                            <input type="text" class="form-control form-control-md" id="nombre" name="nombre" required>    
+                                        </div> 
+                                    </div>
+
+                                    <div class="col-7">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="apellidos" class="input-group-text datInfo">Apellidos<sup>*</sup></label>
+                                            <input type="text" class="form-control form-control-md" id="apellidos" name="apellidos" required >
+                                        </div>
+                                    </div>
+                                </div>  
+           
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="fecha_naci" class="input-group-text datInfo">Fecha nacimiento <sup>*</sup></label>
+                                            <input type="date" class="form-control form-control-md" id="fecha_naci" name="fecha_naci" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-7">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="dni" class="input-group-text datInfo">DNI</label>
+                                            <input type="text" class="form-control form-control-md" id="dni" name="dni">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="direccion" class="input-group-text datInfo">Direccion </label>
+                                            <input type="text" class="form-control form-control-md" id="direccion" name="direccion">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-2">
+                                    <div class="col-5">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="telefono" class="input-group-text datInfo">Telefono <sup>*</sup></label>
+                                            <input type="text" class="form-control form-control-md" id="telefono" name="telefono" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-7">
+                                        <div class="input-group col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-3">
+                                            <label for="email" class="input-group-text datInfo">Correo</label>
+                                            <input type="text" class="form-control form-control-md" id="email" name="email">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="d-flex justify-content-end">
+                                    <input type="hidden" id="id_evento" name="id_evento" value="<?php echo $datos['id_evento'][0]?>">
+                                    <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                               </div> 
+
+                        </form>
+
                     </div>
-                    <br>
+                    </div>
 
             </div>
-        </div>
+            </div>
+            </div>
+
+
+
+
+    </article>
 
      
-<script>
- 
-function cambiarMarca(id,nombre) {
-    console.log(id)
-    console.log(nombre)
-    var x = id.value;
-    console.log(x);
-    var texto="marca"+nombre;
-    console.log(texto)
-    var d=document.getElementById(texto)
-    console.log(d)
-    d.setAttribute("value",x);
-}
-
-function cambiarDorsal(id,nombre) {
-    console.log(id)
-    console.log(nombre)
-    var x = id.value;
-    console.log(x);
-    var texto="dorsal"+nombre;
-    console.log(texto)
-    var d=document.getElementById(texto)
-    console.log(d)
-    d.setAttribute("value",x);
-}
-
-</script>
