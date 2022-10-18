@@ -1,5 +1,13 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require_once RUTA_APP.'/librerias/PHPMailer/Exception.php';
+require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
+require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
+
 
 class AdminUsuarios extends Controlador{
 
@@ -29,6 +37,9 @@ class AdminUsuarios extends Controlador{
     public function borrarUsuario($id){
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->adminModelo->borrar_usuario($id)) {
+                //$directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
+                $directorio="C:/xampp/htdocs/tragamillas/public/img/fotosPerfil/"; 
+                unlink($directorio.$id.'.jpg');
                 redireccionar('/adminUsuarios');
             }else{
                 die('Algo ha fallado!!!');
@@ -59,7 +70,6 @@ class AdminUsuarios extends Controlador{
                 'direccion' => trim($_POST["direccion"]),
                 'ccc' => trim($_POST["ccc"]),
                 'talla' => trim($_POST["talla"]),
-                'foto' => $_FILES['foto']['name'],
                 'id_rol' => trim($_POST['rol']),
                 'pri_socio' => trim($_POST['pri_socio']),
                 'nom_pa' => trim($_POST['nomPa']),
@@ -68,6 +78,38 @@ class AdminUsuarios extends Controlador{
             ];
 
             if ($this->adminModelo->nuevo_usuario($nuevo)) {
+
+                $mail = new PHPMailer();
+
+                redireccionar('/adminUsuarios');
+                
+                  try {
+                // // //  Configuracion SMTP
+                      $mail->SMTPDebug =2;
+                      $mail->isSMTP();                                       // Activar envio SMTP
+                      $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
+                      $mail->SMTPAuth  = true;                               // Identificacion SMTP
+                      $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
+                //      //$mail->Password  = 'sbrdesign1234';	  
+                      $mail->Password = 'ncrihzkexawuolwn';                // Contraseña SMTP
+                      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                      $mail->Port  = 587;
+                    
+                // // // CONFIGURACION CORREO
+                      $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
+                      
+                      $mail->addAddress($_POST['email']);
+                      $mail->isHTML(true);
+                      $mail->Subject = 'Alta como usuario en el CLUB TRAGAMILLAS';
+                      $mail->Body  = 'Bienvenido al club Tragamillas Alcañiz! Has sido dado de alta en el club. Aqui tienes tu usuario y cotraseña para acceder a la aplicacion.'."<br><br>". 
+                                    'USUARIO: '.$_POST['email']. "<br>" .
+                                    'CONTRASEÑA: '.$_POST['nombre'].'-'.$_POST['telefono'];
+                      
+                      $mail->send($correo);
+     
+                  } catch (Exception $e) {
+                      echo "El mensaje no se ha enviado. Mailer Error: {$mail->ErrorInfo}";
+                  }
                     redireccionar('/adminUsuarios');
             } else {
                 die('Algo ha fallado!!!');
@@ -84,7 +126,6 @@ class AdminUsuarios extends Controlador{
                 'direccion' => '',
                 'ccc' => '',
                 'talla' => '', 
-                'foto' => '', 
                 'id_rol' => '', 
                 'pri_socio' => '',
                 'nom_pa' => '',
@@ -92,10 +133,11 @@ class AdminUsuarios extends Controlador{
                 'dni_pa' => ''          
             ];
 
-
             $this->vista('administradores/usuario',$this->datos);
         }
     }
+
+
 
     public function editar_usuario($id){
 
@@ -105,9 +147,6 @@ class AdminUsuarios extends Controlador{
         }
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $foto=$_FILES['foto']['name'];
-            $foto=$id.'.jpg';
     
             $nuevo = [
                 'nombre' => trim($_POST["nombre"]),
@@ -119,7 +158,6 @@ class AdminUsuarios extends Controlador{
                 'direccion' => trim($_POST["direccion"]),
                 'ccc' => trim($_POST["ccc"]),
                 'talla' => trim($_POST["talla"]),
-                'foto' => $foto,
                 'id_rol' => trim($_POST['rol']),
                 'pri_socio' => trim($_POST['pri_socio']),
                 'nom_pa' => trim($_POST['nomPa']),
@@ -127,14 +165,8 @@ class AdminUsuarios extends Controlador{
                 'dni_pa' => trim($_POST['dniPa'])    
             ];
 
-            
-            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotosPerfil/";       
-            copy($_FILES['foto']['tmp_name'], $directorio.$id.'.jpg');
-            chmod($directorio.$id.'.jpg',0777);
-
-
             if ($this->adminModelo->editar_usuario($nuevo,$id)) {
-                    redireccionar('/adminUsuarios');
+                redireccionar('/adminUsuarios');
             } else {
                 die('Algo ha fallado!!!');
             }
@@ -149,8 +181,6 @@ class AdminUsuarios extends Controlador{
                 'direccion' => '',
                 'ccc' => '',
                 'talla' => '',  
-                'foto' => '',  
-                'talla' => '', 
                 'id_rol' => '', 
                 'pri_socio' => '',  
                 'nom_pa' => '',

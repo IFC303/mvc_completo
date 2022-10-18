@@ -4,45 +4,75 @@ class AdminModelo
 {
     private $db;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Base;
     }
 
-    //NOTIFICACIONES
-    public function notSocio()
-    {
+
+   //**************************** NOTIFICACIONES ***************************************/
+
+    public function notSocio(){
         $this->db->query("SELECT * FROM `SOLICITUD_SOCIO`");
         return $this->db->rowCount();
     }
 
-    public function notGrupo()
-    {
+    public function notGrupo(){
         $this->db->query("SELECT * FROM `SOCIO_GRUPO` WHERE activo=0 and acepatado=0 ");
         return $this->db->rowCount();
     }
 
-    public function notPedidos()
-    {
-        $this->db->query("SELECT * FROM `SOLI_EQUIPACION` WHERE recogido=0");
-        return $this->db->rowCount();
-    }
-
-    public function notEventos()
-    {
+    public function notEventos(){
         $this->db->query("SELECT * FROM SOLICITUD_EVENTO");
         return $this->db->rowCount();
     }
 
-    // public function notEventos()
-    // {
-    //     $this->db->query("SELECT * FROM `SOLICITUD_EXTER_EVENTO`");
-    //     $notExter = $this->db->rowCount();
-    //     $this->db->query("SELECT * FROM `SOLICITUD_SOCIO_EVENTO`");
-    //     $notSoci = $this->db->rowCount();
-    //     $not = $notExter + $notSoci;
-    //     return $not;
-    // }
+    public function contar_pedidos(){
+        $this->db->query("SELECT * FROM `SOLI_EQUIPACION` WHERE recogido=0");
+        return $this->db->rowCount();
+    }
+
+
+//**************************** EDITAR DATOS DEL ADMIN ***************************************/
+
+public function obtenerDatosId($id){
+    $this->db->query("SELECT * FROM USUARIO WHERE id_usuario=:id");
+    $this->db->bind(':id', $id);
+    return $this->db->registros();
+}
+
+
+
+public function editar_datos($nuevo,$id,$datosUser){
+
+    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
+    fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, passw=:passw, talla=:talla, foto=:foto where id_usuario=:id;");
+
+     $this->db->bind(':nombre', $nuevo['nombre']);
+     $this->db->bind(':apellidos', $nuevo['apellidos']);
+     $this->db->bind(':dni', $nuevo['dni']);
+     $this->db->bind(':fecha_naci', $nuevo['fecha_naci']);
+     $this->db->bind(':telefono', $nuevo['telefono']);
+     $this->db->bind(':email',$nuevo['email']);
+     $this->db->bind(':direccion', $nuevo['direccion']);
+     $this->db->bind(':ccc', $nuevo['ccc']);
+     $this->db->bind(':talla', $nuevo['talla']);
+
+    if ($nuevo['password']=="") {
+        $this->db->bind(':passw', $datosUser[0]->passw);
+    }else {
+        $this->db->bind(':passw', MD5($nuevo['password']));
+    }
+
+     $this->db->bind(':foto', $nuevo['foto']);
+     $this->db->bind(':id', $id);
+     
+
+    if ($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 
@@ -63,7 +93,6 @@ public function obtenerRoles(){
 public function borrar_usuario($id){
         $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id");
         $this->db->bind(':id', $id);
-
         if ($this->db->execute()) {
             return true;
         } else {
@@ -76,8 +105,8 @@ public function nuevo_usuario($nuevo){
 
     $pass=$nuevo['nombre'].'-'.$nuevo['telefono'];
 
-    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, foto, ha_sido, activado, id_rol, nom_pa, ape_pa, dni_pa) 
-                    VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :foto, :pri_socio, 1, :rol, :nom_pa, :ape_pa, :dni_pa);");
+    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, ha_sido, activado, id_rol, nom_pa, ape_pa, dni_pa) 
+                    VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :pri_socio, 1, :rol, :nom_pa, :ape_pa, :dni_pa);");
 
         $this->db->bind(':nombre', $nuevo['nombre']);
         $this->db->bind(':apellidos', $nuevo['apellidos']);
@@ -88,39 +117,23 @@ public function nuevo_usuario($nuevo){
         $this->db->bind(':direccion', $nuevo['direccion']);
         $this->db->bind(':ccc', $nuevo['ccc']);
         $this->db->bind(':talla', $nuevo['talla']);
-        $this->db->bind(':foto', $nuevo['foto']);
         $this->db->bind(':rol', $nuevo['id_rol']);
         $this->db->bind(':pri_socio', $nuevo['pri_socio']);
         $this->db->bind(':nom_pa', $nuevo['nom_pa']);
         $this->db->bind(':ape_pa', $nuevo['ape_pa']);
         $this->db->bind(':dni_pa', $nuevo['dni_pa']);
 
-
         $this->db->bind(':pass', $pass);
         $this->db->execute();
 
-        $id_usu = $this->db->ultimoIndice();
-        $rol_usu=$nuevo['id_rol'];
-
-
-        if($nuevo['foto']!=''){
-            //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD
-            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotosPerfil/";       
-            copy($_FILES['foto']['tmp_name'], $directorio.$id_usu.'.jpg');
-            chmod($directorio.$id_usu.'.jpg',0777);
-
-            $foto=$id_usu.'.jpg';
-            $this->db->query("UPDATE USUARIO SET foto=:id where id_usuario=:id;");
-            $this->db->bind(':id', $foto);
-            $this->db->execute();
-        }
-        
+        $id_usu = $this->db->ultimoIndice();  
 
 
         $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($id_usu, NULL);");
         $this->db->execute();
 
 
+        $rol_usu=$nuevo['id_rol'];
         if($rol_usu=='2'){
             $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($id_usu, NULL);");
             if ($this->db->execute()) {
@@ -138,7 +151,7 @@ public function nuevo_usuario($nuevo){
  public function editar_usuario($nuevo,$id){
 
     $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
-    fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, talla=:talla, foto=:foto, ha_sido=:pri_socio, id_rol=:rol , nom_pa=:nom_pa, ape_pa=:ape_pa, dni_pa=:dni_pa where id_usuario=:id;");
+    fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, talla=:talla, ha_sido=:pri_socio, id_rol=:rol , nom_pa=:nom_pa, ape_pa=:ape_pa, dni_pa=:dni_pa where id_usuario=:id;");
 
      $this->db->bind(':nombre', $nuevo['nombre']);
      $this->db->bind(':apellidos', $nuevo['apellidos']);
@@ -149,7 +162,6 @@ public function nuevo_usuario($nuevo){
      $this->db->bind(':direccion', $nuevo['direccion']);
      $this->db->bind(':ccc', $nuevo['ccc']);
      $this->db->bind(':talla', $nuevo['talla']);
-     $this->db->bind(':foto', $nuevo['foto']);
      $this->db->bind(':rol', $nuevo['id_rol']);
      $this->db->bind(':pri_socio', $nuevo['pri_socio']);
      $this->db->bind(':nom_pa', $nuevo['nom_pa']);

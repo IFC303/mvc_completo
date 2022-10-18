@@ -93,12 +93,11 @@ color:white;
 
 
 
-/*------------------ ESTILO HEADER -----------------*/
+/*----------------------------------------- ESTILO HEADER -------------------------------*/
 
 header{
     height: 110px;
     padding: 20px;
-    /* text-align: center; */   
 }
 
 #textoHead{
@@ -165,8 +164,6 @@ thead tr{
     font-size: 30px;
 }
 
-
-/*MODAL VER*/
 .info label{
     color:#0070c6;
     font-weight: bold;
@@ -191,12 +188,20 @@ thead tr{
     font-weight: bold;
   }
 
+/*------------------ ESTIO BOTON MODIFICACION DATOS -----------------*/
+
+.modDatos{
+  background-color: #0b2a85;
+  text-decoration:none; 
+}
+
+
 
 
 /*ESTILOS VENTANAS MODALES */
 
 
-label{
+/* label{
    color:#023ef9;
 }
 
@@ -237,7 +242,7 @@ a{
 #headerVer h2{
     padding: 30px;
     color:#023ef9;
-}
+} */
 
 
 

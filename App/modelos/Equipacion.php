@@ -4,55 +4,62 @@ class Equipacion
 {
     private $db;
 
-    public function __construct()
-    {
-        $this->db = new Base;
-      
+    public function __construct(){
+        $this->db = new Base; 
     }
 
 
-    public function obtenerEquipacion(){
+    public function obtenerEquipaciones(){
         $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion,precio,temporada from EQUIPACION");
         return $this->db->registros();
     }
 
-    // public function obtenerEquipacionId($id){
-    //     $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion,precio,temporada from EQUIPACION where id_equipacion=");
-    //     $this->db->bind(':id',)
-    //     return $this->db->registros();
-    // }
+    public function obtenerEquipacionId($id){
+         $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion,precio,temporada from EQUIPACION where id_equipacion=:id");
+         $this->db->bind(':id',$id);
+         return $this->db->registros();
+     }
 
 
-    // *********** GESTION EQUIPACIONES: AÑADIR NUEVA ***********
-    public function nuevaEquipacion($nuevaEquipacion){     
+     
+
+    // ***************************************** GESTION EQUIPACIONES *********************************
+
+    public function nuevaEquipacion($nuevo){     
         $this->db->query("INSERT INTO EQUIPACION (tipo,descripcion,imagen,precio,temporada) VALUES (:tipo,:descripcion,:imagen,:precio,:temporada)");
-        $this->db->bind(':tipo', $nuevaEquipacion['nombre']);
-        $this->db->bind(':descripcion',$nuevaEquipacion['descripcion']);     
-        $this->db->bind(':precio',$nuevaEquipacion['precio']);
-        $this->db->bind(':temporada',$nuevaEquipacion['temporada']);
-        $this->db->bind(':imagen',$nuevaEquipacion['foto']);
-        if ($this->db->execute()){
-            return $this->db->ultimoIndice();
-        }else{
-            return false;
-        }
+        $this->db->bind(':tipo', $nuevo['nombre']);
+        $this->db->bind(':descripcion',$nuevo['descripcion']);     
+        $this->db->bind(':precio',$nuevo['precio']);
+        $this->db->bind(':temporada',$nuevo['temporada']);
+        $this->db->bind(':imagen',$nuevo['foto']);
+
+        $this->db->execute();
+
+        $id = $this->db->ultimoIndice();
+        if($nuevo['foto']!=''){
+            //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
+            //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotos_equipacion/";   
+            copy($_FILES['subirFoto']['tmp_name'], $directorio.$id.'.jpg');
+            chmod($directorio.$id.'.jpg',0777);
+
+            $foto=$id.'.jpg';
+            $this->db->query("UPDATE EQUIPACION SET imagen=:id where id_equipacion=:id;");
+            $this->db->bind(':id', $foto);
+            if ($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        } else{
+            return true;
+        }   
     }
 
-    // public function renombrar($indice,$nombre){     
-    //     $this->db->query("UPDATE EQUIPACION SET imagen=:nombre where id_equipacion=$indice");  
-    //     $this->db->bind(':indice', $indice);
-    //     $this->db->bind(':nombre',$nombre);
-    //     if ($this->db->execute()){
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
-    // }
 
-    // *********** GESTION EQUIPACIONES: BORRAR ***********
-    public function borrarEquipacion($id_equipacion){
-        $this->db->query("DELETE FROM EQUIPACION WHERE id_equipacion =:id_equipacion");
-        $this->db->bind(':id_equipacion',$id_equipacion);
+    public function borrarEquipacion($id){
+        $this->db->query("DELETE FROM EQUIPACION WHERE id_equipacion =:id");
+        $this->db->bind(':id',$id);
         if ($this->db->execute()){
             return true;
         }else{
@@ -60,10 +67,10 @@ class Equipacion
         }
     }
 
-    // *********** GESTION EQUIPACIONES: EDITAR ***********
-    public function editarEquipacion($equipacion_modificada){
+
+    public function editarEquipacion($equipacion_modificada,$id){
           $this->db->query("UPDATE EQUIPACION SET tipo=:tipo, imagen=:imagen, descripcion=:descripcion, precio=:precio, temporada=:temporada WHERE id_equipacion=:id");          
-          $this->db->bind(':id',$equipacion_modificada['id']);
+          $this->db->bind(':id',$id);
           $this->db->bind(':tipo',$equipacion_modificada['nombre']);
           $this->db->bind(':imagen',$equipacion_modificada['foto']);
           $this->db->bind(':descripcion',$equipacion_modificada['descripcion']);
@@ -80,7 +87,28 @@ class Equipacion
 
 
 
-// ---------------------------------------------------- PEDIDOS ------------------------------------//
+    // ***************************************** PEDIDOS EQUIPACIONES *********************************
+
+    public function obtenerPedidosUsuarios(){
+        $this->db->query("SELECT SOLI_EQUIPACION.id_soli_equi,USUARIO.id_usuario,nombre, apellidos, email, telefono, SOLI_EQUIPACION.id_equipacion, SOLI_EQUIPACION.talla, EQUIPACION.imagen,
+        SOLI_EQUIPACION.fecha_peticion, SOLI_EQUIPACION.id_soli_equi, SOLI_EQUIPACION.recogido, EQUIPACION.id_equipacion, EQUIPACION.tipo, SOLI_EQUIPACION.cantidad
+        FROM SOLI_EQUIPACION, USUARIO, EQUIPACION 
+        WHERE SOLI_EQUIPACION.id_usuario = USUARIO.id_usuario and SOLI_EQUIPACION.id_equipacion=EQUIPACION.id_equipacion 
+        ORDER BY id_usuario");
+        return $this->db->registros();
+    }
+
+       public function borrarPedido($id){
+        $this->db->query("DELETE FROM SOLI_EQUIPACION WHERE id_soli_equi =:id");
+        $this->db->bind(':id',$id);
+        if ($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+  
 
     // *********** PEDIDO EQUIPACIONE DEL SOCIO ***********
     public function pedidoEquipacion($pedidoNuevo){
@@ -98,15 +126,7 @@ class Equipacion
     }
 
 
-    // *********** visualizar todos los pedidos ***********
-    public function obtenerPedidosUsuarios(){
-        $this->db->query("SELECT SOLI_EQUIPACION.id_soli_equi,USUARIO.id_usuario,nombre, apellidos, email, telefono, SOLI_EQUIPACION.id_equipacion, SOLI_EQUIPACION.talla, EQUIPACION.imagen,
-                          SOLI_EQUIPACION.fecha_peticion, SOLI_EQUIPACION.id_soli_equi, SOLI_EQUIPACION.recogido, EQUIPACION.id_equipacion, EQUIPACION.tipo, SOLI_EQUIPACION.cantidad
-                          FROM SOLI_EQUIPACION, USUARIO, EQUIPACION 
-                          WHERE SOLI_EQUIPACION.id_usuario = USUARIO.id_usuario and SOLI_EQUIPACION.id_equipacion=EQUIPACION.id_equipacion 
-                          ORDER BY id_usuario");
-        return $this->db->registros();
-    }
+ 
 
 
     // *********** editar pedido (gestion del admin) ***********
@@ -122,16 +142,7 @@ class Equipacion
         }
     }
 
-    // *********** borrar pedido ***********
-    public function borrarPedido($id_pedido){
-        $this->db->query("DELETE FROM SOLI_EQUIPACION WHERE id_soli_equi =:id_pedido");
-        $this->db->bind(':id_pedido',$id_pedido);
-        if ($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
+ 
 
     // *********** cambiar estado del pedido a entregado o no ***********
     public function cambiarEstado($id,$estado){

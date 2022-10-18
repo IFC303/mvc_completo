@@ -99,8 +99,8 @@
                     <img class="imgMenu" src="<?php echo RUTA_Icon ?>carrito.png"><span class="tMenu">EQUIPACIONES</span>
                 </a>
                 <div class="dropdown-container">
-                    <a href="<?php echo RUTA_URL ?>/admin/crud_admin" class="nav-link"><span class="tMenu ms-5 ps-5">PEDIDOS</span></a>
-                    <a href="<?php echo RUTA_URL ?>/admin/crud_entrenadores" class="nav-link "><span class="tMenu ms-5 ps-5">GESTION</span></a>
+                    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link"><span class="tMenu ms-5 ps-5">PEDIDOS</span></a>
+                    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="nav-link "><span class="tMenu ms-5 ps-5">GESTION</span></a>
                 </div>
             </div>
                          
