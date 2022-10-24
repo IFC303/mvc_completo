@@ -121,8 +121,8 @@
                                 </a>
 
                                 <div class="modal" id="editar<?php echo $equipacion->id_equipacion?>">
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                <div class="modal-content">
 
                                             <!-- Modal Header -->
                                             <div class="modal-header azul">
@@ -133,7 +133,8 @@
                                             <!-- Modal body -->
                                             <div class="modal-body info">                                                                                                                                                         
                                             <form action="<?php echo RUTA_URL?>/adminEquipaciones/editarEquipacion/<?php echo $equipacion->id_equipacion?>" enctype="multipart/form-data" method="post">  
-                                                <div class="container">
+                                            <div class="container">
+
                                                     <div class="row mt-4">  
 
                                                         <div class="col-4">
@@ -186,13 +187,12 @@
                                                         </div>
                                                     </div>
 
-                                                </div>
- 
+                                            </div>
                                             </form>
                                             </div>
 
-                                        </div>
-                                    </div>
+                                </div>
+                                </div>
                                 </div>
 
 
@@ -203,26 +203,28 @@
                                 </a>
 
                                 <div class="modal" id="ModalBorrar_<?php echo $equipacion->id_equipacion?>">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
 
-                                            <!-- Modal body -->
-                                            <div class="modal-body mt-3">
-                                            <p>Estas seguro que quieres <b>BORRAR</b> la equipacion <b><?php echo $equipacion->tipo?></b> ? </p>
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminEquipaciones/borrarEquipacion/<?php echo $equipacion->id_equipacion?>" method="post">
-                                                    <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
-                                                </form>
-                                            </div>
-                                        </div>
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body mt-3">
+                                    <p>Estas seguro que quieres <b>BORRAR</b> la equipacion <b><?php echo $equipacion->tipo?></b> ? </p>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <form action="<?php echo RUTA_URL?>/adminEquipaciones/borrarEquipacion/<?php echo $equipacion->id_equipacion?>" method="post">
+                                            <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
+                                        </form>
+                                    </div>
+                                    
+                                </div>
+                                </div>
                                 </div>
 
                 </td>

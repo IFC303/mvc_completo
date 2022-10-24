@@ -90,79 +90,75 @@
                                                 </div>
 
                                                 <div class="col-8">
-                                                    <div class="row">                         
-                                                        <div class="input-group mb-4">
+                                                    <div class="row mb-4">                         
+                                                        <div class="input-group">
                                                             <label for="nombre" class="input-group-text">Nombre <sup>*</sup></label>
                                                             <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $datos['datos_user'][0]->nombre?>" required>    
                                                         </div>                           
                                                     </div> 
-                                                    <div class="row">                     
-                                                        <div class="input-group mb-4">
+                                                    <div class="row mb-4">                     
+                                                        <div class="input-group ">
                                                             <label for="apellidos" class="input-group-text">Apellidos <sup>*</sup></label>
                                                             <input type="text" class="form-control form-control-md" id="apellidos" name="apellidos" value="<?php echo $datos['datos_user'][0]->apellidos?>" required>
                                                         </div>            
                                                     </div>  
 
-                                                    <div class="row">
+                                                    <div class="row mb-4">
                                                         <div class="col-5">
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="dni" class="input-group-text" id="dniObli">DNI <sup>*</sup></label>
                                                                 <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $datos['datos_user'][0]->dni?>" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-7">
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="fecha_naci" class="input-group-text">Fecha Nacimiento <sup>*</sup></label>
                                                                 <input type="date" class="form-control form-control-md" id="fecha_naci" name="fecha_naci" value="<?php echo $datos['datos_user'][0]->fecha_nacimiento?>" required>
                                                             </div>
                                                         </div>
                                                     </div>
                                             
-                                                    <div class="row ">
-                                                        <div class="col-12">
-                                                            <div class="input-group mb-4">
-                                                                <label for="direccion" class="input-group-text">Direccion</label>
-                                                                <input type="text" class="form-control form-control-md" id="direccion" name="direccion" value="<?php echo $datos['datos_user'][0]->direccion?>" required>
-                                                            </div> 
+                                                    <div class="row mb-4">
+                                                        <div class="input-group">
+                                                            <label for="direccion" class="input-group-text">Direccion</label>
+                                                            <input type="text" class="form-control form-control-md" id="direccion" name="direccion" value="<?php echo $datos['datos_user'][0]->direccion?>" required>
                                                         </div> 
                                                     </div>
 
-                                                    <div class="row">
+                                                    <div class="row mb-4">
                                                         <div class="col-5">
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="telefono" class="input-group-text">Telefono <sup>*</sup></label>
                                                                 <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $datos['datos_user'][0]->telefono?>" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-7">
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="email" class="input-group-text">Email <sup>*</sup></label>
                                                                 <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $datos['datos_user'][0]->email?>" required>
                                                             </div>
                                                         </div>
                                                     </div> 
 
-                                                    <div class="row ">
-                                                        <div class="col-12">
-                                                            <div class="input-group mb-4">
-                                                                <label for="ccc" class="input-group-text">Numero cuenta</label>
-                                                                <input type="text" class="form-control form-control-md" name="ccc" id="ccc" value="<?php echo $datos['datos_user'][0]->CCC?>"> 
-                                                            </div> 
+                                                    <div class="row mb-4">
+                                                        <div class="input-group">
+                                                            <label for="ccc" class="input-group-text">Numero cuenta</label>
+                                                            <input type="text" class="form-control form-control-md" name="ccc" id="ccc" value="<?php echo $datos['datos_user'][0]->CCC?>"> 
                                                         </div> 
                                                     </div>
 
-                                                    <div class="row ">
+                                                    <div class="row mb-4">
                                                         <div class="col-7">
-                                                        <div class="input-group mb-4">
+                                                        <div class="input-group">
                                                                 <label for="password" class="input-group-text">Contraseña</label>
-                                                                <input type="text" class="form-control form-control-md" id="password" name="password">
+                                                                <input type="password" class="form-control form-control-md" id="password" name="password" value="<?php echo $datos['datos_user'][0]->passw?>">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-5">
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="talla" class="input-group-text">Talla</label>
-                                                                <input type="text" class="form-control form-control-md" name="talla" id="talla" value="<?php echo $datos['datos_user'][0]->talla?>"> 
+                                                                <input type="text" class="form-control form-control-md" name="talla" id="talla" value="<?php echo $datos['datos_user'][0]->talla?>" required> 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -268,7 +264,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminLicencias">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>licencias.png" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>licencias.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">LICENCIAS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 
@@ -305,7 +301,7 @@
                 <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminTemporadas">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
                             <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">TEMPORADAS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
                         </div>                              
                     </div> 

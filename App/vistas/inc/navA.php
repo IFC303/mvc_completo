@@ -70,9 +70,10 @@
                         <img class="imgMenu" src="<?php echo RUTA_Icon ?>solicitudes.png"><span class="tMenu">SOLICITUDES</span>
                     </a>
                     <div class="dropdown-container">
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link"><span class="tMenu ms-5 ps-5">SOCIOS</span></a>
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link "><span class="tMenu ms-5 ps-5">EVENTOS</span></a>
-                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link "><span class="tMenu ms-5 ps-5">GRUPOS</span></a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_socios" class="nav-link"><span class="tMenu ms-5 ps-5">SOCIOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);?></span></a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_grupos" class="nav-link "><span class="tMenu ms-5 ps-5">GRUPOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);?></span></a>
+                        <a href="<?php echo RUTA_URL ?>/admin/crud_solicitudes_eventos" class="nav-link "><span class="tMenu ms-5 ps-5">EVENTOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);?></span></a>
+                        
                     </div>
                 </div>
             
@@ -99,12 +100,12 @@
                     <img class="imgMenu" src="<?php echo RUTA_Icon ?>carrito.png"><span class="tMenu">EQUIPACIONES</span>
                 </a>
                 <div class="dropdown-container">
-                    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link"><span class="tMenu ms-5 ps-5">PEDIDOS</span></a>
+                    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="nav-link"><span class="tMenu ms-5 ps-5">PEDIDOS</span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][3]);?></span></a>
                     <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="nav-link "><span class="tMenu ms-5 ps-5">GESTION</span></a>
                 </div>
             </div>
                          
-            <a href="<?php echo RUTA_URL ?>" class="nav-link" >
+            <a href="<?php echo RUTA_URL?>/adminTemporadas" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>temporadas.png"><span class="tMenu">TEMPORADAS</span>
             </a>    
 

@@ -17,8 +17,7 @@ class Admin extends Controlador{
     }
 
     
-   //**************************** NOTIFICACIONES ***************************************/
-
+    //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
     public function notificaciones(){
         $notific[0] = $this->adminModelo->notSocio();
         $notific[1] = $this->adminModelo->notGrupo();
@@ -26,6 +25,7 @@ class Admin extends Controlador{
         $notific[3] = $this->adminModelo->contar_pedidos();
         return $notific;
     }
+
 
     public function index(){
         $notific = $this->notificaciones();

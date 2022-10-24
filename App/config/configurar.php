@@ -29,5 +29,5 @@ define('RUTA_Icon', RUTA_URL . '/public/img/icons/');
 define('RUTA_Foto', RUTA_URL . '/public/img/fotos/');
 define('RUTA_ImgDatos', RUTA_URL . '/public/img/fotosPerfil/');
 define('RUTA_Equipacion', RUTA_URL . '/public/img/fotos_equipacion/');
-
+define('RUTA_Licencia', RUTA_URL . '/App/resources/licencias/');
 

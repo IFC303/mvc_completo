@@ -77,9 +77,11 @@ INSERT INTO `USUARIO` (`id_usuario`,`dni`,`nombre`,`apellidos`,`email`,`direccio
 
 
 CREATE TABLE TEMPORADA(
-    id_temp int primary key,
+    id_temp int primary key AUTO_INCREMENT,
+    nombre varchar (100) not null,
     fecha_inicio date not null,
-    fecha_fin date not null
+    fecha_fin date not null,
+    observaciones varchar (500)
   );
 
 CREATE TABLE USUARIO_x_TEMPORADA(

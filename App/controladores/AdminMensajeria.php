@@ -20,17 +20,16 @@ class AdminMensajeria extends Controlador
         }
 
         $this->mensajeModelo = $this->modelo('Mensaje');
-        $this->AdminModelo = $this->modelo('AdminModelo');
+        $this->adminModelo = $this->modelo('AdminModelo');
     }
 
-    //NOTIFICACIONES
-    public function notificaciones()
-    {
-        $notific[0] = $this->AdminModelo->notSocio();
-        $notific[1] = $this->AdminModelo->notGrupo();
-        $notific[2] = $this->AdminModelo->notEventos();
-        $notific[3] ="MENSAJERIA";
-        
+
+     //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+     public function notificaciones(){
+        $notific[0] = $this->adminModelo->notSocio();
+        $notific[1] = $this->adminModelo->notGrupo();
+        $notific[2] = $this->adminModelo->notEventos();
+        $notific[3] = $this->adminModelo->contar_pedidos();
         return $notific;
     }
 
@@ -38,7 +37,9 @@ class AdminMensajeria extends Controlador
 
 
 
+
     public function index(){
+        
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
         

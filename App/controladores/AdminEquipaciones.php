@@ -12,20 +12,36 @@ class AdminEquipaciones extends Controlador{
         }
 
         $this->equipacionModelo = $this->modelo('Equipacion');
-        $this->AdminModelo = $this->modelo('AdminModelo');
+        $this->adminModelo = $this->modelo('AdminModelo');
     }
 
 
+//*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+public function notificaciones(){
+    $notific[0] = $this->adminModelo->notSocio();
+    $notific[1] = $this->adminModelo->notGrupo();
+    $notific[2] = $this->adminModelo->notEventos();
+    $notific[3] = $this->adminModelo->contar_pedidos();
+    return $notific;
+}
 
-    public function index(){
-       //$this->vista('administradores/crudEquipacion',$this->datos);
-     }
+
+//*********** INDEX *********************/
+
+public function index(){
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+    //$this->vista('administradores/crudEquipacion',$this->datos);
+}
 
 
 
 //****************************************** GESTION EQUIPACIONES ************************************************/
 
 public function gestion(){
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+
     $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipaciones();
     $this->vista('administradores/equiG',$this->datos);
 }
@@ -134,6 +150,9 @@ public function editarEquipacion($id){
 //****************************************** PEDIDOS EQUIPACIONES ************************************************/
 
     public function pedidos(){    
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+        
         $this->datos['pedidos']=$this->equipacionModelo->obtenerPedidosUsuarios(); 
         $this->vista('administradores/equiP',$this->datos);
     }

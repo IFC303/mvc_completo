@@ -5,23 +5,37 @@ class AdminEntidades extends Controlador{
 
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
-        $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
+        $this->datos['rolesPermitidos'] = [1]; 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/'); 
         }
             $this->entidadModelo = $this->modelo('Entidad');
-            $this->AdminModelo = $this->modelo('AdminModelo');
+            $this->adminModelo = $this->modelo('AdminModelo');
     }
 
 
+    //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+    public function notificaciones(){
+        $notific[0] = $this->adminModelo->notSocio();
+        $notific[1] = $this->adminModelo->notGrupo();
+        $notific[2] = $this->adminModelo->notEventos();
+        $notific[3] = $this->adminModelo->contar_pedidos();
+        return $notific;
+    }
 
+    //*********** INDEX *********************/
     public function index(){
-        $this->datos['entidad']=$this->entidadModelo->obtenerEntidades();
+        $notific = $this->notificaciones();
+        $this->datos['notificaciones'] = $notific;
+
+        $this->datos['entidad']=$this->entidadModelo->obtener_entidades();
         $this->vista('administradores/entidad',$this->datos);
     }
 
-    
-    public function nuevaEntidad(){
+
+
+    //*********************************** NUEVO ****************************************/
+    public function nuevo(){
 
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -29,16 +43,16 @@ class AdminEntidades extends Controlador{
         }
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
-            $entidadNueva = [
+            $nuevo = [
                 'cif' => trim($_POST['cif']),
                 'nombre' => trim($_POST['nombre']),
                 'direccion' => trim($_POST['direccion']),
                 'telefono' => trim($_POST['telefono']),
                 'email' => trim($_POST['email']),
-                'observaciones' => trim($_POST['observaciones']),
+                'observaciones' => trim($_POST['observaciones'])
             ];
 
-            if($this->entidadModelo->agregarEntidad($entidadNueva)){
+            if($this->entidadModelo->nuevo($nuevo)){
                 redireccionar('/adminEntidades');
             }else{
                 die('Añgo ha fallado!!');
@@ -50,13 +64,15 @@ class AdminEntidades extends Controlador{
                 'direccion' => '',
                 'telefono' => '',
                 'email' => '',
-                'observaciones' => '',
+                'observaciones' => ''
             ];
 
             $this->vista('administradores/entidad',$this->datos);
         }
     }
 
+
+//*********************************** BORRAR ****************************************/
 
     public function borrar($id){
 
@@ -66,20 +82,21 @@ class AdminEntidades extends Controlador{
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->entidadModelo->borrarEntidad($id)) {
+            if ($this->entidadModelo->borrar($id)) {
                 redireccionar('/adminEntidades');
             }else{
                 die('Algo ha fallado!!!');
             }
         }else{
-            $this->datos['entidad'] = $this->entidadModelo->obtenerEntidadId($id);
+            $this->datos['entidad'] = $this->entidadModelo->obtener_entidad_id($id);
             $this->vista('administradores/entidad', $this->datos);
         }
     }
 
 
+//*********************************** EDITAR ****************************************/
 
-    public function editarEntidad($id){
+    public function editar($id){
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -87,16 +104,16 @@ class AdminEntidades extends Controlador{
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $entidad_modificada = [
+                $editar = [
                     'cif' => trim($_POST['cif']),
                     'nombre' => trim($_POST['nombre']), 
                     'direccion' => trim($_POST['direccion']),
                     'telefono' => trim($_POST['telefono']),
                     'email' => trim($_POST['email']),
-                    'observaciones' => trim($_POST['observaciones']),
+                    'observaciones' => trim($_POST['observaciones'])
                 ];
    
-                if ($this->entidadModelo->editarEntidad($entidad_modificada,$id)) {
+                if ($this->entidadModelo->editar($editar,$id)) {
                     redireccionar('/adminEntidades');
                 }else{
                     die('Algo ha fallado!!!');

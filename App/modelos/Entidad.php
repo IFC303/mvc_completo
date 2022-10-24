@@ -1,38 +1,40 @@
 <?php
 
-class Entidad
-{
+class Entidad{
+
     private $db;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Base;
-      
     }
 
 
-    public function obtenerEntidades(){
+//*********************************** VER ****************************************/
+
+    public function obtener_entidades(){
         $this->db->query("SELECT * FROM OTRAS_ENTIDADES");
         return $this->db->registros();
     }
 
 
-    public function obtenerEntidadId($id){
+    public function obtener_entidad_id($id){
         $this->db->query("SELECT * FROM OTRAS_ENTIDADES WHERE id_entidad = :idEntidad");
         $this->db->bind(':idEntidad', $id);
         return $this->db->registro();
     }
 
 
-    public function agregarEntidad($entidadNueva){
+    
+//*********************************** NUEVO ****************************************/
+    public function nuevo($nuevo){
         
         $this->db->query("INSERT INTO OTRAS_ENTIDADES (cif,nombre,direccion,telefono,email,observaciones) VALUES (:cif, :nombre, :direccion,:telefono,:email,:observaciones)");
-        $this->db->bind(':cif',$entidadNueva['cif']);
-        $this->db->bind(':nombre', $entidadNueva['nombre']);
-        $this->db->bind(':direccion',$entidadNueva['direccion']);
-        $this->db->bind(':telefono',$entidadNueva['telefono']);
-        $this->db->bind(':email',$entidadNueva['email']);
-        $this->db->bind(':observaciones',$entidadNueva['observaciones']);
+        $this->db->bind(':cif',$nuevo['cif']);
+        $this->db->bind(':nombre', $nuevo['nombre']);
+        $this->db->bind(':direccion',$nuevo['direccion']);
+        $this->db->bind(':telefono',$nuevo['telefono']);
+        $this->db->bind(':email',$nuevo['email']);
+        $this->db->bind(':observaciones',$nuevo['observaciones']);
 
         if ($this->db->execute()){
             return $this->db->ultimoIndice();
@@ -43,8 +45,31 @@ class Entidad
     }
 
 
+//*********************************** EDITAR ****************************************/
+public function editar($editar,$id){
 
-    public function borrarEntidad($id){
+    $this->db->query("UPDATE OTRAS_ENTIDADES SET cif=:cif, nombre=:nombre, direccion=:direccion,telefono=:telefono,email=:email,observaciones=:observaciones WHERE id_entidad = :id");
+    
+    $this->db->bind(':cif',$editar['cif']);
+    $this->db->bind(':nombre', $editar['nombre']);
+    $this->db->bind(':direccion',$editar['direccion']);
+    $this->db->bind(':telefono',$editar['telefono']);
+    $this->db->bind(':email',$editar['email']);
+    $this->db->bind(':observaciones',$editar['observaciones']);
+
+    $this->db->bind(':id',$id);
+    
+    if ($this->db->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+//*********************************** BORRAR ****************************************/
+    public function borrar($id){
+
         $this->db->query("DELETE FROM OTRAS_ENTIDADES WHERE id_entidad =:id");
         $this->db->bind(':id',$id);
 
@@ -57,25 +82,7 @@ class Entidad
 
 
 
-    public function editarEntidad($entidad_modificada,$id){
-        $this->db->query("UPDATE OTRAS_ENTIDADES SET cif=:cif, nombre=:nombre, direccion=:direccion,telefono=:telefono,email=:email,observaciones=:observaciones 
-        WHERE id_entidad = :id");
-        
-        $this->db->bind(':cif',$entidad_modificada['cif']);
-        $this->db->bind(':nombre', $entidad_modificada['nombre']);
-        $this->db->bind(':direccion',$entidad_modificada['direccion']);
-        $this->db->bind(':telefono',$entidad_modificada['telefono']);
-        $this->db->bind(':email',$entidad_modificada['email']);
-        $this->db->bind(':observaciones',$entidad_modificada['observaciones']);
-
-        $this->db->bind(':id',$id);
-        
-        if ($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
+ 
 
 
 }

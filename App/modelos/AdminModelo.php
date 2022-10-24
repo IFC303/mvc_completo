@@ -1,7 +1,7 @@
 <?php
 
-class AdminModelo
-{
+class AdminModelo{
+
     private $db;
 
     public function __construct(){
@@ -31,6 +31,7 @@ class AdminModelo
         return $this->db->rowCount();
     }
 
+    
 
 //**************************** EDITAR DATOS DEL ADMIN ***************************************/
 
@@ -57,10 +58,10 @@ public function editar_datos($nuevo,$id,$datosUser){
      $this->db->bind(':ccc', $nuevo['ccc']);
      $this->db->bind(':talla', $nuevo['talla']);
 
-    if ($nuevo['password']=="") {
+    if ($nuevo['password']==$datosUser[0]->passw) {
         $this->db->bind(':passw', $datosUser[0]->passw);
     }else {
-        $this->db->bind(':passw', MD5($nuevo['password']));
+        $this->db->bind(':passw',MD5($nuevo['password']));
     }
 
      $this->db->bind(':foto', $nuevo['foto']);

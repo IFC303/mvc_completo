@@ -88,7 +88,7 @@
                                                 <div class="container">
 
                                                     <div class="row mt-4">
-
+                                                        
                                                         <div class="col-4">
                                                             <div><img id="output" 
                                                                 <?php if ($usuario->foto==''){
@@ -353,8 +353,8 @@
                                                             <div class="col-6">
                                                                 <div class="input-group mb-4">
                                                                     <label for="" class="me-3">¿Has sido socio alguna vez? <sup>*</sup></label> <br>
-                                                                    <input type="radio" class="me-2" id="siSocio" name="pri_socio" value="1" <?php if($usuario->ha_sido=="1") echo "checked";?> required><label for="siSocio">&nbspSI</label><span style="margin-left: 20px;"></span>
-                                                                    <input type="radio" class="me-2" id="noSocio" name="pri_socio" value="0" <?php if($usuario->ha_sido=="0") echo "checked";?> required><label for="noSocio">&nbspNO</label> 
+                                                                    <input type="radio" class="me-2" id="siSocio" name="pri_socio" value="1" <?php if($usuario->ha_sido=="1"){echo "checked";} ;?> required ><label for="siSocio">&nbspSI</label><span style="margin-left: 20px;"></span>
+                                                                    <input type="radio" class="me-2" id="noSocio" name="pri_socio" value="0" <?php if($usuario->ha_sido=="0"){echo "checked";} ;?> ><label for="noSocio">&nbspNO</label> 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -475,134 +475,126 @@
                             <form action="<?php echo RUTA_URL?>/adminUsuarios/nuevo_usuario" method="post">
 
                                 <div class="container">
+   
 
-                                    <div class="row mt-4">
-
-                                        <div class="col-4">
-                                            <div>
-                                                <img id="output" src='<?php echo RUTA_Icon?>usuario.svg' width="300" height="320">
-                                            </div>                                    
-                                        </div>
-
-                                        <div class="col-8">
-                                            <div class="row mt-2">                         
-                                                <div class="input-group mb-4">
+                                        <div class="row mt-4 mb-4">
+                                            <div class="col-6">                         
+                                                <div class="input-group">
                                                     <label for="nombre" class="input-group-text">Nombre <sup>*</sup></label>
                                                     <input type="text" class="form-control form-control-md" id="nombre" name="nombre" required onkeypress="return Solo_Texto(event);">    
                                                 </div>                           
                                             </div> 
-                                            <div class="row">                     
-                                                <div class="input-group mb-4">
+                                            <div class="col-6">                     
+                                                <div class="input-group">
                                                     <label for="apellidos" class="input-group-text">Apellidos <sup>*</sup></label>
                                                     <input type="text" class="form-control form-control-md" id="apellidos" name="apellidos" required onkeypress="return Solo_Texto(event);">
                                                 </div>            
-                                            </div>  
-                                    
-                                            <div class="row">
-                                                <div class="input-group mb-4">
-                                                    <label for="direccion" class="input-group-text">Direccion</label>
-                                                    <input type="text" class="form-control form-control-md" id="direccion" name="direccion">
-                                                </div> 
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    <div class="input-group mb-4">
-                                                        <label for="telefono" class="input-group-text">Telefono <sup>*</sup></label>
-                                                        <input type="text" class="form-control form-control-md" id="telefono" name="telefono" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-7">
-                                                    <div class="input-group mb-4">
-                                                        <label for="email" class="input-group-text">Email <sup>*</sup></label>
-                                                        <input type="text" class="form-control form-control-md" id="email" name="email" onblur="return correo(this.id)" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    <div class="input-group mb-4">
-                                                        <label for="dni" class="input-group-text" id="dniObli">DNI</label>
-                                                        <input type="text" class="form-control form-control-md" id="dni" name="dni">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-7">
-                                                    <div class="input-group mb-4">
-                                                        <label for="fecha_naci" class="input-group-text">Fecha Nacimiento<sup>*</sup></label>
-                                                        <input type="date" class="form-control form-control-md" id="fecha_naci" name="fecha_naci" onchange="mayorEdad()" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row ms-2">                            
-                                        <div class="col-8">
-                                            <div class="input-group mb-4">
-                                                <label for="ccc" class="input-group-text">Numero cuenta</label>
-                                                <input type="text" class="form-control form-control-md" name="ccc" id="ccc"> 
                                             </div> 
                                         </div> 
+                                    
+                                        <div class="row">
+                                            <div class="input-group mb-4">
+                                                <label for="direccion" class="input-group-text">Direccion</label>
+                                                <input type="text" class="form-control form-control-md" id="direccion" name="direccion">
+                                            </div> 
+                                        </div>
 
-                                        <div class="col-4">
-                                            <div class="input-group mb-4">
-                                                <label for="talla" class="input-group-text">Talla</label>
-                                                <input type="text" class="form-control form-control-md" name="talla" id="talla"> 
+                                        <div class="row mb-4">
+                                            <div class="col-6">
+                                                <div class="input-group">
+                                                    <label for="telefono" class="input-group-text">Telefono <sup>*</sup></label>
+                                                    <input type="text" class="form-control form-control-md" id="telefono" name="telefono" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="input-group">
+                                                    <label for="email" class="input-group-text">Email <sup>*</sup></label>
+                                                    <input type="text" class="form-control form-control-md" id="email" name="email" onblur="return correo(this.id)" required>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row ms-2"> 
-                                        <div class="col-5">
-                                            <div class="input-group mb-4">
-                                                <label for="rol" class="input-group-text">Rol<sup>*</sup></label>
-                                                <select class="form-control" name="rol" id="tipo_select" onchange="opcion()" required>
-                                                    <option value="">-- Selecciona un rol --</option>
-                                                    <?php foreach ($datos['roles'] as $rol) : ?>
-                                                    <option value="<?php echo $rol->id_rol?>"> <?php echo $rol->nombre ?></option>
-                                                    <?php endforeach ?>
-                                                </select>
+                                        <div class="row mb-4">
+                                            <div class="col-6">
+                                                <div class="input-group">
+                                                    <label for="dni" class="input-group-text" id="dniObli">DNI</label>
+                                                    <input type="text" class="form-control form-control-md" id="dni" name="dni">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="input-group">
+                                                    <label for="fecha_naci" class="input-group-text">Fecha Nacimiento<sup>*</sup></label>
+                                                    <input type="date" class="form-control form-control-md" id="fecha_naci" name="fecha_naci" onchange="mayorEdad()" required>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-5">
-                                            <div class="input-group mb-4">
-                                                <label for="" class="me-3">¿Has sido socio alguna vez? <sup>*</sup></label> <br>
-                                                <input type="radio" class="me-2" id="siSocio" name="pri_socio" value="1" required><label for="siSocio">&nbspSI</label><span style="margin-left: 20px;"></span>
-                                                <input type="radio" class="me-2" id="noSocio" name="pri_socio" value="0" required><label for="noSocio">&nbspNO</label> 
+
+                                        <div class="row mb-4">                            
+                                            <div class="col-8">
+                                                <div class="input-group">
+                                                    <label for="ccc" class="input-group-text">Numero cuenta</label>
+                                                    <input type="text" class="form-control form-control-md" name="ccc" id="ccc"> 
+                                                </div> 
+                                            </div> 
+
+                                            <div class="col-4">
+                                                <div class="input-group">
+                                                    <label for="talla" class="input-group-text">Talla</label>
+                                                    <input type="text" class="form-control form-control-md" name="talla" id="talla"> 
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div class="row mb-4"> 
+                                            <div class="col-5">
+                                                <div class="input-group">
+                                                    <label for="rol" class="input-group-text">Rol<sup>*</sup></label>
+                                                    <select class="form-control" name="rol" id="tipo_select" onchange="opcion()" required>
+                                                        <option value="">-- Selecciona un rol --</option>
+                                                        <?php foreach ($datos['roles'] as $rol) : ?>
+                                                        <option value="<?php echo $rol->id_rol?>"> <?php echo $rol->nombre ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="input-group">
+                                                    <label for="" class="me-3">¿Has sido socio alguna vez? <sup>*</sup></label> <br>
+                                                    <input type="radio" class="me-2" id="siSocio" name="pri_socio" value="1" required><label for="siSocio">&nbspSI</label><span style="margin-left: 20px;"></span>
+                                                    <input type="radio" class="me-2" id="noSocio" name="pri_socio" value="0" required><label for="noSocio">&nbspNO</label> 
+                                                </div>
+                                            </div>
+                                        </div>
 
 
                                     <!-- MOSTRAR INPUTS SOCIOS-->     
 
                                     <div id="campos" style="display:none">
 
-                                        <div class="row mt-4 ms-2"> 
+                                        <div class="row mt-5"> 
                                             <div class="d-flex text-left"><p style="font-weight:bold;color:#0070c6;text-decoration:underline">Informacion del padre o tutor (rellenar solo si es menor de edad)</p></div>  
                                         </div>
 
-                                        <div class="row ms-2 mt-2">                     
-                                            <div class="col-5">
-                                                <div class="input-group mb-4">
+                                        <div class="row mb-4 mt-2">                     
+                                            <div class="col-6">
+                                                <div class="input-group">
                                                     <label for="nomPa" class="input-group-text">Nombre</label>
                                                     <input type="text" class="form-control form-control-md" id="nomPa" name="nomPa">
                                                 </div> 
                                             </div> 
 
-                                            <div class="col-7">
-                                                <div class="input-group mb-4">
+                                            <div class="col-6">
+                                                <div class="input-group">
                                                     <label for="apelPa" class="input-group-text">Apellidos</label>
                                                     <input type="text" class="form-control form-control-md" id="apePa" name="apePa">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row ms-2 mt-2 ">                     
+                                        <div class="row mb-4 mt-2 ">                     
                                             <div class="col-5">
-                                                <div class="input-group mb-4">
+                                                <div class="input-group">
                                                     <label for="dniPa" id="dniPa" class="input-group-text">DNI</label>
                                                     <input type="text" class="form-control form-control-md" id="dniPa" name="dniPa">
                                                 </div> 
@@ -612,7 +604,7 @@
 
                                     <div class="row"> 
                                         <div class="d-flex justify-content-end">
-                                            <input type="submit" class="btn mt-4 mb-3" name="aceptar" id="confirmar" value="Confirmar"> 
+                                            <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
                                         </div>
                                     </div>
 

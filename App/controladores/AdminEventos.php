@@ -5,25 +5,38 @@ class AdminEventos extends Controlador{
 
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
-        $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
+        $this->datos['rolesPermitidos'] = [1]; 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
 
         $this->eventoModelo = $this->modelo('Evento');
-        $this->AdminModelo = $this->modelo('AdminModelo');
+        $this->adminModelo = $this->modelo('AdminModelo');
     }
-
-  
-
-    public function index(){
-        $this->datos['evento'] = $this->eventoModelo->obtenerEventos();
-        $this->vista('administradores/crudEventos/inicio',$this->datos);
-    }
-
 
     
-    public function nuevo_evento(){
+ //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+public function notificaciones(){
+    $notific[0] = $this->adminModelo->notSocio();
+    $notific[1] = $this->adminModelo->notGrupo();
+    $notific[2] = $this->adminModelo->notEventos();
+    $notific[3] = $this->adminModelo->contar_pedidos();
+    return $notific;
+}
+ 
+
+//*********** INDEX *********************/
+public function index(){
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+
+    $this->datos['evento'] = $this->eventoModelo->obtenerEventos();
+    $this->vista('administradores/crudEventos/inicio',$this->datos);
+}
+
+
+//*********************************** NUEVO ****************************************/
+    public function nuevo(){
 
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -31,7 +44,7 @@ class AdminEventos extends Controlador{
         }
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
-            $eventoNuevo = [
+            $nuevo = [
                 'nombre' => trim($_POST['nombre']),
                 'tipo'=>trim($_POST['tipo']),
                 'fecha_ini' => trim($_POST['fecha_ini']),
@@ -39,10 +52,10 @@ class AdminEventos extends Controlador{
                 'precio'=>trim($_POST['precio']),
                 'descripcion'=>trim($_POST['descripcion']), 
                 'fecha_ini_inscrip' => trim($_POST['fecha_ini_inscrip']),
-                'fecha_fin_inscrip'=> trim($_POST['fecha_fin_inscrip']),
+                'fecha_fin_inscrip'=> trim($_POST['fecha_fin_inscrip'])
             ];
 
-            if($this->eventoModelo->agregarEvento($eventoNuevo)){
+            if($this->eventoModelo->nuevo($nuevo)){
                 redireccionar('/adminEventos');
             }else{
                 die('Añgo ha fallado!!');
@@ -58,7 +71,7 @@ class AdminEventos extends Controlador{
                 'precio'=>'',
                 'descripcion'=>'',
                 'fecha_ini_inscrip'=>'',
-                'fecha_fin_inscrip'=>'',
+                'fecha_fin_inscrip'=>''
             ];
        
             $this->vista('administradores/crudEventos/nuevo_evento',$this->datos);
@@ -67,28 +80,9 @@ class AdminEventos extends Controlador{
 
 
 
-    public function borrar($id){
+//*********************************** EDITAR ****************************************/
 
-        $this->datos['rolesPermitidos'] = [1];         
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->eventoModelo->borrarEvento($id)) {
-                redireccionar('/adminEventos');
-            }else{
-                die('Algo ha fallado!!!');
-            }
-        }else{
-            $this->datos['evento'] = $this->eventoModelo->obtenerEventoId($id);
-            $this->vista('administradores/crudEventos/inicio', $this->datos);
-        }
-    }
-
-
-
-    public function editarEvento($id){
+    public function editar($id){
 
         $this->datos['rolesPermitidos'] = [1];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -97,7 +91,7 @@ class AdminEventos extends Controlador{
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                $evento_modificado = [
+                $editar= [
                     'nombre' => trim($_POST['nombre']),
                     'tipo'=> trim($_POST['tipo']),
                     'fecha_ini' => trim($_POST['fecha_ini']),
@@ -105,10 +99,10 @@ class AdminEventos extends Controlador{
                     'precio' => trim($_POST['precio']),
                     'descripcion'=>trim($_POST['descripcion']),
                     'fecha_ini_inscrip' => trim($_POST['fecha_ini_inscrip']),
-                    'fecha_fin_inscrip' => trim($_POST['fecha_fin_inscrip']),  
+                    'fecha_fin_inscrip' => trim($_POST['fecha_fin_inscrip'])
                 ];
    
-                 if ($this->eventoModelo->editarEvento($evento_modificado,$id)) {
+                 if ($this->eventoModelo->editar($editar,$id)) {
                      redireccionar('/adminEventos');
                  }else{
                      die('Algo ha fallado!!!');
@@ -121,59 +115,55 @@ class AdminEventos extends Controlador{
 
 
 
+//*********************************** BORRAR ****************************************/
+    public function borrar($id){
+
+        $this->datos['rolesPermitidos'] = [1];         
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->eventoModelo->borrar($id)) {
+                redireccionar('/adminEventos');
+            }else{
+                die('Algo ha fallado!!!');
+            }
+        }else{
+            $this->datos['evento'] = $this->eventoModelo->obtenerEventoId($id);
+            $this->vista('administradores/crudEventos/inicio', $this->datos);
+        }
+    }
+
+
+
+
+//*********************************** FUNCIONES PARTICIPANTES ****************************************/
+
+
         public function participantes($id_evento){
+            $notific = $this->notificaciones();
+            $this->datos['notificaciones'] = $notific;
+            
             $this->datos['id_evento'] = $id_evento;
+            $this->datos['datos_evento'] = $this->eventoModelo->obtenerEventoId($id_evento);
+
             $this->datos['participantesEventos'] = $this->eventoModelo->obtenerParticipantesEventos($id_evento);
             $this->vista('administradores/crudEventos/participantes', $this->datos);
         }
 
 
-        public function borrar_participante($id){
 
-            $this->datos['rolesPermitidos'] = [1];         
+        public function nuevo_participante(){
+            $this->datos['rolesPermitidos'] = [1];          
             if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
                 redireccionar('/usuarios');
             }
-    
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if ($this->eventoModelo->borrar_participante($id)) {
-                    $id_evento=$_POST['id_evento'];
-                    redireccionar('/adminEventos');
-                }else{
-                    die('Algo ha fallado!!!');
-                }
-            }else{
-                $this->datos['evento'] = $this->eventoModelo->obtenerEventoId($id);
-                $this->vista('administradores/crudEventos/inicio', $this->datos);
-            }
-        }
-
-
-
-        public function anotar_marca($id){
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                $marca = [
-                    'dorsal' => trim($_POST['dorsal']),
-                    'marca'=> trim($_POST['marca']),
-                ];
-
-                if ($this->eventoModelo->anotar_marca($marca,$id)) {
-                    redireccionar('/adminEventos');
-                }else{
-                    die('Algo ha fallado!!!');
-                }
-             }else{
-                 $this->vista('administradores/crudEventos/participantes', $this->datos);
-            }
-                
-        }
-
-
-        public function nuevo_participante(){
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $id=trim($_POST['id_evento']);
 
                 $nuevo = [
                     'id_evento' => trim($_POST['id_evento']),
@@ -187,17 +177,55 @@ class AdminEventos extends Controlador{
                 ];
 
                 if ($this->eventoModelo->nuevo_participante($nuevo)) {
-                    redireccionar('/adminEventos');
+                    redireccionar('/adminEventos/participantes/'.$id);
                 }else{
                     die('Algo ha fallado!!!');
                 }
              }else{
-                 $this->vista('administradores/crudEventos/participantes', $this->datos);
-            }
-                
+                $this->datos['participante'] = (object)[
+                    'id_evento'=>'',
+                    'nombre'=>'',
+                    'apellidos'=>'',
+                    'fecha_naci'=>'',
+                    'dni'=>'',
+                    'direccion'=>'',
+                    'telefono'=>'',
+                    'email'=>''
+                ];
+                 $this->vista('administradores/crudEventos/participantes'.$id, $this->datos);
+            }       
         }
 
+
+        public function borrar_participante($id){
+            $this->datos['rolesPermitidos'] = [1];         
+            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                redireccionar('/usuarios');
+            }
+       
+            $id_evento=trim($_POST['id_evento']);
+    
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if ($this->eventoModelo->borrar_participante($id)) {
+                    $id_evento=$_POST['id_evento'];
+                    redireccionar('/adminEventos/participantes/'.$id_evento);
+                }else{
+                    die('Algo ha fallado!!!');
+                }
+            }else{
+                $this->datos['evento'] = $this->eventoModelo->obtenerEventoId($id);
+                $this->vista('administradores/crudEventos/participantes/'.$id_evento, $this->datos);
+            }
+        }
+
+
         public function editar_participante($id){
+            $this->datos['rolesPermitidos'] = [1];          
+            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                redireccionar('/usuarios');
+            }
+
+            $id_evento=(trim($_POST['id_evento']));
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -212,15 +240,47 @@ class AdminEventos extends Controlador{
                 ];
 
                 if ($this->eventoModelo->editar_participante($nuevo,$id)) {
-                    redireccionar('/adminEventos');
+                    redireccionar('/adminEventos/participantes/'.$id_evento);
                 }else{
                     die('Algo ha fallado!!!');
                 }
              }else{
-                 $this->vista('administradores/crudEventos/participantes', $this->datos);
+                 $this->vista('administradores/crudEventos/participantes/'.$id_evento, $this->datos);
             }
                 
         }
+
+
+        public function anotar_marca($id){
+            $this->datos['rolesPermitidos'] = [1];          
+            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+                redireccionar('/usuarios');
+            }
+
+            $id_evento=(trim($_POST['id_evento']));
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                $marca = [
+                    'dorsal' => trim($_POST['dorsal']),
+                    'marca'=> trim($_POST['marca'])
+                ];
+
+                if ($this->eventoModelo->anotar_marca($marca,$id)) {
+                    redireccionar('/adminEventos/participantes/'.$id_evento);
+                }else{
+                    die('Algo ha fallado!!!');
+                }
+             }else{
+                 $this->vista('administradores/crudEventos/participantes/'.$id_evento, $this->datos);
+            }
+                
+        }
+
+
+        
+
+        
 
 
         

@@ -11,22 +11,24 @@ class AdminFacturacion extends Controlador{
         }
 
         $this->facturacionModelo = $this->modelo('Facturacion');
-        $this->AdminModelo = $this->modelo('AdminModelo');
+        $this->adminModelo = $this->modelo('AdminModelo');
     }
 
-    //NOTIFICACIONES
-    public function notificaciones()
-    {
-        $notific[0] = $this->AdminModelo->notSocio();
-        $notific[1] = $this->AdminModelo->notGrupo();
-        $notific[2] = $this->AdminModelo->notEventos();
-        
+
+    //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+    public function notificaciones(){
+        $notific[0] = $this->adminModelo->notSocio();
+        $notific[1] = $this->adminModelo->notGrupo();
+        $notific[2] = $this->adminModelo->notEventos();
+        $notific[3] = $this->adminModelo->contar_pedidos();
         return $notific;
     }
+    
 
       public function index(){
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
+        
          $this->vista('administradores/crudFacturacion',$this->datos);
      }
 
@@ -38,8 +40,10 @@ class AdminFacturacion extends Controlador{
 
     public function ingresos(){
         $notific = $this->notificaciones();
-        $notific[3] ="INGRESOS";
         $this->datos['notificaciones'] = $notific;
+        // $notific = $this->notificaciones();
+        // $notific[3] ="INGRESOS";
+        // $this->datos['notificaciones'] = $notific;
 
             $ingresos = [];
             $ingresos = $this->facturacionModelo->obtenerIngresos();
