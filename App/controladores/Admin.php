@@ -48,11 +48,17 @@ class Admin extends Controlador{
         $id=$this->datos['usuarioSesion']->id_usuario;
         $datosUser=$this->adminModelo->obtenerDatosId($id);
 
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $foto=$_FILES['editarFoto']['name'];
-            $foto=$id.'.jpg';
-    
+            if (($_FILES['editarFoto']['name'])==''){
+                $foto=$datosUser[0]->foto;
+            }else{
+                $foto=$_FILES['editarFoto']['name'];
+                $foto=$id.'.jpg';
+            }
+
+            
             $nuevo = [
                 'nombre' => trim($_POST["nombre"]),
                 'apellidos' => trim($_POST["apellidos"]),

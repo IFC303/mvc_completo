@@ -45,6 +45,7 @@ public function obtenerDatosId($id){
 
 public function editar_datos($nuevo,$id,$datosUser){
 
+
     $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
     fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, passw=:passw, talla=:talla, foto=:foto where id_usuario=:id;");
 

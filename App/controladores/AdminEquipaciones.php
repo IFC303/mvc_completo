@@ -189,22 +189,22 @@ public function editarEquipacion($id){
 
 
 
-            // ********* PEDIDOS --> EDITAR EQUIPACIONES *******
-            // public function editar_equipacion($id_soli_equi){
-            //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //         $equipacion_modificada = [
-            //             'cantidad'=> trim($_POST['cantidad']),
-            //             'talla' => trim($_POST['talla']),
-            //         ];
-            //         if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
-            //             redireccionar('/adminEquipaciones/pedidos');
-            //         }else{
-            //             die('Algo ha fallado!!!');
-            //         }
-            //     } else {
-            //         $this->vista('adminEquipaciones/equiP', $this->datos);
-            //     }
-            // }
+    // ********* PEDIDOS --> EDITAR EQUIPACIONES *******
+        public function editar_pedido($id_soli_equi){
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $equipacion_modificada = [
+                    'cantidad'=> trim($_POST['cantidad']),
+                    'talla' => trim($_POST['talla']),
+                ];
+                if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
+                    redireccionar('/adminEquipaciones/pedidos');
+                }else{
+                    die('Algo ha fallado!!!');
+                }
+            } else {
+                $this->vista('adminEquipaciones/equiP', $this->datos);
+            }
+        }
 
         
 

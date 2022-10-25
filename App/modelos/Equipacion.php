@@ -108,25 +108,6 @@ class Equipacion
         }
     }
 
-  
-
-    // *********** PEDIDO EQUIPACIONE DEL SOCIO ***********
-    public function pedidoEquipacion($pedidoNuevo){
-        $this->db->query("INSERT INTO SOLI_EQUIPACION (id_usuario,id_equipacion,fecha_peticion,talla,recogido,cantidad) VALUES (:idUsu,:idEquipacion,CURDATE(),:talla,'0',:cantidad)");
-        $this->db->bind(':idUsu', $pedidoNuevo['idUsuario']);
-        $this->db->bind(':idEquipacion',$pedidoNuevo['idEquipacion']);     
-        $this->db->bind(':talla',$pedidoNuevo['talla']);
-        $this->db->bind(':cantidad',$pedidoNuevo['cantidad']);
-
-        if ($this->db->execute()){
-            return $this->db->ultimoIndice();
-        }else{
-            return false;
-        }
-    }
-
-
- 
 
 
     // *********** editar pedido (gestion del admin) ***********
@@ -142,7 +123,6 @@ class Equipacion
         }
     }
 
- 
 
     // *********** cambiar estado del pedido a entregado o no ***********
     public function cambiarEstado($id,$estado){
@@ -164,6 +144,24 @@ class Equipacion
             }
         }
     }
+  
+
+    // *********** PEDIDO EQUIPACIONE DEL SOCIO ***********
+    public function pedidoEquipacion($pedidoNuevo){
+        $this->db->query("INSERT INTO SOLI_EQUIPACION (id_usuario,id_equipacion,fecha_peticion,talla,recogido,cantidad) VALUES (:idUsu,:idEquipacion,CURDATE(),:talla,'0',:cantidad)");
+        $this->db->bind(':idUsu', $pedidoNuevo['idUsuario']);
+        $this->db->bind(':idEquipacion',$pedidoNuevo['idEquipacion']);     
+        $this->db->bind(':talla',$pedidoNuevo['talla']);
+        $this->db->bind(':cantidad',$pedidoNuevo['cantidad']);
+
+        if ($this->db->execute()){
+            return $this->db->ultimoIndice();
+        }else{
+            return false;
+        }
+    }
+
+
     
 
     public function agregarEquipacion($nuevaEquipacion){     

@@ -58,28 +58,31 @@
                     <td>
 
 
-                                <!-- MODAL ver-->
-                                <a data-bs-toggle="modal" data-bs-target="#ver_<?php echo $pedido->id_soli_equi?>" >
-                                  <img class="icono" src="<?php echo RUTA_Icon?>ojo.svg"></img>
+                                <!-- MODAL EDITAR-->
+                                <a data-bs-toggle="modal" data-bs-target="#editar_<?php echo $pedido->id_soli_equi?>" >
+                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                 <!-- Ventana -->
-                                <div class="modal" id="ver_<?php echo $pedido->id_soli_equi?>">
+                                <div class="modal" id="editar_<?php echo $pedido->id_soli_equi?>">
                                 <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
 
                                             <!-- Modal Header -->
                                             <div class="modal-header azul">
-                                                <p class="modal-title ms-3">Informacion del pedido</p> 
+                                                <p class="modal-title ms-3">edicion</p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <!-- Modal body -->
                                             <div class="modal-body info mb-3">                           
                                             <div class="container">
-                                                <div class="row mt-4">  
 
-                                                    <div class="col-4">
+                                            <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editar_pedido/<?php echo $pedido->id_soli_equi?>">
+
+                                            
+                                                <div class="row">
+                                                    <div class="col-4 mt-3 mb-4">
                                                         <div>
                                                         <img id="outputVer" width="300px" height="300px" 
                                                         <?php if ($pedido->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
@@ -88,48 +91,60 @@
                                                         </div>                                    
                                                     </div>
 
-                                                    <div class="col-8 mt-4"> 
-                                                        <div class="row"> 
-                                                            <div class="col-5">                     
-                                                                <div class="input-group mb-4">
+                                                    <div class="col-8 mt-3 mb-4">
+                                                        <div class="row mb-4">   
+                                                            <div class="col-5">
+                                                                <div class="input-group ">
                                                                     <label for="fecha" class="input-group-text">Fecha pedido</label>
                                                                     <input type="date" class="form-control form-control-md" id="fecha" name="fecha" value="<?php echo $pedido->fecha_peticion?>"  readonly> 
-                                                                </div>      
+                                                                </div>
+                                                            </div>  
+                                                            <div class="col-7">                         
+                                                                <div class="input-group">
+                                                                    <label for="nombre" class="input-group-text">Nombre y apellidos</label>
+                                                                    <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $pedido->nombre." ".$pedido->apellidos?> " readonly> 
+                                                                </div>                           
+                                                            </div>  
+                                                        </div>
+                                                        <div class="row mb-4">   
+                                                            <div class="col-5">                         
+                                                                <div class="input-group">
+                                                                    <label for="telefono" class="input-group-text">Telefono</label>
+                                                                    <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $pedido->telefono?>" readonly> 
+                                                                </div>                           
                                                             </div>
-                                                            <div class="col-3">                 
-                                                                <div class="input-group mb-4">
+                                                            <div class="col-7">                         
+                                                                <div class="input-group">
+                                                                    <label for="email" class="input-group-text">Email</label>
+                                                                    <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $pedido->email?>" readonly> 
+                                                                </div>                           
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">  
+                                                            <div class="col-6">                 
+                                                                <div class="input-group ">
                                                                     <label for="talla" class="input-group-text">Talla</label>
-                                                                    <input type="text" class="form-control form-control-md" id="talla" name="talla" value="<?php echo $pedido->talla?>" readonly>
+                                                                    <input type="text" class="form-control form-control-md" id="talla" name="talla" value="<?php echo $pedido->talla?>">
                                                                 </div>
                                                             </div> 
-                                                            <div class="col-4">                     
-                                                                <div class="input-group mb-4">
+                                                            <div class="col-6">                     
+                                                                <div class="input-group ">
                                                                     <label for="cantidad" class="input-group-text">Cantidad</label>
-                                                                    <input type="number" class="form-control form-control-md" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>"  readonly> 
+                                                                    <input type="number" class="form-control form-control-md" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" > 
                                                                 </div>      
                                                             </div>
+                                                        </div>
+                                                        <div class=" d-flex justify-content-end">
+                                                            <input type="submit" class="btn mt-5" name="aceptar" id="confirmar" value="Confirmar">        
                                                         </div> 
-                                                        <div class="row">                         
-                                                            <div class="input-group mb-4">
-                                                                <label for="nombre" class="input-group-text">Nombre y apellidos</label>
-                                                                <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $pedido->nombre." ".$pedido->apellidos?> " readonly> 
-                                                            </div>                           
-                                                        </div>
-                                                        <div class="row">                         
-                                                            <div class="input-group mb-4">
-                                                                <label for="telefono" class="input-group-text">Telefono</label>
-                                                                <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $pedido->telefono?>" readonly> 
-                                                            </div>                           
-                                                        </div>
-                                                        <div class="row">                         
-                                                            <div class="input-group mb-4">
-                                                                <label for="email" class="input-group-text">Email</label>
-                                                                <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $pedido->email?>" readonly> 
-                                                            </div>                           
-                                                        </div>
                                                     </div>
-
-                                                </div>
+                                                </div> 
+                                                </div> 
+                                                
+                                                
+                                                 
+                                                </form>
+                                                 
                                             </div>
                                             </div>
                                     
