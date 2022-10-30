@@ -93,18 +93,18 @@
 
                                                     <div class="col-8 mt-3 mb-4">
                                                         <div class="row mb-4">   
-                                                            <div class="col-5">
+                                                            <div class="col-6">
                                                                 <div class="input-group ">
-                                                                    <label for="fecha" class="input-group-text">Fecha pedido</label>
+                                                                    <label for="fecha" class="input-group-text">Fecha del pedido</label>
                                                                     <input type="date" class="form-control form-control-md" id="fecha" name="fecha" value="<?php echo $pedido->fecha_peticion?>"  readonly> 
                                                                 </div>
-                                                            </div>  
-                                                            <div class="col-7">                         
-                                                                <div class="input-group">
-                                                                    <label for="nombre" class="input-group-text">Nombre y apellidos</label>
-                                                                    <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $pedido->nombre." ".$pedido->apellidos?> " readonly> 
-                                                                </div>                           
-                                                            </div>  
+                                                            </div>                        
+                                                        </div>
+                                                        <div class="row mb-4">
+                                                            <div class="input-group">
+                                                                <label for="nombre" class="input-group-text">Nombre y apellidos</label>
+                                                                <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $pedido->nombre." ".$pedido->apellidos?> " readonly> 
+                                                            </div>
                                                         </div>
                                                         <div class="row mb-4">   
                                                             <div class="col-5">                         
@@ -140,9 +140,6 @@
                                                     </div>
                                                 </div> 
                                                 </div> 
-                                                
-                                                
-                                                 
                                                 </form>
                                                  
                                             </div>
@@ -181,59 +178,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <!-- MODAL EDITAR -->
-                                <!-- <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $pedido->id_soli_equi?>" >
-                                  <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
-                                </a> -->
-
-                                    <!-- Ventana -->
-                                    <!-- <div class="modal" id="ModalEditar_<?php echo $pedido->id_soli_equi?>">
-                                    <div class="modal-dialog modal-md modal-dialog-centered">
-                                        <div class="modal-content"> -->
-
-                                            <!-- Header -->
-                                            <!-- <div class="modal-header">
-                                                <h2 class="modal-title">Edicion del pedido</h2>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div> -->
-
-                                            <!-- Body -->
-                                            <!-- <div class="modal-body">
-
-                                                <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editar_equipacion/<?php echo $pedido->id_soli_equi?>" class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                                <div>
-                                                                    <img id="outputVer" width="225px" height="225px"
-                                                                    <?php if ($pedido->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
-                                                                        }else {?> src='<?php echo RUTA_Equipacion.$pedido->id_equipacion.'.jpg';} ?>'
-                                                                    >
-                                                                </div>
-                                                        </div>
-
-                                                    <div class="col-6">
-                                                        <div class="row w-75 mb-4 ms-3">
-                                                                <label class="cantidad mb-2" for="cantidad">Cantidad <sup>*</sup></label>
-                                                                <input class="form-control ms-3" type="number" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" required>
-                                                        </div>
-                                                        <div class="row w-75 ms-3">
-                                                            <label class="talla mb-2" for="talla">Talla <sup>*</sup></label>
-                                                            <input class="form-control ms-3" id="talla" name="talla" type="text"value="<?php echo $pedido->talla?> " required>
-                                                        </div>
-                                                    </div>
-
-                                                    </div>
-
-                                                    <br>
-                                                    <input type="submit" class="btn" value="Confirmar">
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div> -->
-
 
                                     <!-- MODAL CAMBIAR ESTADO ENTREGA -->
                                         <?php
@@ -308,6 +252,83 @@
                     </tbody>
 
      </table>
+
+
+     <!-- AÑADIR NUEVA EQUIPACION-->
+        <div class="col text-center mt-5">
+            <a data-bs-toggle="modal" data-bs-target="#nuevo">
+                <input type="button" id="anadir" class="btn" value="Nuevo pedido">
+            </a>
+        </div>
+
+
+        <div class="modal" id="nuevo">
+        <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header azul">
+                        <p class="modal-title ms-3">Nuevo pedido</p> 
+                        <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body info">                         
+                <div class="row ms-1 me-1">                                                                                                           
+                                                    
+                        <form action="<?php echo RUTA_URL?>/adminEquipaciones/nuevo_pedido" method="post">
+
+                                <div class="row mt-4">
+                                    <div class="input-group mb-4">
+                                        <label for="equi" class="input-group-text">Equipacion</label>
+                                        
+                                        <select class="form-control" name="equi" required>
+                                            <option value="">-- Selecciona una equipacion --</option>
+                                            <?php foreach ($datos['equip'] as $equip) : ?>
+                                            <option value="<?php echo $equip->id_equipacion?>"> <?php echo $equip->tipo?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        
+                                    </div> 
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="input-group">
+                                        <label for="usu" class="input-group-text">Usuario</label>
+                                        <select class="form-control" name="usu" required>
+                                            <option value="">-- Selecciona un usuario --</option>
+                                            <?php foreach ($datos['usus'] as $usus) : ?>
+                                            <option value="<?php echo $usus->id_usuario?>"> <?php echo $usus->nombre.' '.$usus->apellidos?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                <div class="col-6">
+                                    <div class="input-group mb-4">
+                                        <label for="cantidad" class="input-group-text">Cantidad<sup>*</sup></label>
+                                        <input type="text" class="form-control form-control-md" id="cantidad" name="cantidad" required>    
+                                    </div> 
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group mb-4">
+                                        <label for="talla" class="input-group-text">Talla<sup>*</sup></label>
+                                        <input type="text" class="form-control form-control-md" id="talla" name="talla" required >
+                                    </div> 
+                                </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end">
+                                    <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                               </div> 
+
+                        </form>
+
+                        </div>
+                        </div>
+
+        </div>
+        </div>
+        </div>
 
 
 </article>

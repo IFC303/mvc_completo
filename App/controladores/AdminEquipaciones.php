@@ -4,9 +4,10 @@
 class AdminEquipaciones extends Controlador{
 
 
+
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
-        $this->datos['rolesPermitidos'] = [1];          // Definimos los roles que tendran acceso
+        $this->datos['rolesPermitidos'] = [1]; 
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
@@ -14,6 +15,7 @@ class AdminEquipaciones extends Controlador{
         $this->equipacionModelo = $this->modelo('Equipacion');
         $this->adminModelo = $this->modelo('AdminModelo');
     }
+
 
 
 //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
@@ -26,12 +28,11 @@ public function notificaciones(){
 }
 
 
-//*********** INDEX *********************/
 
+//*********** INDEX *********************/
 public function index(){
     $notific = $this->notificaciones();
     $this->datos['notificaciones'] = $notific;
-    //$this->vista('administradores/crudEquipacion',$this->datos);
 }
 
 
@@ -45,6 +46,7 @@ public function gestion(){
     $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipaciones();
     $this->vista('administradores/equiG',$this->datos);
 }
+
 
 
 public function nuevaEquipacion(){
@@ -85,6 +87,11 @@ public function nuevaEquipacion(){
 
 
 public function borrarEquipacion($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+
      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          if ($this->equipacionModelo->borrarEquipacion($id)) {
             //$directorio="/var/www/html/tragamillas/public/img/fotos_equipacion/";
@@ -109,10 +116,19 @@ public function editarEquipacion($id){
         redireccionar('/usuarios');
     }
 
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $foto=$_FILES['editarFoto']['name'];
-            $foto=$id.'.jpg';
+            if (($_FILES['editarFoto']['name'])==''){
+                if($_POST['foto_ant']!=''){
+                    $foto=$_POST['foto_ant'];
+                }else{
+                  $foto='';  
+                }
+            }else{
+                $foto=$_FILES['editarFoto']['name'];
+                $foto=$id.'.jpg';
+            }
 
              $equipacionModificada = [
                  'nombre' => (trim($_POST['nombre'])),
@@ -132,14 +148,6 @@ public function editarEquipacion($id){
             }
 
      } else {
-        $this->datos['equipacion'] = (object)[
-            'nombre' => '',
-            'foto'=>'',
-            'descripcion' => '',
-            'precio' => '',
-            'temporada' => ''
-         ];
-
         $this->vista('administradores/equiG',$this->datos);
     }
 }
@@ -149,92 +157,112 @@ public function editarEquipacion($id){
 
 //****************************************** PEDIDOS EQUIPACIONES ************************************************/
 
-    public function pedidos(){    
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-        
-        $this->datos['pedidos']=$this->equipacionModelo->obtenerPedidosUsuarios(); 
-        $this->vista('administradores/equiP',$this->datos);
+
+public function pedidos(){    
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;   
+
+    $this->datos['usus']=$this->equipacionModelo->obtener_usuarios();
+    $this->datos['equip']=$this->equipacionModelo->obtenerEquipaciones();
+    $this->datos['pedidos']=$this->equipacionModelo->obtenerPedidosUsuarios(); 
+    $this->vista('administradores/equiP',$this->datos);
+}
+
+
+
+public function nuevo_pedido(){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
     }
 
-
-
-    public function borrarPedido($id){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->equipacionModelo->borrarPedido($id)) {
-                redireccionar('/adminEquipaciones/pedidos');
-            }else{
-                die('Algo ha fallado!!!');
-            }
+    if($_SERVER['REQUEST_METHOD'] =='POST'){
+        $nuevo = [
+            'idEquipacion'=>trim($_POST['equi']),
+            'idUsuario'=>trim($_POST['usu']),
+            'cantidad'=>trim($_POST['cantidad']),
+            'talla'=>trim($_POST['talla'])
+        ];
+        if($this->equipacionModelo->pedidoEquipacion($nuevo)){
+            redireccionar('/adminEquipaciones/pedidos');
         }else{
-            $this->datos['tienda'] = $this->equipacion->obtenerEquipacionId($id);
-            $this->vista('adminEquipaciones/equiP', $this->datos);
+            die('Añgo ha fallado!!');
         }
+    }else{
+        $this->datos['pedido'] = (object)[
+            'equi'=>'',
+            'usu'=>'',
+            'cantidad'=>'',
+            'talla'=>''
+        ];
+        $this->vista('adminEquipaciones/equiP',$this->datos);
+    }
+}
+
+
+
+public function editar_pedido($id_soli_equi){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
     }
 
-
-    // ********* cambiar estado a entregado o no *******
-    public function cambiar_estado($id){
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $estado=$_POST['estado'];
-            if ($this->equipacionModelo->cambiarEstado($id,$estado)) {
-                redireccionar('/adminEquipaciones/pedidos');
-            }else{
-                die('Algo ha fallado!!!');
-            }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $equipacion_modificada = [
+            'cantidad'=> trim($_POST['cantidad']),
+            'talla' => trim($_POST['talla']),
+        ];
+        if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
+            redireccionar('/adminEquipaciones/pedidos');
         }else{
-            $this->vista('adminEquipaciones/equiP', $this->datos);
+            die('Algo ha fallado!!!');
         }
+    } else {
+        $this->vista('adminEquipaciones/equiP', $this->datos);
+    }
+}
+
+
+
+public function borrarPedido($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
     }
 
-
-
-    // ********* PEDIDOS --> EDITAR EQUIPACIONES *******
-        public function editar_pedido($id_soli_equi){
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $equipacion_modificada = [
-                    'cantidad'=> trim($_POST['cantidad']),
-                    'talla' => trim($_POST['talla']),
-                ];
-                if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
-                    redireccionar('/adminEquipaciones/pedidos');
-                }else{
-                    die('Algo ha fallado!!!');
-                }
-            } else {
-                $this->vista('adminEquipaciones/equiP', $this->datos);
-            }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->equipacionModelo->borrarPedido($id)) {
+            redireccionar('/adminEquipaciones/pedidos');
+        }else{
+            die('Algo ha fallado!!!');
         }
+    }else{
+        $this->datos['tienda'] = $this->equipacion->obtenerEquipacionId($id);
+        $this->vista('adminEquipaciones/equiP', $this->datos);
+    }
+}
 
-        
 
-            // ********* PEDIDOS --> NUEVA EQUIPACION *******
-            // public function nueva_equipacion(){
-            //     $this->datos['rolesPermitidos'] = [1];         
-            //     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            //         redireccionar('/usuarios');
-            //     }
 
-            //     if($_SERVER['REQUEST_METHOD'] =='POST'){
-            //         $equipacionNueva = [
-            //             'tipo'=>trim($_POST['tipo']),
-            //             'talla'=>trim($_POST['talla']),
-            //             'usu'=>trim($_POST['usu'])
-            //         ];
-            //         if($this->equipacion->agregarEquipacion($equipacionNueva)){
-            //             redireccionar('/adminEquipaciones/pedidos');
-            //         }else{
-            //             die('Añgo ha fallado!!');
-            //         }
-            //     }else{
-            //         $this->datos['tienda'] = (object)[
-            //             'tipo'=>'',
-            //             'talla'=>'',
-            //             'usu'=>''
-            //         ];
-            //         $this->vista('adminEquipaciones/equiP',$this->datos);
-            //     }
-            // }
+public function cambiar_estado($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $estado=$_POST['estado'];
+        if ($this->equipacionModelo->cambiarEstado($id,$estado)) {
+            redireccionar('/adminEquipaciones/pedidos');
+        }else{
+            die('Algo ha fallado!!!');
+        }
+    }else{
+        $this->vista('adminEquipaciones/equiP', $this->datos);
+    }
+}
+
+
 
 
   

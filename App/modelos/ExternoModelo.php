@@ -1,11 +1,10 @@
 <?php
 
-class ExternoModelo
-{
+class ExternoModelo{
+
     private $db;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Base;
     }
 
@@ -15,9 +14,9 @@ class ExternoModelo
     }
 
 
-    // ******************** REGISTRA LA SOLICITUD DE SOCIO ******************* //
-    public function anadirSoliSocio($soliSociAnadir){
-        
+  
+
+    public function anadirSoliSocio($soliSociAnadir){       
         $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`) 
         VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa);");
 
@@ -50,12 +49,7 @@ class ExternoModelo
 
 
 
-// *****************************************  SOLICITUDES EVENTOS   ******************************************//
-
-
-    //********* REGISTRA SOLICITUD ************/
       public function anadir_soli_eve($soli_eve){
-
             $this->db->query("INSERT INTO SOLICITUD_EVENTO (id_evento, fecha, nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono) 
             VALUES (:evento, CURDATE(), :nombre, :apellidos,:dni, :fecha_naci, :direccion, :email, :telefono);");
             
@@ -76,52 +70,17 @@ class ExternoModelo
         }
 
 
-    // ******** VISUALIZA TODAS LAS SOLICITUDES ******* //
-    public function obtener_soli_eventos(){
-            $this->db->query("SELECT id_solicitud, SOLICITUD_EVENTO.id_evento, EVENTO.nombre as nombre_evento, fecha, SOLICITUD_EVENTO.nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono
-            FROM SOLICITUD_EVENTO, EVENTO where EVENTO.id_evento=SOLICITUD_EVENTO.id_evento order by id_solicitud");
-            return $this->db->registros();
-    }
 
+        public function soli_escuela(){
 
-    // ******** BORRA SOLICITUD ******* //
-    public function borrar_soli_eve($id){
-            $this->db->query("DELETE FROM SOLICITUD_EVENTO WHERE id_solicitud=:id");
-            $this->db->bind(':id', $id);
-            
-            if ($this->db->execute()) {
-                return true;
-            } else {
-                return false;
-            }
-    }
+            // if ($this->db->execute()) {
+            //     return true;
+            // } else {
+            //     return false;
+            // }
 
-  // ******** ACEPTAR SOLICITUD ******* //
-    public function aceptar_soli_even($aceptar){
+        }
 
-        $this->db->query("INSERT INTO PARTICIPANTE (id_evento,nombre, apellidos, DNI, fecha_nacimiento, email, telefono) 
-        VALUES (:evento, :nombre, :apellidos,:dni, :fecha_naci,:telefono, :email);");
-        
-        $this->db->bind(':evento', $aceptar['evento']);
-        $this->db->bind(':nombre', $aceptar['nombre']);
-        $this->db->bind(':apellidos', $aceptar['apellidos']);
-        $this->db->bind(':dni', $aceptar['dni']);
-        $this->db->bind(':fecha_naci', $aceptar['f_naci']);       
-        $this->db->bind(':telefono', $aceptar['telefono']);
-        $this->db->bind(':email', $aceptar['email']);
-
-        $this->db->execute(); 
-
-        $this->db->query("DELETE FROM  SOLICITUD_EVENTO WHERE `id_solicitud` = :id;");
-        $this->db->bind(':id', $aceptar['id']);
-  
-        if ($this->db->execute()) {
-             return true;
-         } else {
-             return false;
-         }
-        
-    }
 
 
 

@@ -1,8 +1,10 @@
 <?php
 
-class Equipacion
-{
+class Equipacion{
+
+
     private $db;
+    
 
     public function __construct(){
         $this->db = new Base; 
@@ -14,12 +16,18 @@ class Equipacion
         return $this->db->registros();
     }
 
+
     public function obtenerEquipacionId($id){
          $this->db->query("SELECT id_equipacion,tipo,imagen,descripcion,precio,temporada from EQUIPACION where id_equipacion=:id");
          $this->db->bind(':id',$id);
          return $this->db->registros();
      }
 
+
+     public function obtener_usuarios(){
+        $this->db->query("SELECT * from usuario");
+        return $this->db->registros();
+     }
 
      
 
@@ -57,6 +65,7 @@ class Equipacion
     }
 
 
+
     public function borrarEquipacion($id){
         $this->db->query("DELETE FROM EQUIPACION WHERE id_equipacion =:id");
         $this->db->bind(':id',$id);
@@ -66,6 +75,7 @@ class Equipacion
             return false;
         }
     }
+
 
 
     public function editarEquipacion($equipacion_modificada,$id){
@@ -82,12 +92,12 @@ class Equipacion
           }else{
               return false;
           }
-
     }
 
 
 
     // ***************************************** PEDIDOS EQUIPACIONES *********************************
+
 
     public function obtenerPedidosUsuarios(){
         $this->db->query("SELECT SOLI_EQUIPACION.id_soli_equi,USUARIO.id_usuario,nombre, apellidos, email, telefono, SOLI_EQUIPACION.id_equipacion, SOLI_EQUIPACION.talla, EQUIPACION.imagen,
@@ -98,7 +108,9 @@ class Equipacion
         return $this->db->registros();
     }
 
-       public function borrarPedido($id){
+
+
+    public function borrarPedido($id){
         $this->db->query("DELETE FROM SOLI_EQUIPACION WHERE id_soli_equi =:id");
         $this->db->bind(':id',$id);
         if ($this->db->execute()){
@@ -110,7 +122,6 @@ class Equipacion
 
 
 
-    // *********** editar pedido (gestion del admin) ***********
     public function editar_pedido($id,$equipacionModi){
         $this->db->query("UPDATE SOLI_EQUIPACION SET talla=:talla, cantidad=:cantidad where id_soli_equi=:id");
         $this->db->bind(':id',$id);
@@ -124,7 +135,7 @@ class Equipacion
     }
 
 
-    // *********** cambiar estado del pedido a entregado o no ***********
+
     public function cambiarEstado($id,$estado){
         if($estado==0){
             $this->db->query("UPDATE SOLI_EQUIPACION SET recogido=1 WHERE id_soli_equi =:id");
@@ -146,7 +157,7 @@ class Equipacion
     }
   
 
-    // *********** PEDIDO EQUIPACIONE DEL SOCIO ***********
+
     public function pedidoEquipacion($pedidoNuevo){
         $this->db->query("INSERT INTO SOLI_EQUIPACION (id_usuario,id_equipacion,fecha_peticion,talla,recogido,cantidad) VALUES (:idUsu,:idEquipacion,CURDATE(),:talla,'0',:cantidad)");
         $this->db->bind(':idUsu', $pedidoNuevo['idUsuario']);
@@ -162,22 +173,7 @@ class Equipacion
     }
 
 
-    
-
-    public function agregarEquipacion($nuevaEquipacion){     
-        $this->db->query("INSERT INTO EQUIPACION (talla,fecha_peticion,id_usuario,tipo,recogido) 
-                          VALUES (:talla,CURDATE(),:id_usuario,:tipo,0)");
-        $this->db->bind(':talla', $nuevaEquipacion['talla']);
-        $this->db->bind(':id_usuario',$nuevaEquipacion['usu']);
-        $this->db->bind(':tipo',$nuevaEquipacion['tipo']);
-           
-        if ($this->db->execute()){
-            return $this->db->ultimoIndice();
-        }else{
-            return false;
-        }
-    }
-
+ 
 
 
   

@@ -1,121 +1,36 @@
-<?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 
-    <style>
-           /*modal javascript */
-
-           .modalVer{  
-            display: none;
-            position: fixed;
-            z-index: 1;
-            padding: 100px 100px 0px 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4); 
-        }
-
-        .modalVer .modal-content{
-            width:50%;
-            margin: auto;
-        }
-
-        #modalEditar{
-            width:50%;
-            margin: auto;
-        }
-
-        .modal-title{
-            color:#023ef9;
-        }
-
-        label{
-           color:#023ef9;
-        }
-
-        a{
-            text-decoration: none;
-            color:black;
-        }
-
-/*ESTILOS TABLA */
-
-        .tabla{
-            border:solid 1px #023ef9;  
-            margin:auto;
-        }
-
-        thead tr{
-            background-color:#023ef9; 
-            color:white;
-            text-align:center;
-        }
-
-        .datos_tabla{
-            text-align:center;
-        }
-
-        .icono{
-            width:20px;
-            height:20px;
-        }
+   <?php require_once RUTA_APP . '/vistas/inc/navA.php' ?>
 
 
-        #headerVer h2{
-            padding: 30px;
-            color:#023ef9;
-        }
-        
-        #añadir{
-            color:white;
-        }
-
-        .btn{
-            background-color: #023ef9;  
-            color:white;
-        }
-
-        #titulo{
-            font-family: 'Anton',sans-serif; 
-            color: #023ef9; 
-            letter-spacing: 5px;
-        }
-
-    </style>
-   
-
-   
-
-<div class="container">
-        <div class="row" style="text-align:center">
-
-            <div class="col-12">
-                <h4 id="titulo">Gestion de ingresos</h4>
-            </div>
-
-            <!-- <div>
-                <form method="post"action="">
-                    <input type="radio" value="todos" name="tipo">Todos
-                    <input type="radio" value="cuotas" name="tipo">Cuotas
-                    <input type="radio" value="actividades" name="tipo">Actividades
-                    <input type="radio" value="otros" name="tipo">Otros   
-                    <input type="submit">
-                </form>
-            </div> -->
+<!------------------------------ CABECERA -------------------------------->
+<header>
+    <div class="row mb-5">
+        <div class="col-10 d-flex align-items-center justify-content-center">
+            <span id="textoHead">Gestion de ingresos</span>
         </div>
+        <div class="col-2 mt-2">
+            <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
+                <span>Logout</span>
+                <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+            </a>
+        </div>
+    </div>                                   
+</header>
+<!----------------------------------------------------------------------->
 
-           <div class="tabla" style="border:solid 1px #023ef9">
-            <table class="table table-hover" >
+
+<article>
+
+        <table id="tabla" class="table">
+
 
                     <!--CABECERA TABLA-->
                     <thead>
-                        <tr style="background-color:#023ef9; color:white">
+                        <tr>
                             <th>FECHA</th>
-                            <th>CONCEPTO</th>
-                            <th>IMPORTE</th>
                             <th>TIPO</th>
+                            <th>IMPORTE</th>
+                            <th>CONCEPTO</th>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <th>OPCIONES</th>
@@ -123,319 +38,272 @@
                         </tr>
                     </thead>
 
-
                      <!--BODY TABLA-->
-                    <tbody class="table-light">
+                    <tbody>
 
                         <?php
-                        //var_dump($datos['participantes']);
                         foreach($datos['ingresos'] as $info):  
-                            
-                        
                            ?>
                         <tr>
-                            <td class="datos_tabla"><?php echo $info->fecha?></td>
-                            <td class="datos_tabla"><?php echo $info->concepto?></td>
-                            <td class="datos_tabla"><?php echo $info->importe?></td>
-                            <td class="datos_tabla"><?php echo $info->tipo?></td>
+                            <td><?php echo $info->fecha?></td>
+                            <td><?php echo $info->tipo?></td>
+                            <td><?php echo $info->importe?></td>
+                            <td><?php echo $info->observaciones?></td>
+
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
-                            <td class="d-flex justify-content-center">
+                            
+                            <td>
 
-                                <!--MODAL VER (javascript)-->
-                                    <img class="icono mt-1" id="btnModal_<?php echo $info->id_ingreso?>" src="<?php echo RUTA_Icon?>ojo.svg" onclick="abrir('<?php echo $info->id_ingreso.$info->tipo?>');"></img>
-
-                                    <!--Ventana-->
-                                    <div id="<?php echo $info->id_ingreso.$info->tipo?>" class="modalVer">
-                                        <div class="modal-content">
-
-                                            <!--Header-->
-                                            <div id="headerVer" class="row">
-                                                <h2 class="col-11">Datos del ingreso</h2>
-                                                <input class="col-1 btn-close m-3" type="button" id="cerrar_<?php echo $info->id_ingreso?>" onclick="cerrar('<?php echo $info->id_ingreso.$info->tipo?>');">  
-                                            </div>
-                                            <hr>
-
-                                            <!--Body-->
-                                            <div id="bodyVer" class="row m-3">
-                                             
-                                                <div class="row">
-                                     
-                                                    <div class="col-6">
-                                                        <label for="fecha">Fecha del ingreso</label>
-                                                        <input type="text" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>" readonly>
-                                                        <br>
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <label for="tipo">Categoria</label>
-                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $info->tipo?>" readonly>
-                                                        <br>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="concepto">Concepto</label>
-                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>" readonly> 
-                                                        <br>
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <label for="importe">Importe</label>
-                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>" readonly>
-                                                        <br>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    
-                                                            <!--CAMPOS DE OTROS-->
-                                                    <?php 
-                                                        if($info->tipo=="otros"){
-                                                            foreach($datos['ingresosOtros'] as $ingresosOtros){
-                                                            //     var_dump($ingresosOtros);
-                                                            //     echo " --------------------";
-                                                            //    var_dump($info);
-                                                                if($ingresosOtros->id_ingreso_otros == $info->id_ingreso){?>
-                                                                    <div class="col-6">
-                                                                    <label for="id_entidad">Entidad</label>
-                                                                    <input type="text" name="id_entidad" id="id_entidad" class="form-control form-control-lg" value="<?php echo $ingresosOtros->nombre?>" readonly>
-                                                                    <br>
-                                                                </div>
-
-
-                                                                <?php }
-                                                            ?>
-                                                            
-
-                                                            <!--CAMPOS DE CUOTAS-->
-                                                    <?php }
-                                                        }else if($info->tipo=="cuotas"){
-                                                            foreach($datos['ingresosCuotas'] as $ingresosCuotas){   
-                                                            ?>
-                                                            <div class="col-6">
-                                                                <label for="id_usuario">Usuario</label>
-                                                                <input type="text" name="id_usuario" id="id_usuario" class="form-control form-control-lg" value="<?php echo $ingresosCuotas->nombre." ".$ingresosCuotas->apellidos?>" readonly>
-                                                                <br>
-                                                            </div>
-
-                                                            <!--CAMPOS DE ACTIVIDADES-->
-                                                        <?php }
-                                                        }else if($info->tipo=="actividades"){
-                                                            foreach($datos['todosIngresosParticipantes'] as $part){
-                                                                //var_dump($part);
-                                                                //echo " --------------------";
-                                                                   // var_dump($info);
-                                                                if($part->id_ingreso_actividades==$info->id_ingreso){?>
-                                                                    <div class="col-6">
-                                                                        <label for="tipo">Participante</label>
-                                                                        <input type="text" name="tipo" id="tipo" class="form-control form-control-lg" value="<?php echo $part->nombre." ".$part->apellidos?>" readonly>
-                                                                    <br>
-
-                                                                    
-                                                                </div>
-
-                                                               <?php }
-                                                               if($part->id_ingreso_actividades==$info->id_ingreso){?>
-
-                                                                    <div class="col-6">
-                                                                        <label for="id_evento">Evento</label>
-                                                                        <input type="text" name="id_evento" id="id_evento" class="form-control form-control-lg" value="<?php echo $part->id_evento?>" readonly>
-                                                                        <br>
-                                                                    </div>
-                                                              <?php }
-                                                               
-                                                                ?>      
-                                                               
-                                                        <?php }       
-                                                            ?>
-                                                            
-                                                            
-                                                       <?php };
-                                                    ?>
-                                                    
-                                                </div>
-
-                                                 </div>
-                                        
-                                        </div>  
-                                    </div> 
-
-
-
-                                <!-- MODAL EDITAR -->
-                                &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalEditar_<?php echo $info->id_ingreso.$info->tipo?>" >
-                                  <img  class="icono"src="<?php echo RUTA_Icon?>editar.svg"></img>
+                                 <!-- MODAL VER-->                 
+                                 <a data-bs-toggle="modal" data-bs-target="#ver<?php echo $info->id_ingreso?>">
+                                <img class="icono" src="<?php echo RUTA_Icon ?>ojo.svg"></img>
                                 </a>
 
-                                    <!-- Ventana -->
-                                    <div class="modal" id="ModalEditar_<?php echo $info->id_ingreso.$info->tipo?>">
-                                    <div class="modal-dialog modal-xl modal-dialog-centered">
-                                        <div class="modal-content">
+                                <div class="modal" id="ver<?php echo $info->id_ingreso?>">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
 
 
-                                            <!-- Header -->
-                                            <div class="modal-header">
-                                                <h2 class="modal-title">Edicion del ingreso</h2>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-
-                                            <!-- Body -->
-                                            <div class="modal-body">
-                                                <form method="post" action="<?php echo RUTA_URL?>/adminFacturacion/editarIngreso/<?php echo $info->id_ingreso?>" class="card-body">
-                                                        
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="fecha">Fecha<sup>*</sup></label>
-                                                    </div>   
-                                                    <div class="col-6">
-                                                    <label for="tipo" class="form-label">Tipo de ingreso:</label>
-                                                    </div>   
-                                                </div>  
-                                                <div class="row">
-                                                    <div class="col-6 mt-3 mb-3"> 
-                                                        <input type="date" name="fecha" id="fecha" class="form-control form-control-lg" value="<?php echo $info->fecha?>" required>
-                                                    </div>
-                                                    <div class="col-6 mt-3 mb-3">    
-                                                        <select class="form-control form-control-lg" name="tipoSelect" id="tipoSelect<?php echo $info->id_ingreso?>" onchange="opciones(this.id)" required >
-                                                            <option value="">-- Selecciona un tipo de ingreso --</option>
-                                                            <option value="cuotas">Cuotas</option>
-                                                            <option value="actividades">Actividades</option>
-                                                            <option value="otros">Otros</option>
-                                                        </select>
-                                                    </div>  
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label for="importe">Importe<sup>*</sup></label>
-                                                    </div>   
-                                                    <div class="col-6" id="labelSocios<?php echo $info->id_ingreso?>" style="display:none">
-                                                        <label for="browser" class="form-label">Socio<sup>*</sup></label>
-                                                    </div> 
-                                                    <div class="col-6" id="labelParticipantes<?php echo $info->id_ingreso?>" style="display:none">
-                                                        <label for="browser" class="form-label">Participante<sup>*</sup></label>
-                                                    </div> 
-                                                    <div class="col-6" id="labelEntidades<?php echo $info->id_ingreso?>" style="display:none" >
-                                                        <label for="browser" class="form-label">Entidades<sup>*</sup></label>
-                                                    </div> 
-                                                </div>             
-
-                                                <div class="row">
-                                                    <div class="col-6 mt-3 mb-3">
-                                                        <input type="text" name="importe" id="importe" class="form-control form-control-lg" value="<?php echo $info->importe?>" required>
-                                                    </div>   
-                                                    <!--div SOCIOS -->
-                                                    <div class="col-6 mt-3 mb-3" id="inputSocios<?php echo $info->id_ingreso?>" style="display:none">  
-                                                        <input class="form-control form-control-lg" list="browsers" name="browser" id="browser">
-                                                        <datalist id="browsers" name="socio">
-                                                            <select>
-                                                            <?php foreach($datos['socios'] as $socios){
-                                                                ?><option  value="<?php echo $socios->id_socio?>"><?php echo $socios->nombre." ".$socios->apellidos?></option><?php
-                                                            }?>  
-                                                            </select>  
-                                                        </datalist>  
-                                                    </div>
-                                                    <!--div PARTICIPANTES -->
-                                                    <div class="col-6 mt-3 mb-3" id="inputParticipantes<?php echo $info->id_ingreso?>" style="display:none">  
-                                                        <input class="form-control form-control-lg" list="browsers2" name="browser2" id="browser2">
-                                                        <datalist id="browsers2" name="participante">
-                                                        <select>
-                                                            <?php foreach($datos['participantes'] as $participante){       
-                                                                ?><option value="<?php echo $participante->id_participante?>-<?php echo $participante->tipoParticipante?>"><?php echo $participante->nombre." ".$participante->apellidos?></option> 
-                                                                    <?php   
-                                                            }?>      
-                                                        </select>
-                                                        </datalist>  
-                                                    </div> 
-
-                                                    <!--div ENTIDADES -->
-                                                    <div class="col-6 mt-3 mb-3" id="inputEntidades<?php echo $info->id_ingreso?>" style="display:none">   
-                                                        <input class="form-control form-control-lg" list="browsers3" name="browser3" id="browser3">
-                                                        <datalist id="browsers3" name="entidad">
-                                                        <select>
-                                                            <?php foreach($datos['entidades'] as $entidad){
-                                                                ?><option name="idEntidades" value="<?php echo $entidad->id_entidad?>"><?php echo $entidad->nombre?></option>                          
-                                                                <?php
-                                                            }?>   
-                                                        </select> 
-                                                        </datalist> 
-                                            
-                                                    </div> 
-                                                </div>
-                                                
-          
-                                                <div class="row">
-                                                    <div class="col-6" >
-                                                        <label for="concepto">Concepto<sup>*</sup></label>
-                                                    </div>   
-                                                    <div class="col-6" id="labelEvento<?php echo $info->id_ingreso?>" style="display:none">
-                                                        <label for="labelEvento">Evento<sup>*</sup></label>
-                                                    </div>   
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6 mt-3 mb-3">  
-                                                        <input type="text" name="concepto" id="concepto" class="form-control form-control-lg" value="<?php echo $info->concepto?>" required>
-                                                    </div>
-                                                    <div class="col-6 mt-3 mb-3" id="inputEvento<?php echo $info->id_ingreso?>" style="display:none" >  
-                                                        <input type="text" class="form-control form-control-lg" list="browsers4" name="browser4" id="browser4">
-                                                        <datalist id="browsers4" name="inputEvento">
-                                                        <select>
-                                                            <?php foreach($datos['eventos'] as $eventos){
-                                                                ?><option value="<?php echo $eventos->id_evento?>"><?php echo $eventos->nombre?></option><?php
-                                                            }?>  
-                                                        </select>  
-                                                        </datalist>  
-                                                       
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                    <input type="hidden" name="id_viejo" id="id_viejo" value="<?php echo $info->id_ingreso?>">
-                                                    <input type="hidden" name="tipo_viejo" ind="tipo_viejo" value="<?php echo $info->tipo?>">
-                                                    <input type="submit" class="btn" value="Confirmar">
-                                                </form>
-                                            </div>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header azul">
+                                            <p class="modal-title ms-3">Informacion</p> 
+                                            <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                         </div>
-                                    </div>
-                                    </div>
 
 
-                                <!-- MODAL BORRAR -->
-                                &nbsp;&nbsp;&nbsp;
-                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $info->id_ingreso.$info->tipo?>" href="<?php echo RUTA_URL?>/adminFacturacion/borrarIngreso/<?php echo $info->id_ingreso?>">
+                                         <!-- Modal body -->
+                                        <div class="modal-body info mb-4">                         
+                                        <div class="container mt-4">
+
+                                            <div class="row mb-4">
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <label for="fecha" class="input-group-text">Fecha</label>
+                                                        <input type="date" class="form-control form-control-md" name="fecha" value="<?php echo $info->fecha?>"readonly>    
+                                                    </div> 
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <label for="importe" class="input-group-text">Importe</label>
+                                                        <input type="text" class="form-control form-control-md" name="importe" value="<?php echo $info->importe?>"readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Tipo</label>
+                                                    <input type="text" class="form-control form-control-md" name="tipo" value="<?php echo $info->tipo?>"readonly>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <?php
+                                            if($info->tipo=="Eventos"){?>
+                                                <div class="row mb-4" id="usuario" style="display:block">
+                                                    <div class="input-group">
+                                                        <label for="tipo" class="input-group-text">Evento</label>
+                                                        <select class="form-control" name="evento" readonly>
+                                                            <?php foreach($datos['parti_even'] as $pe){
+                                                                if($pe->id_participante==$info->id_participante){?>
+                                                                    <option> <?php echo $pe->evento?></option>
+                                                            <?php }
+                                                            }?> 
+                                                        </select>
+                                                    </div>
+                                                </div>   
+                                                <div class="row mb-4" id="usuario" style="display:block">
+                                                    <div class="input-group">
+                                                        <label for="tipo" class="input-group-text">Asociado a</label>
+                                                        <select class="form-control" name="socio" readonly>
+                                                            <option> <?php echo $info->inputado?></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            <?php }elseif (($info->tipo=="Equipacion") or ($info->tipo=="Cuotas") or ($info->tipo=="Entidades") ){?>
+                                                <div class="row mb-4" id="usuario" style="display:block">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Asociado a</label>
+                                                    <select class="form-control" name="socio" readonly>
+                                                        <option> <?php echo $info->inputado?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                           <?php }?>
+
+
+                                            <div class="row">
+                                                <div class="input-group mb-4">
+                                                    <textarea  type="text" style="height:150px" class="form-control" id="observaciones" name="observaciones" value="<?php echo $info->observaciones?>"readonly><?php echo $info->observaciones?></textarea>
+                                                </div>
+                                            </div>  
+
+                                        </div>
+                                        </div>
+                
+                                </div>
+                                </div>
+                                </div>  
+
+
+                                <!-- MODAL EDITAR -->                 
+                                <a data-bs-toggle="modal" data-bs-target="#editar<?php echo $info->id_ingreso?>">
+                                <img class="icono" src="<?php echo RUTA_Icon ?>editar.svg"></img>
+                                </a>
+
+                                <div class="modal" id="editar<?php echo $info->id_ingreso?>">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header azul">
+                                            <p class="modal-title ms-3">Edicion</p> 
+                                            <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                        </div>
+
+
+                                         <!-- Modal body -->
+                                        <div class="modal-body info mb-4">                         
+                                        <div class="container mt-4">
+
+                                        <form action="<?php echo RUTA_URL?>/adminFacturacion/editar_ingreso/<?php echo $info->id_ingreso?>" method="post">
+
+                                            <div class="row mb-4">
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <label for="fecha" class="input-group-text">Fecha</label>
+                                                        <input type="date" class="form-control form-control-md" name="fecha" value="<?php echo $info->fecha?>">    
+                                                    </div> 
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group">
+                                                        <label for="importe" class="input-group-text">Importe</label>
+                                                        <input type="text" class="form-control form-control-md" name="importe" value="<?php echo $info->importe?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Tipo de ingreso <sup>*</sup></label>
+                                                    <select class="form-control" name="tipo"  id="tipo_select<?php echo $info->id_ingreso?>" onchange="opcion_edi(<?php echo $info->id_ingreso?>)" required>
+                                                        <option value="">-- Selecciona una opcion--</option>
+                                                        <option value="Cuotas">Cuotas Socios</option>
+                                                        <option value="Equipacion">Equipacion socios</option>
+                                                        <option value="Entidades">Entidades colaboradoras</option>
+                                                        <option value="Eventos">Participantes a eventos</option>
+                                                        <option value="Otros">Otros ingresos</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4" id="soc<?php echo $info->id_ingreso?>" style="display:none">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Asociar ingreso a <sup>*</sup></label>
+                                                    <select class="form-control" name="socio">
+                                                        <option value="">-- Selecciona un socio --</option>
+                                                        <?php foreach ($datos['socios'] as $usu) : ?>
+                                                        <option value="<?php echo $usu->id_usuario?>"> <?php echo $usu->nombre.' '.$usu->apellidos?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4" id="enti<?php echo $info->id_ingreso?>" style="display:none">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Asociar ingreso a <sup>*</sup></label>
+                                                    <select class="form-control" name="entidad">
+                                                        <option value="">-- Selecciona una entidad --</option>
+                                                        <?php foreach ($datos['entidades'] as $enti) : ?>
+                                                        <option value="<?php echo $enti->id_entidad?>" > <?php echo $enti->nombre?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div> 
+                                            
+
+                                            <div class="row mb-4" id="even<?php echo $info->id_ingreso?>" style="display:none">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Evento <sup>*</sup></label>
+                                                    <select class="form-control" name="evento" id="tipo_even<?php echo $info->id_ingreso?>" onchange="op_edi(<?php echo $info->id_ingreso?>)">
+                                                        <option value="">-- Selecciona un evento --</option>
+                                                        <?php foreach ($datos['eventos'] as $even) : ?>
+                                                        <option value="<?php echo $even->id_evento?>"> <?php echo $even->nombre?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-4" id="parti<?php echo $info->id_ingreso?>" style="display:none">
+                                                <div class="input-group">
+                                                    <label for="tipo" class="input-group-text">Asociar ingreso a <sup>*</sup></label>
+                                                    <select class="form-control" name="participante" id="combo<?php echo $info->id_ingreso?>">
+                                                        <option value="">-- Selecciona un participante --</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="input-group mb-4">
+                                                    <textarea  type="text" style="height:150px" class="form-control" name="concepto" value="<?php echo $info->observaciones?>" ><?php echo $info->observaciones?></textarea>
+                                                </div>
+                                            </div>  
+
+                                            <div class="d-flex justify-content-end">
+                                                <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                                            </div> 
+
+                                            </form>
+
+                                        </div>
+                                        </div>
+                
+                                </div>
+                                </div>
+                                </div>  
+
+
+
+
+
+                               <!-- MODAL BORRAR -->
+                               <a data-bs-toggle="modal" data-bs-target="#borrar_<?php echo $info->id_ingreso?>">
                                   <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
                                     <!-- VENTANA -->
-                                    <div class="modal" id="ModalBorrar_<?php echo $info->id_ingreso.$info->tipo?>">
+                                    <div class="modal" id="borrar_<?php echo $info->id_ingreso?>">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
+                                    <div class="modal-content">
 
-                                             <!-- Modal Header -->
-                                             <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
- 
+
                                             <!-- Modal body -->
-                                            <div class="modal-body">
-                                                <h6>Seguro que quiere borrar el ingreso <?php echo $info->concepto?> del tipo <?php echo $info->tipo?>?</h6>
+                                            <div class="modal-body mt-3">
+                                            <p>Estas seguro que quieres <b>BORRAR</b> el ingreso correspondiente a <b><?php echo $info->tipo?></b> con fecha <b><?php echo $info->fecha?></b> ? </p>
                                             </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminFacturacion/borrarIngreso/<?php echo $info->id_ingreso?>" method="post">
-                                                    <input type="hidden" name="tipo" value="<?php echo $info->tipo?>">
-                                                    <button type="submit" class="btn">Borrar</button>
+                                                <form action="<?php echo RUTA_URL?>/adminFacturacion/borrar_ingreso/<?php echo $info->id_ingreso?>" method="post">
+                                                    <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
                                                 </form>
                                             </div>
-                                        </div>
+
                                     </div>
                                     </div>
+                                    </div>
+
+
+                               
                             </td>
                             <?php endif ?>
+                        
                         </tr>
                     
                         <?php
@@ -445,95 +313,253 @@
 
             </table>
 
-                    <!--AÑADIR-->
-                    <div class="col text-center">
-                        <a class="btn" id="añadir" href="<?php echo RUTA_URL?>/adminFacturacion/nuevoIngreso/">Nuevo ingreso</a>
-                    </div>
-                    <br>
 
-            </div>
+
+        <!-- AÑADIR NUEVO INGRESO-->
+        <div class="col text-center mt-5">
+            <a data-bs-toggle="modal" data-bs-target="#nuevo">
+                <input type="button" id="anadir" class="btn" value="Nuevo Ingreso">
+            </a>
         </div>
 
-        <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
-            <script>
+        <div class="modal" id="nuevo">
+        <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
 
-                    function abrir(idModal){
-                        var modal=document.getElementById(idModal);
-                         console.log(idModal);
-                         var body=document.getElementsByTagName("body")[0];
-                         modal.style.display="block";
-                         body.style.overflow="hidden";
-                    }
-
-                   function cerrar(idModal){
-                         var modal=document.getElementById(idModal);
-                         var body=document.getElementsByTagName("body")[0];
-                         modal.style.display="none";
-                         body.style.overflow="visible";
-                     }
+                <!-- Modal Header -->
+                <div class="modal-header azul">
+                    <p class="modal-title ms-3">Alta de ingresos</p> 
+                    <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                </div>
 
 
-                     function opciones(id) {
-                            console.log(id);
-                            var numero=id.slice(10);
-                            console.log(numero);
-                            var opcion=document.getElementById(id).value;
-                            console.log(opcion);
+                <!-- Modal body -->
+                <div class="modal-body info">                         
+                <div class="row ms-1 me-1">                                                                                                           
+                                                    
+                        <form action="<?php echo RUTA_URL?>/adminFacturacion/nuevo_ingreso" method="post">
 
-                            if(opcion=="actividades"){
-                                //alert("hola");
+                            <div class="row mt-4 mb-4">
+                                <div class="col-6">
+                                    <div class="input-group">
+                                        <label for="fecha" class="input-group-text">Fecha</label>
+                                        <input type="date" class="form-control form-control-md" name="fecha">    
+                                    </div> 
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group">
+                                        <label for="importe" class="input-group-text">Importe</label>
+                                        <input type="text" class="form-control form-control-md" name="importe">
+                                    </div>
+                                </div>
+                            </div>
 
-                                document.getElementById("labelSocios"+numero).style.display ="none";
-                                document.getElementById("labelParticipantes"+numero).style.display="block";
-                                document.getElementById("labelEntidades"+numero).style.display="none";
-                                document.getElementById("labelEvento"+numero).style.display="block";
+                            <div class="row mb-4">
+                                <div class="input-group">
+                                    <label for="tipo" class="input-group-text">Tipo de ingreso <sup>*</sup></label>
+                                    <select class="form-control" name="tipo"  id="tipo_select" onchange="opciones()" required>
+                                        <option value="">-- Selecciona una opcion--</option>
+                                        <option value="Cuotas">Cuotas Socios</option>
+                                        <option value="Equipacion">Equipacion socios</option>
+                                        <option value="Entidades">Entidades colaboradoras</option>
+                                        <option value="Eventos">Participantes a eventos</option>
+                                        <option value="Otros">Otros ingresos</option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
 
-                                document.getElementById("inputEvento"+numero).style.display = "block";
-                                document.getElementById("inputParticipantes"+numero).style.display = "block";
-                                document.getElementById("inputEntidades"+numero).style.display = "none";
-                                document.getElementById("inputSocios"+numero).style.display = "none";
-                                var soc2=document.getElementById("browser2");
-                                soc2.setAttribute("required",true);
-                                var soc4=document.getElementById("browser4");
-                                soc4.setAttribute("required",true);
+                            <div class="row mb-4" id="soc" style="display:none">
+                                <div class="input-group">
+                                    <label for="tipo" class="input-group-text">Asociar ingreso a <sup>*</sup></label>
+                                    <select class="form-control" name="socio">
+                                        <option value="">-- Selecciona un socio --</option>
+                                        <?php foreach ($datos['socios'] as $usu) : ?>
+                                        <option value="<?php echo $usu->id_usuario?>"> <?php echo $usu->nombre.' '.$usu->apellidos?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4" id="enti" style="display:none">
+                                <div class="input-group">
+                                    <label for="tipo" class="input-group-text">Asociar ingreso a <sup>*</sup></label>
+                                    <select class="form-control" name="entidad">
+                                        <option value="">-- Selecciona una entidad --</option>
+                                        <?php foreach ($datos['entidades'] as $enti) : ?>
+                                        <option value="<?php echo $enti->id_entidad?>"> <?php echo $enti->nombre?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div> 
+                            
 
-                            }else if (opcion=="cuotas"){
-                                //alert("adios");
+                            <div class="row mb-4" id="even" style="display:none">
+                                <div class="input-group">
+                                    <label for="tipo" class="input-group-text">Evento <sup>*</sup></label>
+                                    <select class="form-control" name="evento" id="tipo_even" onchange="opcion()">
+                                        <option value="">-- Selecciona un evento --</option>
+                                        <?php foreach ($datos['eventos'] as $even) : ?>
+                                        <option value="<?php echo $even->id_evento?>"> <?php echo $even->nombre?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
 
-                                document.getElementById("labelSocios"+numero).style.display ="block";
-                                document.getElementById("labelParticipantes"+numero).style.display="none";
-                                document.getElementById("labelEntidades"+numero).style.display="none";
-                                document.getElementById("labelEvento"+numero).style.display="none";
+                            <div class="row mb-4" id="parti" style="display:none">
+                                <div class="input-group">
+                                    <label for="tipo" class="input-group-text">Asociar ingreso a <sup>*</sup></label>
+                                    <select class="form-control" name="participante" id="combo">
+                                        <option value="">-- Selecciona un participante --</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                                document.getElementById("inputEvento"+numero).style.display="none";
-                                document.getElementById("inputParticipantes"+numero).style.display = "none";
-                                document.getElementById("inputEntidades"+numero).style.display = "none";
-                                document.getElementById("inputSocios"+numero).style.display = "block";
-                                var soc=document.getElementById("browser");
-                                soc.setAttribute("required",true);
-                                
-                            }else if(opcion=="otros") {
+                            <div class="row">
+                                <div class="input-group mb-4">
+                                    <textarea  type="text" style="height:150px" class="form-control" id="observaciones" name="observaciones" placeholder="Concepto"></textarea>
+                                </div>
+                            </div> 
 
-                                document.getElementById("labelSocios"+numero).style.display ="none";
-                                document.getElementById("labelParticipantes"+numero).style.display="none";
-                                document.getElementById("labelEntidades"+numero).style.display="block";
-                                document.getElementById("labelEvento"+numero).style.display="none";
+                            <div class="d-flex justify-content-end">
+                                <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                            </div> 
 
-                                document.getElementById("inputEvento"+numero).style.display="none";
-                                document.getElementById("inputParticipantes"+numero).style.display = "none";
-                                document.getElementById("inputEntidades"+numero).style.display = "block";
-                                document.getElementById("inputSocios"+numero).style.display = "none";
-                                var soc3=document.getElementById("browser3");
-                                soc3.setAttribute("required",true);
-                            }
+                        </form>
 
-                        }
+                    </div>
+                    </div>
 
+        </div>
+        </div>
+        </div>
 
 
-
+</article>
 
 
 
-            </script>
+    
+
+<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+
+
+ <script>
+
+
+
+
+   function opciones() {
+
+      var opcion=document.getElementById("tipo_select").value;
+
+      if (opcion=="Cuotas") {
+            document.getElementById("soc").style.display ="block";
+            document.getElementById("enti").style.display ="none";
+            document.getElementById("even").style.display ="none";
+            document.getElementById("parti").style.display ="none";
+      }else if (opcion=="Equipacion") {
+            document.getElementById("soc").style.display ="block";
+            document.getElementById("enti").style.display ="none";
+            document.getElementById("even").style.display ="none";
+            document.getElementById("parti").style.display ="none";
+      }else if (opcion=="Entidades") {
+            document.getElementById("soc").style.display ="none";
+            document.getElementById("enti").style.display ="block";
+            document.getElementById("even").style.display ="none";
+            document.getElementById("parti").style.display ="none";
+      }else if (opcion=="Eventos") {
+            document.getElementById("soc").style.display ="none";
+            document.getElementById("enti").style.display ="none";
+            document.getElementById("even").style.display ="block";
+            document.getElementById("parti").style.display ="none";
+      }else if (opcion=="Otros") {
+            document.getElementById("soc").style.display ="none";
+            document.getElementById("enti").style.display ="none";
+            document.getElementById("even").style.display ="none";
+            document.getElementById("parti").style.display ="none";
+      }
+      
+    }
+
+
+    function opcion() {
+        document.getElementById("parti").style.display ="block";
+    
+        var evento=document.getElementById("tipo_even").value;
+        console.log(evento);
+        var parti=document.getElementById("combo");
+
+        parti.innerHTML="";
+    
+        var part=<?php echo json_encode($datos['participantes']);?>;
+
+        for (let i = 0; i < part.length; i++) {
+            if(part[i]['id_evento']==evento){
+                var op=document.createElement("option")
+                op.setAttribute("value",part[i]['id_participante'])
+                op.innerHTML = part[i]['nombre']+" "+ part[i]['apellidos'];
+                parti.appendChild(op);
+            }
+        }   
+    }
+
+
+    function opcion_edi(id) {
+
+        var seleccion="tipo_select"+id;
+        var opcion=document.getElementById(seleccion).value;
+
+        if (opcion=="Cuotas") {
+            document.getElementById("soc"+id).style.display ="block";
+            document.getElementById("enti"+id).style.display ="none";
+            document.getElementById("even"+id).style.display ="none";
+            document.getElementById("parti"+id).style.display ="none";
+        }else if (opcion=="Equipacion") {
+            document.getElementById("soc"+id).style.display ="block";
+            document.getElementById("enti"+id).style.display ="none";
+            document.getElementById("even"+id).style.display ="none";
+            document.getElementById("parti"+id).style.display ="none";
+        }else if (opcion=="Entidades") {
+            document.getElementById("soc"+id).style.display ="none";
+            document.getElementById("enti"+id).style.display ="block";
+            document.getElementById("even"+id).style.display ="none";
+            document.getElementById("parti"+id).style.display ="none";
+        }else if (opcion=="Eventos") {
+            document.getElementById("soc"+id).style.display ="none";
+            document.getElementById("enti"+id).style.display ="none";
+            document.getElementById("even"+id).style.display ="block";
+            document.getElementById("parti"+id).style.display ="none";
+        }else if (opcion=="Otros") {
+            document.getElementById("soc"+id).style.display ="none";
+            document.getElementById("enti"+id).style.display ="none";
+            document.getElementById("even"+id).style.display ="none";
+            document.getElementById("parti"+id).style.display ="none";
+        }
+
+    }
+
+    function op_edi(id) {
+        document.getElementById("parti"+id).style.display ="block";
+    
+        var even=document.getElementById("tipo_even"+id).value;
+        var parti=document.getElementById("combo"+id);
+        parti.innerHTML="";
+    
+        var part=<?php echo json_encode($datos['participantes']);?>;
+
+        for (let i = 0; i < part.length; i++) {
+            if(part[i]['id_evento']==even){
+                var op=document.createElement("option")
+                op.setAttribute("value",part[i]['id_participante'])
+                op.innerHTML = part[i]['nombre']+" "+ part[i]['apellidos'];
+                parti.appendChild(op);
+            }
+        }   
+    }
+
+
+
+
+</script>

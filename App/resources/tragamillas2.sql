@@ -75,7 +75,7 @@ INSERT INTO `USUARIO` (`id_usuario`,`dni`,`nombre`,`apellidos`,`email`,`direccio
 
 
 
-
+/**********TABAL TEMPORADA ********/
 CREATE TABLE TEMPORADA(
     id_temp int primary key AUTO_INCREMENT,
     nombre varchar (100) not null,
@@ -83,6 +83,7 @@ CREATE TABLE TEMPORADA(
     fecha_fin date not null,
     observaciones varchar (500)
   );
+
 
 CREATE TABLE USUARIO_x_TEMPORADA(
     id_temp int,
@@ -102,14 +103,7 @@ CREATE TABLE ENTRENADOR(
   INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES
 (22, NULL);
 
-CREATE TABLE G_PERSONAL (
-    id_gasto int primary key AUTO_INCREMENT,
-    fecha date,
-    concepto varchar (500),
-    importe int,
-    id_usuario int,
-    constraint FK_id_usuario_gpers foreign key (id_usuario) references ENTRENADOR (id_usuario) on delete cascade on update cascade
-  );
+
 CREATE TABLE GRUPO(
     id_grupo int primary key AUTO_INCREMENT,
     nombre varchar (40),
@@ -251,8 +245,6 @@ CREATE TABLE SOCIO(
     constraint FK_id_socio_socio foreign key (id_socio) references USUARIO (id_usuario) on delete cascade on update cascade,
     constraint FK_familiar_socio foreign key (familiar) references SOCIO (id_socio) on delete cascade on update cascade
   );
-
-INSERT INTO `tragamillas2`.`SOCIO` (`id_socio`, `familiar`) VALUES  (33, 33);
 
 
 
@@ -422,6 +414,7 @@ CREATE TABLE CATEGORIA_SOCIO(
 
 
 /********** TABLA ENTIDADES *******/
+
 CREATE TABLE OTRAS_ENTIDADES(
     id_entidad int primary key AUTO_INCREMENT,
     cif varchar (15),
@@ -432,83 +425,34 @@ CREATE TABLE OTRAS_ENTIDADES(
     observaciones varchar (30)
   );
 
-INSERT INTO `tragamillas2`.`OTRAS_ENTIDADES` (`id_entidad`,`nombre`,`direccion`,`telefono`,`email`,`observaciones`)
-VALUES ('1','adidas','direccion','123456789','email@email.com','observaciones');
 
 
 
+-- CREATE TABLE I_CUOTAS(
+--     id_ingreso_cuota int primary key AUTO_INCREMENT,
+--     fecha date not null,
+--     concepto varchar (500) not null,
+--     importe int not null,
+--     id_usuario int not null,
+--     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
+--   );
+-- INSERT INTO
+--   `tragamillas2`.`I_CUOTAS` (
+--     `id_ingreso_cuota`,
+--     `fecha`,
+--     `concepto`,
+--     `importe`,
+--     `id_usuario`
+--   )
+-- VALUES
+--   (
+--     '000201507444',
+--     '2021-02-18',
+--     'CUOTA SOCIO TRAGAMILLAS',
+--     '30',
+--     '33'
+--   );
 
-
-CREATE TABLE I_OTROS(
-    id_ingreso_otros int primary key AUTO_INCREMENT,
-    fecha date not null,
-    concepto varchar (500) not null,
-    importe int not null,
-    id_entidad int,
-    constraint FK_id_entidad_i_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
-  );
-CREATE TABLE G_OTROS(
-    id_gastos int primary key AUTO_INCREMENT,
-    fecha date not null,
-    concepto varchar (500) not null,
-    importe int not null,
-    id_usuario int,
-    id_entidad int,
-    constraint FK_id_usuario_g_otros foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
-    constraint FK_id_entidad_g_otros foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
-  );
-
-CREATE TABLE I_CUOTAS(
-    id_ingreso_cuota int primary key AUTO_INCREMENT,
-    fecha date not null,
-    concepto varchar (500) not null,
-    importe int not null,
-    id_usuario int not null,
-    constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
-  );
-INSERT INTO
-  `tragamillas2`.`I_CUOTAS` (
-    `id_ingreso_cuota`,
-    `fecha`,
-    `concepto`,
-    `importe`,
-    `id_usuario`
-  )
-VALUES
-  (
-    '000201507444',
-    '2021-02-18',
-    'CUOTA SOCIO TRAGAMILLAS',
-    '30',
-    '33'
-  );
-
-CREATE TABLE EQUIPACION(
-    id_equipacion int primary key AUTO_INCREMENT,   
-    tipo varchar(100) not null,
-    imagen varchar (800),
-    descripcion varchar (1000),
-    precio int(3) not null,
-    temporada varchar (25),
-    id_ingreso_cuota int,
-    id_gastos int,
-    constraint FK_id_ingreso_cuota_equipacion foreign key (id_ingreso_cuota) references I_CUOTAS (id_ingreso_cuota) on delete cascade on update cascade,
-    constraint FK_id_gastos_equipacion foreign key (id_gastos) references G_OTROS (id_gastos) on delete cascade on update cascade
-  );
-
-
-CREATE TABLE SOLI_EQUIPACION(
-    id_soli_equi int AUTO_INCREMENT,
-    id_usuario int,
-    id_equipacion int, 
-    fecha_peticion date not null,
-    talla varchar(5) not null,
-    recogido tinyint(1) not null,
-    cantidad int not null,
-    primary key (id_soli_equi, id_usuario, id_equipacion),
-    constraint FK_id_usuario_soli_equi foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
-    constraint FK_id_equipacion_soli_equi foreign key (id_equipacion) references EQUIPACION (id_equipacion) on delete cascade on update cascade
-);
 
 
 /********** TABLA EVENTOS *******/
@@ -532,34 +476,6 @@ INSERT INTO `EVENTO` (`id_evento`, `id_usuario`, `nombre`, `tipo`, `precio`, `de
 (3, NULL, 'Campus Atletismo', 'campus', 100, '0', '2022-04-12', '2022-04-20', '2022-03-22', '2022-04-05'),
 (4, NULL, 'Triatlón Estanca', 'triatlón', 20, '0', '2022-06-04', '2022-06-05', '2022-03-22', '2022-05-20');
 
-
--- CREATE TABLE SOLICITUD_SOCIO_EVENTO(
---     id_usuario int,
---     id_evento int,
---     fecha date,
---     primary key (
---       id_usuario,
---       id_evento,
---       fecha
---     ),
---     constraint FK_id_usuario_solicitud_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
---     constraint FK_id_evento_solicitud_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
---   );
-
---   INSERT INTO `SOLICITUD_SOCIO_EVENTO` (`id_usuario`, `id_evento`, `fecha`) VALUES
--- (33, 1, '2022-03-22');
-
-
--- CREATE TABLE SOCIO_EVENTO(
---     id_usuario int,
---     id_evento int,
---     marca varchar (50),
---     fecha date not null,
---     dorsal int,
---     primary key (id_usuario, id_evento),
---     constraint FK_id_usuario_socio_evento foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade,
---     constraint FK_id_evento_socio_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
---   );
 
 
 CREATE TABLE PARTICIPANTE(
@@ -600,24 +516,71 @@ INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos
      constraint FK__id_evento_solicitud_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 
---   INSERT INTO `SOLICITUD_EXTER_EVENTO` (`id_externo`, `id_evento`, `fecha`) VALUES
--- (1, 1, '2022-03-22'),
--- (2, 1, '2022-03-22'),
--- (3, 1, '2022-03-22'),
--- (4, 1, '2022-03-22');
 
-CREATE TABLE I_ACTIVIDADES(
-    id_ingreso_actividades int primary key AUTO_INCREMENT,
+
+
+
+/************ TABLA GASTOS ********/
+
+  CREATE TABLE gastos(
+    id_gastos int primary key AUTO_INCREMENT,
+    fecha date not null,
+    tipo varchar (50),
+    importe int not null,
+    id_usuario int,
+    id_entidad int,
+    observaciones varchar(500),
+    constraint FK_id_usuario_gastos foreign key (id_usuario) references usuario (id_usuario) on delete cascade on update cascade,
+    constraint FK_id_entidad_gastos foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
+  );
+
+
+/*********** TABLA INGRESOS *********/
+
+CREATE TABLE ingresos(
+    id_ingreso int primary key AUTO_INCREMENT,
+    fecha date not null,
+    tipo varchar (50),
+    importe int not null,
+    id_entidad int,
     id_participante int,
     id_usuario int,
-    id_evento int not null,
-    fecha date not null,
-    concepto varchar (500) not null,
-    importe int not null,
-    constraint FK_id_participante_ing_actividades foreign key (id_participante) references PARTICIPANTE (id_participante) on delete cascade on update cascade,
-    constraint FK_id_evento_ing_actividades foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade,
-    constraint FK_id_usuario_ing_actividades foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
+    observaciones varchar (500) not null,
+    constraint FK_id_entidad foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade,
+    constraint FK_id_participante foreign key (id_participante) references PARTICIPANTE (id_participante) on delete cascade on update cascade,
+    constraint FK_id_usuario foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade
   );
+
+
+CREATE TABLE EQUIPACION(
+    id_equipacion int primary key AUTO_INCREMENT,   
+    tipo varchar(100) not null,
+    imagen varchar (800),
+    descripcion varchar (1000),
+    precio int(3) not null,
+    temporada varchar (25),
+    id_ingreso int,
+    id_gastos int,
+    constraint FK_id_ingreso_equipacion foreign key (id_ingreso) references ingresos(id_ingreso) on delete cascade on update cascade,
+    constraint FK_id_gastos_equipacion foreign key (id_gastos) references gastos (id_gastos) on delete cascade on update cascade
+  );
+
+
+CREATE TABLE SOLI_EQUIPACION(
+    id_soli_equi int AUTO_INCREMENT,
+    id_usuario int,
+    id_equipacion int, 
+    fecha_peticion date not null,
+    talla varchar(5) not null,
+    recogido tinyint(1) not null,
+    cantidad int not null,
+    primary key (id_soli_equi, id_usuario, id_equipacion),
+    constraint FK_id_usuario_soli_equi foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
+    constraint FK_id_equipacion_soli_equi foreign key (id_equipacion) references EQUIPACION (id_equipacion) on delete cascade on update cascade
+);
+
+
+
 
 
 create view GRUPOS_Y_HORARIOS as
@@ -639,76 +602,7 @@ where
   and HORARIO_GRUPO.id_horario = HORARIO.id_horario;
 
 
-create view INGRESOS as
-select
-  id_ingreso_actividades as id_ingreso,
-  fecha,
-  concepto,
-  importe,
-  'actividades' as tipo
-from
-  I_ACTIVIDADES
-union all
-select
-  id_ingreso_cuota as id_ingreso,
-  fecha,
-  concepto,
-  importe,
-  'cuotas' as tipo
-FROM
-  I_CUOTAS
-union all
-select
-  id_ingreso_otros as id_ingreso,
-  fecha,
-  concepto,
-  importe,
-  'otros' as tipo
-from
-  I_OTROS;
 
-
-create view GASTOS as
-select
-  id_gastos as id_gasto,
-  fecha,
-  concepto,
-  importe,
-  'otros' as tipo
-from
-  G_OTROS
-union all
-select
-  id_gasto as id_gasto,
-  fecha,
-  concepto,
-  importe,
-  'personal' as tipo
-FROM
-  G_PERSONAL;
-
-
--- create view PARTICIPANTE AS
--- select
---   SOCIO_EVENTO.id_usuario AS id_participante,
---   id_evento,
---   USUARIO.nombre,
---   USUARIO.apellidos,
---   "socio" as tipoParticipante
--- from
---   SOCIO_EVENTO,
---   USUARIO
--- WHERE
---   SOCIO_EVENTO.id_usuario = USUARIO.id_usuario
--- union
--- SELECT
---   id_externo as id_participante,
---   id_evento,
---   nombre,
---   apellidos,
---   "externo" as tipoParticipante
--- from
---   EXTERNO;
 
 
 -- create view EMAIL as

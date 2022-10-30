@@ -79,29 +79,29 @@
                                                 </div>
                                                 
                                                 <div class="col-8">
-                                                    <div class="row ">                         
-                                                        <div class="input-group mb-4">
+                                                    <div class="row mb-4">                         
+                                                        <div class="input-group">
                                                             <label for="nombre" class="input-group-text">Nombre</label>
                                                             <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $equipacion->tipo?>" readonly> 
                                                         </div>                           
                                                     </div> 
-                                                    <div class="row"> 
+                                                    <div class="row mb-4"> 
                                                         <div class="col-5">                 
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="precio" class="input-group-text">Precio</label>
                                                                 <input type="text" class="form-control form-control-md" id="precio" name="precio" value="<?php echo $equipacion->precio?>" readonly>
                                                             </div>
                                                         </div> 
                                                         <div class="col-7">                     
-                                                            <div class="input-group mb-4">
+                                                            <div class="input-group">
                                                                 <label for="temporada" class="input-group-text">Temporada</label>
                                                             <input type="text" class="form-control form-control-md" id="temporada" name="temporada" value="<?php echo $equipacion->temporada?>" readonly>  
                                                             </div>            
                                                         </div>
                                                     </div> 
-                                                    <div class="row">                         
-                                                        <div class="input-group mb-5">
-                                                            <textarea  type="text" style="height:180px" class="form-control" id="descripcion" name="descripcion" readonly><?php echo $equipacion->descripcion?></textarea>
+                                                    <div class="row mb-5">                         
+                                                        <div class="input-group">
+                                                            <textarea  type="text" style="height:150px" class="form-control" id="descripcion" name="descripcion" readonly><?php echo $equipacion->descripcion?></textarea>
                                                         </div>                           
                                                     </div> 
                                                 </div>
@@ -152,38 +152,39 @@
 
                                                         
                                                         <div class="col-8">
-                                                            <div class="row mt-2">                         
-                                                                <div class="input-group mb-4">
+                                                            <div class="row mt-2 mb-4">                         
+                                                                <div class="input-group">
                                                                     <label for="nombre" class="input-group-text">Nombre<sup>*</sup></label>
                                                                     <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $equipacion->tipo?>" required> 
                                                                 </div>                           
                                                             </div> 
-                                                            <div class="row"> 
+                                                            <div class="row mb-4"> 
                                                                 <div class="col-5">                 
-                                                                    <div class="input-group mb-4">
+                                                                    <div class="input-group">
                                                                         <label for="precio" class="input-group-text">Precio<sup>*</sup></label>
                                                                         <input type="text" class="form-control form-control-md" id="precio" name="precio" value="<?php echo $equipacion->precio?>" required>
                                                                     </div>
                                                                 </div> 
                                                                 <div class="col-7">                     
-                                                                    <div class="input-group mb-4">
+                                                                    <div class="input-group">
                                                                         <label for="temporada" class="input-group-text">Temporada</label>
                                                                     <input type="text" class="form-control form-control-md" id="temporada" name="temporada" value="<?php echo $equipacion->temporada?>">  
                                                                     </div>            
                                                                 </div>
                                                             </div> 
-                                                            <div class="row">                         
-                                                                <div class="input-group mb-4">
-                                                                    <textarea  type="text" style="height:200px" class="form-control" id="descripcion" name="descripcion"><?php echo $equipacion->descripcion?></textarea>
+                                                            <div class="row mb-4">                         
+                                                                <div class="input-group">
+                                                                    <textarea  type="text" style="height:150px" class="form-control" id="descripcion" name="descripcion"><?php echo $equipacion->descripcion?></textarea>
                                                                 </div>                           
                                                             </div> 
                                                         </div>
 
                                                     </div>
 
-                                                    <div class="row"> 
+                                                    <div class="row mb-4"> 
                                                         <div class="d-flex justify-content-end">
-                                                            <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                                                            <input type="hidden" name="foto_ant" value="<?php echo $equipacion->imagen?>">
+                                                            <input type="submit" class="btn" name="aceptar" id="confirmar" value="Confirmar"> 
                                                         </div>
                                                     </div>
 
@@ -295,8 +296,8 @@
                                             </div>
                                         </div> 
                                         <div class="row">                         
-                                            <div class="input-group mb-7">
-                                                <textarea  type="text" style="height:200px" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
+                                            <div class="input-group">
+                                                <textarea  type="text" style="height:150px" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion"></textarea>
                                             </div>                           
                                         </div> 
                                     </div>
@@ -305,7 +306,7 @@
 
                                 <div class="row"> 
                                     <div class="d-flex justify-content-end">
-                                        <input type="submit" class="btn mt-4 mb-3" name="aceptar" id="confirmar" value="Confirmar"> 
+                                        <input type="submit" class="btn mt-1 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
                                     </div>
                                 </div>
 
