@@ -1,67 +1,55 @@
 <?php
 
-class Mensaje
-{
+class Mensaje{
+
     private $db;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Base;
     }
 
 
-    public function obtenerEmail(){
-        $this->db->query("SELECT nombre,apellidos,email FROM USUARIO");
-        return $this->db->registros();
-    }
 
-    public function entrenadorGrupo($idUsu){
-        $this->db->query("SELECT GRUPO.nombre, GRUPO.id_grupo from GRUPO, ENTRENADOR_GRUPO 
-        where ENTRENADOR_GRUPO.id_usuario=:idUsu and GRUPO.id_grupo=ENTRENADOR_GRUPO.id_grupo;");
-        $this->db->bind(':idUsu',$idUsu);
-        return $this->db->registros();
-    }
-   
+//**********************MENSAJERIA ADMIN*********************************/
 
-    public function obtenerEmailGrupo(){
-        $this->db->query("SELECT ENTRENADOR_GRUPO.id_usuario, SOCIO_GRUPO.id_grupo, USUARIO.nombre, apellidos,SOCIO_GRUPO.id_usuario,email 
-        from USUARIO,ENTRENADOR_GRUPO,SOCIO_GRUPO 
-        where USUARIO.id_usuario=SOCIO_GRUPO.id_usuario and ENTRENADOR_GRUPO.id_grupo=SOCIO_GRUPO.id_grupo");
-        return $this->db->registros();   
-    }
+public function obtener_email_todos(){
+    $this->db->query("SELECT usuario.id_usuario as id, rol.nombre as tipo, usuario.nombre,apellidos,email FROM USUARIO, rol where usuario.id_rol=rol.id_rol
+    union all
+    select id_participante as id, 'Participantes' as tipo, nombre,apellidos, email from participante
+    union all
+    select id_entidad as id, 'Entidades' as tipo,nombre,'' as apellidos, email from otras_entidades");
+    return $this->db->registros();
+}
 
-
-//**********************MENSAJERIA ADMIN******************************** */
-
-     public function obtenerEmailsTodos(){
-         $this->db->query("SELECT usuario.id_rol, rol.nombre as tipo, usuario.nombre,apellidos,email FROM USUARIO, rol where usuario.id_rol=rol.id_rol");
-         return $this->db->registros();
-    }
-
-   public function obtenerEmailEntidades(){
-         $this->db->query("SELECT * FROM OTRAS_ENTIDADES");
-         return $this->db->registros();
-    }
-
-
-
-
-    // public function obtenerEmailEntre(){
-    //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=2");
-    //     return $this->db->registros();
-    // }
-
-    // public function obtenerEmailSocios(){
-    //     $this->db->query("SELECT * FROM USUARIO WHERE id_rol=3");
-    //     return $this->db->registros();
-    // }
-
-    // public function obtenerEmailExternos(){
-    //     $this->db->query("SELECT * FROM EXTERNO");
-    //     return $this->db->registros();
-    // }
 
    
+//**********************MENSAJERIA ENTRENADOR *********************************/
+
+// public function obtener_email_grupos(){
+//     $this->db->query("SELECT entrenador_grupo.id_grupo, grupo.nombre, socio_grupo.id_usuario as id_alumno,
+//     CONCAT(usuario.nombre,' ',usuario.apellidos) as alumno,email,
+//     entrenador_grupo.id_usuario as entrenador
+//     from entrenador_grupo,usuario,grupo,socio_grupo
+//     where socio_grupo.id_grupo=grupo.id_grupo and socio_grupo.id_usuario=usuario.id_usuario
+//     and entrenador_grupo.id_grupo=grupo.id_grupo;");
+//     return $this->db->registros();
+// }
+
+
+ public function entrenador_grupo($idUsu){
+     $this->db->query("SELECT GRUPO.nombre, GRUPO.id_grupo from GRUPO, ENTRENADOR_GRUPO 
+     where ENTRENADOR_GRUPO.id_usuario=:idUsu and GRUPO.id_grupo=ENTRENADOR_GRUPO.id_grupo;");
+     $this->db->bind(':idUsu',$idUsu);
+     return $this->db->registros();
+ }
+
+public function grupos_x_entrenador($id){
+    $this->db->query("SELECT * from grupos_x_entrenador where entrenador=:id");
+    $this->db->bind(':id',$id);
+    return $this->db->registros();
+}
+
+
 
 
 

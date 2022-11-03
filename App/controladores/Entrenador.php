@@ -1,12 +1,12 @@
 <?php
 
-        use PHPMailer\PHPMailer\PHPMailer;
-        use PHPMailer\PHPMailer\Exception;
-        use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\SMTP;
 
-        require_once RUTA_APP.'/librerias/PHPMailer/Exception.php';
-        require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
-        require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
+    require_once RUTA_APP.'/librerias/PHPMailer/Exception.php';
+    require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
+    require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
 
 
 class Entrenador extends Controlador{
@@ -16,10 +16,13 @@ class Entrenador extends Controlador{
 
             public function __construct(){
                 Sesion::iniciarSesion($this->datos);
-                $this->datos['rolesPermitidos'] = [2];          // Definimos los roles que tendran acceso
+                $this->datos['rolesPermitidos'] = [2];         
                 if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
                     redireccionar('/');
                 }
+
+                $this->adminModelo = $this->modelo('AdminModelo');
+
                 $this->testModelo = $this->modelo('Test');
                 $this->pruebaModelo = $this->modelo('Prueba');
                 $this->mensajeModelo = $this->modelo('Mensaje');
@@ -31,9 +34,12 @@ class Entrenador extends Controlador{
 //**************************************** PANTALLA INICAL ENTRENADOR *******************************************  
             
             public function index(){
+                $id=$this->datos['usuarioSesion']->id_usuario;
+                $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
                 $this->vista('entrenadores/inicio', $this->datos);
             }
 
+            
 //**************************************** SUBMENU GRUPOS *******************************************  
 
             public function grupos(){
@@ -147,6 +153,7 @@ class Entrenador extends Controlador{
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $testNuevo = [
                             'nombreTest' => trim($_POST['nombreTest']),
+                            'descripcion' => trim($_POST['descripcion'])
                         ];
 
                         if(isset($_POST['id_prueba'])){
@@ -173,6 +180,7 @@ class Entrenador extends Controlador{
                      } else{
                          $this->datos['test'] = (object) [
                              'nombreTest' => '',
+                             'descripcion' => '',
                          ];
                          //obtenemos los test
                          $this->datos['listaTest'] = $this->testModelo->obtenerTest();
@@ -214,6 +222,8 @@ class Entrenador extends Controlador{
                         $testModificado = [
                             'id_test' => trim($_POST['id_test']),
                             'nombreTest' => trim($_POST['nombreTest']),
+                            'fecha_alta' => trim($_POST['fecha']),
+                            'descripcion' => trim($_POST['descripcion']),
                             'id_prueba' => isset($_POST['id_prueba']) ? $_POST['id_prueba'] : ''
                         ];//var_dump($testModificado);
 
@@ -272,22 +282,35 @@ class Entrenador extends Controlador{
 
     }
 
+
+   // *********** SUBMENU: EVENTOS (funciones) ***********  
+
+   public function eventos(){
+    $idUsu=$this->datos['usuarioSesion']->id_usuario;
+   
+    // $this->datos['emails']=$this->mensajeModelo->obtener_email_grupo();
+    // $this->datos['emails']=$this->mensajeModelo->grupos_x_entrenador($idUsu);
+    // $this->datos['grupos']=$this->mensajeModelo->entrenador_grupo($idUsu);
+
+  
+
+    $this->vista('entrenadores/eventos', $this->datos);
+}
+
     
         // *********** SUBMENU: MENSAJERIA (funciones) ***********  
 
             public function mensajeria(){
-                //var_dump($this->datos['usuarioSesion']);
                 $idUsu=$this->datos['usuarioSesion']->id_usuario;
                
-                $this->datos['mensaje']=$this->mensajeModelo->obtenerEmailGrupo();
-                //var_dump($this->datos['mensaje']);
-                $this->datos['entrenadorGrupo']=$this->mensajeModelo->entrenadorGrupo($idUsu);
-                //var_dump($this->datos['entrenadorGrupo']);
+                // $this->datos['emails']=$this->mensajeModelo->obtener_email_grupo();
+                $this->datos['emails']=$this->mensajeModelo->grupos_x_entrenador($idUsu);
+                $this->datos['grupos']=$this->mensajeModelo->entrenador_grupo($idUsu);
 
                  if($_SERVER['REQUEST_METHOD']=='POST'){
                      $this->datos['emailsEnvio']= $_POST['seleccionados'];
                  } 
-                 $this->datos['miga1']="MENSAJERIA";
+
                 $this->vista('entrenadores/mensajeria', $this->datos);
             }
 
@@ -322,8 +345,8 @@ class Entrenador extends Controlador{
                         $mail->setFrom('sbr.design.reto@gmail.com');   // Remitente del correo
 
                         foreach($destinatario as $correo){
-                            echo $correo ."<br>";
-                             $mail->addAddress($correo); // Email destinatario
+                            //  $mail->addAddress($correo); //Email destinatario
+                             $mail->addBCC($correo);  
                         }
                           
                         $mail->isHTML(true);
@@ -342,7 +365,7 @@ class Entrenador extends Controlador{
                     }
 
                 }
-                    //redireccionar('/entrenador/mensajeria');
+                  redireccionar('/entrenador/mensajeria');
             }
 
 

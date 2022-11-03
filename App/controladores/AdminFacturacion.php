@@ -51,19 +51,19 @@ class AdminFacturacion extends Controlador{
         $this->datos['entidades']=$this->facturacionModelo->obtenerEntidades();
         $this->datos['participantes']=$this->facturacionModelo->obtenerParticipantes();
         $this->datos['parti_even']=$this->facturacionModelo->parti_even();
+
+        $this->datos['dat'] = $this->facturacionModelo->obtener_cuotas();
            
-        $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+        $this->vista('administradores/ingresos', $this->datos);
 
     }
 
 
     public function nuevo_ingreso(){
-
         $this->datos['rolesPermitidos'] = [1];         
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
         }
-
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
 
@@ -97,7 +97,7 @@ class AdminFacturacion extends Controlador{
                 'observaciones'=>''
             ];
 
-            $this->vista('administradores/crudFacturacion/ingresos',$this->datos);
+            $this->vista('administradores/ingresos',$this->datos);
         }
         
     }
@@ -117,24 +117,20 @@ class AdminFacturacion extends Controlador{
                 die('Algo ha fallado!!!');
             }
         }else{
-            $this->vista('administradores/crudFacturacion/ingresos', $this->datos);
+            $this->vista('administradores/ingresos', $this->datos);
         }
-
-
     }
 
 
-    public function editar_ingreso($id){
 
-            $this->datos['rolesPermitidos'] = [1];          
+    public function editar_ingreso($id){
+           $this->datos['rolesPermitidos'] = [1];          
             if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
                 redireccionar('/usuarios');
             }
 
-
         if($_SERVER['REQUEST_METHOD'] =='POST'){
            
-
                 $editar = [
                     'fecha' => trim($_POST['fecha']),
                     'importe'=> trim($_POST['importe']),
@@ -153,11 +149,50 @@ class AdminFacturacion extends Controlador{
 
             }else{
             
-                $this->vista('administradores/crudFacturacion/ingresos',$this->datos);
+                $this->vista('administradores/ingresos',$this->datos);
             }
         }
 
  
+    
+    public function exportar(){
+            $notific = $this->notificaciones();
+            $this->datos['notificaciones'] = $notific;  
+    
+            $cuotas = $this->facturacionModelo->obtener_cuotas();  
+
+            //creamos delimitador y archivo
+            $delimitador = ";";
+            $archivo = "cuotas_" . date('Y-m-d') . ".csv";  
+
+            //create a file pointer
+            $f = fopen('php://memory', 'w');    
+
+           //creamos las columnas
+            $columnas = array('Código', 'Nombre Deudor', 'IBAN', 'Importe', 'NIF-CIF', 'Linea 1 (70 caracteres)', 'Linea 2  (70 caracteres)', 'T.Adeudo', 'F.Firma', 'Titular de la cuenta cuando sea distinto del recibo -Opcional-', 'Domicilio  -Opcional -', 'Cód.Postal', 'Poblacion', 'Provincia');
+            fputcsv($f, $columnas, $delimitador);
+
+            // creamos filas con el array $licencias
+         
+            foreach ($cuotas as $cuota) {
+                $fila=array($cuota->id_ingreso, $cuota->apellidos_nombre, $cuota->CCC, $cuota->importe, 
+                $cuota->dni, $cuota->observaciones, $cuota->observaciones, $cuota->observaciones, $cuota->fecha, 
+                $cuota->apellidos_nombre, $cuota->direccion, $cuota->cod_postal, $cuota->poblacion, $cuota->provincia);
+                fputcsv($f, $fila, $delimitador);
+            }
+
+            //al principio del archivo
+            fseek($f, 0);
+        
+         
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="' . $archivo . '";');
+        
+            fpassthru($f);
+    
+        }
+
+
 
 //**********************************************************************/
 //********************* FUNCIONES GASTOS ******************************/
@@ -172,7 +207,7 @@ class AdminFacturacion extends Controlador{
         $this->datos['entidades']=$this->entidadModelo->obtener_entidades();
         $this->datos['usuarios']=$this->adminModelo->obtenerUsuarios();
 
-        $this->vista('administradores/crudFacturacion/gastos', $this->datos);
+        $this->vista('administradores/gastos', $this->datos);
     }
 
 
@@ -190,7 +225,7 @@ class AdminFacturacion extends Controlador{
                 die('Algo ha fallado!!!');
             }
         }else{
-            $this->vista('administradores/crudFacturacion/gastos', $this->datos);
+            $this->vista('administradores/gastos', $this->datos);
         }
     }
 
@@ -246,7 +281,7 @@ class AdminFacturacion extends Controlador{
                 'observaciones'=>''
             ];
 
-            $this->vista('administradores/crudFacturacion/gastos',$this->datos);
+            $this->vista('administradores/gastos',$this->datos);
         }
     }
 
@@ -292,29 +327,12 @@ class AdminFacturacion extends Controlador{
     
             }else{
 
-                $this->vista('administradores/crudFacturacion/gastos',$this->datos);
+                $this->vista('administradores/gastos',$this->datos);
             }
 
         }
 
 
-
-
-
-      public function cuotas($page = 1) {
-         $this->limit = 4;
-         $this->page = is_numeric($page) && $page > 0 ? $page : 1;
-          $this->links = 7;
-
-         $this->datos['cuotas'] = $this->facturacionModelo->getCuotasUsuario($this->limit, $this->page);
-         // $this->datos['paginator'] = $this->facturacionModelo->getPaginator();
-
-          $this->vista('administradores/cuotas/index',$this->datos);     }
-
-    //  public function exportData(){
-    //      $this->datos['cuotas'] = $this->facturacionModelo->getAllCuotasUsuario();
-    //      $this->vista('administradores/cuotas/exportData',$this->datos);
-    //  }
 
 
 

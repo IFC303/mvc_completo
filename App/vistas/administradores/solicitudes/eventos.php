@@ -105,7 +105,7 @@
                                                                 <select class="form-control" name="evento" id="evento" required>
                                                                         <option value="">-- Seleciona un evento --</option>
                                                                         <?php foreach ($datos['eventos'] as $even) : ?>
-                                                                        <option value="<?php echo $even->id_evento?>"><?php echo $even->nombre ?></option>
+                                                                        <option value="<?php echo $even->id_evento?>" <?php if($even->id_evento==$usuarios->id_evento){ echo "selected";};?>><?php echo $even->nombre ?></option>
                                                                         <?php endforeach ?>
                                                                 </select>
                                                         </div>

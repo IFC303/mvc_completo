@@ -20,8 +20,9 @@ class Test
 
     public function agregarSoloTest($datos){
         
-        $this->db->query("INSERT INTO TEST (nombreTest,fecha_alta) VALUES (:nombre, CURDATE())");
+        $this->db->query("INSERT INTO TEST (nombreTest,fecha_alta,descripcion) VALUES (:nombre, CURDATE(),:descripcion)");
         $this->db->bind(':nombre', $datos['nombreTest']);
+        $this->db->bind(':descripcion', $datos['descripcion']);
         
         if ($this->db->execute()){
             return $this->db->ultimoIndice();
@@ -78,9 +79,11 @@ class Test
         //var_dump($testModificado);
         
                 //actualizamos tabla TEST (nombre)
-                    $this->db->query("UPDATE TEST SET nombreTest=:nombreTest WHERE id_test = :id_test");
+                    $this->db->query("UPDATE TEST SET nombreTest=:nombreTest, fecha_alta=:fecha_alta, descripcion=:descripcion WHERE id_test = :id_test");
                     $this->db->bind(':id_test',$testModificado['id_test']);
                     $this->db->bind(':nombreTest', $testModificado['nombreTest']);
+                    $this->db->bind(':fecha_alta', $testModificado['fecha_alta']);
+                    $this->db->bind(':descripcion', $testModificado['descripcion']);
                     $this->db->execute();
                   
 

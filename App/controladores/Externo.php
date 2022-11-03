@@ -11,12 +11,12 @@ class Externo extends Controlador{
 
 
     public function __construct(){
-        Sesion::iniciarSesion($this->datos);
+        // Sesion::iniciarSesion($this->datos);
 
-        $this->datos['rolesPermitidos'] = [1];       
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/');
-        }
+        // $this->datos['rolesPermitidos'] = [1];       
+        // if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        //     redireccionar('/');
+        // }
 
         $this->adminModelo = $this->modelo('AdminModelo');
         $this->externoModelo = $this->modelo('ExternoModelo');
@@ -37,7 +37,7 @@ class Externo extends Controlador{
  public function index(){
     // $notific = $this->notificaciones();
     // $this->datos['notificaciones'] = $notific;
-    $this->vista('administradores/solicitudes',$this->datos);
+ $this->vista('administradores/solicitudes',$this->datos);
 }
 
 

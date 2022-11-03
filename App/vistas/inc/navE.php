@@ -31,13 +31,15 @@
             <a id="home" href="<?php echo RUTA_URL ?>/socio" class="nav-link">
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 
             </a>                                     
-
             <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link">
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">GRUPOS</span>
             </a>                          
             <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">TEST</span>
-            </a>                           
+            </a>      
+            <a href="<?php echo RUTA_URL ?>/entrenador/eventos" class="nav-link" >
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>eventos.png"><span class="tMenu">EVENTOS</span>
+            </a>                      
             <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link">                           
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">MENSAJERIA</span>                                                          
             </a>                            

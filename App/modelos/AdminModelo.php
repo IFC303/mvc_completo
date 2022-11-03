@@ -105,8 +105,6 @@ public function borrar_usuario($id){
 
 public function nuevo_usuario($nuevo){
 
-    $pass=$nuevo['nombre'].'-'.$nuevo['telefono'];
-
     $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, ha_sido, activado, id_rol, nom_pa, ape_pa, dni_pa) 
                     VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :pri_socio, 1, :rol, :nom_pa, :ape_pa, :dni_pa);");
 
@@ -124,12 +122,10 @@ public function nuevo_usuario($nuevo){
         $this->db->bind(':nom_pa', $nuevo['nom_pa']);
         $this->db->bind(':ape_pa', $nuevo['ape_pa']);
         $this->db->bind(':dni_pa', $nuevo['dni_pa']);
-
-        $this->db->bind(':pass', $pass);
+        $this->db->bind(':pass', $nuevo['pass']);
         $this->db->execute();
 
         $id_usu = $this->db->ultimoIndice();  
-
 
         $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($id_usu, NULL);");
         $this->db->execute();

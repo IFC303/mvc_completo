@@ -1,0 +1,35 @@
+
+/********************* PAGINA INICIO **********************/
+
+.inicio a{
+    text-decoration:none; 
+    color:black;
+}
+
+.inicio a:visited{
+    text-decoration:none; 
+    color:black;
+}
+
+.inicio{
+    font-family: 'Doppio One', sans-serif;
+}
+
+#dibu{
+    width:80px; height:80px;
+}
+
+#dibu img{
+    width:60px; height:60px;
+}
+
+.nombre{
+    margin-top:10px;  margin-left:30px; font-size:20px
+}
+
+.descripcion{
+    font-size:14px; margin-top:-15px;  margin-left:30px;
+}
+
+
+

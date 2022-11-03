@@ -109,8 +109,8 @@
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>temporadas.png"><span class="tMenu">TEMPORADAS</span>
             </a>    
 
-            <a href="<?php echo RUTA_URL ?>" class="nav-link">                           
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>ranking.png"><span class="tMenu">RANKINGS</span>                                                          
+            <a href="<?php echo RUTA_URL?>/adminInformes" class="nav-link">                           
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>ranking.png"><span class="tMenu">INFORMES</span>                                                          
             </a>     
 
 
@@ -122,7 +122,6 @@
                 <div class="dropdown-container">
                     <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="nav-link"><span class="tMenu ms-5 ps-5">INGRESOS</span></a>
                     <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="nav-link "><span class="tMenu ms-5 ps-5">GASTOS</span></a>
-                    <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas" class="nav-link "><span class="tMenu ms-5 ps-5">CUOTAS</span></a>
                 </div>
             </div>
                        

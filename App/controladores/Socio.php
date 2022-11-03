@@ -3,14 +3,15 @@
 class Socio extends Controlador{
 
 
-
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
-        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
-
+        $this->datos['rolesPermitidos'] = [3];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
+
+        $this->adminModelo = $this->modelo('AdminModelo');
+
         $this->SocioModelo = $this->modelo('SocioModelo');
         $this->equipacionModelo = $this->modelo('Equipacion');     
         $this->eventoModelo = $this->modelo('Evento');   
@@ -20,6 +21,8 @@ class Socio extends Controlador{
 
 // *********** PAGINA PRINCIPAL SOCIO ***********  
     public function index(){
+        $id=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
         $this->vista('socios/inicio', $this->datos);
     }
 
@@ -245,7 +248,6 @@ class Socio extends Controlador{
      
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->SocioModelo->eventoSoli($id_evento,$datosUser)) {
-
                 redireccionar('/socio/escuela');
             } else {
                 die('Algo ha fallado!!!');

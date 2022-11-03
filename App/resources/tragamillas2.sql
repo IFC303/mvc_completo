@@ -319,12 +319,10 @@ INSERT INTO `PRUEBA` (`id_prueba`, `nombrePrueba`, `tipo`) VALUES
 
 CREATE TABLE TEST(
     id_test int primary key AUTO_INCREMENT,
-    nombreTest varchar (30)
+    nombreTest varchar (30) not null,
+    fecha_alta date not null,
+    descripcion varchar(500)
   );
-
-INSERT INTO `TEST` (`id_test`, `nombreTest`) VALUES
-  (1, 'test primavera'),
-  (2, 'test invierno');
 
 
 /***** TABLA PRUEBA-SOCIO *****/
@@ -342,8 +340,6 @@ CREATE TABLE PRUEBA_SOCIO(
     constraint FK_id_socio_prueba_socio foreign key (id_socio) references SOCIO (id_socio) on delete cascade on update cascade,
 	  constraint FK_id_test_prueba_socio foreign key (id_test) references TEST (id_test) on delete cascade on update cascade
   );
-
-
 
 
 
@@ -603,6 +599,14 @@ where
 
 
 
+
+/*********VISTAS **************/
+create view grupos_x_entrenador as SELECT entrenador_grupo.id_grupo, grupo.nombre, socio_grupo.id_usuario as id_alumno,
+CONCAT(usuario.nombre,' ',usuario.apellidos) as alumno,email,
+entrenador_grupo.id_usuario as entrenador
+from entrenador_grupo,usuario,grupo,socio_grupo
+where socio_grupo.id_grupo=grupo.id_grupo and socio_grupo.id_usuario=usuario.id_usuario
+and entrenador_grupo.id_grupo=grupo.id_grupo;
 
 
 -- create view EMAIL as

@@ -30,11 +30,7 @@
       
             <a id="home" href="<?php echo RUTA_URL ?>/socio" class="nav-link">
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 
-            </a>                                     
-
-            <a href="<?php echo RUTA_URL ?>/socio/modificarDatos" class="nav-link">
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>editar.png"><span class="tMenu">MIS DATOS</span>
-            </a>                          
+            </a>                                                  
             <a href="<?php echo RUTA_URL ?>/socio/licencias" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>licencias.png"><span class="tMenu">LICENCIAS</span>
             </a>                           

@@ -30,6 +30,7 @@
                             <th>FECHA</th>
                             <th>TIPO</th>
                             <th>IMPORTE</th>
+                            <th>ASOCIADO A</th>
                             <th>CONCEPTO</th>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
@@ -48,6 +49,7 @@
                             <td><?php echo $info->fecha?></td>
                             <td><?php echo $info->tipo?></td>
                             <td><?php echo $info->importe?></td>
+                            <td><?php echo $info->inputado?></td>
                             <td><?php echo $info->observaciones?></td>
 
 
@@ -315,16 +317,86 @@
 
 
 
-        <!-- AÑADIR NUEVO INGRESO-->
+        <!-- BOTONES-->
         <div class="col text-center mt-5">
             <a data-bs-toggle="modal" data-bs-target="#nuevo">
                 <input type="button" id="anadir" class="btn" value="Nuevo Ingreso">
             </a>
+            <a class="btn" data-bs-toggle="modal" data-bs-target="#exportar" id="botonVolver">Exportar cuotas</a>
         </div>
 
 
+
+        <!-- EXCELL CUOTAS-->
+        <div class="modal" id="exportar">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+        <div class="modal-content">
+             <!-- Modal Header -->
+             <div class="modal-header azul">
+                <p class="modal-title ms-3">Exportar cuotas a CSV</p> 
+                <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body info">                         
+            <div class="row ms-1 me-1">
+            <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre Deudor</th>
+                            <th>IBAN</th>
+                            <th>Importe</th>
+                            <th>NIF-CIF</th>
+                            <th>Linea 1</th>
+                            <th>Linea 2</th>
+                            <th>T.Adeudo</th>
+                            <th>F.Firma</th>
+                            <th>Titular</th>
+                            <th>Domicilio</th>
+                            <th>Cód.Postal</th>
+                            <th>Poblacion</th>
+                            <th>Provincia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($datos['dat'] as $cuota) : ?>
+                            <tr>
+                                <td class="datos_tabla"><?php echo $cuota->id_ingreso ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->apellidos_nombre ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->CCC ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->importe ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->dni ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->observaciones?></td>
+                                <td class="datos_tabla"><?php echo $cuota->observaciones ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->observaciones ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->fecha ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->apellidos_nombre ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->direccion ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->cod_postal ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->poblacion ?></td>
+                                <td class="datos_tabla"><?php echo $cuota->provincia ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+            </div> 
+
+            <div class="col text-center mt-5">
+            <a class="btn btn-warning text-white" style="font-weight:bold" href="<?php echo RUTA_URL?>/adminFacturacion/exportar">EXPORTAR</a>
+            </div>
+ 
+
+        </div>
+        </div>
+        </div>
+
+
+
+
+        <!-- AÑADIR NUEVO INGRESO-->
         <div class="modal" id="nuevo">
-        <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
                 <!-- Modal Header -->

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos-inicio.css">
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,20 +30,20 @@
 
             <nav class="menu1" id="menu1">
          
-                <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link">   
-                <div class="mt-2">
-                    <img style="width:100px; height:60px;"  src="<?php echo RUTA_Icon ?>corredor.png">
-                    <img style="width:200px; height:60px;"  src="<?php echo RUTA_Icon ?>todo2.png"> 
-                </div>                                        
-                </a>   
+                    <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link">   
+                    <div class="mt-2">
+                        <img style="width:100px; height:60px;"  src="<?php echo RUTA_Icon ?>corredor.png">
+                        <img style="width:200px; height:60px;"  src="<?php echo RUTA_Icon ?>todo2.png"> 
+                    </div>                                        
+                    </a>   
 
 
-                <div class="row d-flex align-items-center justify-content-center">
-                <div class="card shadow-lg mt-5 w-75 h-75">
+                    <div class="row d-flex align-items-center justify-content-center">
+                    <div class="card shadow-lg mt-5 w-75 h-75">
 
-                    <img class="card-img mt-3" <?php if ($datos['usuarioSesion']->foto==''){
-                                ?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;
-                                }else {?> src='<?php echo RUTA_ImgDatos.$datos['usuarioSesion']->id_usuario.'.jpg';} ?>' width="275" height="275">
+                        <img class="card-img mt-3" <?php if ($datos['usuarioSesion']->foto==''){
+                        ?> src='<?php echo RUTA_Icon?>usuario.svg'<?php ;
+                        }else {?> src='<?php echo RUTA_ImgDatos.$datos['usuarioSesion']->id_usuario.'.jpg';} ?>' width="275" height="275">
 
 
                     <div class="card-body">
@@ -205,150 +207,128 @@
     <!----------------------------------------------------------------------->
 
 
-
-
 <article>
 
-        <div class="row d-flex justify-content-center inicio" style="font-family: 'Doppio One', sans-serif;">
-
+        <div class="row d-flex justify-content-center inicio">
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminUsuarios">
-                    <div id="colorUsuarios" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminUsuarios">
+                    <div id="colorUsuarios" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#264475"><img src="<?php echo RUTA_Icon ?>usuario.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">USUARIOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Crea nuevos usuarios de la aplicacion</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>usuario.png"></div>
+                            <div class="col-8"><p class="nombre">USUARIOS</p><p class="descripcion">Crea y gestiona nuevos usuarios de la aplicacion</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
-                <div id="colorSoli" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuSol">
+                <div id="colorSoli" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuSol">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>solicitudes.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">SOLICITUDES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Confirmacion y anulacion de solicitudes</p></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>solicitudes.png"></div>
+                        <div class="col-8"><p class="nombre">SOLICITUDES</p><p class="descripcion">Confirma o rechaza solicitudes</p></div>
                     </div>                              
                 </div>     
             </div>
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminGrupos">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminGrupos">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>grupos.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">GRUPOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>grupos.png"></div>
+                            <div class="col-8"><p class="nombre">GRUPOS</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-
         </div>
 
 
-<div class="row d-flex justify-content-center inicio" style="font-family: 'Doppio One', sans-serif;">
-
-
+        <div class="row d-flex justify-content-center inicio">
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminEventos">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminEventos">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EVENTOS</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Crea nuevos eventos y gestiona los participantes</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>eventos.png"></div>
+                            <div class="col-8"><p class="nombre">EVENTOS</p><p class="descripcion">Organiza nuevos eventos y añade participantes</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminLicencias">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminLicencias">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>licencias.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">LICENCIAS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style=" background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>licencias.png"></div>
+                            <div class="col-8"><p class="nombre">LICENCIAS</p><p class="descripcion">Visualiza, registra y exporta licencias</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminEntidades">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminEntidades">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#264475"><img src="<?php echo RUTA_Icon ?>entidad.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">ENTIDADES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Gestion de las entidades colaboradoras con el club</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>entidad.png"></div>
+                            <div class="col-8"><p class="nombre">ENTIDADES</p><p class="descripcion">Administra las entidades colaboradoras con el club</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
+        </div>
 
-</div>
 
-
-<div class="row d-flex justify-content-center inicio" style="font-family: 'Doppio One', sans-serif;">
-
+        <div class="row d-flex justify-content-center inicio">
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
-                <div id="colorEquip" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
+                <div id="colorEquip" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>carrito.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">EQUIPACIONES</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Administracion de nuevos modelos y pedidos</p></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>carrito.png"></div>
+                        <div class="col-8"><p class="nombre">EQUIPACIONES</p><p class="descripcion">Añade nuevos modelos y gestiona pedidos</p></div>
                     </div>                              
                 </div>     
             </div>
-
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminTemporadas">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminTemporadas">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>temporadas.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">TEMPORADAS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>temporadas.png"></div>
+                            <div class="col-8"><p class="nombre">TEMPORADAS</p><p class="descripcion">Inicia o cierra una temporada</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminRankings">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminInformes">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>ranking.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">RANKINGS</p><p style="font-size:14px;margin-top:-15px;   margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>ranking.png"></div>
+                            <div class="col-8"><p class="nombre">INFORMES</p><p class="descripcion">Visualiza informes y rankings</p></div>
                         </div>                              
                     </div> 
                 </a>
-            </div>
-            
-</div>
+            </div>           
+        </div>
 
 
-<div class="row d-flex justify-content-center inicio" style="font-family: 'Doppio One', sans-serif;">
-
+        <div class="row d-flex justify-content-center inicio">
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">      
-                <div id="colorFact" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuFac">
+                <div id="colorFact" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuFac">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>euro.png" width="60" height="60"></div>
-                        <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">FACTURACION</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>euro.png"></div>
+                        <div class="col-8"><p class="nombre">FACTURACION</p><p class="descripcion">Visualiza y registra tus marcas</p></div>
                     </div>                              
                 </div>     
             </div>
-
             <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/adminMensajeria">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:130px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <a href="<?php echo RUTA_URL ?>/adminMensajeria">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:80px; height:80px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>mensajeria.png" width="60" height="60"></div>
-                            <div class="col-8"><p style="margin-top:10px;  margin-left:30px; font-size:20px">MENSAJERIA</p><p style="font-size:14px; margin-top:-15px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>mensajeria.png"></div>
+                            <div class="col-8"><p class="nombre">MENSAJERIA</p><p class="descripcion">Manda mensajes o comunicados generales</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-
-            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-           
-            </div>
-            
-</div>
+            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">           
+            </div>           
+        </div>
 
 
     </article>
@@ -361,36 +341,32 @@
 <!-- SOLICITUDES -->
 <div class=" menu1 offcanvas offcanvas-start" id="menuSol" style="background-color:#0070c6;">
     <div id="home" class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon ?>solicitudes.png" width="50" height="50">
-        <h1 class="offcanvas-title text-white">SOLICITUDES</h1>
-        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        <h1 class="offcanvas-title text-white ms-3">SOLICITUDES</h1>
+        <button style="background-color:white" type="button" class="btn-close me-2" data-bs-dismiss="offcanvas"></button>
     </div>
-    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/socios" class="tMenu nav-link text-white">SOCIOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);  ?></span></a>
-    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class=" tMenu nav-link text-white ">GRUPOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);  ?></span></a>         
-    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/eventos" class="tMenu nav-link text-white">EVENTOS<span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);  ?></span></a> 
+    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/socios" class="tMenu nav-link text-white"><span class="ms-4">SOCIOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][0]);?></span></span></a>
+    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class=" tMenu nav-link text-white "><span class="ms-4">GRUPOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][1]);?></span></span></a>         
+    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/eventos" class="tMenu nav-link text-white"><span class="ms-4">EVENTOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][2]);?></span</span></a> 
 </div>
 
 <!-- EQUIPACIONES -->
 <div class="menu1 offcanvas offcanvas-start" id="menuEqui" style="background-color:#0070c6;">
     <div id="home" class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon?>carrito.png" width="50" height="50">
-        <h1 class="offcanvas-title text-white">EQUIPACIONES</h1>
-        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        <h1 class="offcanvas-title text-white ms-3">EQUIPACIONES</h1>
+        <button style="background-color:white" type="button" class="btn-close me-2" data-bs-dismiss="offcanvas"></button>
     </div>
-    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="tMenu nav-link text-white">PEDIDOS <span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][3]);?></span></a>
-    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="tMenu nav-link text-white">GESTION</a>   
+    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/pedidos" class="tMenu nav-link text-white"><span class="ms-4">PEDIDOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][3]);?></span></span></a>
+    <a href="<?php echo RUTA_URL ?>/adminEquipaciones/gestion" class="tMenu nav-link text-white"><span class="ms-4">GESTION</span></a>   
 </div>
 
 <!-- FACTURACION -->
 <div class=" menu1 offcanvas offcanvas-start" id="menuFac" style="background-color:#0070c6;">
     <div id="home" class="offcanvas-header home">
-        <img src="<?php echo RUTA_Icon ?>euro.png" width="50" height="50">
-        <h1 class="offcanvas-title text-white">FACTURACION</h1>
-        <button style="background-color:white" type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>            
+        <h1 class="offcanvas-title text-white ms-3">FACTURACION</h1>
+        <button style="background-color:white" type="button" class="btn-close me-2" data-bs-dismiss="offcanvas"></button>            
     </div> 
-    <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="tMenu nav-link text-white">INGRESOS</a>          
-    <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="tMenu nav-link text-white">GASTOS</a>      
-    <a href="<?php echo RUTA_URL ?>/adminFacturacion/cuotas" class="tMenu nav-link text-white">CUOTAS</a>      
+    <a href="<?php echo RUTA_URL ?>/adminFacturacion/ingresos" class="tMenu nav-link text-white"><span class="ms-4">INGRESOS</span></a>          
+    <a href="<?php echo RUTA_URL ?>/adminFacturacion/gastos" class="tMenu nav-link text-white"><span class="ms-4">GASTOS</span></a>      
 </div>
 
 
@@ -402,6 +378,7 @@
 
 
 <script>
+
     function colorear(icono) {
         icono.style.backgroundColor = '#ffbf1c';
     }
@@ -411,24 +388,23 @@
     }
 
 
+    var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+    URL.revokeObjectURL(output.src)
+    }
+    };
 
-        var loadFile = function(event) {
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-        URL.revokeObjectURL(output.src)
-        }
-        };
-
-        var loadFile2 = function(event,id) {
-        var output = document.getElementById('outputEdit'+id);
-        console.log(output);
-        output.src = URL.createObjectURL(event.target.files[0]);
-        //console.log(output.src);
-        output.onload = function() {
-        URL.revokeObjectURL(output.src)
-        }
-        };
+    var loadFile2 = function(event,id) {
+    var output = document.getElementById('outputEdit'+id);
+    console.log(output);
+    output.src = URL.createObjectURL(event.target.files[0]);
+    //console.log(output.src);
+    output.onload = function() {
+    URL.revokeObjectURL(output.src)
+    }
+    };
 
 
 

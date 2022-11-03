@@ -3,7 +3,6 @@
 class AdminTemporadas extends Controlador{
 
 
-
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
 

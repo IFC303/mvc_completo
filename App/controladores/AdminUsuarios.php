@@ -59,6 +59,10 @@ public function nuevo_usuario(){
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+        $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password = substr(str_shuffle($caracteres), 0, 8 );
+        $pass=trim($_POST["nombre"]).$password;
+
         $nuevo = [
             'nombre' => trim($_POST["nombre"]),
             'apellidos' => trim($_POST["apellidos"]),
@@ -73,23 +77,27 @@ public function nuevo_usuario(){
             'pri_socio' => trim($_POST['pri_socio']),
             'nom_pa' => trim($_POST['nomPa']),
             'ape_pa' => trim($_POST['apePa']),
-            'dni_pa' => trim($_POST['dniPa'])
+            'dni_pa' => trim($_POST['dniPa']),
+            'pass' =>$pass
         ];
 
         if ($this->adminModelo->nuevo_usuario($nuevo)) {
+
+            $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $password = substr(str_shuffle($caracteres), 0, 8 );
 
             $mail = new PHPMailer();
 
             redireccionar('/adminUsuarios');
             
                 try {
-                 //  Configuracion SMTP
-                    $mail->SMTPDebug =2;
+                    //Configuracion SMTP
+                    //$mail->SMTPDebug =2;
                     $mail->isSMTP();                                       // Activar envio SMTP
                     $mail->Host  = 'smtp.gmail.com';                       // Servidor SMTP
                     $mail->SMTPAuth  = true;                               // Identificacion SMTP
                     $mail->Username  = 'sbr.design.reto@gmail.com';              // Usuario SMTP
-                  //$mail->Password  = 'sbrdesign1234';	  
+                    //$mail->Password  = 'sbrdesign1234';	  
                     $mail->Password = 'ncrihzkexawuolwn';                // Contraseña SMTP
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                     $mail->Port  = 587;
@@ -102,7 +110,7 @@ public function nuevo_usuario(){
                     $mail->Subject = 'Alta como usuario en el CLUB TRAGAMILLAS';
                     $mail->Body  = 'Bienvenido al club Tragamillas Alcañiz! Has sido dado de alta en el club. Aqui tienes tu usuario y cotraseña para acceder a la aplicacion.'."<br><br>". 
                                 'USUARIO: '.$_POST['email']. "<br>" .
-                                'CONTRASEÑA: '.$_POST['nombre'].'-'.$_POST['telefono'];
+                                'CONTRASEÑA: '.$pass;
                     
                     $mail->send($correo);
     

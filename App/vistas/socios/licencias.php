@@ -1,17 +1,21 @@
 <?php require_once RUTA_APP . '/vistas/inc/nav.php' ?>
 
 
-        <header>              
-            <div class="row">
-                <div class="col-10"><span id="tHead">Mis licencias</span></div>     
-                <div class="col-2">
-                    <a type="button" class="btn" style="background-color:#0b2a85" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span style="font-size:25px;color:white">Logout</span>
-                        <img class="ms-2" id="salirHeader" src="<?php echo RUTA_Icon ?>logout.png" style="width:35px;height:35px" >
+    <!------------------------------ CABECERA -------------------------------->
+        <header>
+            <div class="row mb-5">
+                <div class="col-10 d-flex align-items-center justify-content-center">
+                    <span id="textoHead">Visualizacion de licencias</span>
+                </div>
+                <div class="col-2 mt-2">
+                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
+                        <span>Logout</span>
+                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
                     </a>
                 </div>
-            </div>                                 
+            </div>                                   
         </header>
+    <!----------------------------------------------------------------------->
 
 
         <article>

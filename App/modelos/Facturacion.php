@@ -3,29 +3,19 @@
 class Facturacion{
 
     private $db;
-    private $paginator;
 
     public function __construct(){
         $this->db = new Base;
     }
 
-    //  public function getPaginator(){
-    //      return $this->paginator;
-    //  }
 
-      public function getCuotasUsuario($limit, $page){
-          $query = "SELECT id_ingreso, CONCAT(apellidos, ', ', nombre) AS 'apellidos_nombre', CCC, importe, dni, observaciones, fecha, concat(apellidos, ', ', nombre) as 'apellidos_nombre', direccion, direccion as 'cod_postal', direccion as 'poblacion', direccion as 'provincia' FROM ingresos NATURAL JOIN USUARIO";
-          $this->paginator = new Paginator($this->db, $query);
 
-          $results    = $this->paginator->getData($limit, $page);
-          return $results->data;
-      }
-
-      public function getAllCuotasUsuario() {
-          $query = "SELECT id_ingreso, CONCAT(apellidos, ', ', nombre) AS 'apellidos_nombre', CCC, importe, dni, observaciones, fecha, concat(apellidos, ', ', nombre) as 'apellidos_nombre', direccion, direccion as 'cod_postal', direccion as 'poblacion', direccion as 'provincia' FROM ingresos NATURAL JOIN USUARIO";
-          $this->db->query($query);
-          return $this->db->registros();
-  }
+public function obtener_cuotas() {
+    $this->db->query("SELECT id_ingreso, CONCAT(apellidos, ', ', nombre) AS 'apellidos_nombre', CCC, importe, dni, observaciones, fecha, concat(apellidos, ', ', nombre) as 'apellidos_nombre',
+    direccion, direccion as 'cod_postal', direccion as 'poblacion', direccion as 'provincia' FROM ingresos NATURAL JOIN USUARIO 
+    where tipo='Cuotas';");
+    return $this->db->registros();
+}
 
 
 
