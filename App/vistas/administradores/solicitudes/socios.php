@@ -27,6 +27,7 @@
            <thead>
                 <tr>
                 <th>ID</th>
+                <th>FECHA SOLICITUD</th>
                 <th>NOMBRE</th>
                 <th>APELLIDOS</th>
                 <th>EMAIL</th>
@@ -42,6 +43,7 @@
                 <?php foreach ($datos['soliSocio'] as $usuarios) : ?>
                 <tr>
                         <td><?php echo $usuarios->id_solicitud_soc ?></td>
+                        <td><?php echo $usuarios->fecha_soli ?></td>
                         <td><?php echo $usuarios->nombre ?></td>
                         <td><?php echo $usuarios->apellidos ?></td>
                         <td><?php echo $usuarios->email ?></td>
@@ -71,7 +73,7 @@
 
                                             <!-- Modal Header -->
                                             <div class="modal-header azul">
-                                                <p class="modal-title ms-3">Edicion</p> 
+                                                <p class="modal-title ms-3">SOLICITUD Nº: <?php echo $usuarios->id_solicitud_soc?></p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                             </div>
                                       
@@ -82,6 +84,13 @@
 
                                             <form method="post" action="<?php echo RUTA_URL?>/adminSolicitudes/editar_socio/<?php echo $usuarios->id_solicitud_soc?>">
 
+                                                <div class="row mb-3">
+                                                        <div class="col-5">
+                                                        <div class="input-group">
+                                                        <label for="fecha" class="input-group-text">Fecha solicitud</label>
+                                                        <input type="date" class="form-control form-control-md" name="fecha" value="<?php echo $usuarios->fecha_soli?>" readonly > 
+                                                        </div> </div>
+                                                </div>
                                                 <div class="row mb-3">
                                                         <div class="col-5">
                                                         <div class="input-group">
@@ -133,18 +142,23 @@
                                                         <input type="text" class="form-control form-control-md" name="direccion" value="<?php echo $usuarios->direccion?>" > 
                                                         </div> 
                                                 </div>
-                                                <div class="row mb-5">
-                                                        <div class="col-6">
+                                                <div class="row mb-4">
+                                                        <div class="col-5">
                                                         <div class="input-group">
                                                                 <label for="cuenta" class="input-group-text">Numero cuenta</label>
                                                                 <input type="text" class="form-control form-control-md" name="cuenta" value="<?php echo $usuarios->CCC?>" > 
                                                         </div> 
                                                         </div> 
 
-                                                        <div class="col-3">
+                                                        <div class="col-4">
                                                         <div class="input-group">
                                                                 <label for="talla" class="input-group-text">Talla</label>
-                                                                <input type="text" class="form-control form-control-md" name="talla" value="<?php echo $usuarios->talla?>" > 
+                                                                <select name="talla" id="talla" class="form-control" required>
+                                                                <option value="">-- Selecciona una talla --</option>
+                                                                <?php foreach ($datos['tallas'] as $tallas) : ?>
+                                                                <option value="<?php echo $tallas->id_talla?>" <?php if($tallas->id_talla==$usuarios->talla) echo "selected";?>> <?php echo $tallas->nombre ?></option>
+                                                                <?php endforeach ?>
+                                                                </select>
                                                         </div>
                                                         </div>
 
@@ -157,7 +171,7 @@
                                                         </div>
                                                 </div>
 
-                                                <p class="mt-4 mb-3 titulito">Datos padre / tutor <span >(solo si es menor)</span></p> 
+                                                <p class="mt-3 mb-3 titulito">Datos padre / tutor <span >(solo si es menor)</span></p> 
 
                                                 <div class="row mb-3">
                                                         <div class="col-5">
@@ -186,7 +200,7 @@
                                                 </div>
 
                                                 <div class=" d-flex justify-content-end">
-                                                    <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar">        
+                                                    <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Guardar cambios">        
                                                 </div> 
                   
 
@@ -242,7 +256,7 @@
                                 <div class="modal-content">
 
                                         <!-- Modal Header -->
-                                        <div class="modal-header ">
+                                        <div class="modal-header azul">
                                                 <p class="modal-title">SOLICITUD Nº: <?php echo $usuarios->id_solicitud_soc?></p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                         </div>
@@ -254,6 +268,13 @@
                                         <p class="mt-3 mb-3 titulito">Datos del atleta</p>                                                     
                                                     
                                         <form action="<?php echo RUTA_URL ?>/adminSolicitudes/aceptar_socio/<?php echo $usuarios->id_solicitud_soc?>" method="post">
+                                                <div class="row mb-3">
+                                                        <div class="col-5">
+                                                        <div class="input-group">
+                                                        <label for="fecha" class="input-group-text">Fecha solicitud</label>
+                                                        <input type="date" class="form-control form-control-md" name="fecha" value="<?php echo $usuarios->fecha_soli?>" readonly > 
+                                                        </div> </div>
+                                                </div>
                                                 <div class="row mb-3">
                                                         <div class="col-5">
                                                         <div class="input-group">
@@ -316,11 +337,16 @@
                                                                 <input type="text" class="form-control form-control-md" name="verCCC" id="verCCC" value="<?php echo $usuarios->CCC?>" readonly > 
                                                         </div> 
                                                         </div> 
-
                                                         <div class="col-3">
                                                         <div class="input-group">
                                                                 <label for="verTalla" class="input-group-text">Talla</label>
-                                                                <input type="text" class="form-control form-control-md" name="verTalla" id="verTalla" value="<?php echo $usuarios->talla?>" readonly  > 
+                                                                <select name="verTalla" id="verTalla" class="form-control" readonly>
+                                                                <option value="">-- Selecciona una talla --</option>
+                                                                <?php foreach ($datos['tallas'] as $tallas) : ?>
+                                                                <option value="<?php echo $tallas->id_talla?>" <?php if($tallas->id_talla==$usuarios->talla) echo "selected";?>> <?php echo $tallas->nombre ?></option>
+                                                                <?php endforeach ?>
+                                                                </select>
+                                                              
                                                         </div>
                                                         </div>
 
@@ -367,7 +393,7 @@
                                                 </div>
 
                                                 <div class=" d-flex justify-content-end">
-                                                        <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar">        
+                                                        <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar solicitud">        
                                                 </div> 
                                                                                                
                                         </div>

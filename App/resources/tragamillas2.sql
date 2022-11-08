@@ -31,14 +31,15 @@ CREATE TABLE SOLICITUD_SOCIO(
     ha_sido boolean not null,
     nom_pa varchar (20),
     ape_pa varchar (50),
-    dni_pa varchar (11)
+    dni_pa varchar (11),
+    fecha_soli date
   );
   
-INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`) VALUES
-(1, '16220103C', 'Michael', 'Phelps', '01885542161558896338', 'L', '2001-07-06', 'MichaelPhelps@gmail.com', 640236578, 'Calle Belmonte San Jose 11', 0,'wwwwwww','wwww','77777'),
-(2, '55433788Q', 'Usain', 'Bolt', '20808970552360850257', 'L', '1995-07-15', 'UsainBolt@gmail.com', 634266578, 'Calle Caldereros 4', 0,'sssss','ddddd','87'),
-(3, '95198519R', 'Eliud', 'Kipchoge', '02164966847214050030', 'S', '1999-06-25', 'EliudKipchoge@gmail.com', 672645713, 'Avenida Huesca', 0,'xxxx','rrrr','8966'),
-(4, '77900901Q', 'Cris', 'Froome', '14901780288828069875', 'L', '2000-11-08', 'CrisFroome@gmail.com', 672645713, 'Avenida Huesca', 0,'wwww','gggg','1111');
+INSERT INTO `SOLICITUD_SOCIO` (`id_solicitud_soc`, `DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`,`fecha_soli`) VALUES
+(1, '16220103C', 'Michael', 'Phelps', '01885542161558896338', 'L', '2001-07-06', 'MichaelPhelps@gmail.com', 640236578, 'Calle Belmonte San Jose 11', 0,'wwwwwww','wwww','77777', '2001-07-06'),
+(2, '55433788Q', 'Usain', 'Bolt', '20808970552360850257', 'L', '1995-07-15', 'UsainBolt@gmail.com', 634266578, 'Calle Caldereros 4', 0,'sssss','ddddd','87', '2001-07-06'),
+(3, '95198519R', 'Eliud', 'Kipchoge', '02164966847214050030', 'S', '1999-06-25', 'EliudKipchoge@gmail.com', 672645713, 'Avenida Huesca', 0,'xxxx','rrrr','8966', '2001-07-06'),
+(4, '77900901Q', 'Cris', 'Froome', '14901780288828069875', 'L', '2000-11-08', 'CrisFroome@gmail.com', 672645713, 'Avenida Huesca', 0,'wwww','gggg','1111', '2001-07-06');
 
 
 
@@ -63,6 +64,7 @@ CREATE TABLE USUARIO(
     nom_pa varchar (20),
     ape_pa varchar (50),
     dni_pa varchar (11),
+    fecha_acep date,
     primary key (id_usuario),
     constraint FK_id_rol_usu foreign key(id_rol) references ROL (id_rol) on delete cascade on update cascade
   );
@@ -249,20 +251,6 @@ CREATE TABLE SOCIO(
 
 
 
-CREATE TABLE SOCIO_GRUPO(
-    id_grupo int,
-    id_usuario int,
-    fecha_inscripcion date not null,
-    acepatado boolean not null,
-    activo boolean not null,
-    id_categoria int,
-    foto varchar(800),
-    primary key (id_grupo, id_usuario, fecha_inscripcion),
-    constraint FK_id_grupo_socio_grupo foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade,
-    constraint FK_id_usuario_socio_grupo foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
-  );
-
-
 
 CREATE TABLE LICENCIA(
     id_licencia int primary key AUTO_INCREMENT,
@@ -408,6 +396,44 @@ CREATE TABLE CATEGORIA_SOCIO(
   );
 
 
+create table solicitud_escuela(
+    id_soli_escuela int primary key AUTO_INCREMENT,
+    fecha_soli date,
+    dni varchar (11),
+    nombre varchar(50) not null,
+    apellidos varchar(50) not null,
+    cuenta varchar(25) not null,
+    fecha_nacimiento date not null,
+    email varchar(50) not null,
+    telefono int not null,
+    direccion varchar(100) not null,
+    gir varchar(50),
+    id_categoria int not null,
+    id_grupo int not null,
+    es_socio boolean not null,
+    usuario int null,
+    nom_pa varchar (50),
+    ape_pa varchar (50),
+    dni_pa varchar (11),
+    pago varchar(50),
+    foto varchar(50),
+    constraint FK_id_categoria_solicitud_escuela foreign key (id_categoria) references categoria (id_categoria) on delete cascade on update cascade,
+    constraint FK_id_grupo_solicitud_escuela foreign key (id_grupo) references grupo (id_grupo) on delete cascade on update cascade
+);
+
+CREATE TABLE socio_grupo(
+    id_grupo int,
+    id_usuario int,
+    fecha_acep date not null,
+    aceptado boolean not null,
+    activo boolean not null,
+    id_categoria int,
+    primary key (id_grupo, id_usuario),
+    constraint FK_id_grupo_socio_grupo foreign key (id_grupo) references GRUPO (id_grupo) on delete cascade on update cascade,
+    constraint FK_id_usuario_socio_grupo foreign key (id_usuario) references USUARIO (id_usuario) on delete cascade on update cascade,
+    constraint FK_id_categoria_socio_grupo foreign key (id_categoria) references categoria (id_categoria) on delete cascade on update cascade
+  );
+
 
 /********** TABLA ENTIDADES *******/
 
@@ -420,34 +446,6 @@ CREATE TABLE OTRAS_ENTIDADES(
     email varchar(50) null,
     observaciones varchar (30)
   );
-
-
-
-
--- CREATE TABLE I_CUOTAS(
---     id_ingreso_cuota int primary key AUTO_INCREMENT,
---     fecha date not null,
---     concepto varchar (500) not null,
---     importe int not null,
---     id_usuario int not null,
---     constraint FK_id_usuario_i_cuotas foreign key (id_usuario) references SOCIO (id_socio) on delete cascade on update cascade
---   );
--- INSERT INTO
---   `tragamillas2`.`I_CUOTAS` (
---     `id_ingreso_cuota`,
---     `fecha`,
---     `concepto`,
---     `importe`,
---     `id_usuario`
---   )
--- VALUES
---   (
---     '000201507444',
---     '2021-02-18',
---     'CUOTA SOCIO TRAGAMILLAS',
---     '30',
---     '33'
---   );
 
 
 
@@ -477,46 +475,47 @@ INSERT INTO `EVENTO` (`id_evento`, `id_usuario`, `nombre`, `tipo`, `precio`, `de
 CREATE TABLE PARTICIPANTE(
     id_participante int primary key AUTO_INCREMENT,
     id_evento int,
-    nombre varchar (30) not null,
-    apellidos varchar (50) not null,
+    nombre varchar (50) not null,
+    apellidos varchar (100) not null,
     DNI varchar (11),
     fecha_nacimiento date not null,
-    direccion varchar (100),
-    email varchar (50) not null,
-    telefono int not null,
+    direccion varchar (200),
+    email varchar (100) not null,
+    telefono int (15) not null,
     dorsal int,
     marca varchar (50),
+    foto varchar (200),
     constraint FK_id_evento_participante foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 
-INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`,`direccion` , `email`, `telefono`, `dorsal`, `marca`) VALUES
-(1, 1, 'Maria', 'Gracia', '73386618N', '1995-07-14','', 'MariaGracia@gamil.com', 457215485, NULL, NULL),
-(2, 2, 'Jose', 'Rodriguez', '99922045V', '1997-08-14','', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL),
-(3, 3, 'Daniel', 'Perez', '07063289N', '2000-07-08','', 'DanielPerez@gamil.com', 640685678, NULL, NULL),
-(4, 4, 'Carmen', 'Martin', '03081415J', '2001-08-11','', 'CarmenMartin@gmail.com', 640297865, NULL, NULL);
+INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`,`direccion` , `email`, `telefono`, `dorsal`, `marca`,`foto`) VALUES
+(1, 1, 'Maria', 'Gracia', '73386618N', '1995-07-14','', 'MariaGracia@gamil.com', 457215485, NULL, NULL,''),
+(2, 2, 'Jose', 'Rodriguez', '99922045V', '1997-08-14','', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL,''),
+(3, 3, 'Daniel', 'Perez', '07063289N', '2000-07-08','', 'DanielPerez@gamil.com', 640685678, NULL, NULL,''),
+(4, 4, 'Carmen', 'Martin', '03081415J', '2001-08-11','', 'CarmenMartin@gmail.com', 640297865, NULL, NULL,'');
+
 
  CREATE TABLE SOLICITUD_EVENTO(
     id_solicitud int AUTO_INCREMENT,
     id_evento int,
     fecha date,
-    nombre varchar (30) not null,
-    apellidos varchar (50) not null,
+    nombre varchar (50) not null,
+    apellidos varchar (100) not null,
     DNI varchar (11),
     fecha_nacimiento date not null,
-    direccion varchar (250) not null,
-    email varchar (50) not null,
-    telefono int not null,
-
+    direccion varchar (200) not null,
+    email varchar (100) not null,
+    telefono int (15) not null,
+    foto varchar (200),
     primary key (id_solicitud,id_evento),
-
-     constraint FK__id_evento_solicitud_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
+    constraint FK__id_evento_solicitud_evento foreign key (id_evento) references EVENTO (id_evento) on delete cascade on update cascade
   );
 
 
 
 
 
-/************ TABLA GASTOS ********/
+/************ TABLA REFERENTES A FACTURACION ************/
 
   CREATE TABLE gastos(
     id_gastos int primary key AUTO_INCREMENT,
@@ -530,8 +529,6 @@ INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos
     constraint FK_id_entidad_gastos foreign key (id_entidad) references OTRAS_ENTIDADES (id_entidad) on delete cascade on update cascade
   );
 
-
-/*********** TABLA INGRESOS *********/
 
 CREATE TABLE ingresos(
     id_ingreso int primary key AUTO_INCREMENT,
@@ -548,6 +545,16 @@ CREATE TABLE ingresos(
   );
 
 
+/*********** TABLAS REFRENTES A EQUIPACIONES  *********/
+
+CREATE TABLE talla(
+  id_talla int primary key AUTO_INCREMENT,
+  nombre varchar(100) not null
+);
+
+insert into talla (id_talla,nombre) values (1,'7-8'), (2,'9-10'),(3,'11-12'),(4,'13-14'),(5,'XS'),(6,'S'),(7,'M'),(8,'L'),(9,'XL'),(10,'XXL');
+
+
 CREATE TABLE EQUIPACION(
     id_equipacion int primary key AUTO_INCREMENT,   
     tipo varchar(100) not null,
@@ -561,13 +568,21 @@ CREATE TABLE EQUIPACION(
     constraint FK_id_gastos_equipacion foreign key (id_gastos) references gastos (id_gastos) on delete cascade on update cascade
   );
 
+  create table talla_equipacion(
+    id_equipacion int,
+    id_talla int,
+    primary key(id_equipacion,id_talla),
+     constraint FK_id_equipacion_talla_equipacion foreign key (id_equipacion) references equipacion (id_equipacion) on delete cascade on update cascade,
+    constraint FK_id_talla_talla_equipacion foreign key (id_talla) references talla (id_talla) on delete cascade on update cascade
+  );
+
 
 CREATE TABLE SOLI_EQUIPACION(
     id_soli_equi int AUTO_INCREMENT,
     id_usuario int,
     id_equipacion int, 
     fecha_peticion date not null,
-    talla varchar(5) not null,
+    talla varchar(100) not null,
     recogido tinyint(1) not null,
     cantidad int not null,
     primary key (id_soli_equi, id_usuario, id_equipacion),

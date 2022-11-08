@@ -124,7 +124,12 @@
                                                             <div class="col-6">                 
                                                                 <div class="input-group ">
                                                                     <label for="talla" class="input-group-text">Talla</label>
-                                                                    <input type="text" class="form-control form-control-md" id="talla" name="talla" value="<?php echo $pedido->talla?>">
+                                                                    <select class="form-control" name="talla" required>
+                                                                        <option value="">-- Selecciona una talla --</option>
+                                                                        <?php foreach ($datos['talla'] as $talla) : ?>
+                                                                        <option value="<?php echo $talla->id_talla?>"> <?php echo $talla->nombre?></option>
+                                                                        <?php endforeach ?>
+                                                                    </select>
                                                                 </div>
                                                             </div> 
                                                             <div class="col-6">                     
@@ -302,20 +307,25 @@
                                         </select>
                                     </div> 
                                 </div>
+                            
                                 <div class="row">
-                                <div class="col-6">
                                     <div class="input-group mb-4">
                                         <label for="cantidad" class="input-group-text">Cantidad<sup>*</sup></label>
                                         <input type="text" class="form-control form-control-md" id="cantidad" name="cantidad" required>    
                                     </div> 
                                 </div>
-                                <div class="col-6">
+                                <div class="row">
                                     <div class="input-group mb-4">
                                         <label for="talla" class="input-group-text">Talla<sup>*</sup></label>
-                                        <input type="text" class="form-control form-control-md" id="talla" name="talla" required >
+                                        <select class="form-control" name="talla" required>
+                                            <option value="">-- Selecciona una talla --</option>
+                                            <?php foreach ($datos['talla'] as $talla) : ?>
+                                            <option value="<?php echo $talla->id_talla?>"> <?php echo $talla->nombre?></option>
+                                            <?php endforeach ?>
+                                        </select>
                                     </div> 
                                 </div>
-                                </div>
+                               
 
                                 <div class="d-flex justify-content-end">
                                     <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 

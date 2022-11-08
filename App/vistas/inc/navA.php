@@ -60,7 +60,7 @@
             
 
             <a href="<?php echo RUTA_URL ?>/adminUsuarios" class="nav-link">                           
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>usuario.png"><span class="tMenu">USUARIOS</span>                                                          
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">USUARIOS</span>                                                          
             </a> 
             
 
@@ -71,7 +71,7 @@
                     </a>
                     <div class="dropdown-container">
                         <a href="<?php echo RUTA_URL ?>/adminSolicitudes/socios" class="nav-link"><span class="tMenu ms-5 ps-5">SOCIOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);?></span></a>
-                        <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class="nav-link "><span class="tMenu ms-5 ps-5">GRUPOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);?></span></a>
+                        <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class="nav-link "><span class="tMenu ms-5 ps-5">ESCUELA</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);?></span></a>
                         <a href="<?php echo RUTA_URL ?>/adminSolicitudes/eventos" class="nav-link "><span class="tMenu ms-5 ps-5">EVENTOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);?></span></a>
                         
                     </div>
@@ -79,7 +79,7 @@
             
                           
             <a href="<?php echo RUTA_URL ?>/adminGrupos" class="nav-link">                           
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">GRUPOS</span>                                                          
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>escuela.png"><span class="tMenu">ESCUELA</span>                                                          
             </a>   
 
             <a href="<?php echo RUTA_URL ?>/adminEventos" class="nav-link">

@@ -22,16 +22,74 @@
 </head>
 
 
+<style>
+
+
+.licen:active, .marcas:active, .equi:active, .ins:active{
+  transform: translateY(5px);
+}
+
+ .licen:hover, .marcas:hover, .equi:hover, .ins:hover{
+    background-color:#ffbf1c;
+    color:white;
+} 
+
+.dibu{
+    width:50px;
+    height:50px;
+}
+
+.licen{
+    width:600px;
+    height:75px;
+    color: white;
+    font-size: 20px;
+    font-weight:bold;
+    background-color:#264475;
+}
+
+.marcas{
+    width:275px;
+    height:75px;
+    color: white;
+    font-size: 20px;
+    font-weight:bold;
+    background-color:#abdbe3;
+}
+
+.equi{
+    width:275px;
+    height:75px;
+    color: white;
+    font-size: 20px;
+    font-weight:bold;
+    background-color:#1e81b0;
+}
+
+
+.ins{
+    width:275px;
+    height:75px;
+    color: white;
+    font-size: 20px;
+    font-weight:bold;
+    background-color:#264475;
+}
+
+
+</style>
+
+
 <body>
 
 
 
     <section>
 
-            <nav class="menu1" id="menu1">
-         
-                    <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link">   
-                    <div class="mt-2">
+            <nav id="menuSocio">
+                   
+                    <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link ">   
+                    <div class="mt-2 ">
                         <img style="width:100px; height:60px;"  src="<?php echo RUTA_Icon ?>corredor.png">
                         <img style="width:200px; height:60px;"  src="<?php echo RUTA_Icon ?>todo2.png"> 
                     </div>                                        
@@ -173,6 +231,8 @@
                                             </div>
 
                                         </form>
+
+                                       
                                         </div>
                                         
                                     </div>
@@ -186,12 +246,12 @@
 
             </nav>
 
-            
-    <!------------------------------ CABECERA -------------------------------->
-    <header>
+
+            <!------------------------------ CABECERA -------------------------------->
+        <header>
             <div class="row mb-5">
                 <div class="col-10 d-flex align-items-center justify-content-center">
-                    <span id="textoHead">Panel del socio</span>
+                    <span id="textoHead">Bienvendido al Club Tragamillas</span>
                 </div>
                 <div class="col-2 mt-2">
                     <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
@@ -203,65 +263,202 @@
         </header>
     <!----------------------------------------------------------------------->
 
+    <article class="row d-flex justify-content-center" style="margin-top:100px;">
+    
 
- 
-            <article>
-                <div class="row d-flex justify-content-center align-items-center mt-5" style="font-family: 'Doppio One', sans-serif;">
+    <div class="row d-flex justify-content-center inicio">
+        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+            <a data-bs-toggle="modal" data-bs-target="#licencia">
+                <div id="colorGrupos" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <div class="row">
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>licencias.png"></div>
+                        <div class="col-8"><p class="nombre">LICENCIAS</p><p class="descripcion">Crea y gestiona nuevos usuarios de la aplicacion</p></div>
+                    </div>                              
+                </div> 
+            </a>
+        </div>
+        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">  
+            <a href="<?php echo RUTA_URL ?>/socio/verMarcas">    
+                <div id="colorTest" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuSol">
+                    <div class="row">
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>cronometro.png"></div>
+                        <div class="col-8"><p class="nombre">MARCAS</p><p class="descripcion">Confirma o rechaza solicitudes</p></div>
+                    </div>                              
+                </div> 
+            </a>    
+        </div>
+    </div>
 
-                        <!-- MENU LICENCIAS -->               
-                        <div class="col-6 col-xs-12 col-md-6 pt-5 mx-5" style="width:450px">
-                            <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/licencias">
-                                <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:150px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">                               
-                                    <div class="row">
-                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#264475"><img src="<?php echo RUTA_Icon ?>licencias.png" width="60" height="60"></div>
-                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">LICENCIAS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+    <div class="row d-flex justify-content-center inicio">
+        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+            <a href="<?php echo RUTA_URL ?>/socio/equipacion">
+                <div id="colorEventos" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <div class="row">
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.png"></div>
+                        <div class="col-8"><p class="nombre">EQUIPACIONES</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
+                    </div>                              
+                </div> 
+            </a>
+        </div>
+        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+            <a data-bs-toggle="modal" data-bs-target="#nuevo">
+                <div id="colorMensajeria" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <div class="row">
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>inscripciones.png"></div>
+                        <div class="col-8"><p class="nombre">INSCRIPCIONES</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
+                    </div>                              
+                </div> 
+            </a>
+        </div>            
+    </div>
 
-                        <!-- MENU VER MARCAS -->
-                        <div class="col-6 col-xs-12 col-md-6 pt-5 mx-5" style="width:450px">
-                            <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/verMarcas">
-                                <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:150px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">                               
-                                    <div class="row">
-                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>cronometro.png" width="60" height="60"></div>
-                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">MARCAS</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+</article>
+
+        
+
+
+     <!-- LICENCIAS-->
+        <div class="modal" id="licencia">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header azul">
+                    <p class="modal-title ms-3 ">Mis Licencias</p> 
+                    <button type="button" class="btn-close me-4 " data-bs-dismiss="modal"></button>
                 </div>
 
+                <!-- Modal body -->
+                <div class="modal-body info ">                         
+                <div class="row ms-1 me-1 mb-5"> 
+                    
+                <table class="table">
+                    <!--CABECERA TABLA-->
+                    <thead>
+                        <tr>
+                            <th>Numero</th>  
+                            <th>GIR</th>
+                            <th>Tipo</th>
+                            <th>Autonomica/Nacional</th>      
+                            <th>Dorsal</th>
+                            <th>Fecha caducidad</th>
+                            <th>Imagen</th>                                                
+                        </tr>
+                    </thead>
+                    <!--BODY TABLA-->
+                    <tbody>               
+                        <?php foreach ($datos['usuarios'] as $licencias) :?>
+                            <tr>
+                                <td><?php echo $licencias->num_licencia?></td>
+                                <td><?php echo $licencias->gir?></td>
+                                <td><?php echo $licencias->tipo?></td>
+                                <td><?php echo $licencias->regional_nacional?></td>
+                                <td><?php echo $licencias->dorsal?></td>
+                                <td><?php echo $licencias->fecha_cad?></td>
+                                <td><?php if ($licencias->imagen==''){echo '-';}else {?><a href="<?php echo RUTA_URL?>/Socio/verFoto/<?php echo $licencias->id_licencia?>" target="_blank"><img width="30" height="30" src="<?php echo RUTA_ImgDatos.'licencias/'.$licencias->imagen?>"></a><?php ;}?></td>
+                            </tr>                   
+                        <?php endforeach ?>                
+                    </tbody>      
 
-                <div class="row d-flex justify-content-center inicio" style="font-family: 'Doppio One', sans-serif;">
+                </table>
+                                                    
+                </div>
+                </div>
 
-                        <!-- MENU PEDIR EQUIPACION -->
-                        <div class="col-6 col-xs-12 col-md-6 pt-5 mx-5" style="width:450px">
-                            <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/equipacion">
-                                <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:150px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                                    <div class="row">
-                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.png" width="60" height="60"></div>
-                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">EQUIPACION</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
-                                    </div>                              
-                                </div> 
-                            </a>
-                        </div>
+        </div>
+        </div>
+        </div>
 
-                        <!-- INSCRIPCIONES-->
-                        <div class="col-6 col-xs-12 col-md-6 pt-5 mx-5" style="width:450px">
-                            <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/escuela">
-                                <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:150px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">                               
-                                    <div class="row">
-                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#264475"><img src="<?php echo RUTA_Icon ?>inscripciones.png" width="60" height="60"></div>
-                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">INSCRIPCIONES</p><p style="font-size:14px;  margin-left:30px;">Visualiza y registra tus marcas</p></div>
+
+
+
+    <!-- INSCRIPCIONES-->
+        <div class="modal" id="nuevo">
+        <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header azul">
+                    <p class="modal-title ms-3 ">Inscripciones</p> 
+                    <button type="button" class="btn-close me-4 " data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body info">                         
+                <div class="row ms-1 me-1">                                                                                                           
+                                                    
+                        <form action="<?php echo RUTA_URL?>/socio/inscripciones" method="post">
+
+                                <div class="row mt-4">
+                                    <div class="input-group mb-4">
+                                        <label for="tipo" class="input-group-text">Tipo inscripcion</label>
+                                        <select name="tipo" class="form-control" id="tipo_select" onchange="inscripcion()" required>
+                                            <option value="">-- Seleciona una opcion --</option>
+                                            <option value="escuela">Escuela</option>
+                                            <option value="evento">Evento</option>
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <div id="campo1" style="display:none">
+                                <div class="row mb-3">
+                                    <div class="input-group">
+                                        <label for="evento" class="input-group-text">Evento</label>
+                                        <select name="evento" class="form-control" id="evento">
+                                            <option value="">-- Seleciona un evento --</option>
+                                            <?php foreach ($datos['eventos'] as $even) : ?>
+                                            <option id="id_evento" value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div> 
+                                </div>
+                                </div>
+
+                                <div id="campo2" style="display:none">
+                                    <div class="row mb-4">
+                                        <div class="input-group">
+                                            <label for="cat" class="input-group-text">Categoria</label>
+                                            <select name="cat" class="form-control" id="cat">
+                                                <option value="">-- Seleciona una categoria --</option>
+                                                <?php foreach ($datos['categorias'] as $cat) : ?>
+                                                <option id="id_categoria" value="<?php echo $cat->id_categoria ?>"><?php echo $cat->nombre ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="input-group">
+                                            <label for="gru" class="input-group-text">Grupos</label>
+                                            <select name="gru" class="form-control" id="gru">
+                                                <option value="">-- Seleciona un grupo --</option>
+                                                <?php foreach ($datos['grupos'] as $gru) : ?>
+                                                <option id="id_grupo" value="<?php echo $gru->id_grupo?>"><?php echo $gru->nombre ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div> 
                                     </div>
                                 </div>
-                            </a>
+
+                                <div class="row mt-4 mb-4">
+                                <p style="font-weight:bold;color:#0070c6;text-decoration:underline; margin-bottom:10px">Subir archivo de pago</p>
+                                <input id="foto" type="file" name="foto" required>
+                                </div>
+
+                                <div class="d-flex justify-content-end">
+                                    <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                               </div> 
+
+                        </form>
+
                         </div>
-                </div>
-            </article>
- 
+                        </div>
+
+        </div>
+        </div>
+        </div>
+
+
+
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
@@ -274,6 +471,141 @@
     function decolorear(icono) {
         icono.style.backgroundColor = '#ffffff';
     }
+
+
+
+    function inscripcion(){
+
+    }
+
+    function inscripcion() {
+        var opcion=document.getElementById("tipo_select").value;
+        if(opcion=="escuela"){
+            document.getElementById("campo2").style.display ="block";
+            document.getElementById("cat").setAttribute("required",true);
+            document.getElementById("gru").setAttribute("required",true);
+            document.getElementById("campo1").style.display ="none";
+            document.getElementById("evento").setAttribute("required",false);
+        }else {
+            document.getElementById("campo2").style.display ="none";
+            document.getElementById("cat").setAttribute("required",false);
+            document.getElementById("gru").setAttribute("required",false);
+            document.getElementById("campo1").style.display ="block";
+            document.getElementById("evento").setAttribute("required",true);
+        }
+    }
+
+
 </script>
+
+
+
+<!-- <div class="container mt-5" >
+
+<div class="row pt-5 d-flex justify-content-around">
+    <div class="col-5">                                                     
+        <div class="card  shadow-lg">
+            <div class="card-header" style="background-color:#264475"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>licencias.png"><span style="color:white">Licencias</span></div>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn" style="background-color:#264475">Go somewhere</a>
+            </div>
+        </div>
+    </div> 
+
+    <div class="col-5"> 
+        <div class="card shadow-lg">
+            <div class="card-header" style="background-color:#abdbe3"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>cronometro.png"><span style="color:white">Marcas</span></div>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn " style="background-color:#abdbe3">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-5 d-flex justify-content-around">
+    <div class="col-5">                                                     
+        <div class="card  shadow-lg">
+            <div class="card-header" style="background-color:#1e81b0"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>carrito.png"><span style="color:white">Equipaciones</span></div>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn" style="background-color:#1e81b0">Go somewhere</a>
+            </div>
+        </div>
+    </div> 
+
+    <div class="col-5"> 
+        <div class="card  shadow-lg">
+            <div class="card-header" style="background-color:#264475"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>inscripciones.png"><span style="color:white">Inscripciones</span></div>
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn" style="background-color:#264475">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="#"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>licencias.png">LICENCIAS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> -->
+
+
+
+<!-- 
+<div class="container mt-5" style="border:solid red">
+
+
+    <div class="row mt-5 mb-5 "style="border:solid red">
+        <div class="col-6 mt-5 mb-5 d-flex justify-content-center" style="border:solid red">
+        <a style="text-decoration:none; color:white;" href="<?php echo RUTA_URL ?>/socio/licencias"><button class="btn shadow-lg licen"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>licencias.png">LICENCIAS</button></a>
+        </div>
+
+        <div class="col-6 mt-5 mb-5 d-flex justify-content-center"style="border:solid red">
+        <a style="text-decoration:none; color:white;" href="<?php echo RUTA_URL ?>/socio/verMarcas"><button class="btn shadow-lg marcas"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>cronometro.png">MARCAS</button></a>
+        </div>
+    </div>
+
+
+        <div class="row mt-5 mb-5 "style="border:solid red">
+
+        <div class="col-6 mt-5 mb-5 d-flex justify-content-center"style="border:solid red">
+        <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/equipacion"> <button class="btn shadow-lg equi"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>carrito.png">EQUIPACIONES</button></a>
+        </div>
+        <div class="col-6 mt-5 mb-5 d-flex justify-content-center"style="border:solid red">
+        <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/escuela"> <button class="btn shadow-lg ins"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>inscripciones.png">INSCRIPCIONES</button></a>
+        </div>
+                
+        </div>
+
+</div> -->
+                       
+
+<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
+
+
 
 

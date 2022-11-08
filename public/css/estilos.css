@@ -37,17 +37,27 @@ color:white;
 #menu1{
     width: 20% ; 
     float:left;
-    height:100vh;
+   /* height:100vh;*/
     /*background-color:#4e83c9 */
      /*background-color:#63a2e5*/
      background-color: #0070c6;
 }
+
+#menuSocio, #menuEntrenador, #menuAdmin{
+    width: 20% ; 
+    float:left;
+    height:100vh;
+    background-color: #0070c6;
+}
+
+
 
 #home{   
     border-bottom:solid white 5px;
     background-color: #0b2a85;
     padding-bottom:20px
 }
+
 
 #imgHome{
     margin-left:20px;
@@ -91,7 +101,15 @@ color:white;
     background-color: #FFBF1C; 
 }
 
+/*----------------------------------------- ESTILO FORMULARIOS-------------------------------*/
 
+#textoForm{
+    font-family: 'Anton',sans-serif; 
+    color: #0070c6;
+    font-size: 40px; 
+    letter-spacing: 7px; 
+    margin-left:100px;
+}
 
 /*----------------------------------------- ESTILO HEADER -------------------------------*/
 
@@ -100,13 +118,13 @@ header{
     padding: 20px;
 }
 
-#textoHead{
+ #textoHead{
     font-family: 'Anton',sans-serif; 
     color: #0b2a85;
     font-size: 40px; 
     letter-spacing: 7px; 
     margin-left:100px;
-}
+} 
 
 #botonLogout{
     background-color:#0b2a85;

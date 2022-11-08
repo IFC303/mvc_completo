@@ -26,7 +26,7 @@
 
     <section>
 
-        <nav class="menu1" id="menu1">
+        <nav class="menu1" id="menuSocio">
       
             <a id="home" href="<?php echo RUTA_URL ?>/socio" class="nav-link">
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 

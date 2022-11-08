@@ -27,87 +27,86 @@ class AdminSolicitudes extends Controlador{
 
 
     
-    //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
-    public function notificaciones(){
-        $notific[0] = $this->adminModelo->notSocio();
-        $notific[1] = $this->adminModelo->notGrupo();
-        $notific[2] = $this->adminModelo->notEventos();
-        $notific[3] = $this->adminModelo->contar_pedidos();
-        return $notific;
-    }
+//*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+public function notificaciones(){
+    $notific[0] = $this->adminModelo->notSocio();
+    $notific[1] = $this->adminModelo->notGrupo();
+    $notific[2] = $this->adminModelo->notEventos();
+    $notific[3] = $this->adminModelo->contar_pedidos();
+    return $notific;
+}
 
 
 
-    //*********** INDEX *********************/
-    public function index(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-    }
+//*********** INDEX *********************/
+public function index(){
+    $notific = $this->notificaciones();
+    $this->datos['notificaciones'] = $notific;
+}
 
 
 
 // ************************************* SOLICITUDES SOCIOS **************************************//
 
-    public function socios(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
+public function socios(){
+    $this->datos['notificaciones'] = $this->notificaciones();
+      
+    $this->datos['soliSocio'] = $this->solicitudModelo->solicitudes_socio();
+    $this->datos['tallas']=$this->solicitudModelo->obtener_tallas();  
 
-        $verSoli = $this->solicitudModelo->solicitudes_socio();
-        $this->datos['soliSocio'] = $verSoli;
+    $this->vista('administradores/solicitudes/socios', $this->datos);
+}
 
-        $this->vista('administradores/solicitudes/socios', $this->datos);
+
+
+public function borrar_socio($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
     }
 
-
-
-    public function borrar_socio($id){
-        $this->datos['rolesPermitidos'] = [1];         
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->solicitudModelo->borrar_socio($id)) {
-                redireccionar('/adminSolicitudes/socios');
-            } else {
-                die('Algo ha fallado!!!');
-            }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->solicitudModelo->borrar_socio($id)) {
+            redireccionar('/adminSolicitudes/socios');
+        } else {
+            die('Algo ha fallado!!!');
         }
     }
+}
 
 
 
-    public function editar_socio($id){
-        $this->datos['rolesPermitidos'] = [1];         
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
+public function editar_socio($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $editar = [
-                'nombre' => trim($_POST['nombre']),
-                'apellidos' => trim($_POST['apellidos']),
-                'dni'=> trim($_POST['dni']),
-                'fecha' => trim($_POST['fecha_naci']),
-                'telefono'=>trim($_POST['tlf']),
-                'email' => trim($_POST['email']),
-                'direccion' => trim($_POST['direccion']), 
-                'cuenta' => trim($_POST['cuenta']),
-                'talla' => trim($_POST['talla']),  
-                'socio' => trim($_POST['pri_socio']), 
-                'nom_pa' => trim($_POST['nom_pa']),
-                'ape_pa' => trim($_POST['ape_pa']),  
-                'dni_pa' => trim($_POST['dni_pa'])
-            ];
-    
-            if ($this->solicitudModelo->editar_socio($editar,$id)) {
-                redireccionar('/adminSolicitudes/socios');
-            } else {
-                die('Algo ha fallado!!!');
-            }
+        $editar = [
+            'nombre' => trim($_POST['nombre']),
+            'apellidos' => trim($_POST['apellidos']),
+            'dni'=> trim($_POST['dni']),
+            'fecha' => trim($_POST['fecha_naci']),
+            'telefono'=>trim($_POST['tlf']),
+            'email' => trim($_POST['email']),
+            'direccion' => trim($_POST['direccion']), 
+            'cuenta' => trim($_POST['cuenta']),
+            'talla' => trim($_POST['talla']),  
+            'socio' => trim($_POST['pri_socio']), 
+            'nom_pa' => trim($_POST['nom_pa']),
+            'ape_pa' => trim($_POST['ape_pa']),  
+            'dni_pa' => trim($_POST['dni_pa'])
+        ];
+
+        if ($this->solicitudModelo->editar_socio($editar,$id)) {
+            redireccionar('/adminSolicitudes/socios');
+        } else {
+            die('Algo ha fallado!!!');
         }
     }
+}
 
 
 
@@ -195,11 +194,10 @@ class AdminSolicitudes extends Controlador{
 // ************************************* SOLICITUDES EVENTOS **************************************//
    
 public function eventos(){
-    $notific = $this->notificaciones();
-    $this->datos['notificaciones'] = $notific;
 
-    $verSoli = $this->solicitudModelo->solicitudes_eventos();
-    $this->datos['soliEvento'] = $verSoli;
+    $this->datos['notificaciones'] = $this->notificaciones();
+
+    $this->datos['soliEvento'] = $this->solicitudModelo->solicitudes_eventos();
     $this->datos['eventos']=$this->eventoModelo->obtenerEventos();
     $this->vista('administradores/solicitudes/eventos', $this->datos);
 }
@@ -242,8 +240,9 @@ public function aceptar_evento($id){
                 'telefono'=>trim($_POST['telefono']),
                 'email' => trim($_POST['email'])               
             ];
+    
 
-            if ($this->solicitudModelo->aceptar_evento($aceptarEvento)) {
+            if ($this->solicitudModelo->aceptar_evento($aceptarEvento,$id)) {
 
                     $mail = new PHPMailer();
 
@@ -322,96 +321,94 @@ public function editar_evento($id){
 
 
 
-
-
-
-   
-
-
-
-
 // ************************************* SOLICITUDES GRUPOS **************************************//
 
-public function crud_solicitudes_grupos()
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
+public function grupos(){
 
-        $verSoli = $this->adminModelo->obtenerSolicitudesGrupos();
-        $this->datos['soliSocioGrupos'] = $verSoli;
-        $this->datos['notificaciones'][3]= "GRUPOSSOL";
-        $this->vista('administradores/solicitudes/grupos', $this->datos);
+    $this->datos['notificaciones'] = $this->notificaciones();
+
+    $this->datos['soli_grupos'] = $this->solicitudModelo->obtener_soli_grupos();
+    $this->datos['categoria'] = $this->solicitudModelo->obtener_categoria();
+    $this->datos['grupo'] = $this->solicitudModelo->obtener_grupos();
+    $this->datos['usus'] = $this->solicitudModelo->obtener_usuarios();
+
+    $this->vista('administradores/solicitudes/grupos', $this->datos);
+}
+
+
+public function borrar_escuela($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
     }
-
-
-        public function aceptar_solicitudes_grupos($datAceptar)
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        $datAceptar = explode ( '_', $datAceptar);
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->adminModelo->aceptar_solicitudes_grupos($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_grupos');
-            } else {
-                die('Algo ha fallado!!!');
-            }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->solicitudModelo->borrar_escuela($id)) {
+            redireccionar('/adminSolicitudes/grupos');
+        } else {
+            die('Algo ha fallado!!!');
         }
     }
+}
 
-    public function borrar_solicitudes_grupos($datBorrar)
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
 
-        $datBorrar = explode ( '_', $datBorrar);
+public function editar_escuela($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->adminModelo->borrar_solicitudes_grupos($datBorrar)) {
-                redireccionar('/admin/crud_solicitudes_grupos');
-            } else {
-                die('Algo ha fallado!!!');
-            }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        
+        $editar= [
+            'fecha_soli' => trim($_POST['fecha']),
+            'nombre' => trim($_POST['nombre']),
+            'apellidos' => trim($_POST['apellidos']),
+            'fecha_naci'=> trim($_POST['fecha_naci']),
+            'dni' => trim($_POST['dni']),
+            'telefono'=>trim($_POST['telf']),
+            'direccion' => trim($_POST['direc']),
+            'cuenta' => trim($_POST['ccc']), 
+            'email' => trim($_POST['email']),
+            'cat' => trim($_POST['cat']),  
+            'grup' => trim($_POST['grup']),
+            'gir' => trim($_POST['gir']),
+            'socio' => trim($_POST['socio']),
+            'usus' => trim($_POST['usus']),
+            'nom_pa' => trim($_POST['nom_pa']),
+            'ape_pa' => trim($_POST['ape_pa']),  
+            'dni_pa' => trim($_POST['dni_pa'])
+        ];
+
+        if ($this->solicitudModelo->editar_escuela($editar,$id)) {
+            redireccionar('/adminSolicitudes/grupos');
+        } else {
+            die('Algo ha fallado!!!');
         }
+    }
+}
+
+
+public function aceptar_escuela($id){
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+
+        $aceptar= [
+            'grup' => trim($_POST['grup']),
+            'usus' => trim($_POST['usus']),
+            'cat' => trim($_POST['cat'])
+        ];
+
+    if ($this->solicitudModelo->aceptar_escuela($aceptar,$id)) {
+        redireccionar('/adminSolicitudes/grupos');
+    } else {
+        die('Algo ha fallado!!!');
     }
 
 
-    public function aceptar_solicitudes_seleccionadas_grupos()
-    { 
 
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $datAceptar= trim($_POST["aceptarMas"]);
-            $datAceptar = explode ( ',', $datAceptar);
-            if ($this->adminModelo->aceptar_solicitudes_seleccionadas_grupos($datAceptar)) {
-                redireccionar('/admin/crud_solicitudes_grupos');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
-    }
-
-    
-    public function borrar_solicitudes_seleccionadas_grupos()
-    {
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $datBorrar= trim($_POST["borrarMas"]);
-            $datBorrar = explode ( ',', $datBorrar);
-    
-            if ($this->adminModelo->borrar_solicitudes_seleccionadas_grupos($datBorrar)) {
-                redireccionar('/admin/crud_solicitudes_grupos');
-            } else {
-                die('Algo ha fallado!!!');
-            }
-        }
-    }
-
+}
 
 
 }

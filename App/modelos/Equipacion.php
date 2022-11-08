@@ -29,6 +29,14 @@ class Equipacion{
         return $this->db->registros();
      }
 
+
+     
+     public function obtener_tallas(){
+        $this->db->query("SELECT * from talla");
+        return $this->db->registros();
+     }
+
+     
      
 
     // ***************************************** GESTION EQUIPACIONES *********************************
@@ -40,26 +48,26 @@ class Equipacion{
         $this->db->bind(':precio',$nuevo['precio']);
         $this->db->bind(':temporada',$nuevo['temporada']);
         $this->db->bind(':imagen',$nuevo['foto']);
-
         $this->db->execute();
 
         $id = $this->db->ultimoIndice();
-        if($nuevo['foto']!=''){
-            //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
-            //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
-            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotos_equipacion/";   
-            copy($_FILES['subirFoto']['tmp_name'], $directorio.$id.'.jpg');
-            chmod($directorio.$id.'.jpg',0777);
+         if($nuevo['foto']!=''){
+         //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
+         //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+         $directorio="C:/xampp/htdocs/tragamillas/public/img/fotos_equipacion/";   
+         copy($_FILES['subirFoto']['tmp_name'], $directorio.$id.'.jpg');
+         chmod($directorio.$id.'.jpg',0777);
 
-            $foto=$id.'.jpg';
-            $this->db->query("UPDATE EQUIPACION SET imagen=:id where id_equipacion=:id;");
-            $this->db->bind(':id', $foto);
-            if ($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
-        } else{
+        $foto=$id.'.jpg';
+        $this->db->query("UPDATE EQUIPACION SET imagen=:foto where id_equipacion=:id_equipacion;");
+        $this->db->bind(':foto', $foto);
+        $this->db->bind(':id_equipacion', $id);
+        if ($this->db->execute()){
+             return true;
+         }else{
+                 return false;
+         }
+        }else{
             return true;
         }   
     }

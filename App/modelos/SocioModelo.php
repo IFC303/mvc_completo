@@ -80,6 +80,14 @@ class SocioModelo
     }
 
 
+    /****************************** EQUIPACIONES *****************************/
+
+    public function obtener_pedidos($id){
+        $this->db->query("SELECT * FROM soli_equipacion,equipacion where soli_equipacion.id_equipacion=equipacion.id_equipacion and soli_equipacion.id_usuario=:id_usuario;");
+        $this->db->bind(':id_usuario', $id);
+        return $this->db->registros();
+    }
+
 
     public function obtenerMarcas()
     {
@@ -91,7 +99,8 @@ class SocioModelo
 
     public function obtenerMarcasId($idUsuarioSesion)
     {
-        $this->db->query("SELECT * FROM PRUEBA P, PRUEBA_SOCIO PS , TEST T , TEST_PRUEBA TP  where '$idUsuarioSesion' = PS.id_usuario AND P.id_prueba = PS.id_prueba AND P.id_prueba = TP.id_prueba AND TP.id_test = T.id_test ORDER BY P.id_prueba");
+        $this->db->query("SELECT * FROM PRUEBA , PRUEBA_SOCIO  , TEST T , TEST_PRUEBA TP  
+        where '$idUsuarioSesion' = prueba_socio.id_usuario AND prueba.id_prueba = prueba_socio.id_prueba AND prueba.id_prueba = TP.id_prueba AND TP.id_test = T.id_test ORDER BY prueba.id_prueba");
 
         return $this->db->registros();
     }
@@ -151,19 +160,19 @@ class SocioModelo
         }
     }
 
-    public function obtenergrupos()
+    public function obtener_grupos()
     {
         $this->db->query("SELECT * FROM `GRUPO`");
         return $this->db->registros();
     }
 
-    public function obtenerCategorias()
+    public function obtener_categorias()
     {
         $this->db->query("SELECT * FROM `CATEGORIA`");
         return $this->db->registros();
     }
 
-    public function obtenerEventos()
+    public function obtener_eventos()
     {
         $this->db->query("SELECT * FROM `EVENTO`");
         return $this->db->registros();

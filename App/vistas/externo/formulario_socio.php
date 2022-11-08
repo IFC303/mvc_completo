@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo RUTA_URL ?>/public/css/estilos.css">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,59 +23,48 @@
             font-size: 15px;
         }
 
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        
         #fotoBici{
             background-image: url("<?php echo RUTA_Foto ?>chicas recortadas.png");
             background-size: 100% 100%;
         }
 
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
 
         @media (max-width: 600px) {
             #fotoBici {
                 display: none;
             }
         }
-        sup{
-            color: #023EF9;
-            font-weight: bold;
-            font-size: small;
-        }
+        
+
     </style>
 </head>
+
 
 <body style="margin: 0px;">
     <div class="container-fluid min-vh-100 ">
         <div class="row">
             <div id="fotoBici" class="col-lg-5 col-md-5 col-sm-5 m-0 p-0 min-vh-100" >
-                <!-- <img src="<?php echo RUTA_Foto ?>chicas recortadas.png" width="100%" height="928px"> -->
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 m-0 p-0">
 
-                <div class="p-3" style="text-align: center;"><a href="<?php echo RUTA_URL ?>/socio"><img src="<?php echo RUTA_Foto ?>corredor.png" width="150"><img src="<?php echo RUTA_Foto ?>letras.png" width="200"></a></div>
-                <div class="p-3" style="text-align: center;"><h1>INSCRIPCION SOCIO</h1></div>
+                <div class="col-10 mt-5 mb-3 d-flex align-items-center justify-content-center">
+                    <span id="textoForm">Inscripcion para socio</span>
+                </div>
 
                 <form action="" onsubmit="return validarSoliSocio()" method="POST"> 
-                    <div class="row m-3">
+                    <div class="row mt-5 me-5 info">
 
-                        <div class="row mt-3 mb-3">
+                        <div class="row  mt-3 mb-3">
                             <div class="col-5">
                                 <div class="input-group">
-                                    <label for="nomAtl" class="input-group-text">Nombre (atleta) <sup>*</sup></label>
-                                    <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
+                                    <label for="nomAtl" class="input-group-text">Nombre<sup>*</sup></label>
+                                    <input type="text" class="form-control" placeholder="Escribe tu nombre" id="nomAtl" name="nomAtl" required onkeypress="return Solo_Texto(event);">
                                 </div>
                             </div>
                             <div class="col-7">
                                 <div class="input-group">
-                                    <label for="apelAtl" class="input-group-text">Apellidos (atleta) <sup>*</sup></label>
-                                    <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
+                                    <label for="apelAtl" class="input-group-text">Apellidos <sup>*</sup></label>
+                                    <input type="text" class="form-control" placeholder="Escribe tus apellidos" id="apelAtl" name="apelAtl" required onkeypress="return Solo_Texto(event);">
                                 </div>
                             </div>
                         </div>
@@ -88,8 +78,8 @@
                             </div>
                             <div class="col-7">
                                 <div class="input-group">
-                                   <label for="dniAtl" id="dniObli" class="input-group-text">DNI (atleta)</label>
-                                    <input type="text" class="form-control" placeholder="Escriba el dni" id="dniAtl" name="dniAtl" >
+                                   <label for="dniAtl" id="dniObli" class="input-group-text">DNI</label>
+                                    <input type="text" class="form-control" placeholder="Escribe tu DNI" id="dniAtl" name="dniAtl" >
                                 </div>
                             </div>
                         </div>
@@ -98,7 +88,7 @@
                         <div class="row mb-3">                            
                             <div class="col-12 input-group">
                                 <label for="direc" class="input-group-text">Dirección <sup>*</sup></label>
-                                <input type="text" class="form-control" placeholder="Escriba la dirección" id="direc" name="direc" required>
+                                <input type="text" class="form-control" placeholder="Escribe una dirección" id="direc" name="direc" required>
                             </div>
                         </div>
 
@@ -106,13 +96,13 @@
                             <div class="col-5">
                                 <div class="input-group">
                                    <label for="telf" class="input-group-text">Telefono <sup>*</sup></label>
-                                    <input type="text" class="form-control" placeholder="Escriba el telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
+                                    <input type="text" class="form-control" placeholder="Escribe un telefono" id="telf" name="telf" maxlength="9" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required>
                                 </div>
                             </div>
                             <div class="col-7">
                                 <div class="input-group">
-                                    <label for="email" class="input-group-text">Email (atleta o padre) <sup>*</sup></label>
-                                    <input type="text" class="form-control" placeholder="Escriba el correo" id="email" name="email" onblur="return correo(this.id)" required>
+                                    <label for="email" class="input-group-text">Email<sup>*</sup></label>
+                                    <input type="text" class="form-control" placeholder="Escribe un correo electronico" id="email" name="email" onblur="return correo(this.id)" required>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +110,7 @@
                         <div class="row mb-3">                            
                             <div class="col-12 input-group">
                                 <label for="ccc" class="input-group-text">Numero cuenta <sup>*</sup></label>
-                                <input type="text" class="form-control" placeholder="Escriba el numero de cuenta" id="ccc" name="ccc" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"required>
+                                <input type="text" class="form-control" placeholder="Escribe un numero de cuenta corriente" id="ccc" name="ccc" maxlength="20" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"required>
                             </div>
                         </div>
 
@@ -134,7 +124,13 @@
                             <div class="col-5">
                                 <div class="input-group">
                                     <label for="talla" class="input-group-text">Talla camiseta <sup>*</sup></label>
-                                    <input type="text" class="form-control" placeholder="Escriba la talla" id="talla" name="talla" required>
+                                    <select name="talla" id="talla" class="form-control" required>
+                                        <option value="">-- Selecciona una talla --</option>
+                                        <?php foreach ($datos['tallas'] as $tallas) : ?>
+                                        <option value="<?php echo $tallas->id_talla?>"> <?php echo $tallas->nombre ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                   
                                 </div>
                             </div>
                             <div class="col-7 d-flex align-items-center">
@@ -147,20 +143,20 @@
                         
 
                         <div class="row mb-3">
-                            <p>Rellena los siguientes campos solo si eres menor de edad</p>
+                            <p style="font-weight:bold;color:#0070c6;text-decoration:underline">Rellena los siguientes campos solo si eres menor de edad</p>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-5">
                                 <div class="input-group">
-                                    <label for="nomPa" class="input-group-text">Nombre (padre o tutor)</label>
-                                    <input type="text" class="form-control" placeholder="Escriba el nombre" id="nomPa" name="nomPa" onkeypress="return Solo_Texto(event);">
+                                    <label for="nomPa" class="input-group-text">Nombre</label>
+                                    <input type="text" class="form-control" placeholder="Del padre, madre o tutor" id="nomPa" name="nomPa" onkeypress="return Solo_Texto(event);">
                                 </div>
                             </div>
                             <div class="col-7">
                                 <div class="input-group">
-                                    <label for="apelPa" class="input-group-text">Apellidos (padre o tutor)</label>
-                                    <input type="text" class="form-control" placeholder="Escriba los apellidos" id="apePa" name="apePa"  onkeypress="return Solo_Texto(event);">
+                                    <label for="apelPa" class="input-group-text">Apellidos</label>
+                                    <input type="text" class="form-control" placeholder="Del padre, madre o tutor" id="apePa" name="apePa"  onkeypress="return Solo_Texto(event);">
                                 </div>
                             </div>
                         </div>
@@ -168,16 +164,19 @@
                         <div class="row mb-5">
                             <div class="col-5">
                                 <div class="input-group">
-                                    <label for="dniPa" id="dniPa" class="input-group-text">DNI (padre o tutor)</label>
-                                    <input type="text" class="form-control" placeholder="Escriba el dni" id="dniPa" name="dniPa" >
+                                    <label for="dniPa" id="dniPa" class="input-group-text">DNI</label>
+                                    <input type="text" class="form-control" placeholder="Del padre, madre o tutor" id="dniPa" name="dniPa" >
                                 </div>
                             </div>
                        
                         </div>
 
-
                        
-                        <input type="submit" class="btn btn-primary mt-4 ms-3 w-25" value="Enviar">
+                        <div class="row"> 
+                            <div >
+                                <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Enviar solicitud"> 
+                            </div>
+                        </div>
                   
 
                         <label id="error"></label>

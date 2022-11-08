@@ -35,13 +35,12 @@
                         <!--CABECERA TABLA-->
                         <thead>
                         <tr>
-                                <th>ID</th>          
+                                <th>ID</th>  
+                                <th>FECHA SOLICITUD</th>        
                                 <th>NOMBRE</th>
                                 <th>APELLIDOS</th>
                                 <th>EVENTO</th>
-                                <th>FECHA SOLICITUD</th>
-                                <th>EMAIL</th>
-                                <th>TELEFONO</th>
+                                <th>JUSTIFICANTE</th>
                                 
 
                                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol, [1])) : ?>
@@ -51,17 +50,41 @@
                         </tr>
                         </thead>
 
-
                         <tbody>
                         <?php foreach ($datos['soliEvento'] as $usuarios) : ?>
                                 <tr>
-                                <td><?php echo $usuarios->id_solicitud?></td>                               
+                                <td><?php echo $usuarios->id_solicitud?></td>   
+                                <td><?php echo $usuarios->fecha?></td>                           
                                 <td><?php echo $usuarios->nombre?></td>
                                 <td><?php echo $usuarios->apellidos?></td>
                                 <td><?php echo $usuarios->nombre_evento?></td>
-                                <td><?php echo $usuarios->fecha?></td>
-                                <td><?php echo $usuarios->email?></td>
-                                <td><?php echo $usuarios->telefono?></td>
+
+                                <td><?php if ($usuarios->foto==''){echo '-';
+                                 }else {?> 
+                                    <a data-bs-toggle="modal" data-bs-target="#justi<?php echo $usuarios->id_solicitud?>">
+                                        <img class="icono" src="<?php echo RUTA_Icon ?>foto.svg"></img>
+                                    </a>
+                                    <div class="modal" id="justi<?php echo $usuarios->id_solicitud?>">
+                                    <div class="modal-dialog modal-fullscreen">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header azul">
+                                            <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body info"> 
+                                            <div>
+                                                <img id="output" height=75% width=75% src="<?php echo RUTA_Justificante.$usuarios->id_solicitud.'.jpg'?>">
+                                            </div> 
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                    </div>
+                                <?php } ?>
+                            </td>
                                 
 
 
@@ -76,12 +99,12 @@
 
                                     <!-- Ventana -->
                                     <div class="modal" id="editar_<?php echo $usuarios->id_solicitud?>">
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
 
                                             <!-- Modal Header -->
                                             <div class="modal-header azul">
-                                                <p class="modal-title ms-3">Edicion</p> 
+                                                <p class="modal-title ms-3">Solicitud Nº: <?php echo $usuarios->id_solicitud?> </p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                             </div>
                                       
@@ -170,11 +193,9 @@
                                                         </div>
                                                         </div>
                                                 </div>
-                                                
-  
 
                                                 <div class=" d-flex justify-content-end">
-                                                    <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar">        
+                                                    <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Guardar cambios">        
                                                 </div> 
                   
 
@@ -220,14 +241,13 @@
 
 
 
-
                                         <!-- MODAL ACEPTAR-->
                                         <a data-bs-toggle="modal" data-bs-target="#confirmar_<?php echo $usuarios->id_solicitud?>">
                                         <img class="icono" src="<?php echo RUTA_Icon ?>tick.png"></img>
                                         </a>                                        
 
                                         <div class="modal" id="confirmar_<?php echo $usuarios->id_solicitud ?>">
-                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
 
                                         <!-- Modal Header -->
@@ -247,7 +267,7 @@
                                                         <div class="col-5">
                                                         <div class="input-group">
                                                                 <label for="fecha" class="input-group-text">Fecha solicitud</label>
-                                                                <input type="text" class="form-control form-control-md" name="fecha" id="fecha" value="<?php echo $usuarios->fecha?>" readonly> 
+                                                                <input type="date" class="form-control form-control-md" name="fecha" id="fecha" value="<?php echo $usuarios->fecha?>" readonly> 
                                                         </div> 
                                                         </div> 
 
@@ -321,16 +341,16 @@
                                                 <div class=" d-flex justify-content-end">
                                                         <input type="hidden" name="id_evento" value="<?php echo $usuarios->id_evento?>">
                                                         <input type="hidden" name="nombre_evento" value="<?php echo $usuarios->nombre_evento?>">
-                                                        <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar">        
+                                                        <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar solicitud">        
                                                 </div> 
 
                                         </form>                                                
                                         </div>
                                         </div>
                                         
-                                </div>
-                                </div>
-                                </div>
+                                        </div>
+                                        </div>
+                                        </div>
 
 
 
@@ -353,20 +373,31 @@
 
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
+
 <script>
 
+        var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+        URL.revokeObjectURL(output.src)
+        }
+        };
+
+        var loadFile2 = function(event,id) {
+        var output = document.getElementById('outputEdit'+id);
+        console.log(output);
+        output.src = URL.createObjectURL(event.target.files[0]);
+        //console.log(output.src);
+        output.onload = function() {
+        URL.revokeObjectURL(output.src)
+        }
+        };
 
 
-
-        // function enviarSociExter(){
-        //         if(document.getElementById("externo").checked==true){
-        //                 var rutaURL= document.getElementById("radioChe").action;
-        //                 document.getElementById("radioChe").action=rutaURL+"externo";
-        //         }
-        //         if(document.getElementById("socio").checked==true){
-        //                 var rutaURL= document.getElementById("radioChe").action;
-        //                 document.getElementById("radioChe").action=rutaURL+"socio";
-        //         }
-                
-        // }
 </script>
+
+
+
+
+        

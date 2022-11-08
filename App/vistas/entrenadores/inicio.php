@@ -28,7 +28,7 @@
 
     <section>
 
-        <nav class="menu1" id="menu1">
+        <nav class="menu1" id="menuEntrenador">
                     
                     <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link">   
                         <div class="mt-2">

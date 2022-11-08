@@ -12,7 +12,7 @@ class Socio extends Controlador{
 
         $this->adminModelo = $this->modelo('AdminModelo');
 
-        $this->SocioModelo = $this->modelo('SocioModelo');
+        $this->socioModelo = $this->modelo('SocioModelo');
         $this->equipacionModelo = $this->modelo('Equipacion');     
         $this->eventoModelo = $this->modelo('Evento');   
     }
@@ -23,6 +23,23 @@ class Socio extends Controlador{
     public function index(){
         $id=$this->datos['usuarioSesion']->id_usuario;
         $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
+
+
+
+        // $nombrePagina = "SUBIR LICENCIAS";
+        // $tituloPagina = "MIS LICENCIAS";        
+        // $this->datos['nombrePagina']=$nombrePagina;
+        // $this->datos['tituloPagina']=$tituloPagina;
+        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+        $licencias = $this->socioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
+        $this->datos['usuarios']=$licencias;   
+
+
+
+        $this->datos['eventos'] = $this->socioModelo->obtener_eventos();
+        $this->datos['grupos'] = $this->socioModelo->obtener_grupos();
+        $this->datos['categorias'] = $this->socioModelo->obtener_categorias();
+
         $this->vista('socios/inicio', $this->datos);
     }
 
@@ -81,6 +98,10 @@ class Socio extends Controlador{
 
 // *********** VER MARCAS ***********  
     public function verMarcas(){
+        $id=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
+
+
 
         $nombrePagina = "VER MARCAS";
         $tituloPagina = "MARCAS PERSONALES";
@@ -89,7 +110,7 @@ class Socio extends Controlador{
 
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
 
-        $marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
+        $marcas = $this->socioModelo->obtenerMarcasId($idUsuarioSesion);
         $this->datos['usuarios']=$marcas;
         $this->vista('socios/verMarcas', $this->datos);
     }
@@ -97,6 +118,9 @@ class Socio extends Controlador{
 
 // *********** VER LICENCIAS ***********  
     public function licencias(){
+
+        $id=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
 
         $nombrePagina = "SUBIR LICENCIAS";
         $tituloPagina = "MIS LICENCIAS";        
@@ -120,12 +144,17 @@ class Socio extends Controlador{
     //************* EQUIPACION *****************/
     public function equipacion(){
       
+        $id=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
 
-        $tituloPagina = "PEDIR EQUIPACION";
-        $this->datos['tituloPagina']=$tituloPagina;
+
+        // $tituloPagina = "PEDIR EQUIPACION";
+        // $this->datos['tituloPagina']=$tituloPagina;
 
         $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
         $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipaciones();
+        $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
+        $this->datos['equi'] = $this->socioModelo->obtener_pedidos($id);
 
         //$marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
         //$this->datos['usuarios']=$marcas;
@@ -166,18 +195,13 @@ class Socio extends Controlador{
 
 
 
-    public function verFoto($idLic){
-     
-
-        $this->datos['foto']=$this->SocioModelo->obtenerFotoLicencia($idLic);
-       
-        $this->vista('socios/verFoto',$this->datos);
-    }
-
    
  //************* INSCRIPCIONES *****************/
 
-    public function escuela(){
+    public function inscripciones(){
+
+        $id=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
         // $nombrePagina = "ESCUELA";
         // $tituloPagina = "ESCUELA";
         
@@ -259,43 +283,6 @@ class Socio extends Controlador{
 
 
 
-    // public function eventoSolicitud()
-    // {
-    //     $nombrePagina = "EVENTO";
-    //     $tituloPagina = "EVENTO";
-        
-    //     $this->datos['nombrePagina']=$nombrePagina;
-    //     $this->datos['tituloPagina']=$tituloPagina;
-
-    //     $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-    //     $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
-
-    //     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-    //         redireccionar('/usuarios');
-    //     }
-
-    //     $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $agreEvento = [
-    //             'id_usu' =>trim($datosUser[0]->id_usuario),
-    //             'even' => trim($_POST['even']),
-    //         ];
-          
-    //         if ($this->SocioModelo->eventoSoli($agreEvento)) {
-    //             redireccionar('/socio');
-    //         } else {
-    //             die('Algo ha fallado!!!');
-    //         }
-    //     }
-
-    //     $eventos = $this->SocioModelo->obtenerEventos();
-    //     $this->datos['usuarios']=$datosUser;
-    //     $this->datos['eventos']=$eventos;
-    //     $this->vista('socios/formulario_evento', $this->datos);
-        
-    // }
 
 
 }

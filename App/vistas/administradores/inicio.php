@@ -28,7 +28,7 @@
 
     <section>
 
-            <nav class="menu1" id="menu1">
+            <nav class="menu1" id="menuAdmin">
          
                     <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link">   
                     <div class="mt-2">
@@ -214,7 +214,7 @@
                 <a href="<?php echo RUTA_URL ?>/adminUsuarios">
                     <div id="colorUsuarios" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>usuario.png"></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>grupos.png"></div>
                             <div class="col-8"><p class="nombre">USUARIOS</p><p class="descripcion">Crea y gestiona nuevos usuarios de la aplicacion</p></div>
                         </div>                              
                     </div> 
@@ -232,8 +232,8 @@
                 <a href="<?php echo RUTA_URL ?>/adminGrupos">
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>grupos.png"></div>
-                            <div class="col-8"><p class="nombre">GRUPOS</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>escuela.png"></div>
+                            <div class="col-8"><p class="nombre">ESCUELA</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -345,7 +345,7 @@
         <button style="background-color:white" type="button" class="btn-close me-2" data-bs-dismiss="offcanvas"></button>
     </div>
     <a href="<?php echo RUTA_URL ?>/adminSolicitudes/socios" class="tMenu nav-link text-white"><span class="ms-4">SOCIOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][0]);?></span></span></a>
-    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class=" tMenu nav-link text-white "><span class="ms-4">GRUPOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][1]);?></span></span></a>         
+    <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class=" tMenu nav-link text-white "><span class="ms-4">ESCUELA<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][1]);?></span></span></a>         
     <a href="<?php echo RUTA_URL ?>/adminSolicitudes/eventos" class="tMenu nav-link text-white"><span class="ms-4">EVENTOS<span class="badge bg-danger ms-3"><?php print_r($datos['notificaciones'][2]);?></span</span></a> 
 </div>
 

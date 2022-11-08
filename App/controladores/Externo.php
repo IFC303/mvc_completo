@@ -37,7 +37,7 @@ class Externo extends Controlador{
  public function index(){
     // $notific = $this->notificaciones();
     // $this->datos['notificaciones'] = $notific;
- $this->vista('administradores/solicitudes',$this->datos);
+    $this->vista('externo/formulario_socio',$this->datos);
 }
 
 
@@ -69,6 +69,7 @@ class Externo extends Controlador{
                 die('Algo ha fallado!!!');
             }
         } else {
+            $this->datos['tallas'] = $this->externoModelo->obtener_tallas();
             $this->vista('externo/formulario_socio', $this->datos);
         }
     }
@@ -89,9 +90,9 @@ class Externo extends Controlador{
                  'direccion' => trim($_POST["direccion"]),
                  'telefono' => trim($_POST["telefono"]),
                  'email' => trim($_POST["email"]),
-                 'evento' => trim($_POST["evento"])               
+                 'evento' => trim($_POST["evento"]),
+                 'foto'=>$_FILES['subirFoto']['name'] 
             ];
-
              if ($this->externoModelo->anadir_soli_eve($soli_eve)) {
                  redireccionar('/externo/enviado');
              } else {
@@ -110,21 +111,24 @@ class Externo extends Controlador{
      public function formulario_escuela(){
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $anaSoli = [               
+            $anaSoli = [       
+                'dniUsuAna' => trim($_POST["dniAtl"]),        
                 'nomUsuAna' => trim($_POST["nomAtl"]),
-                'apelUsuAna' => trim($_POST["apelAtl"]),               
+                'apelUsuAna' => trim($_POST["apelAtl"]), 
+                'cccUsuAna' => trim($_POST["ccc"]),             
                 'fecUsuAna' => trim($_POST["fecha"]),
-                'dniUsuAna' => trim($_POST["dniAtl"]),
+                'emaUsuAna' => trim($_POST["email"]),
+                'telUsuAna' => trim($_POST["telf"]),  
+                'direccionUsuAna' => trim($_POST["direc"]),
+                'gir' => trim($_POST["gir"]),
+                'cat' => trim($_POST["cat"]),
+                'grup' => trim($_POST["grup"]),
+                'primerAnoSocio' => trim($_POST["priSocio"]),
                 'nom_pa' =>  trim($_POST['nomPa']),
                 'ape_pa' => trim ($_POST['apePa']),
                 'dni_pa' => trim ($_POST['dniPa']),
-                'emaUsuAna' => trim($_POST["email"]),
-                'direccionUsuAna' => trim($_POST["direc"]),
-                'telUsuAna' => trim($_POST["telf"]),                
-                'cccUsuAna' => trim($_POST["ccc"]),
-                'tallaUsuAna' => trim($_POST["talla"]),
-                'primerAnoSocio' => trim($_POST["priSocio"]),
-
+                'pago'=>$_FILES['pago']['name'],   
+                'foto'=>$_FILES['foto']['name']               
             ];
 
             if ($this->externoModelo->soli_escuela($anaSoli)) {
@@ -133,7 +137,9 @@ class Externo extends Controlador{
                 die('Algo ha fallado!!!');
             }
         } else {
-            $this->vista('externo/form_es', $this->datos);
+            $this->datos['categorias'] = $this->externoModelo->obtener_categoria();
+            $this->datos['grupos'] = $this->externoModelo->obtener_grupos(); 
+            $this->vista('externo/formulario_escuela', $this->datos);
         }
     }
 

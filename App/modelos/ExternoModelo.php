@@ -9,7 +9,22 @@ class ExternoModelo{
     }
 
     public function obtenerEventos(){
-        $this->db->query("SELECT * FROM `EVENTO`");
+        $this->db->query("SELECT * FROM EVENTO");
+        return $this->db->registros();
+    }
+
+    public function obtener_tallas(){
+        $this->db->query("SELECT * FROM talla");
+        return $this->db->registros();
+    }
+
+    public function obtener_categoria(){
+        $this->db->query("SELECT * FROM CATEGORIA");
+        return $this->db->registros();
+    }
+
+    public function obtener_grupos(){
+        $this->db->query("SELECT * FROM grupo");
         return $this->db->registros();
     }
 
@@ -17,8 +32,8 @@ class ExternoModelo{
   
 
     public function anadirSoliSocio($soliSociAnadir){       
-        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`) 
-        VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa);");
+        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`,`fecha_soli`) 
+        VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa, CURDATE());");
 
         $this->db->bind(':dniUsu', $soliSociAnadir['dniUsuAna']); 
         $this->db->bind(':nomUsu', $soliSociAnadir['nomUsuAna']);
@@ -50,8 +65,8 @@ class ExternoModelo{
 
 
       public function anadir_soli_eve($soli_eve){
-            $this->db->query("INSERT INTO SOLICITUD_EVENTO (id_evento, fecha, nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono) 
-            VALUES (:evento, CURDATE(), :nombre, :apellidos,:dni, :fecha_naci, :direccion, :email, :telefono);");
+            $this->db->query("INSERT INTO SOLICITUD_EVENTO (id_evento, fecha, nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono,foto) 
+            VALUES (:evento, CURDATE(), :nombre, :apellidos,:dni, :fecha_naci, :direccion, :email, :telefono,:foto);");
             
             $this->db->bind(':nombre', $soli_eve['nombre']);
             $this->db->bind(':apellidos', $soli_eve['apellidos']);
@@ -61,6 +76,23 @@ class ExternoModelo{
             $this->db->bind(':telefono', $soli_eve['telefono']);
             $this->db->bind(':email', $soli_eve['email']);
             $this->db->bind(':evento', $soli_eve['evento']);
+            $this->db->bind(':foto', $soli_eve['foto']);
+            $this->db->execute();
+
+            $id_solicitud=$this->db->ultimoIndice();
+
+         
+             //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
+            //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+            $directorio="C:/xampp/htdocs/tragamillas/public/img/justificantes/";   
+            copy($_FILES['subirFoto']['tmp_name'], $directorio.$id_solicitud.'.jpg');
+            chmod($directorio.$id_solicitud.'.jpg',0777);
+    
+
+            $foto=$id_solicitud.'.jpg';
+            $this->db->query("UPDATE SOLICITUD_EVENTO SET foto=:foto where id_solicitud=:id;");
+            $this->db->bind(':foto', $foto);  
+            $this->db->bind(':id', $id_solicitud);       
             
             if ($this->db->execute()) {
                 return true;
@@ -71,13 +103,34 @@ class ExternoModelo{
 
 
 
-        public function soli_escuela(){
+        public function soli_escuela($soli){
+            $this->db->query("INSERT INTO solicitud_escuela (fecha_soli,dni, nombre, apellidos, cuenta, fecha_nacimiento, email, telefono, direccion,
+            gir, id_categoria,id_grupo, es_socio, nom_pa, ape_pa, dni_pa, pago , foto) 
+            VALUES (CURDATE(), :dni, :nombre, :apellidos,:cuenta, :fecha_naci,:email,:telf,:dire,:gir,:cat,:grup,:socio,:nom_pa,:ape_pa,:dni_pa,:pago,:foto);");
 
-            // if ($this->db->execute()) {
-            //     return true;
-            // } else {
-            //     return false;
-            // }
+            $this->db->bind(':dni', $soli['dniUsuAna']);
+            $this->db->bind(':nombre', $soli['nomUsuAna']);
+            $this->db->bind(':apellidos', $soli['apelUsuAna']);
+            $this->db->bind(':cuenta', $soli['cccUsuAna']);
+            $this->db->bind(':fecha_naci', $soli['fecUsuAna']);
+            $this->db->bind(':email', $soli['emaUsuAna']);
+            $this->db->bind(':telf', $soli['telUsuAna']);
+            $this->db->bind(':dire', $soli['direccionUsuAna']);
+            $this->db->bind(':gir', $soli['gir']);
+            $this->db->bind(':cat', $soli['cat']);
+            $this->db->bind(':grup', $soli['grup']);
+            $this->db->bind(':socio', $soli['primerAnoSocio']);
+            $this->db->bind(':nom_pa', $soli['nom_pa']);
+            $this->db->bind(':ape_pa', $soli['ape_pa']);
+            $this->db->bind(':dni_pa', $soli['dni_pa']);
+            $this->db->bind(':pago', $soli['pago']);
+            $this->db->bind(':foto', $soli['foto']);
+  
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
 
         }
 

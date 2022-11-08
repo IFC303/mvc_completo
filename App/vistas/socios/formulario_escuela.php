@@ -1,30 +1,61 @@
-<?php require_once RUTA_APP . '/vistas/inc/nav.php' ?>
+<?php require_once RUTA_APP . '/vistas/socios/inicio.php' ?>
 
 
-    <!------------------------------ CABECERA -------------------------------->
-        <header>
-            <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
-                    <span id="textoHead">Inscripciones</span>
+
+
+
+        <article class="mt-5">
+  
+                <div class="row d-flex justify-content-around">
+
+                    <div class="col-5" >     
+                        <div class="card shadow-lg">
+                            <div class="card-body">
+                                <h4 class="card-title pt-2 pb-3">INSCRIPCION A EVENTO</h4>
+                                <form method="post" action="<?php echo RUTA_URL ?>/socio/ins_evento" ENCTYPE="multipart/form-data" >
+                                <div class="input-group info pb-5">
+                                        <label for="even" class="input-group-text">Evento<sup>*</sup></label>
+                                        <select class="form-control" name="id_evento" id="even" required>
+                                        <option value="">-- Seleciona un evento --</option>
+                                        <?php foreach ($datos['eventos'] as $even) : ?>
+                                            <option id="id_evento" value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
+                                        <?php endforeach ?>
+                                        </select> 
+                                </div> 
+                                <label for="even">Subir archivo pago <sup>* </sup></label>                  
+                                <input type="submit" id="confirmar" class="btn " value="Confirmar" onclick="conf()">
+                                </form>
+                            </div>
+                        </div>
+                     </div>
+
+                     <div class="col-5" >     
+                        <div class="card shadow-lg">
+                            <div class="card-body">
+                                <h4 class="card-title pt-2 pb-3">INSCRIPCION A EVENTO</h4>
+                                <form method="post" action="<?php echo RUTA_URL ?>/socio/ins_evento" ENCTYPE="multipart/form-data" >
+                                <div class="input-group info pb-5">
+                                        <label for="even" class="input-group-text">Evento<sup>*</sup></label>
+                                        <select class="form-control" name="id_evento" id="even" required>
+                                        <option value="">-- Seleciona un evento --</option>
+                                        <?php foreach ($datos['eventos'] as $even) : ?>
+                                            <option id="id_evento" value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
+                                        <?php endforeach ?>
+                                        </select> 
+                                </div> 
+                                <label for="even">Subir archivo pago <sup>* </sup></label>                  
+                                <input type="submit" id="confirmar" class="btn " value="Confirmar" onclick="conf()">
+                                </form>
+                            </div>
+                        </div>
+                     </div>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
-                    </a>
-                </div>
-            </div>                                   
-        </header>
-    <!----------------------------------------------------------------------->
 
-   
+ 
 
-        <article>
-        <div class="d-flex align-items-center justify-content-around mt-5 ">
-             
-
-                        <!-- FORMULARIO ESCUELA-->               
-                        <div class="col-6 col-xs-12 col-md-6 " style="width:500px">                           
+                        <!-- FORMULARIO ESCUELA-->      
+                        <!-- <div class="row">        
+                        <div class="col-12 col-xs-12 col-md-6 " style="width:500px">                           
                                 <div class="shadow-lg p-3 mb-3" style="height:650px; background-color:white">                               
 
                                     <div class="row">
@@ -32,7 +63,7 @@
                                         <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">INSCRIPCION ESCUELA</p></div>                                       
                                     </div>
 
-                                    <form method="post" ENCTYPE="multipart/form-data" class="card-body">
+                                    <form method="post" ENCTYPE="multipart/form-data" class="card-body"> -->
 
                                         <!-- <div class="row mt-4 w-100">
                                             <label for="grup">Grupo entrenamiento</label>
@@ -76,49 +107,16 @@
                                         </div> 
                                         </div> -->
                                         
-                                        <div class="row justify-content-center">
+                                        <!-- <div class="row justify-content-center">
                                             <input type="submit" id="confirmar" class="btn w-25 " value="Confirmar">
                                         </div>
 
                                     </form>
                                 </div>
                            
-                        </div>
-
-                        
-                        <div class="col-6 col-xs-12 col-md-6 " style="width:500px">
-                                <div id="colorMarcas" class="shadow-lg p-3 mb-3" style="height:650px; background-color:white" onmouseover="colorear(this);" onmouseleave="decolorear(this);">                               
-                                    <div class="row">
-                                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " style="width:100px; height:100px; background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>eventos.png" width="60" height="60"></div>
-                                        <div class="col-8"><p style="margin-top:25px;  margin-left:30px; font-size:20px">INSCRIPCION EVENTO</p></div>
-                                    </div>
+                        </div></div>  -->
 
 
-                                <form method="post" action="<?php echo RUTA_URL ?>/socio/ins_evento" ENCTYPE="multipart/form-data" class="card-body">
-                                    <div class="row w-100 mt-4 ">                                 
-                                        <label for="even">Selecciona un evento <sup>* </sup></label>
-                                        <select class="form-control" name="id_evento" id="even" required>
-                                            <option value=""></option>
-                                            <?php foreach ($datos['eventos'] as $even) : ?>
-                                                <option id="id_evento" value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
-                                            <?php endforeach ?>
-                                        </select>                           
-                                    </div>
-                                    
-                                    <div class="row w-100 mt-4 ">                                
-                                        <label for="even">Subir archivo pago <sup>* </sup></label>
-                                                              
-                                    </div>
-                         
-
-                                    <div class="row justify-content-center">
-                                        <input type="submit" id="confirmar" class="btn w-25 mt-5 " value="Confirmar" onclick="conf()">
-                                    </div>
-                                    </form>
-
-                                </div>
-                        </div>
-    </div>
 </article>
 
 

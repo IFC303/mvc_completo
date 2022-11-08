@@ -44,6 +44,7 @@ public function gestion(){
     $this->datos['notificaciones'] = $notific;
 
     $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipaciones();
+ 
     $this->vista('administradores/equiG',$this->datos);
 }
 
@@ -165,6 +166,7 @@ public function pedidos(){
     $this->datos['usus']=$this->equipacionModelo->obtener_usuarios();
     $this->datos['equip']=$this->equipacionModelo->obtenerEquipaciones();
     $this->datos['pedidos']=$this->equipacionModelo->obtenerPedidosUsuarios(); 
+    $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
     $this->vista('administradores/equiP',$this->datos);
 }
 

@@ -42,19 +42,19 @@
                             <td><?php echo $test->fecha_alta?></td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
-                            <td class="d-flex justify-content-center"> 
+                            <td> 
 
 
 
-                               <!-- MODAL VER-->                 
+                               <!-- MODAL VER-->        
                                <a data-bs-toggle="modal" data-bs-target="#ver<?php echo $test->id_test?>">
-                                    <img class="icono" src="<?php echo RUTA_Icon ?>ojo.svg"></img>
-                                </a>
-
+                                <img class="icono" src="<?php echo RUTA_Icon ?>ojo.svg"></img>
+                                </a>         
+                       
                                     <!-- Ventana -->
-                                    <div class="modal" id="ver<?php echo $test->id_test ?>">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                    <div class="modal-content" id="modalEditar">
+                                    <div class="modal" id="ver<?php echo $test->id_test?>">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
 
 
                                         <!-- Modal Header -->
@@ -65,8 +65,8 @@
                             
 
                                         <!-- Modal body -->
-                                        <div class="modal-body info mb-3">    
-                                        <div class="row ms-1"> 
+                                        <div class="modal-body info mb-4">                         
+                                        <div class="container mt-4">
 
 
                                                 <div class="row mt-4 mb-4">
@@ -91,17 +91,16 @@
                                                 </div> 
                               
 
-
-                                            <div class="mb-5">
-                                                <label class="mb-3" for="pruebas">Pruebas incluidas</label>
+                                            <div class="titulito"><span>Pruebas incluidas en el test</span></div>   
+                                            
                                                     <?php $tipo="";
                                                         $tipo="";
                                                         foreach($datos['pruebas'] as $prueba):
                                                             if ($tipo!=$prueba->tipo){
                                                                 $tipo=$prueba->tipo;
-                                                                echo '<br>';
-                                                                echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
-                                                            } 
+                                                                echo '<br>';?>
+                                                               <span class="me-2 d-flex justify-content-start"><?php echo $tipo.':';?></span> 
+                                                           <?php } 
 
                                                             $seleccionado="";
                                                             foreach($test->pruebas as $pruebaTest):
@@ -109,14 +108,16 @@
                                                                     $seleccionado = "checked";
                                                                 }
                                                             endforeach;?>
+                                                           
+                                                            <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled> 
+                                                            <?php echo $prueba->nombrePrueba;?>   
+                                                            <?php 
 
-                                                            <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled>    
-                                                            <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
                                                         endforeach;?>                                                             
-                                            </div>
+                                         
                                         </div>
                                         </div>  
-                                        </div>
+                                </div>
                                 </div>
                                 </div>
                                     
@@ -156,33 +157,34 @@
                                                     </div>
                                                 </div>  
 
-                                                <div class="row mb-4">                         
+                                                <div class="row mb-5">                         
                                                     <div class="input-group">
                                                         <textarea  type="text" style="height:100px" class="form-control" placeholder ="Observaciones" id="descripcion" name="descripcion"><?php echo $test->descripcion?></textarea>
                                                     </div>                           
                                                 </div> 
                                     
-                                                <div class="mt-3 mb-3">                                            
-                                                    <label class="mb-3" for="pruebas_selec">Selecciona las pruebas que quieres incluir en el test</label>
+                                              
+                                                <div class="titulito"><span>Selecciona las pruebas que quieres incluir en el test</span></div>                                         
+                                                 
                                                     <?php $tipo="";
                                                           $tipo="";
                                                             foreach($datos['pruebas'] as $prueba):
                                                                 if ($tipo!=$prueba->tipo){
                                                                     $tipo=$prueba->tipo;
                                                                     echo '<br>';
-                                                                    echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
-                                                                } 
-                                                                    $seleccionado="";
-                                                                    foreach($test->pruebas as $pruebaTest):
-                                                                        if ($pruebaTest->id_prueba==$prueba->id_prueba){
-                                                                            $seleccionado = "checked";
-                                                                        }
-                                                                    endforeach;
+                                                                   ?> <div><?php echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';?></div>
+                                                                <?php } 
+                                                                $seleccionado="";
+                                                                foreach($test->pruebas as $pruebaTest):
+                                                                    if ($pruebaTest->id_prueba==$prueba->id_prueba){
+                                                                        $seleccionado = "checked";
+                                                                    }
+                                                                endforeach;
                                                             ?>
-                                                                <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> >    
-                                                                <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
-                                                            endforeach; ?>   
-                                                </div>
+                                                        <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> >    
+                                                        <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
+                                                    endforeach; ?> 
+                                           
 
                                                 <input type="hidden" name="id_test" value="<?php echo $test->id_test?>">  
 
@@ -282,7 +284,8 @@
                                 </div>                           
                             </div> 
 
-                            <p class="info">Selecciona las pruebas que quieres incluir en el test</p>
+                            <div class="titulito"><span>Selecciona las pruebas que quieres incluir en el test</span></div>
+                            
                             <?php $tipo="";
                                 foreach($datos['pruebas'] as $prueba):
                                     if ($tipo!=$prueba->tipo){
@@ -292,11 +295,11 @@
                                     } ?>
                                     <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>">  
                                     <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
-                            endforeach ?>        
+                            endforeach ?>      
 
 
-                                <div class="d-flex justify-content-end">
-                                    <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
+                                <div class="mt-3 mb-4 d-flex justify-content-end">
+                                    <input type="submit" class="btn " name="aceptar" id="confirmar" value="Confirmar"> 
                                </div> 
 
                         </form>
