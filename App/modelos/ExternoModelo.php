@@ -9,22 +9,22 @@ class ExternoModelo{
     }
 
     public function obtenerEventos(){
-        $this->db->query("SELECT * FROM EVENTO");
+        $this->db->query("SELECT * FROM v2evento");
         return $this->db->registros();
     }
 
     public function obtener_tallas(){
-        $this->db->query("SELECT * FROM talla");
+        $this->db->query("SELECT * FROM v2talla");
         return $this->db->registros();
     }
 
     public function obtener_categoria(){
-        $this->db->query("SELECT * FROM CATEGORIA");
+        $this->db->query("SELECT * FROM v2categoria");
         return $this->db->registros();
     }
 
     public function obtener_grupos(){
-        $this->db->query("SELECT * FROM grupo");
+        $this->db->query("SELECT * FROM v2grupo");
         return $this->db->registros();
     }
 
@@ -32,7 +32,7 @@ class ExternoModelo{
   
 
     public function anadirSoliSocio($soliSociAnadir){       
-        $this->db->query("INSERT INTO `SOLICITUD_SOCIO` (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`,`fecha_soli`) 
+        $this->db->query("INSERT INTO v2soli_socio (`DNI`, `nombre`, `apellidos`, `CCC`, `talla`, `fecha_nacimiento`, `email`, `telefono`, `direccion`, `ha_sido`,`nom_pa`,`ape_pa`,`dni_pa`,`fecha_soli`) 
         VALUES (:dniUsu,:nomUsu,:apelUsu,:cccUsu,:tallUsu,:fecUsu,:emaUsu,:telUsu,:direcUsu,:aSocio,:nom_pa,:ape_pa,:dni_pa, CURDATE());");
 
         $this->db->bind(':dniUsu', $soliSociAnadir['dniUsuAna']); 
@@ -65,7 +65,7 @@ class ExternoModelo{
 
 
       public function anadir_soli_eve($soli_eve){
-            $this->db->query("INSERT INTO SOLICITUD_EVENTO (id_evento, fecha, nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono,foto) 
+            $this->db->query("INSERT INTO v2soli_evento (id_evento, fecha, nombre, apellidos, DNI, fecha_nacimiento, direccion, email, telefono,foto) 
             VALUES (:evento, CURDATE(), :nombre, :apellidos,:dni, :fecha_naci, :direccion, :email, :telefono,:foto);");
             
             $this->db->bind(':nombre', $soli_eve['nombre']);
@@ -90,7 +90,7 @@ class ExternoModelo{
     
 
             $foto=$id_solicitud.'.jpg';
-            $this->db->query("UPDATE SOLICITUD_EVENTO SET foto=:foto where id_solicitud=:id;");
+            $this->db->query("UPDATE v2soli_evento SET foto=:foto where id_solicitud=:id;");
             $this->db->bind(':foto', $foto);  
             $this->db->bind(':id', $id_solicitud);       
             
@@ -104,7 +104,7 @@ class ExternoModelo{
 
 
         public function soli_escuela($soli){
-            $this->db->query("INSERT INTO solicitud_escuela (fecha_soli,dni, nombre, apellidos, cuenta, fecha_nacimiento, email, telefono, direccion,
+            $this->db->query("INSERT INTO v2soli_grupo (fecha_soli,dni, nombre, apellidos, cuenta, fecha_nacimiento, email, telefono, direccion,
             gir, id_categoria,id_grupo, es_socio, nom_pa, ape_pa, dni_pa, pago , foto) 
             VALUES (CURDATE(), :dni, :nombre, :apellidos,:cuenta, :fecha_naci,:email,:telf,:dire,:gir,:cat,:grup,:socio,:nom_pa,:ape_pa,:dni_pa,:pago,:foto);");
 

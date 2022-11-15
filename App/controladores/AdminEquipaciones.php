@@ -43,7 +43,7 @@ public function gestion(){
     $notific = $this->notificaciones();
     $this->datos['notificaciones'] = $notific;
 
-    $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipaciones();
+    $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones();
  
     $this->vista('administradores/equiG',$this->datos);
 }
@@ -164,8 +164,8 @@ public function pedidos(){
     $this->datos['notificaciones'] = $notific;   
 
     $this->datos['usus']=$this->equipacionModelo->obtener_usuarios();
-    $this->datos['equip']=$this->equipacionModelo->obtenerEquipaciones();
-    $this->datos['pedidos']=$this->equipacionModelo->obtenerPedidosUsuarios(); 
+    $this->datos['equip']=$this->equipacionModelo->obtener_equipaciones();
+    $this->datos['pedidos']=$this->equipacionModelo->obtener_pedidos(); 
     $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
     $this->vista('administradores/equiP',$this->datos);
 }
@@ -185,7 +185,7 @@ public function nuevo_pedido(){
             'cantidad'=>trim($_POST['cantidad']),
             'talla'=>trim($_POST['talla'])
         ];
-        if($this->equipacionModelo->pedidoEquipacion($nuevo)){
+        if($this->equipacionModelo->nuevo_pedido($nuevo)){
             redireccionar('/adminEquipaciones/pedidos');
         }else{
             die('Añgo ha fallado!!');
@@ -203,26 +203,26 @@ public function nuevo_pedido(){
 
 
 
-public function editar_pedido($id_soli_equi){
-    $this->datos['rolesPermitidos'] = [1];         
-    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-        redireccionar('/usuarios');
-    }
+// public function editar_pedido($id_soli_equi){
+//     $this->datos['rolesPermitidos'] = [1];         
+//     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+//         redireccionar('/usuarios');
+//     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $equipacion_modificada = [
-            'cantidad'=> trim($_POST['cantidad']),
-            'talla' => trim($_POST['talla']),
-        ];
-        if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
-            redireccionar('/adminEquipaciones/pedidos');
-        }else{
-            die('Algo ha fallado!!!');
-        }
-    } else {
-        $this->vista('adminEquipaciones/equiP', $this->datos);
-    }
-}
+//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//         $equipacion_modificada = [
+//             'cantidad'=> trim($_POST['cantidad']),
+//             'talla' => trim($_POST['talla']),
+//         ];
+//         if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
+//             redireccionar('/adminEquipaciones/pedidos');
+//         }else{
+//             die('Algo ha fallado!!!');
+//         }
+//     } else {
+//         $this->vista('adminEquipaciones/equiP', $this->datos);
+//     }
+// }
 
 
 
@@ -254,7 +254,7 @@ public function cambiar_estado($id){
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $estado=$_POST['estado'];
-        if ($this->equipacionModelo->cambiarEstado($id,$estado)) {
+        if ($this->equipacionModelo->cambiar_estado($id,$estado)) {
             redireccionar('/adminEquipaciones/pedidos');
         }else{
             die('Algo ha fallado!!!');

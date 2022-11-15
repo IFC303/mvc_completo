@@ -13,11 +13,11 @@ class Mensaje{
 //**********************MENSAJERIA ADMIN*********************************/
 
 public function obtener_email_todos(){
-    $this->db->query("SELECT usuario.id_usuario as id, rol.nombre as tipo, usuario.nombre,apellidos,email FROM USUARIO, rol where usuario.id_rol=rol.id_rol
+    $this->db->query("SELECT v2usuario.id_usuario as id, rol.nombre as tipo, v2usuario.nombre, apellidos, email FROM v2usuario, rol where v2usuario.id_rol=rol.id_rol
     union all
-    select id_participante as id, 'Participantes' as tipo, nombre,apellidos, email from participante
+    select id_participante as id, 'Participantes' as tipo, nombre, apellidos, email from v2participante
     union all
-    select id_entidad as id, 'Entidades' as tipo,nombre,'' as apellidos, email from otras_entidades");
+    select id_entidad as id, 'Entidades' as tipo, nombre,'' as apellidos, email from v2entidad");
     return $this->db->registros();
 }
 
@@ -37,14 +37,14 @@ public function obtener_email_todos(){
 
 
  public function entrenador_grupo($idUsu){
-     $this->db->query("SELECT GRUPO.nombre, GRUPO.id_grupo from GRUPO, ENTRENADOR_GRUPO 
-     where ENTRENADOR_GRUPO.id_usuario=:idUsu and GRUPO.id_grupo=ENTRENADOR_GRUPO.id_grupo;");
+     $this->db->query("SELECT v2grupo.nombre, v2grupo.id_grupo from v2grupo, v2entrenador_grupo 
+     where v2entrenador_grupo.id_usuario = :idUsu and v2grupo.id_grupo = v2entrenador_grupo.id_grupo;");
      $this->db->bind(':idUsu',$idUsu);
      return $this->db->registros();
  }
 
 public function grupos_x_entrenador($id){
-    $this->db->query("SELECT * from grupos_x_entrenador where entrenador=:id");
+    $this->db->query("SELECT * from v2grupos_x_entrenador where entrenador=:id");
     $this->db->bind(':id',$id);
     return $this->db->registros();
 }

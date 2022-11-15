@@ -12,13 +12,13 @@ class Entidad{
 //*********************************** VER ****************************************/
 
     public function obtener_entidades(){
-        $this->db->query("SELECT * FROM OTRAS_ENTIDADES");
+        $this->db->query("SELECT * FROM v2entidad");
         return $this->db->registros();
     }
 
 
     public function obtener_entidad_id($id){
-        $this->db->query("SELECT * FROM OTRAS_ENTIDADES WHERE id_entidad = :idEntidad");
+        $this->db->query("SELECT * FROM v2entidad WHERE id_entidad = :idEntidad");
         $this->db->bind(':idEntidad', $id);
         return $this->db->registro();
     }
@@ -28,7 +28,7 @@ class Entidad{
 //*********************************** NUEVO ****************************************/
     public function nuevo($nuevo){
         
-        $this->db->query("INSERT INTO OTRAS_ENTIDADES (cif,nombre,direccion,telefono,email,observaciones) VALUES (:cif, :nombre, :direccion,:telefono,:email,:observaciones)");
+        $this->db->query("INSERT INTO v2entidad (cif,nombre,direccion,telefono,email,observaciones) VALUES (:cif, :nombre, :direccion,:telefono,:email,:observaciones)");
         $this->db->bind(':cif',$nuevo['cif']);
         $this->db->bind(':nombre', $nuevo['nombre']);
         $this->db->bind(':direccion',$nuevo['direccion']);
@@ -48,7 +48,7 @@ class Entidad{
 //*********************************** EDITAR ****************************************/
 public function editar($editar,$id){
 
-    $this->db->query("UPDATE OTRAS_ENTIDADES SET cif=:cif, nombre=:nombre, direccion=:direccion,telefono=:telefono,email=:email,observaciones=:observaciones WHERE id_entidad = :id");
+    $this->db->query("UPDATE v2entidad SET cif=:cif, nombre=:nombre, direccion=:direccion,telefono=:telefono,email=:email,observaciones=:observaciones WHERE id_entidad = :id");
     
     $this->db->bind(':cif',$editar['cif']);
     $this->db->bind(':nombre', $editar['nombre']);
@@ -70,7 +70,7 @@ public function editar($editar,$id){
 //*********************************** BORRAR ****************************************/
     public function borrar($id){
 
-        $this->db->query("DELETE FROM OTRAS_ENTIDADES WHERE id_entidad =:id");
+        $this->db->query("DELETE FROM v2entidad WHERE id_entidad =:id");
         $this->db->bind(':id',$id);
 
         if ($this->db->execute()){

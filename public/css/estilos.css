@@ -43,11 +43,30 @@ color:white;
      background-color: #0070c6;
 }
 
+.menu1 a:not(.home){
+    padding-top:15px;
+    border-bottom:white solid 5px;
+}
+
 #menuSocio, #menuEntrenador, #menuAdmin{
     width: 20% ; 
     float:left;
     height:100vh;
     background-color: #0070c6;
+}
+
+#menuSocio a:hover{
+    background-color: #FFBF1C; 
+}
+.menuSocio a:hover{
+    background-color: #FFBF1C; 
+}
+
+.menu1 a:hover{
+    background-color: #FFBF1C; 
+}
+#menu1 a:hover{
+    background-color: #FFBF1C; 
 }
 
 
@@ -89,17 +108,7 @@ color:white;
 } 
 
 
-.menu1 a:not(.home){
-    padding-top:15px;
-    border-bottom:white solid 5px;
-}
 
-.menu1 a:hover{
-    background-color: #FFBF1C; 
-}
-#menu1 a:hover{
-    background-color: #FFBF1C; 
-}
 
 /*----------------------------------------- ESTILO FORMULARIOS-------------------------------*/
 
@@ -153,6 +162,15 @@ article{
     width: 1100px;
     margin-top:100px;
 } 
+
+#manita{
+    cursor: pointer;
+} 
+
+tbody tr:hover{
+    background-color: rgb(235, 245, 255); 
+
+}
 
 /*ICONOS ACCIONES */
 .icono{

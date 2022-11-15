@@ -14,14 +14,13 @@ class Evento{
 
 //*********************************** VER ****************************************/
 
-    public function obtenerEventos(){
-        $this->db->query("SELECT * FROM EVENTO");
+    public function obtener_eventos(){
+        $this->db->query("SELECT * FROM v2evento");
         return $this->db->registros();
     }
 
-
     public function obtenerEventoId($id){
-        $this->db->query("SELECT * FROM EVENTO WHERE id_evento = :idEvento");
+        $this->db->query("SELECT * FROM v2eventoWHERE id_evento = :idEvento");
         $this->db->bind(':idEvento', $id);
         return $this->db->registro();
     }
@@ -31,7 +30,7 @@ class Evento{
 
     public function nuevo($evento){
         
-        $this->db->query("INSERT INTO EVENTO (nombre,tipo,precio,descripcion,fecha_ini,fecha_fin,fecha_ini_inscrip,fecha_fin_inscrip) 
+        $this->db->query("INSERT INTO v2evento (nombre,tipo,precio,descripcion,fecha_ini,fecha_fin,fecha_ini_inscrip,fecha_fin_inscrip) 
         VALUES (:nombre,:tipo,:precio,:descripcion,:fechaInicio, :fechaFin,:fechaIniIns,:fechaFinIns)");
 
         $this->db->bind(':nombre', $evento['nombre']);
@@ -54,7 +53,7 @@ class Evento{
 //*********************************** EDITAR ****************************************/
 
     public function editar($evento_modificado,$id){
-        $this->db->query("UPDATE EVENTO SET nombre=:nombre,tipo=:tipo, precio=:precio, descripcion=:descripcion,fecha_ini=:fecha_ini,fecha_fin=:fecha_fin,
+        $this->db->query("UPDATE v2evento SET nombre=:nombre,tipo=:tipo, precio=:precio, descripcion=:descripcion,fecha_ini=:fecha_ini,fecha_fin=:fecha_fin,
         fecha_ini_inscrip=:fecha_ini_inscrip,fecha_fin_inscrip=:fecha_fin_inscrip WHERE id_evento = :id");
 
         $this->db->bind(':nombre', $evento_modificado['nombre']);
@@ -79,7 +78,7 @@ class Evento{
 //*********************************** BORRAR ****************************************/
 
 public function borrar($id){
-    $this->db->query("DELETE FROM EVENTO WHERE id_evento =:idEvento");
+    $this->db->query("DELETE FROM v2evento WHERE id_evento =:idEvento");
     $this->db->bind(':idEvento',$id);
 
     if ($this->db->execute()){
@@ -95,7 +94,7 @@ public function borrar($id){
 //*********************************** FUNCIONES PARTICIPANTES ****************************************/
 
     public function obtenerParticipantesEventos($id){
-        $this->db->query("SELECT * from participante WHERE id_evento=:id order by marca");
+        $this->db->query("SELECT * from v2participante WHERE id_evento=:id order by marca");
         $this->db->bind(':id',$id);
         return $this->db->registros();
     }
@@ -103,7 +102,7 @@ public function borrar($id){
 
 
     public function nuevo_participante($nuevo){       
-        $this->db->query("INSERT INTO participante (id_evento,nombre,apellidos,DNI,fecha_nacimiento,direccion,email,telefono) 
+        $this->db->query("INSERT INTO v2participante (id_evento,nombre,apellidos,DNI,fecha_nacimiento,direccion,email,telefono) 
         VALUES (:id,:nombre,:apellidos,:dni,:fecha_nacimiento,:direccion,:email,:telefono)");
 
         $this->db->bind(':id',$nuevo['id_evento']);
@@ -125,7 +124,7 @@ public function borrar($id){
 
 
     public function borrar_participante($id){
-        $this->db->query("DELETE FROM participante WHERE id_participante =:id");
+        $this->db->query("DELETE FROM v2participante WHERE id_participante =:id");
         $this->db->bind(':id',$id);
 
         if ($this->db->execute()){
@@ -138,7 +137,7 @@ public function borrar($id){
 
 
     public function editar_participante($nuevo,$id){       
-        $this->db->query("UPDATE participante SET nombre=:nombre,apellidos=:apellidos,DNI=:dni,fecha_nacimiento=:fecha_nacimiento,
+        $this->db->query("UPDATE v2participante SET nombre=:nombre,apellidos=:apellidos,DNI=:dni,fecha_nacimiento=:fecha_nacimiento,
         direccion=:direccion,email=:email,telefono=:telefono where id_participante=:id");
 
         $this->db->bind(':nombre', $nuevo['nombre']);
@@ -160,7 +159,7 @@ public function borrar($id){
 
 
     public function anotar_marca($marca,$id){       
-        $this->db->query("UPDATE participante SET dorsal=:dorsal,marca=:marca WHERE id_participante = :id");
+        $this->db->query("UPDATE v2participante SET dorsal=:dorsal,marca=:marca WHERE id_participante = :id");
         $this->db->bind(':dorsal', $marca['dorsal']);
         $this->db->bind(':marca', $marca['marca']);
         $this->db->bind(':id',$id);

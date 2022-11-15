@@ -12,22 +12,22 @@ class AdminModelo{
    //**************************** NOTIFICACIONES ***************************************/
 
     public function notSocio(){
-        $this->db->query("SELECT * FROM `SOLICITUD_SOCIO`");
+        $this->db->query("SELECT * FROM v2soli_socio");
         return $this->db->rowCount();
     }
 
     public function notGrupo(){
-        $this->db->query("SELECT * FROM solicitud_escuela");
+        $this->db->query("SELECT * FROM v2soli_grupo");
         return $this->db->rowCount();
     }
 
     public function notEventos(){
-        $this->db->query("SELECT * FROM SOLICITUD_EVENTO");
+        $this->db->query("SELECT * FROM v2soli_evento");
         return $this->db->rowCount();
     }
 
     public function contar_pedidos(){
-        $this->db->query("SELECT * FROM `SOLI_EQUIPACION` WHERE recogido=0");
+        $this->db->query("SELECT * FROM v2soli_equipacion WHERE estado=0");
         return $this->db->rowCount();
     }
 
@@ -36,7 +36,7 @@ class AdminModelo{
 //**************************** EDITAR DATOS DEL ADMIN ***************************************/
 
 public function obtenerDatosId($id){
-    $this->db->query("SELECT * FROM USUARIO WHERE id_usuario=:id");
+    $this->db->query("SELECT * FROM v2usuario WHERE id_usuario=:id");
     $this->db->bind(':id', $id);
     return $this->db->registros();
 }
@@ -46,8 +46,8 @@ public function obtenerDatosId($id){
 public function editar_datos($nuevo,$id,$datosUser){
 
 
-    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
-    fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, passw=:passw, talla=:talla, foto=:foto where id_usuario=:id;");
+    $this->db->query("UPDATE v2usuario SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
+    fecha_nacimiento=:fecha_naci, telefono=:telefono, cuenta=:ccc, passw=:passw, talla=:talla, foto=:foto where id_usuario=:id;");
 
      $this->db->bind(':nombre', $nuevo['nombre']);
      $this->db->bind(':apellidos', $nuevo['apellidos']);
@@ -81,19 +81,19 @@ public function editar_datos($nuevo,$id,$datosUser){
 //**************************** CRUD DE USUARIOS (ver, borrar, nuevo, editar) ***************************************/
 
 public function obtenerUsuarios(){
-    $this->db->query("SELECT * FROM USUARIO order by id_rol");
+    $this->db->query("SELECT * FROM v2usuario order by id_rol");
     return $this->db->registros();
 }
 
 
 public function obtenerRoles(){
-        $this->db->query("SELECT * FROM ROL");
+        $this->db->query("SELECT * FROM v2rol");
         return $this->db->registros();
 }
 
 
 public function borrar_usuario($id){
-        $this->db->query("DELETE FROM USUARIO WHERE id_usuario = :id");
+        $this->db->query("DELETE FROM v2usuario WHERE id_usuario = :id");
         $this->db->bind(':id', $id);
         if ($this->db->execute()) {
             return true;
@@ -105,8 +105,8 @@ public function borrar_usuario($id){
 
 public function nuevo_usuario($nuevo){
 
-    $this->db->query("INSERT INTO USUARIO (dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, CCC, passw, talla, ha_sido, activado, id_rol, nom_pa, ape_pa, dni_pa) 
-                    VALUES (:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :pri_socio, 1, :rol, :nom_pa, :ape_pa, :dni_pa);");
+    $this->db->query("INSERT INTO v2usuario (fecha_acep, dni, nombre, apellidos, email, direccion, fecha_nacimiento, telefono, cuenta, passw, talla, ha_sido, activado, id_rol, nom_pa, ape_pa, dni_pa) 
+                    VALUES (CURDATE(),:dni, :nombre, :apellidos, :email, :direccion, :fecha_naci, :telefono, :ccc, MD5(:pass), :talla, :pri_socio, 1, :rol, :nom_pa, :ape_pa, :dni_pa);");
 
         $this->db->bind(':nombre', $nuevo['nombre']);
         $this->db->bind(':apellidos', $nuevo['apellidos']);
@@ -127,13 +127,13 @@ public function nuevo_usuario($nuevo){
 
         $id_usu = $this->db->ultimoIndice();  
 
-        $this->db->query("INSERT INTO `SOCIO` (`id_socio`, `familiar`) VALUES ($id_usu, NULL);");
+        $this->db->query("INSERT INTO v2socio (`id_socio`, `familiar`) VALUES ($id_usu, NULL);");
         $this->db->execute();
 
 
         $rol_usu=$nuevo['id_rol'];
         if($rol_usu=='2'){
-            $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($id_usu, NULL);");
+            $this->db->query("INSERT INTO v2entrenador (`id_usuario`, `sueldo`) VALUES ($id_usu, NULL);");
             if ($this->db->execute()) {
                 return true;
             } else {
@@ -148,8 +148,8 @@ public function nuevo_usuario($nuevo){
 
  public function editar_usuario($nuevo,$id){
 
-    $this->db->query("UPDATE USUARIO SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
-    fecha_nacimiento=:fecha_naci, telefono=:telefono, CCC=:ccc, talla=:talla, ha_sido=:pri_socio, id_rol=:rol , nom_pa=:nom_pa, ape_pa=:ape_pa, dni_pa=:dni_pa where id_usuario=:id;");
+    $this->db->query("UPDATE v2usuario SET dni=:dni, nombre=:nombre, apellidos=:apellidos, email=:email, direccion=:direccion, 
+    fecha_nacimiento=:fecha_naci, telefono=:telefono, cuenta=:ccc, talla=:talla, ha_sido=:pri_socio, id_rol=:rol , nom_pa=:nom_pa, ape_pa=:ape_pa, dni_pa=:dni_pa where id_usuario=:id;");
 
      $this->db->bind(':nombre', $nuevo['nombre']);
      $this->db->bind(':apellidos', $nuevo['apellidos']);
@@ -175,18 +175,18 @@ public function nuevo_usuario($nuevo){
 
      if($rol_usu=='2'){
 
-        $this->db->query("SELECT count(id_usuario) as total from entrenador where id_usuario=$id;");
+        $this->db->query("SELECT count(id_usuario) as total from v2entrenador where id_usuario=$id;");
         $total= $this->db->registros();
 
        if($total[0]->total==0){
-            $this->db->query("INSERT INTO `ENTRENADOR` (`id_usuario`, `sueldo`) VALUES ($id, NULL);");
+            $this->db->query("INSERT INTO v2entrenador (`id_usuario`, `sueldo`) VALUES ($id, NULL);");
             if ($this->db->execute()) {
                 return true;
             } else {
                 return false;
             }
        }else{
-            $this->db->query("UPDATE ENTRENADOR SET id_usuario=$id  where id_usuario=$id;");
+            $this->db->query("UPDATE v2entrenador SET id_usuario=$id  where id_usuario=$id;");
             if ($this->db->execute()) {
                 return true;
             } else {

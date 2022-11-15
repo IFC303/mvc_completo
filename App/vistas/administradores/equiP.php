@@ -20,21 +20,29 @@
 
 
 
+            <div style="margin-left:600px; padding-top:100px; margin-bottom:-50px">
+                <img class="icono" src="<?php echo RUTA_Icon ?>tramite.png"></img>Pedido en fabrica
+                <img class="icono" src="<?php echo RUTA_Icon ?>solicitado.png"></img>Pendiente de recogida
+                <img class="icono" src="<?php echo RUTA_Icon ?>confirmado.png"></img>Pedido entregado
+                <img class="icono" src="<?php echo RUTA_Icon ?>cancelado.png"></img>Pedido cancelado
+            </div>
+
 <article>
 
+        
             <table id="tabla" class="table">
-
 
             <!--CABECERA TABLA-->
             <thead>
                 <tr>
-                    <th>N SOCIO</th>
+                    <th>N PEDIDO</th>
                     <th>NOMBRE</th>
                     <th>APELLIDOS</th>
                     <th>FECHA PEDIDO</th>
                     <th>TIPO</th>
                     <th>TALLA</th>
                     <th>CANTIDAD</th>
+                    <th>ESTADO</th>
                     <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                         <th>OPCIONES</th>
                     <?php endif ?>
@@ -45,32 +53,94 @@
             <tbody>
             <?php
             foreach($datos['pedidos'] as $pedido): ?>
-            <tr>
-                <td><?php echo $pedido->id_usuario?></td>
-                <td><?php echo $pedido->nombre?></td>
-                <td><?php echo $pedido->apellidos?></td>
-                <td><?php echo $pedido->fecha_peticion?></td>
-                <td><?php echo $pedido->tipo?></td>
-                <td><?php echo $pedido->talla?></td>
-                <td><?php echo $pedido->cantidad?></td>
+            <tr id="manita">
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->id_soli_equi?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->nombre?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->apellidos?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->fecha_peticion?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->tipo?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->talla_nombre?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->cantidad?></td>
+                <td>
+                        <?php if($pedido->estado==0){?>
+                            <img style="height:35px;" src="<?php echo RUTA_Icon ?>new.png"></img>
+                       <?php }?>
+
+                       <?php if($pedido->estado==1){?>
+                            <img class="icono" src="<?php echo RUTA_Icon ?>tramite.png"></img>
+                       <?php }?>
+
+                       <?php if($pedido->estado==2){?>
+                            <img class="icono" src="<?php echo RUTA_Icon ?>solicitado.png"></img>
+                       <?php }?>
+
+                       <?php if($pedido->estado==3){?>
+                            <img class="icono" src="<?php echo RUTA_Icon ?>confirmado.png"></img>
+                       <?php }?>
+
+                       <?php if($pedido->estado==4){?>
+                            <img class="icono" src="<?php echo RUTA_Icon ?>cancelado.png"></img>
+                       <?php }?>
+            
+                </td>
+                
+                
                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
 
                     <td>
 
-
-                                <!-- MODAL EDITAR-->
+                             <!-- MODAL EDITAR-->
                                 <a data-bs-toggle="modal" data-bs-target="#editar_<?php echo $pedido->id_soli_equi?>" >
                                   <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
-                                </a>
+                                </a> 
 
-                                <!-- Ventana -->
                                 <div class="modal" id="editar_<?php echo $pedido->id_soli_equi?>">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
 
                                             <!-- Modal Header -->
                                             <div class="modal-header azul">
-                                                <p class="modal-title ms-3">edicion</p> 
+                                                <p class="modal-title ms-3">Pedido Nº: <?php echo $pedido->id_soli_equi?></p> 
+                                                <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <form action="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $pedido->id_soli_equi?>" method="post">
+                                            <!-- Modal body -->
+                                            <div class="modal-body info mt-3">
+                                                <div class="row mt-3 mb-3">
+                                                    <div class="input-group">
+                                                        <label for="nombre" class="input-group-text">Cambiar estado</label>
+                                                        <select class="form-control" name="estado" id="">
+                                                            <option value="">-- Selecciona una opcion --</option>
+                                                            <option value="1">Solicitado a fabrica</option>
+                                                            <option value="2">Pendiente de recogida</option>
+                                                            <option value="3">Entregado</option>
+                                                            <option value="4">Cancelado</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-end">
+                                                <input type="submit" class="btn mb-5 me-3" name="aceptar" id="confirmar" value="Confirmar"> 
+                                            </div> 
+                                   
+                                            </form>
+                                        
+                                </div>
+                                </div>
+                                </div>
+
+
+                                <!-- MODAL VER-->
+                                <!-- Ventana -->
+                                <div class="modal" id="ver<?php echo $pedido->id_soli_equi?>">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header azul">
+                                                <p class="modal-title ms-3">Pedido Nº: <?php echo $pedido->id_soli_equi?></p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                             </div>
 
@@ -78,75 +148,62 @@
                                             <div class="modal-body info mb-3">                           
                                             <div class="container">
 
-                                            <form method="post" action="<?php echo RUTA_URL?>/adminEquipaciones/editar_pedido/<?php echo $pedido->id_soli_equi?>">
-
-                                            
-                                                <div class="row">
-                                                    <div class="col-4 mt-3 mb-4">
+                                                    <div class="col-12 mt-3 mb-4">
                                                         <div>
-                                                        <img id="outputVer" width="300px" height="300px" 
+                                                        <img id="outputVer" width="250px" height="250px" 
                                                         <?php if ($pedido->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
                                                                 }else {?> src='<?php echo RUTA_Equipacion.$pedido->id_equipacion.'.jpg';} ?>'                                                                                            
                                                         >
                                                         </div>                                    
                                                     </div>
 
-                                                    <div class="col-8 mt-3 mb-4">
-                                                        <div class="row mb-4">   
-                                                            <div class="col-6">
-                                                                <div class="input-group ">
-                                                                    <label for="fecha" class="input-group-text">Fecha del pedido</label>
-                                                                    <input type="date" class="form-control form-control-md" id="fecha" name="fecha" value="<?php echo $pedido->fecha_peticion?>"  readonly> 
-                                                                </div>
-                                                            </div>                        
-                                                        </div>
-                                                        <div class="row mb-4">
-                                                            <div class="input-group">
-                                                                <label for="nombre" class="input-group-text">Nombre y apellidos</label>
-                                                                <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $pedido->nombre." ".$pedido->apellidos?> " readonly> 
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-4">   
-                                                            <div class="col-5">                         
-                                                                <div class="input-group">
-                                                                    <label for="telefono" class="input-group-text">Telefono</label>
-                                                                    <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $pedido->telefono?>" readonly> 
-                                                                </div>                           
-                                                            </div>
-                                                            <div class="col-7">                         
-                                                                <div class="input-group">
-                                                                    <label for="email" class="input-group-text">Email</label>
-                                                                    <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $pedido->email?>" readonly> 
-                                                                </div>                           
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">  
-                                                            <div class="col-6">                 
-                                                                <div class="input-group ">
-                                                                    <label for="talla" class="input-group-text">Talla</label>
-                                                                    <select class="form-control" name="talla" required>
-                                                                        <option value="">-- Selecciona una talla --</option>
-                                                                        <?php foreach ($datos['talla'] as $talla) : ?>
-                                                                        <option value="<?php echo $talla->id_talla?>"> <?php echo $talla->nombre?></option>
-                                                                        <?php endforeach ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div> 
-                                                            <div class="col-6">                     
-                                                                <div class="input-group ">
-                                                                    <label for="cantidad" class="input-group-text">Cantidad</label>
-                                                                    <input type="number" class="form-control form-control-md" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" > 
-                                                                </div>      
-                                                            </div>
-                                                        </div>
-                                                        <div class=" d-flex justify-content-end">
-                                                            <input type="submit" class="btn mt-5" name="aceptar" id="confirmar" value="Confirmar">        
-                                                        </div> 
+                                                    <div class="row mb-4">   
+                                                        <div class="col-6">   
+                                                            <div class="input-group ">
+                                                                <label for="fecha" class="input-group-text">Pedido</label>
+                                                                <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $pedido->fecha_peticion?>"  readonly> 
+                                                            </div>    
+                                                        </div>   
+                                                        <div class="col-6">   
+                                                            <div class="input-group ">
+                                                                <label for="fecha" class="input-group-text">Socio Nº</label>
+                                                                <input type="text" class="form-control" id="fecha" name="fecha" value="<?php echo $pedido->id_usuario?>"  readonly> 
+                                                            </div>    
+                                                        </div>                 
                                                     </div>
-                                                </div> 
-                                                </div> 
-                                                </form>
-                                                 
+
+                                                    <div class="row mb-4">
+                                                        <div class="input-group">
+                                                            <label for="nombre" class="input-group-text">Nombre</label>
+                                                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $pedido->nombre?> " readonly> 
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <div class="input-group">
+                                                            <label for="nombre" class="input-group-text">Apellidos</label>
+                                                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $pedido->apellidos?> " readonly> 
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row mb-5">  
+                                                        <div class="col-6">                 
+                                                            <div class="input-group ">
+                                                                <label for="talla" class="input-group-text">Talla</label>
+                                                                <select class="form-control" name="talla" readonly>
+                                                                    <?php foreach ($datos['talla'] as $talla) : ?>
+                                                                    <option value="<?php echo $talla->id_talla?>"><?php echo $pedido->talla_nombre?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-6">                     
+                                                            <div class="input-group ">
+                                                                <label for="cantidad" class="input-group-text">Cantidad</label>
+                                                                <input type="number" class="form-control" id="cantidad" name="cantidad" value="<?php echo $pedido->cantidad?>" readonly> 
+                                                            </div>      
+                                                        </div>
+                                                    </div>      
                                             </div>
                                             </div>
                                     
@@ -182,72 +239,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                    <!-- MODAL CAMBIAR ESTADO ENTREGA -->
-                                        <?php
-                                        if ($pedido->recogido == 1){ ?>
-                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $pedido->id_soli_equi?>" href="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $pedido->id_soli_equi?>">
-                                                <img class="icono" src="<?php echo RUTA_Icon ?>tick.png" ></img>
-                                            </a>
-                                            <!-- VENTANA -->
-                                            <div class="modal" id="ModalCambiar_<?php echo $pedido->id_soli_equi?>">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-
-                                                        <!-- Modal Header -->
-                                                        <div class="modal-header">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <div class="modal-body mt-3">
-                                                            <p>Vas a cambiar el estado del pedido a <b>NO ENTREGADO</b>, estas seguro? </p>
-                                                        </div>
-
-                                                        <!-- Modal footer -->
-                                                        <div class="modal-footer">
-                                                            <form action="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $pedido->id_soli_equi?>" method="post">
-                                                                <input type="hidden" name="estado" value="<?php echo $pedido->recogido?>">
-                                                                <input type="submit" class="btn" name="borrar" id="borrar" value="Aceptar">
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <?php
-                                        }else{?>
-                                            <a data-bs-toggle="modal" data-bs-target="#ModalCambiar_<?php echo $pedido->id_soli_equi?>" href="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $pedido->id_soli_equi?>">
-                                                <img class="icono" src="<?php echo RUTA_Icon ?>x1.png"></img>
-                                            </a>
-                                            <div class="modal" id="ModalCambiar_<?php echo $pedido->id_soli_equi?>">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <!-- Modal Header -->
-                                                        <div class="modal-header">
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <div class="modal-body mt-3">
-                                                        <p>Vas a cambiar el estado del pedido a <b>ENTREGADO</b>, estas seguro? </p>
-                                                        </div>
-
-                                                        <!-- Modal footer -->
-                                                        <div class="modal-footer">
-                                                            <form action="<?php echo RUTA_URL?>/adminEquipaciones/cambiar_estado/<?php echo $pedido->id_soli_equi?>" method="post">
-                                                                <input type="hidden" name="estado" value="<?php echo $pedido->recogido?>">
-                                                                <input type="submit" class="btn" name="borrar" id="borrar" value="Aceptar">
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <?php
-                                        }
-                                        ?>
-            
+                                </div>           
 
                     </td>
 

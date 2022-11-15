@@ -76,22 +76,28 @@
                                     <div class="modal-body info mb-3">                                 
                                     <div class="container mt-4">
 
-                                            <div class="row">                         
-                                                <div class="input-group mb-4">
+                                            <div class="row mb-3">                         
+                                                <div class="input-group ">
                                                     <label for="nombreTest" class="input-group-text">Nombre</label>
                                                     <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $grupo->nombre?>" readonly> 
                                                 </div>                           
                                             </div> 
-                                            <div class="row">                         
-                                                <div class="input-group mb-4">
+                                            <div class="row mb-3">                         
+                                                <div class="input-group ">
                                                     <label for="fecha_inicio" class="input-group-text">Fecha inicio</label>
                                                     <input type="date" class="form-control form-control-md" name="fecha_inicio" id="fecha_inicio" value="<?php echo $grupo->fecha_ini?>" readonly> 
                                                 </div>                           
                                             </div>
-                                            <div class="row mb-4">                         
-                                                <div class="input-group mb-4">
+                                            <div class="row mb-3">                         
+                                                <div class="input-group">
                                                     <label for="fecha_fin" class="input-group-text">Fecha fin</label>
                                                     <input type="date" class="form-control form-control-md" name="fecha_fin" id="fecha_fin" value="<?php echo $grupo->fecha_fin?>" readonly> 
+                                                </div>                           
+                                            </div>
+                                            <div class="row mb-5">                         
+                                                <div class="input-group">
+                                                    <label for="cuota" class="input-group-text">Cuota mensual</label>
+                                                    <input type="text" class="form-control form-control-md" name="cuota" id="cuota" value="<?php echo $grupo->cuota?>" readonly> 
                                                 </div>                           
                                             </div>
                                     
@@ -242,22 +248,28 @@
                                             <div class="modal-body info">                        
                                             <form method="post" action="<?php echo RUTA_URL?>/adminGrupos/editar/<?php echo $grupo->id_grupo?>" class="card-body">
 
-                                                <div class="row">                         
-                                                    <div class="input-group mb-4">
+                                                <div class="row mb-4">                         
+                                                    <div class="input-group">
                                                         <label for="nombreTest" class="input-group-text">Nombre</label>
                                                         <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $grupo->nombre?>"> 
                                                     </div>                           
                                                 </div> 
-                                                <div class="row ">                         
-                                                    <div class="input-group mb-4">
+                                                <div class="row mb-4 ">                         
+                                                    <div class="input-group">
                                                         <label for="fecha_inicio" class="input-group-text">Fecha inicio</label>
                                                         <input type="date" class="form-control form-control-md" name="fecha_inicio" id="fecha_inicio" value="<?php echo $grupo->fecha_ini?>"> 
                                                     </div>                           
                                                 </div>
-                                                <div class="row ">                         
-                                                    <div class="input-group mb-4">
+                                                <div class="row mb-4">                         
+                                                    <div class="input-group">
                                                         <label for="fecha_fin" class="input-group-text">Fecha fin</label>
                                                         <input type="date" class="form-control form-control-md" name="fecha_fin" id="fecha_fin" value="<?php echo $grupo->fecha_fin?>"> 
+                                                    </div>                           
+                                                </div>
+                                                <div class="row mb-5">                         
+                                                    <div class="input-group">
+                                                        <label for="cuota" class="input-group-text">Cuota mensual</label>
+                                                        <input type="text" class="form-control form-control-md" name="cuota" id="cuota" value="<?php echo $grupo->cuota?>"> 
                                                     </div>                           
                                                 </div>
 
@@ -489,13 +501,20 @@
                             <div class="row ">                         
                                 <div class="input-group mb-4">
                                     <label for="fecha_inicio" class="input-group-text">Fecha inicio</label>
-                                    <input type="date" class="form-control form-control-md" name="fecha_inicio" id="fecha_inicio"> 
+                                    <input type="date" class="form-control form-control-md" name="fecha_inicio" id="fecha_inicio" required> 
                                 </div>                           
                             </div>
                             <div class="row ">                         
                                 <div class="input-group mb-4">
                                     <label for="fecha_fin" class="input-group-text">Fecha fin</label>
-                                    <input type="date" class="form-control form-control-md" name="fecha_fin" id="fecha_fin" > 
+                                    <input type="date" class="form-control form-control-md" name="fecha_fin" id="fecha_fin" required > 
+                                </div>                           
+                            </div>
+
+                            <div class="row ">                         
+                                <div class="input-group mb-4">
+                                    <label for="cuota" class="input-group-text">Cuota mensual</label>
+                                    <input type="text" class="form-control form-control-md" name="cuota" id="cuota" required> 
                                 </div>                           
                             </div>
 

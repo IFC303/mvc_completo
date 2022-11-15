@@ -245,7 +245,7 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminEntidades/borrar/<?php echo $entidad->id_entidad?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminEntidades/inscripciones/<?php echo $evento->id_entidad?>" method="post">
                                                     <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
                                                 </form>
                                             </div>

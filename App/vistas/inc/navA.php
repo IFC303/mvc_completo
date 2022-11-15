@@ -72,8 +72,7 @@
                     <div class="dropdown-container">
                         <a href="<?php echo RUTA_URL ?>/adminSolicitudes/socios" class="nav-link"><span class="tMenu ms-5 ps-5">SOCIOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][0]);?></span></a>
                         <a href="<?php echo RUTA_URL ?>/adminSolicitudes/grupos" class="nav-link "><span class="tMenu ms-5 ps-5">ESCUELA</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][1]);?></span></a>
-                        <a href="<?php echo RUTA_URL ?>/adminSolicitudes/eventos" class="nav-link "><span class="tMenu ms-5 ps-5">EVENTOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);?></span></a>
-                        
+                        <a href="<?php echo RUTA_URL ?>/adminSolicitudes/eventos" class="nav-link "><span class="tMenu ms-5 ps-5">EVENTOS</span></span><span class="badge bg-danger ms-3" id="notSoliGrupos"><?php print_r($datos['notificaciones'][2]);?></span></a>                       
                     </div>
                 </div>
             

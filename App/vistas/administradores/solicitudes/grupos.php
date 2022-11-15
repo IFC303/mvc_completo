@@ -165,7 +165,7 @@
                                                                 <select name="cat" id="cat" class="form-control" required>
                                                                         <option value="">-- Selecciona una categoria --</option>
                                                                         <?php foreach ($datos['categoria'] as $cat) : ?>
-                                                                <option value="<?php echo $usuarios->id_categoria?>" <?php if($cat->id_categoria==$usuarios->id_categoria) echo "selected";?>> <?php echo $cat->nombre ?></option>
+                                                                <option value="<?php echo $cat->id_categoria?>" <?php if($cat->id_categoria==$usuarios->id_categoria) echo "selected";?>> <?php echo $cat->nombre ?></option>
                                                                 <?php endforeach ?>
                                                                 </select>                                                                                         
                                                                 </div>
@@ -176,7 +176,7 @@
                                                                 <select name="grup" id="grup" class="form-control" required>
                                                                         <option value="">-- Selecciona una categoria --</option>
                                                                         <?php foreach ($datos['grupo'] as $gru) : ?>
-                                                                <option value="<?php echo $usuarios->id_grupo?>" <?php if($gru->id_grupo==$usuarios->id_grupo) echo "selected";?>> <?php echo $gru->nombre ?></option>
+                                                                <option value="<?php echo $gru->id_grupo?>" <?php if($gru->id_grupo==$usuarios->id_grupo) echo "selected";?>> <?php echo $gru->nombre ?></option>
                                                                 <?php endforeach ?>
                                                                 </select>
                                                                 </div>

@@ -12,7 +12,7 @@ class LoginModelo
 
     public function loginEmail($email, $passw)
     {
-        $this->db->query("SELECT * FROM USUARIO WHERE email = :email AND passw = :passw");
+        $this->db->query("SELECT * FROM v2usuario WHERE email = :email AND passw = :passw");
         $this->db->bind(':email', $email);
         $this->db->bind(':passw', $passw);
 
@@ -21,14 +21,14 @@ class LoginModelo
 
     
     public function recuperar($socio){
-        $this->db->query("SELECT email FROM USUARIO WHERE id_usuario=:socio");
+        $this->db->query("SELECT email FROM v2usuario  WHERE id_usuario=:socio");
         $this->db->bind(':socio', $socio);
         return $this->db->registro();
     }
 
     public function cambiarPass($password,$id){
     
-        $this->db->query("UPDATE usuario SET passw=MD5(:passw) where id_usuario=:id");
+        $this->db->query("UPDATE v2usuario  SET passw=MD5(:passw) where id_usuario=:id");
         $this->db->bind(':passw', $password);
         $this->db->bind(':id', $id);
         if ($this->db->execute()) {

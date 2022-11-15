@@ -420,8 +420,8 @@
 
                                             <div id="gFecha" class="row" style="display:none">                     
                                                 <div class="input-group mb-4">
-                                                    <label for="fechaCad" class="input-group-text">Fecha caducidad</label>
-                                                    <input type="date" class="form-control form-control-md" id="fechaCad" name="fechaCad">
+                                                    <label for="fecha" class="input-group-text">Fecha caducidad</label>
+                                                    <input type="date" class="form-control form-control-md" id="fecha" name="fecha">
                                                 </div> 
                                             </div> 
 

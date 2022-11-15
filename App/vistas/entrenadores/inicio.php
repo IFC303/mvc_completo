@@ -143,7 +143,7 @@
                                                         <div class="row mb-4">
                                                             <div class="input-group">
                                                                 <label for="ccc" class="input-group-text">Numero cuenta</label>
-                                                                <input type="text" class="form-control form-control-md" name="ccc" id="ccc" value="<?php echo $datos['datos_user'][0]->CCC?>"> 
+                                                                <input type="text" class="form-control form-control-md" name="ccc" id="ccc" value="<?php echo $datos['datos_user'][0]->cuenta?>"> 
                                                             </div> 
                                                         </div>
 

@@ -48,15 +48,28 @@ class AdminLicencias extends Controlador{
 
 
         if($_SERVER['REQUEST_METHOD'] =='POST'){
+
+            if ($_FILES['subirFoto']['name']!=''){
+                $foto=$_FILES['subirFoto']['name'];
+            }else{
+                $foto="";
+            }
+            
+            if ($_POST['fecha']!=''){
+                $fecha=$_POST['fecha'];
+            }else{
+                $fecha=null;
+            }
+
             $nuevo = [
                 'usuario' => trim($_POST['usuario']),
                 'tipo' => trim($_POST['tipo']),
                 'gir' => trim($_POST['gir']),
                 'num_lic' => trim($_POST['num_lic']),
                 'aut_nac' => trim($_POST['aut_nac']),
+                'fecha' => $fecha,
                 'dorsal' => trim($_POST['dorsal']),
-                'fechaCad' => trim($_POST['fechaCad']),
-                'foto'=>$_FILES['subirFoto']['name']            
+                'foto'=>$foto           
             ];
             if($this->licenciaModelo->agregarLicencia($nuevo)){
                 redireccionar('/AdminLicencias');
@@ -136,7 +149,7 @@ class AdminLicencias extends Controlador{
 
             if ($this->licenciaModelo->borrarLicencia($id)) {
                 //$directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
-                $directorio="C:/xampp/htdocs/tragamillas/app/resources/licencias/"; 
+                $directorio="C:/xampp/htdocs/tragamillas/public/img/licencias/"; 
                 unlink($directorio.$id.'.jpg');
                 redireccionar('/AdminLicencias');
             }else{

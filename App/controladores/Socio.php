@@ -1,6 +1,13 @@
 <?php
 
+
+require_once RUTA_APP.'/vistas/socios/jpgraph/src/jpgraph.php';
+require_once RUTA_APP.'/vistas/socios/jpgraph/src/jpgraph_line.php';
+
+
+
 class Socio extends Controlador{
+
 
 
     public function __construct(){
@@ -9,280 +16,309 @@ class Socio extends Controlador{
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/');
         }
-
-        $this->adminModelo = $this->modelo('AdminModelo');
-
         $this->socioModelo = $this->modelo('SocioModelo');
         $this->equipacionModelo = $this->modelo('Equipacion');     
         $this->eventoModelo = $this->modelo('Evento');   
+        $this->grupoModelo = $this->modelo('Grupo');   
     }
+
+
 
 
 
 // *********** PAGINA PRINCIPAL SOCIO ***********  
     public function index(){
-        $id=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
-
-
-
-        // $nombrePagina = "SUBIR LICENCIAS";
-        // $tituloPagina = "MIS LICENCIAS";        
-        // $this->datos['nombrePagina']=$nombrePagina;
-        // $this->datos['tituloPagina']=$tituloPagina;
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-        $licencias = $this->socioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
-        $this->datos['usuarios']=$licencias;   
-
-
-
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+        $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
+        $this->datos['tallas'] = $this->socioModelo->obtener_tallas();
         $this->datos['eventos'] = $this->socioModelo->obtener_eventos();
         $this->datos['grupos'] = $this->socioModelo->obtener_grupos();
         $this->datos['categorias'] = $this->socioModelo->obtener_categorias();
-
         $this->vista('socios/inicio', $this->datos);
     }
 
 
 
-// *********** MODIFICAR DATOS ***********  
-    public function modificarDatos(){
+    //************* EVENTOS *****************/
+    public function eventos(){ 
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+        $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
+        $this->datos['eventos'] = $this->eventoModelo->obtener_eventos();
+        $this->vista('socios/evento', $this->datos);
+    }
 
-        $nombrePagina = "MODIFICAR DATOS";
-        $tituloPagina = "MODIFICAR DATOS";
-        $this->datos['nombrePagina']=$nombrePagina;
-        $this->datos['tituloPagina']=$tituloPagina;
-        
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
 
-        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
+    public function ins_evento($id_evento){
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+    
+        $this->datos['rolesPermitidos'] = [3];          
         if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
             redireccionar('/usuarios');
-        }       
-
-
+        }
+       
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotosPerfil/";       
-            copy($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion.'.jpg');
-
-            $editarDatos = [
-                'telefonoEdit' => trim($_POST["telefono"]),
-                'direccion' => trim($_POST["direccion"]),
-                'emailEdit' => trim($_POST["correo"]),
-                'cccEdit' => trim($_POST["cuenta"]),
-                'passwEdit' => trim($_POST["password"]),
-                'tallaEdit' => trim($_POST["talla"]),
-                'fotoEdit' => $_FILES['foto']['name'],
+           
+            $ins = [
+                'id_usu' =>$id_usuario,
+                'tipo' =>'evento',
+                'evento' => $id_evento
+                // 'fotoCarnet' => $nomFoto,
             ];
-      
-            $directorio="C:/xampp/htdocs/tragamillas/public/img/fotosPerfil/";       
-            copy($_FILES['foto']['tmp_name'], $directorio.$idUsuarioSesion.'.jpg');
-            chmod($directorio.$idUsuarioSesion.'.jpg',0777);
-
-
-             if ($this->SocioModelo->actualizarUsuario($editarDatos, $idUsuarioSesion, $datosUser)) {
-                 redireccionar('/socio');
-             } else {
+          
+            if ($this->socioModelo->inscripcion($ins, $this->datos['datos_user'])) {
+                redireccionar('/socio/eventos');
+            } else {
                 die('Algo ha fallado!!!');
-             }
-        } else {
-            $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-            $this->datos['usuarios']=$datosUser;        
-            $this->vista('socios/modificarDatos', $this->datos);
-        }       
+            }
+        }
     }
 
 
 
-// *********** VER MARCAS ***********  
+    //************* VER FOTO LICENCIA *****************/
+    public function ver_lice($id_licencia){
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+        $this->datos['usu_licen'] = $this->socioModelo->ver_licen_id($id_usuario,$id_licencia);
+        $this->vista('socios/ver', $this->datos);
+    }
+
+
+
+
+    //************* ESCUELA ARREGLAR *****************/
+    public function escuela(){
+    
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+
+        $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
+
+        $this->datos['grupos'] = $this->grupoModelo->obtener_grupos();
+
+        $this->vista('socios/escuela', $this->datos);
+    }
+
+
+
+
+ public function inscripciones(){
+
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+    $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+
+    $this->datos['rolesPermitidos'] = [3];          
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+   
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+       
+        $ins = [
+            'id_usu' =>$id_usuario,
+            'tipo' => trim($_POST['tipo']),
+            'evento' => trim($_POST['evento']),
+            'categoria' => trim($_POST['cat']),
+            'grupo' => trim($_POST['gru']),
+            // 'fotoCarnet' => $nomFoto,
+        ];
+      
+        if ($this->socioModelo->inscripcion($ins, $this->datos['datos_user'])) {
+            redireccionar('/socio');
+        } else {
+            die('Algo ha fallado!!!');
+        }
+    }
+ 
+}
+
+
+
+// *********** VER MARCAS *******************/
+
     public function verMarcas(){
-        $id=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
+
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+        $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);     
+        $this->datos['usuarios']= $this->socioModelo->obtener_marcas_seguimiento($id_usuario);   
+
+        $tam=count($this->datos['usuarios']);
+        if($tam>=2){
+
+            foreach ($this->datos['usuarios'] as $datos){
+                $velocidad[]=$datos->velocidad;
+                $distancia[]=$datos->kilometros;
+            }
+
+        // $ritmo = array(2.350,1.455,23,15,80,20,45,10,5,45,60);
+        // $datay2 = array(12,9,12,80,41,15,30,8,48,36,14,25);
+        // $datay3 = array(5,17,32,24,4,2,36,2,9,24,21,23);
+        
+        // Setup the graph
+        $graph = new Graph(1000,350);
+        $theme_class=new UniversalTheme;
+        $graph->SetScale('textlin',0,20);
+        
+
+        $graph->SetTheme($theme_class);
+        $graph->img->SetAntiAliasing(false);
+        // $graph->title->Set('Evolucion');
+        $graph->SetBox(false);
+        
+        $graph->yaxis->HideZeroLabel();
+        $graph->yaxis->HideLine(false);
+        $graph->yaxis->HideTicks(false,false);
+        
+        $graph->xgrid->Show();
+        $graph->xgrid->SetLineStyle("solid");
+        //$graph->xaxis->SetTickLabels(array('Ene','Feb','Mar','Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'));
+        $graph->xgrid->SetColor('#E3E3E3');
+        
+            // Create the first line
+        $p1 = new LinePlot($velocidad);
+        $graph->Add($p1);
+        $p1->SetColor("#B22222");
+        $p1->SetLegend('Velocidad');
+        
+        // Create the second line
+        $p2 = new LinePlot($distancia);
+        $graph->Add($p2);
+        $p2->SetColor("#6495ED");
+        $p2->SetLegend('Kilometros');
+        
+        // // Create the third line
+        // $p3 = new LinePlot($datay3);
+        // $graph->Add($p3);
+        // $p3->SetColor("#FF1493");
+        // $p3->SetLegend('Tienda 3');
+        
+        $graph->legend->SetFrameWeight(1);
+        
+        $graph->legend->SetPos(0.5,0.98,'center','bottom');
+        
+
+        // Display the graph
+        //$graph->Stroke();
 
 
+        $graph->Stroke(_IMG_HANDLER);
 
-        $nombrePagina = "VER MARCAS";
-        $tituloPagina = "MARCAS PERSONALES";
-        $this->datos['nombrePagina']=$nombrePagina;
-        $this->datos['tituloPagina']=$tituloPagina;
+        $fileName = "grafica.png";
+        $graph->img->Stream($fileName);
 
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
+        // Mandarlo al navegador
+        // $graph->img->Headers();
+        // $graph->img->Stream();
 
-        $marcas = $this->socioModelo->obtenerMarcasId($idUsuarioSesion);
-        $this->datos['usuarios']=$marcas;
+        }
+
         $this->vista('socios/verMarcas', $this->datos);
     }
 
 
-// *********** VER LICENCIAS ***********  
-    public function licencias(){
 
-        $id=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
+public function nueva_marca(){
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
 
-        $nombrePagina = "SUBIR LICENCIAS";
-        $tituloPagina = "MIS LICENCIAS";        
-        $this->datos['nombrePagina']=$nombrePagina;
-        $this->datos['tituloPagina']=$tituloPagina;
-
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-        $licencias = $this->SocioModelo->obtenerLicenciasUsuarioId($idUsuarioSesion);
-        $this->datos['usuarios']=$licencias;     
-        $this->vista('socios/licencias', $this->datos);
-    }
-
-
-
-
-
-
-
-
-    //************* EQUIPACION *****************/
-    public function equipacion(){
-      
-        $id=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
-
-
-        // $tituloPagina = "PEDIR EQUIPACION";
-        // $this->datos['tituloPagina']=$tituloPagina;
-
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-        $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipaciones();
-        $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
-        $this->datos['equi'] = $this->socioModelo->obtener_pedidos($id);
-
-        //$marcas = $this->SocioModelo->obtenerMarcasId($idUsuarioSesion);
-        //$this->datos['usuarios']=$marcas;
-
-        $this->vista('socios/equipacion', $this->datos);
-    }
-
-
-    public function pedir_equipacion(){
-
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $pedidoEquipacion = [
-                'cantidad' => trim($_POST["cantidad"]),
-                'talla' => trim($_POST["talla"]),
-                'idUsuario' => $idUsuarioSesion,
-                'idEquipacion' => trim($_POST['idEquipacion'])
-            ];
-
-
-             if ($this->equipacionModelo->pedidoEquipacion($pedidoEquipacion) ){
-                 redireccionar('/socio/equipacion');
-
-             } else {
-                die('Algo ha fallado!!!');
-             }
-        } else {
-            $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-            $this->datos['usuarios']=$datosUser;        
-
-            $this->vista('socios/modificarDatos', $this->datos);
-        }
-       
-    }
-
-
-
-
-   
- //************* INSCRIPCIONES *****************/
-
-    public function inscripciones(){
-
-        $id=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->adminModelo->obtenerDatosId($id);
-        // $nombrePagina = "ESCUELA";
-        // $tituloPagina = "ESCUELA";
-        
-        // $this->datos['nombrePagina']=$nombrePagina;
-        // $this->datos['tituloPagina']=$tituloPagina;
-
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-
-        $this->datos['rolesPermitidos'] = [3];          // Definimos los roles que tendran acceso
-
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
-        }
-
-        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-        $this->datos['usuarios']=$datosUser;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $dirCarnet="/var/www/html/tragamillas/public/img/foto_carnet_solicitud/";
-
-            $terCarnet=(substr($_FILES['imgCarnet']["name"], strpos($_FILES['imgCarnet']["name"],'.')+strlen('.')));
-            $nomFoto = "socioCarnet_".$datosUser[0]->id_usuario.".".$terCarnet;
-
-            move_uploaded_file($_FILES['imgCarnet']['tmp_name'], $dirCarnet.$nomFoto);
-           
-            $agreEscuela = [
-                'id_usu' =>$datosUser[0]->id_usuario,
-                'categoria' => trim($_POST['cat']),
-                'grupo' => trim($_POST['grup']),
-                'fecha' => date('Y-m-d'),
-                'fotoCarnet' => $nomFoto,
-            ];
-          
-            if ($this->SocioModelo->escuela($agreEscuela)) {
-                redireccionar('/socio');
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $nueva = [
+            'id_usuario'=>$id_usuario,
+            'fecha' => trim($_POST["fecha"]),
+            'km' => trim($_POST["km"]),
+            'metros' => trim($_POST["metros"]),
+            'tiempo' => trim($_POST["tiempo"]),
+            'observaciones' => trim($_POST['observaciones'])
+        ];
+            if ($this->socioModelo->nueva_marca($nueva) ){
+                redireccionar('/socio/verMarcas');
             } else {
-                die('Algo ha fallado!!!');
+            die('Algo ha fallado!!!');
             }
-        }
-
-
-
-        
-        $categorias = $this->SocioModelo->obtenerCategorias();
-        $this->datos['categorias']=$categorias;
-        $grupos = $this->SocioModelo->obtenergrupos();
-        $this->datos['grupos']=$grupos;
-        $eventos = $this->eventoModelo->obtenerEventos();
-        $this->datos['eventos']=$eventos;
-              
-        $this->vista('socios/formulario_escuela', $this->datos);
-        
+    } else {
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+        $this->vista('socios/verMarcas', $this->datos);
     }
+}
 
 
-    public function ins_evento(){
-
-        $idUsuarioSesion = $this->datos['usuarioSesion']->id_usuario;
-        $datosUser = $this->SocioModelo->obtenerDatosSocioId($idUsuarioSesion);
-
-        $id_evento=(trim($_POST['id_evento']));
-
-        $this->datos['rolesPermitidos'] = [3]; 
-        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-            redireccionar('/usuarios');
+public function borrar_marca($id){
+    $this->datos['rolesPermitidos'] = [3];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->socioModelo->borrar_marca($id)) {
+            redireccionar('/socio/verMarcas');
+        }else{
+            die('Algo ha fallado!!!');
         }
-     
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->SocioModelo->eventoSoli($id_evento,$datosUser)) {
-                redireccionar('/socio/escuela');
+    }else{
+        $this->vista('socio/verMarcas', $this->datos);
+    }
+}
+
+
+
+
+//************* EQUIPACION *****************/
+public function equipacion(){
+    
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+    $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+    $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
+    $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones();
+    $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
+    $this->datos['equi'] = $this->socioModelo->obtener_pedidos($id_usuario);
+    $this->vista('socios/equipacion', $this->datos);
+}
+
+
+
+public function pedir_equipacion(){
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $pedidoEquipacion = [
+            'cantidad' => trim($_POST["cantidad"]),
+            'talla' => trim($_POST["talla"]),
+            'idUsuario' => $id_usuario,
+            'idEquipacion' => trim($_POST['idEquipacion'])
+        ];
+            if ($this->equipacionModelo->nuevo_pedido($pedidoEquipacion) ){
+                redireccionar('/socio/equipacion');
             } else {
-                die('Algo ha fallado!!!');
+            die('Algo ha fallado!!!');
             }
-        }
-
+    } else {
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+        $this->vista('socios/modificarDatos', $this->datos);
     }
+}
 
 
 
+public function borrar_pedido($id){
+    $this->datos['rolesPermitidos'] = [3];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
 
+    if ($this->socioModelo->borrar_pedido($id,$id_usuario)) {
+        redireccionar('/socio/equipacion');
+        }else{
+            die('Algo ha fallado!!!');
+        }
+    $this->vista('socios/equipacion', $this->datos); 
+}
+
+    
 
 
 }

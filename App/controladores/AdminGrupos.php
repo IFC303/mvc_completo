@@ -30,7 +30,7 @@ class AdminGrupos extends Controlador{
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
         
-        $this->datos['grupo'] = $this->grupoModelo->obtenerGrupos();
+        $this->datos['grupo'] = $this->grupoModelo->obtener_grupos();
         $this->datos['grupos_y_horarios'] = $this->grupoModelo->obtenerGruposHorarios();
 
         foreach ($this->datos['grupo'] as $info) {
@@ -57,7 +57,8 @@ class AdminGrupos extends Controlador{
             $grupoNuevo = [
                 'nombre' => trim($_POST['nombre']),
                 'fecha_inicio' => trim($_POST['fecha_inicio']),
-                'fecha_fin' => trim($_POST['fecha_fin'])
+                'fecha_fin' => trim($_POST['fecha_fin']),
+                'cuota' => trim($_POST['cuota']),
             ];
             $ultimoIndice = $this->grupoModelo->agregarGrupo($grupoNuevo);
             $grupoNuevo['id_grupo'] = $ultimoIndice;
@@ -170,7 +171,8 @@ class AdminGrupos extends Controlador{
                 'id_grupo' => $id,
                 'nombre_grupo' => trim($_POST['nombre']),
                 'fecha_ini' => trim($_POST['fecha_inicio']),
-                'fecha_fin' => trim($_POST['fecha_fin'])
+                'fecha_fin' => trim($_POST['fecha_fin']),
+                'cuota' => trim($_POST['cuota']),
             ];
 
             //modificamos tabla GRUPO

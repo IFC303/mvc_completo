@@ -77,6 +77,9 @@
 }
 
 
+
+
+
 </style>
 
 
@@ -117,13 +120,13 @@
                                 <img class="me-2" src="<?php echo RUTA_Icon ?>editar.png" width="25" height="25">Mis datos</a>
                             </div>
 
-                            <div class="modal" id="modiDatos">
+                            <div class="modal fade" id="modiDatos">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
 
                                      <!-- Modal Header -->
                                     <div class="modal-header azul">
-                                        <p class="modal-title ms-3">Modificacion</p> 
+                                        <p class="modal-title ms-3">Modificacion de datos</p> 
                                         <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                     </div>
 
@@ -147,18 +150,20 @@
                                                     </div>
 
                                                     <div class="col-8">
-                                                        <div class="row mb-4">                         
-                                                            <div class="input-group">
-                                                                <label for="nombre" class="input-group-text">Nombre <sup>*</sup></label>
-                                                                <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $datos['datos_user'][0]->nombre?>" required>    
-                                                            </div>                           
-                                                        </div> 
-                                                        <div class="row mb-4">                     
-                                                            <div class="input-group ">
-                                                                <label for="apellidos" class="input-group-text">Apellidos <sup>*</sup></label>
-                                                                <input type="text" class="form-control form-control-md" id="apellidos" name="apellidos" value="<?php echo $datos['datos_user'][0]->apellidos?>" required>
-                                                            </div>            
-                                                        </div>  
+                                                        <div class="row mb-4">
+                                                            <div class="col-5">                         
+                                                                <div class="input-group">
+                                                                    <label for="nombre" class="input-group-text">Nombre <sup>*</sup></label>
+                                                                    <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $datos['datos_user'][0]->nombre?>" readonly>    
+                                                                </div>                           
+                                                            </div> 
+                                                            <div class="col-7">                     
+                                                                <div class="input-group ">
+                                                                    <label for="apellidos" class="input-group-text">Apellidos <sup>*</sup></label>
+                                                                    <input type="text" class="form-control form-control-md" id="apellidos" name="apellidos" value="<?php echo $datos['datos_user'][0]->apellidos?>" readonly>
+                                                                </div>            
+                                                            </div>
+                                                      </div> 
 
                                                         <div class="row mb-4">
                                                             <div class="col-5">
@@ -200,7 +205,7 @@
                                                         <div class="row mb-4">
                                                             <div class="input-group">
                                                                 <label for="ccc" class="input-group-text">Numero cuenta</label>
-                                                                <input type="text" class="form-control form-control-md" name="ccc" id="ccc" value="<?php echo $datos['datos_user'][0]->CCC?>"> 
+                                                                <input type="text" class="form-control form-control-md" name="ccc" id="ccc" value="<?php echo $datos['datos_user'][0]->cuenta?>"> 
                                                             </div> 
                                                         </div>
 
@@ -208,14 +213,20 @@
                                                             <div class="col-7">
                                                             <div class="input-group">
                                                                     <label for="password" class="input-group-text">Contraseña</label>
-                                                                    <input type="password" class="form-control form-control-md" id="password" name="password" value="<?php echo $datos['datos_user'][0]->passw?>">
+                                                                    <input type="password" class="form-control form-control-md" id="password" name="password" value="<?php echo $datos['datos_user'][0]->passw?>" required>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-5">
                                                                 <div class="input-group">
                                                                     <label for="talla" class="input-group-text">Talla</label>
-                                                                    <input type="text" class="form-control form-control-md" name="talla" id="talla" value="<?php echo $datos['datos_user'][0]->talla?>" required> 
+                                                                    <select class="form-control form-control-md" name="talla" id="talla" required>
+                                                                        <?php foreach ($datos['tallas'] as $talla) : ?>
+                                                                        <option id="id_talla" value="<?php echo $talla->id_talla?>" <?php if($talla->id_talla==$datos['datos_user'][0]->talla) echo "selected";?>>
+                                                                            <?php echo $talla->nombre?>
+                                                                        </option>
+                                                                        <?php endforeach ?>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -263,12 +274,45 @@
         </header>
     <!----------------------------------------------------------------------->
 
-    <article class="row d-flex justify-content-center" style="margin-top:100px;">
-    
+<article style="margin-top:100px;">
 
+
+        <div class="row d-flex justify-content-center inicio">
+            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">    
+                <a href="<?php echo RUTA_URL ?>/socio/verMarcas">  
+                    <div id="colorEquip" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
+                        <div class="row">
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>cronometro.png"></div>
+                            <div class="col-8"><p class="nombre">MIS MARCAS</p><p class="descripcion">Añade nuevos modelos y gestiona pedidos</p></div>
+                        </div>                              
+                    </div>   
+                </a>  
+            </div>
+            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+                <a href="<?php echo RUTA_URL ?>/socio/eventos">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                        <div class="row">
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>eventos.png"></div>
+                            <div class="col-8"><p class="nombre">EVENTOS</p><p class="descripcion">Inicia o cierra una temporada</p></div>
+                        </div>                              
+                    </div> 
+                </a>
+            </div>
+            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+                <a href="<?php echo RUTA_URL ?>/socio/escuela">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                        <div class="row">
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>escuela.png"></div>
+                            <div class="col-8"><p class="nombre">ESCUELA</p><p class="descripcion">Visualiza informes y rankings</p></div>
+                        </div>                              
+                    </div> 
+                </a>
+            </div>           
+        </div>
+    
     <div class="row d-flex justify-content-center inicio">
         <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-            <a data-bs-toggle="modal" data-bs-target="#licencia">
+            <a data-bs-toggle="modal" data-bs-target="#licencia" >
                 <div id="colorGrupos" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                     <div class="row">
                         <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>licencias.png"></div>
@@ -277,55 +321,34 @@
                 </div> 
             </a>
         </div>
-        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">  
-            <a href="<?php echo RUTA_URL ?>/socio/verMarcas">    
-                <div id="colorTest" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuSol">
-                    <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>cronometro.png"></div>
-                        <div class="col-8"><p class="nombre">MARCAS</p><p class="descripcion">Confirma o rechaza solicitudes</p></div>
-                    </div>                              
-                </div> 
-            </a>    
-        </div>
-    </div>
 
-    <div class="row d-flex justify-content-center inicio">
+
         <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
             <a href="<?php echo RUTA_URL ?>/socio/equipacion">
                 <div id="colorEventos" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.png"></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>carrito.png"></div>
                         <div class="col-8"><p class="nombre">EQUIPACIONES</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
                     </div>                              
                 </div> 
             </a>
         </div>
-        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-            <a data-bs-toggle="modal" data-bs-target="#nuevo">
-                <div id="colorMensajeria" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>inscripciones.png"></div>
-                        <div class="col-8"><p class="nombre">INSCRIPCIONES</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
-                    </div>                              
-                </div> 
-            </a>
-        </div>            
+                 
     </div>
 
 </article>
 
-        
-
-
+      
+                                           
      <!-- LICENCIAS-->
-        <div class="modal" id="licencia">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
+    <div class="modal fade" id="licencia">
+    <div class="modal-dialog modal-xl modal-dialog-centered ">
+    <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header azul">
                     <p class="modal-title ms-3 ">Mis Licencias</p> 
-                    <button type="button" class="btn-close me-4 " data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close me-4 " onclick="cerrar();"  data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal body -->
@@ -347,15 +370,25 @@
                     </thead>
                     <!--BODY TABLA-->
                     <tbody>               
-                        <?php foreach ($datos['usuarios'] as $licencias) :?>
+                        <?php foreach ($datos['usu_licencia'] as $licencias) :?>
                             <tr>
                                 <td><?php echo $licencias->num_licencia?></td>
-                                <td><?php echo $licencias->gir?></td>
+                                <td><?php echo $datos['datos_user'][0]->gir?></td>
                                 <td><?php echo $licencias->tipo?></td>
                                 <td><?php echo $licencias->regional_nacional?></td>
                                 <td><?php echo $licencias->dorsal?></td>
                                 <td><?php echo $licencias->fecha_cad?></td>
-                                <td><?php if ($licencias->imagen==''){echo '-';}else {?><a href="<?php echo RUTA_URL?>/Socio/verFoto/<?php echo $licencias->id_licencia?>" target="_blank"><img width="30" height="30" src="<?php echo RUTA_ImgDatos.'licencias/'.$licencias->imagen?>"></a><?php ;}?></td>
+                                <td>
+                                    <?php if ($licencias->imagen==''){
+                                            echo '-';
+                                        }else {?> 
+
+                                            <a href="<?php echo RUTA_URL ?>/socio/ver_lice/<?php echo $licencias->id_licencia?>">
+                                                <img class="icono" src="<?php echo RUTA_Icon ?>foto.svg"></img>
+                                            </a>
+
+                                        <?php } ?>
+                                </td>
                             </tr>                   
                         <?php endforeach ?>                
                     </tbody>      
@@ -371,210 +404,39 @@
 
 
 
-
-    <!-- INSCRIPCIONES-->
-        <div class="modal" id="nuevo">
-        <div class="modal-dialog modal-dialog-centered ">
-        <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header azul">
-                    <p class="modal-title ms-3 ">Inscripciones</p> 
-                    <button type="button" class="btn-close me-4 " data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body info">                         
-                <div class="row ms-1 me-1">                                                                                                           
-                                                    
-                        <form action="<?php echo RUTA_URL?>/socio/inscripciones" method="post">
-
-                                <div class="row mt-4">
-                                    <div class="input-group mb-4">
-                                        <label for="tipo" class="input-group-text">Tipo inscripcion</label>
-                                        <select name="tipo" class="form-control" id="tipo_select" onchange="inscripcion()" required>
-                                            <option value="">-- Seleciona una opcion --</option>
-                                            <option value="escuela">Escuela</option>
-                                            <option value="evento">Evento</option>
-                                        </select>
-                                    </div> 
-                                </div>
-
-                                <div id="campo1" style="display:none">
-                                <div class="row mb-3">
-                                    <div class="input-group">
-                                        <label for="evento" class="input-group-text">Evento</label>
-                                        <select name="evento" class="form-control" id="evento">
-                                            <option value="">-- Seleciona un evento --</option>
-                                            <?php foreach ($datos['eventos'] as $even) : ?>
-                                            <option id="id_evento" value="<?php echo $even->id_evento ?>"><?php echo $even->nombre ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div> 
-                                </div>
-                                </div>
-
-                                <div id="campo2" style="display:none">
-                                    <div class="row mb-4">
-                                        <div class="input-group">
-                                            <label for="cat" class="input-group-text">Categoria</label>
-                                            <select name="cat" class="form-control" id="cat">
-                                                <option value="">-- Seleciona una categoria --</option>
-                                                <?php foreach ($datos['categorias'] as $cat) : ?>
-                                                <option id="id_categoria" value="<?php echo $cat->id_categoria ?>"><?php echo $cat->nombre ?></option>
-                                                <?php endforeach ?>
-                                            </select>
-                                        </div> 
-                                    </div>
-                                    <div class="row mb-4">
-                                        <div class="input-group">
-                                            <label for="gru" class="input-group-text">Grupos</label>
-                                            <select name="gru" class="form-control" id="gru">
-                                                <option value="">-- Seleciona un grupo --</option>
-                                                <?php foreach ($datos['grupos'] as $gru) : ?>
-                                                <option id="id_grupo" value="<?php echo $gru->id_grupo?>"><?php echo $gru->nombre ?></option>
-                                                <?php endforeach ?>
-                                            </select>
-                                        </div> 
-                                    </div>
-                                </div>
-
-                                <div class="row mt-4 mb-4">
-                                <p style="font-weight:bold;color:#0070c6;text-decoration:underline; margin-bottom:10px">Subir archivo de pago</p>
-                                <input id="foto" type="file" name="foto" required>
-                                </div>
-
-                                <div class="d-flex justify-content-end">
-                                    <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
-                               </div> 
-
-                        </form>
-
-                        </div>
-                        </div>
-
-        </div>
-        </div>
-        </div>
-
-
-
-
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
 
 
 
 <script>
+
     function colorear(icono) {
         icono.style.backgroundColor = '#ffbf1c';
     }
+
     function decolorear(icono) {
         icono.style.backgroundColor = '#ffffff';
     }
 
 
+    // function abrir() {
+    //     var modal = document.getElementById('licencia');
+    //     var body = document.getElementsByTagName("body")[0];
+    //     modal.style.display = "block";
+    //     body.style.overflow = "hidden";
+    // }
 
-    function inscripcion(){
-
-    }
-
-    function inscripcion() {
-        var opcion=document.getElementById("tipo_select").value;
-        if(opcion=="escuela"){
-            document.getElementById("campo2").style.display ="block";
-            document.getElementById("cat").setAttribute("required",true);
-            document.getElementById("gru").setAttribute("required",true);
-            document.getElementById("campo1").style.display ="none";
-            document.getElementById("evento").setAttribute("required",false);
-        }else {
-            document.getElementById("campo2").style.display ="none";
-            document.getElementById("cat").setAttribute("required",false);
-            document.getElementById("gru").setAttribute("required",false);
-            document.getElementById("campo1").style.display ="block";
-            document.getElementById("evento").setAttribute("required",true);
-        }
-    }
-
-
+    // function cerrar() {
+    //     var modal = document.getElementById('licencia');
+    //     var body = document.getElementsByTagName("body")[0];
+    //     modal.style.display = "none";
+    //     body.style.overflow = "visible";
+    // }
+    
 </script>
 
-
-
-<!-- <div class="container mt-5" >
-
-<div class="row pt-5 d-flex justify-content-around">
-    <div class="col-5">                                                     
-        <div class="card  shadow-lg">
-            <div class="card-header" style="background-color:#264475"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>licencias.png"><span style="color:white">Licencias</span></div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn" style="background-color:#264475">Go somewhere</a>
-            </div>
-        </div>
-    </div> 
-
-    <div class="col-5"> 
-        <div class="card shadow-lg">
-            <div class="card-header" style="background-color:#abdbe3"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>cronometro.png"><span style="color:white">Marcas</span></div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn " style="background-color:#abdbe3">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row pt-5 d-flex justify-content-around">
-    <div class="col-5">                                                     
-        <div class="card  shadow-lg">
-            <div class="card-header" style="background-color:#1e81b0"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>carrito.png"><span style="color:white">Equipaciones</span></div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn" style="background-color:#1e81b0">Go somewhere</a>
-            </div>
-        </div>
-    </div> 
-
-    <div class="col-5"> 
-        <div class="card  shadow-lg">
-            <div class="card-header" style="background-color:#264475"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>inscripciones.png"><span style="color:white">Inscripciones</span></div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn" style="background-color:#264475">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="#"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>licencias.png">LICENCIAS</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div> -->
-
-
-
 <!-- 
+
 <div class="container mt-5" style="border:solid red">
 
 
@@ -600,11 +462,10 @@
                 
         </div>
 
-</div> -->
+</div> 
                        
 
-<?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
-
+ -->
 
 
 
