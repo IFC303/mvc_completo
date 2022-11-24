@@ -15,16 +15,20 @@ class Licencia{
         return $this->db->registros();
     } 
 
-    public function obtenerLicencias(){
-        $this->db->query("SELECT * FROM v2licencia;");
-        return $this->db->registros();
-    }
 
-
-     public function obtenerSocioLicencia(){
-         $this->db->query("SELECT * FROM v2licencia, v2usuario WHERE v2usuario.id_usuario = v2licencia.id_usuario ORDER BY v2usuario.id_usuario");
+     public function obtenerSocioLicencia($temporada){
+         $this->db->query("SELECT * FROM v2licencia, v2usuario,v2categoria 
+         WHERE v2usuario.id_usuario = v2licencia.id_usuario and v2categoria.id_categoria=v2licencia.id_categoria and fecha_alta between :inicio and :fin
+          ORDER BY v2usuario.id_usuario");
+          $this->db->bind(':inicio',$temporada->fecha_inicio);
+          $this->db->bind(':fin',$temporada->fecha_fin);
          return $this->db->registros();
      }
+
+     public function obtener_categorias(){
+        $this->db->query("SELECT * FROM v2categoria;");
+        return $this->db->registros();
+    }
 
 
      
@@ -32,11 +36,11 @@ class Licencia{
 
     public function agregarLicencia($licencia){
 
-        $this->db->query("INSERT INTO v2licencia(id_usuario, imagen, num_licencia, fecha_cad, tipo, dorsal, regional_nacional) 
-        VALUES (:id, :foto, :num_lic, :fecha, :tipo, :dorsal, :aut_nac);");
+        $this->db->query("INSERT INTO v2licencia(id_usuario, imagen_licen, fecha_alta, num_licencia, fecha_cad, id_categoria, dorsal, regional_nacional) 
+        VALUES (:id, :foto, CURDATE(), :num_lic, :fecha, :categoria, :dorsal, :aut_nac);");
         
         $this->db->bind(':id', $licencia['usuario']);
-        $this->db->bind(':tipo', $licencia['tipo']);
+        $this->db->bind(':categoria', $licencia['categoria']);
         $this->db->bind(':fecha', $licencia['fecha']);
 
         if ($licencia['num_lic']=="") {
@@ -75,14 +79,14 @@ class Licencia{
              chmod($directorio.$id_licen.'.jpg',0777);
 
              $foto=$id_licen.'.jpg';
-             $this->db->query("UPDATE v2licencia SET imagen=:foto where id_licencia=:id_licen;");
+             $this->db->query("UPDATE v2licencia SET imagen_licen=:foto where id_licencia=:id_licen;");
              $this->db->bind(':foto', $foto);
              $this->db->bind(':id_licen', $id_licen);
              $this->db->execute();
          } ; 
             
 
-        if($licencia['tipo']=='Escolar'){
+        if($licencia['categoria']<4){
             $this->db->query("UPDATE v2usuario SET gir=:gir WHERE id_usuario=:id_usuario;");
             $this->db->bind(':id_usuario', $licencia['usuario']);
             if ($licencia['gir']=="") {
@@ -107,9 +111,8 @@ class Licencia{
 
     public function editarLicencia($licencia_modificada , $id){
 
-        $this->db->query("UPDATE v2licencia SET imagen=:imagen, num_licencia=:num, fecha_cad=:fecha, tipo=:tipo, dorsal=:dorsal, regional_nacional=:reg_na where id_licencia=:id;");
-        
-        $this->db->bind(':tipo',$licencia_modificada['tipo']);   
+        $this->db->query("UPDATE v2licencia SET imagen_licen=:imagen, num_licencia=:num, fecha_cad=:fecha, dorsal=:dorsal, regional_nacional=:reg_na where id_licencia=:id;");
+  
         $this->db->bind(':dorsal',$licencia_modificada['dorsal']); 
 
         $this->db->bind(':imagen',$licencia_modificada['foto']);
@@ -139,7 +142,7 @@ class Licencia{
         $this->db->execute();
 
 
-        if ($licencia_modificada['tipo']=="Escolar") {
+        if ($licencia_modificada['categoria']!='Adulto') {
             $this->db->query("UPDATE v2usuario SET gir=:gir WHERE id_usuario=:id_usuario;");
             
             $this->db->bind(':id_usuario',$licencia_modificada['id_usuario']);

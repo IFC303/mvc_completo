@@ -46,7 +46,7 @@
 
                         <?php foreach ($datos['soli_grupos'] as $usuarios) : ?>
                                 <tr>
-                                        <td><?php echo $usuarios->id_soli_escuela?></td>
+                                        <td><?php echo $usuarios->id_soli_grupo?></td>
                                         <td><?php echo $usuarios->fecha_soli?></td>
                                         <td><?php echo $usuarios->nombre ?></td>
                                         <td><?php echo $usuarios->apellidos?></td>   
@@ -69,18 +69,18 @@
                                         <td>
 
                                 <!-- MODAL EDITAR -->
-                                <a data-bs-toggle="modal" data-bs-target="#editar_<?php echo $usuarios->id_soli_escuela?>" >
+                                <a data-bs-toggle="modal" data-bs-target="#editar_<?php echo $usuarios->id_soli_grupo?>" >
                                 <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="editar_<?php echo $usuarios->id_soli_escuela?>">
+                                    <div class="modal" id="editar_<?php echo $usuarios->id_soli_grupo?>">
                                     <div class="modal-dialog modal-dialog-centered modal-xl">
                                     <div class="modal-content">
 
                                             <!-- Modal Header -->
                                             <div class="modal-header azul">
-                                                <p class="modal-title ms-3">SOLICITUD Nº: <?php echo $usuarios->id_soli_escuela?></p> 
+                                                <p class="modal-title ms-3">SOLICITUD Nº: <?php echo $usuarios->id_soli_grupo?></p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                             </div>
                                       
@@ -88,7 +88,7 @@
                                             <div class="modal-body info ">                         
                                             <div class="row ms-1 me-1"> 
 
-                                            <form method="post" action="<?php echo RUTA_URL?>/adminSolicitudes/editar_escuela/<?php echo $usuarios->id_soli_escuela?>">
+                                            <form method="post" action="<?php echo RUTA_URL?>/adminSolicitudes/editar_escuela/<?php echo $usuarios->id_soli_grupo?>">
 
                                                 <p class="mt-3 mb-3 titulito">Datos del atleta</p>  
                                                 <div class="row mb-3">
@@ -200,7 +200,7 @@
                                                         </div>
 
                                                       
-                                                        <div class="col-6" id="elegir<?php echo $usuarios->id_soli_escuela?>" <?php if($usuarios->es_socio==1){ echo "style='display:block'";}elseif($usuarios->es_socio==0){echo "style='display:none'";}?>id="elegir">
+                                                        <div class="col-6" id="elegir<?php echo $usuarios->id_soli_grupo?>" <?php if($usuarios->es_socio==1){ echo "style='display:block'";}elseif($usuarios->es_socio==0){echo "style='display:none'";}?>id="elegir">
                                                         <div class="input-group">
                                                         <label for="" class="input-group-text">Asocia un solicitud a socio</label>
                                                         <input class="form-control" type="text" name="usus" list="ele">
@@ -265,11 +265,11 @@
 
 
                                         <!--MODAL BORRAR-->
-                                        <a data-bs-toggle="modal" data-bs-target="#borrar_<?php echo $usuarios->id_soli_escuela?>">
+                                        <a data-bs-toggle="modal" data-bs-target="#borrar_<?php echo $usuarios->id_soli_grupo?>">
                                                 <img class="icono" src="<?php echo RUTA_Icon ?>x1.png"></img>
                                         </a>
 
-                                        <div class="modal" id="borrar_<?php echo $usuarios->id_soli_escuela?>">
+                                        <div class="modal" id="borrar_<?php echo $usuarios->id_soli_grupo?>">
                                         <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
 
@@ -285,7 +285,7 @@
 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                        <form action="<?php echo RUTA_URL ?>/adminSolicitudes/borrar_escuela/<?php echo $usuarios->id_soli_escuela?>" method="post">
+                                                        <form action="<?php echo RUTA_URL ?>/adminSolicitudes/borrar_escuela/<?php echo $usuarios->id_soli_grupo?>" method="post">
                                                         <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
                                                         </form>
                                                 </div>
@@ -297,17 +297,17 @@
 
 
                                         <!-- MODAL ACEPTAR-->
-                                        <a data-bs-toggle="modal" data-bs-target="#confirmar_<?php echo $usuarios->id_soli_escuela?>">
+                                        <a data-bs-toggle="modal" data-bs-target="#confirmar_<?php echo $usuarios->id_soli_grupo?>">
                                         <img class="icono" src="<?php echo RUTA_Icon ?>tick.png"></img>
                                         </a>                                        
 
-                                        <div class="modal" id="confirmar_<?php echo $usuarios->id_soli_escuela?>">
+                                        <div class="modal" id="confirmar_<?php echo $usuarios->id_soli_grupo?>">
                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                         <div class="modal-content">
 
                                         <!-- Modal Header -->
                                         <div class="modal-header azul ">
-                                                <p class="modal-title">SOLICITUD Nº: <?php echo $usuarios->id_soli_escuela?></p> 
+                                                <p class="modal-title">SOLICITUD Nº: <?php echo $usuarios->id_soli_grupo?></p> 
                                                 <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                         </div>
 
@@ -316,7 +316,7 @@
                                         <div class="row ms-1 me-1">                                              
                                                                                                     
                                                     
-                                        <form action="<?php echo RUTA_URL ?>/adminSolicitudes/aceptar_escuela/<?php echo $usuarios->id_soli_escuela?>" method="post">
+                                        <form action="<?php echo RUTA_URL ?>/adminSolicitudes/aceptar_escuela/<?php echo $usuarios->id_soli_grupo?>" method="post">
                                                            
                                                 <p class="mt-3 mb-3 titulito">Datos del atleta</p>  
                                                 <div class="row mb-3">
@@ -433,7 +433,7 @@
                                                         <div class="col-6">
                                                                 <div class="input-group">
                                                                 <label for="" class="input-group-text">Solicitud asociada a</label>
-                                                                <input type="text" id="usua<?php echo $usuarios->id_soli_escuela?>" class="form-control"   
+                                                                <input type="text" id="usua<?php echo $usuarios->id_soli_grupo?>" class="form-control"   
                                                                         <?php foreach ($datos['usus'] as $usu){ 
                                                                         if ($usu->id_usuario==$usuarios->usuario){?>
                                                                         value="<?php echo $usu->nombre.' '.$usu->apellidos?>"
@@ -475,7 +475,7 @@
 
 
                                                 <div class=" d-flex justify-content-end">
-                                                        <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" onclick="return confi(<?php echo $usuarios->id_soli_escuela?>)" value="Confirmar solicitud">        
+                                                        <input type="submit" class="btn mt-3 mb-4" name="aceptar" id="confirmar" onclick="return confi(<?php echo $usuarios->id_soli_grupo?>)" value="Confirmar solicitud">        
                                                 </div> 
 
                                         </form>                                                

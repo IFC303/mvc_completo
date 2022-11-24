@@ -18,87 +18,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
-    <title><?php echo NOMBRE_SITIO ?></title>
+
 </head>
 
 
-<style>
-
-
-.licen:active, .marcas:active, .equi:active, .ins:active{
-  transform: translateY(5px);
-}
-
- .licen:hover, .marcas:hover, .equi:hover, .ins:hover{
-    background-color:#ffbf1c;
-    color:white;
-} 
-
-.dibu{
-    width:50px;
-    height:50px;
-}
-
-.licen{
-    width:600px;
-    height:75px;
-    color: white;
-    font-size: 20px;
-    font-weight:bold;
-    background-color:#264475;
-}
-
-.marcas{
-    width:275px;
-    height:75px;
-    color: white;
-    font-size: 20px;
-    font-weight:bold;
-    background-color:#abdbe3;
-}
-
-.equi{
-    width:275px;
-    height:75px;
-    color: white;
-    font-size: 20px;
-    font-weight:bold;
-    background-color:#1e81b0;
-}
-
-
-.ins{
-    width:275px;
-    height:75px;
-    color: white;
-    font-size: 20px;
-    font-weight:bold;
-    background-color:#264475;
-}
-
-
-
-
-
-</style>
-
-
 <body>
-
 
 
     <section>
 
             <nav id="menuSocio">
                    
-                    <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link ">   
-                    <div class="mt-2 ">
-                        <img style="width:100px; height:60px;"  src="<?php echo RUTA_Icon ?>corredor.png">
-                        <img style="width:200px; height:60px;"  src="<?php echo RUTA_Icon ?>todo2.png"> 
-                    </div>                                        
+                    <a id="home" href="http://www.tragamillasalcaniz.com" class="nav-link" >   
+                        <div style="margin-top: 22px">
+                            <img style="width:100px; height:60px;"  src="<?php echo RUTA_Icon ?>corredor.png">
+                            <img style="width:200px; height:60px;"  src="<?php echo RUTA_Icon ?>todo2.png"> 
+                        </div>                                        
                     </a>   
 
-                    <div class="row d-flex align-items-center justify-content-center">
+                    <div class="row d-flex align-items-center justify-content-center" >
                     <div class="card shadow-lg mt-5 w-75 h-75">
 
                         <img class="card-img mt-3" <?php if ($datos['usuarioSesion']->foto==''){
@@ -258,82 +196,83 @@
             </nav>
 
 
-            <!------------------------------ CABECERA -------------------------------->
+        <!------------------------------ CABECERA -------------------------------->
         <header>
             <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
+                <div class="col-10 d-flex align-items-center justify-content-center ">
                     <span id="textoHead">Bienvendido al Club Tragamillas</span>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                <div class="col-2 mt-1">
+                    <a href="<?php echo RUTA_URL ?>/login/logout">
+                        <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
                     </a>
-                </div>
+                </div>            
             </div>                                   
         </header>
-    <!----------------------------------------------------------------------->
+    <!------------------------------------------- <span>Logout</span>---------------------------->
 
-<article style="margin-top:100px;">
+<article style="margin-top:75px;">
 
 
-        <div class="row d-flex justify-content-center inicio">
-            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">    
+        <div class="row d-flex justify-content-center inicio pt-5 ">
+            <div class="col-6 col-xs-12 col-md-6 me-5" style="width:400px">    
                 <a href="<?php echo RUTA_URL ?>/socio/verMarcas">  
-                    <div id="colorEquip" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
+                    <div id="colorEquip" class="shadow-lg p-3 mb-3 marcas"  onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuEqui">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#abdbe3"><img src="<?php echo RUTA_Icon ?>cronometro.png"></div>
-                            <div class="col-8"><p class="nombre">MIS MARCAS</p><p class="descripcion">Añade nuevos modelos y gestiona pedidos</p></div>
+                            <div class="col-8"><p class="nombre" style="color: #abdbe3">MIS MARCAS</p><p class="descripcion w-100">Registra tus marcas peronales y sigue tu evolucion</p></div>
                         </div>                              
                     </div>   
                 </a>  
             </div>
-            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+            <div class="col-6 col-xs-12 col-md-6 " style="width:400px">
                 <a href="<?php echo RUTA_URL ?>/socio/eventos">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3 even" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>eventos.png"></div>
-                            <div class="col-8"><p class="nombre">EVENTOS</p><p class="descripcion">Inicia o cierra una temporada</p></div>
+                            <div class="col-8"><p class="nombre" style="color: #1e81b0">EVENTOS</p><p class="descripcion">Enterate de todos los eventos que organiza el club</p></div>
+                        </div>                              
+                    </div> 
+                </a>
+            </div>         
+        </div>
+
+        <div class="row d-flex justify-content-center inicio pt-5">
+            <div class="col-6 col-xs-12 col-md-6 me-5" style="width:400px">
+                <a href="<?php echo RUTA_URL ?>/socio/escuela">
+                    <div id="colorMarcas" class="shadow-lg p-3 mb-3 escu" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                        <div class="row">
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>escuela.png"></div>
+                            <div class="col-8"><p class="nombre" style="color:#264475">ESCUELA</p><p class="descripcion w-100">Inscribete y lleva un seguimiento de los entrenamientos</p></div>
+                        </div>                              
+                    </div> 
+                </a>
+            </div>  
+            <div class="col-6 col-xs-12 col-md-6 " style="width:400px">
+                <a data-bs-toggle="modal" data-bs-target="#licencia" >
+                    <div id="colorGrupos" class="shadow-lg p-3 mb-3 licen" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                        <div class="row">
+                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>licencias.png"></div>
+                            <div class="col-8"><p class="nombre" style="color:#0070c6">LICENCIAS</p><p class="descripcion">Visualiza tus licencias</p></div>
                         </div>                              
                     </div> 
                 </a>
             </div>
-            <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-                <a href="<?php echo RUTA_URL ?>/socio/escuela">
-                    <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                        <div class="row">
-                            <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>escuela.png"></div>
-                            <div class="col-8"><p class="nombre">ESCUELA</p><p class="descripcion">Visualiza informes y rankings</p></div>
-                        </div>                              
-                    </div> 
-                </a>
-            </div>           
         </div>
-    
-    <div class="row d-flex justify-content-center inicio">
-        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
-            <a data-bs-toggle="modal" data-bs-target="#licencia" >
-                <div id="colorGrupos" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
-                    <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>licencias.png"></div>
-                        <div class="col-8"><p class="nombre">LICENCIAS</p><p class="descripcion">Crea y gestiona nuevos usuarios de la aplicacion</p></div>
-                    </div>                              
-                </div> 
-            </a>
-        </div>
-
-
-        <div class="col-4 col-xs-12 col-md-6 pt-5 mx-5" style="width:400px">
+ 
+    <div class="row d-flex justify-content-center inicio pt-5">
+        <div class="col-6 col-xs-12 col-md-6 me-5" style="width:400px">
             <a href="<?php echo RUTA_URL ?>/socio/equipacion">
-                <div id="colorEventos" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
+                <div id="colorEventos" class="shadow-lg p-3 mb-3 equi" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                     <div class="row">
-                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>carrito.png"></div>
-                        <div class="col-8"><p class="nombre">EQUIPACIONES</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
+                        <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>carrito.png"></div>
+                        <div class="col-8"><p class="nombre" style="color:#1e81b0"> EQUIPACIONES</p><p class="descripcion">Realiza pedidos de la equipacion oficial del club</p></div>
                     </div>                              
                 </div> 
             </a>
         </div>
-                 
+        <div class="col-6 col-xs-12 col-md-6" style="width:400px">           
+        </div>             
     </div>
 
 </article>
@@ -377,7 +316,7 @@
                                 <td><?php echo $licencias->tipo?></td>
                                 <td><?php echo $licencias->regional_nacional?></td>
                                 <td><?php echo $licencias->dorsal?></td>
-                                <td><?php echo $licencias->fecha_cad?></td>
+                                <td><?php echo date("d/m/Y", strtotime($licencias->fecha_cad))?></td>
                                 <td>
                                     <?php if ($licencias->imagen==''){
                                             echo '-';
@@ -435,37 +374,8 @@
     
 </script>
 
-<!-- 
-
-<div class="container mt-5" style="border:solid red">
 
 
-    <div class="row mt-5 mb-5 "style="border:solid red">
-        <div class="col-6 mt-5 mb-5 d-flex justify-content-center" style="border:solid red">
-        <a style="text-decoration:none; color:white;" href="<?php echo RUTA_URL ?>/socio/licencias"><button class="btn shadow-lg licen"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>licencias.png">LICENCIAS</button></a>
-        </div>
-
-        <div class="col-6 mt-5 mb-5 d-flex justify-content-center"style="border:solid red">
-        <a style="text-decoration:none; color:white;" href="<?php echo RUTA_URL ?>/socio/verMarcas"><button class="btn shadow-lg marcas"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>cronometro.png">MARCAS</button></a>
-        </div>
-    </div>
-
-
-        <div class="row mt-5 mb-5 "style="border:solid red">
-
-        <div class="col-6 mt-5 mb-5 d-flex justify-content-center"style="border:solid red">
-        <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/equipacion"> <button class="btn shadow-lg equi"><img class="dibu me-4" src="<?php echo RUTA_Icon ?>carrito.png">EQUIPACIONES</button></a>
-        </div>
-        <div class="col-6 mt-5 mb-5 d-flex justify-content-center"style="border:solid red">
-        <a style="text-decoration:none; color:black;" href="<?php echo RUTA_URL ?>/socio/escuela"> <button class="btn shadow-lg ins"><img class=" dibu me-4" src="<?php echo RUTA_Icon ?>inscripciones.png">INSCRIPCIONES</button></a>
-        </div>
-                
-        </div>
-
-</div> 
-                       
-
- -->
 
 
 

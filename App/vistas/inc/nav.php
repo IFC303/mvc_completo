@@ -19,7 +19,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
-    <title><?php echo NOMBRE_SITIO ?></title>
 </head>
 
 
@@ -89,7 +88,7 @@
                                 <td><?php echo $licencias->tipo?></td>
                                 <td><?php echo $licencias->regional_nacional?></td>
                                 <td><?php echo $licencias->dorsal?></td>
-                                <td><?php echo $licencias->fecha_cad?></td>
+                                <td><?php echo date("d/m/Y", strtotime($licencias->fecha_cad))?></td>
                                 <td>
                                         <?php if ($licencias->imagen==''){
                                             echo '-';

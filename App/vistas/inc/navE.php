@@ -17,7 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Doppio+One&display=swap" rel="stylesheet">
-    <title><?php echo NOMBRE_SITIO ?></title>
 </head>
 
 
@@ -26,20 +25,26 @@
 
     <section>
 
-        <nav class="menu1" id="menuEntrenador">
+        <nav class="menu1" id="menuSocio">
       
             <a id="home" href="<?php echo RUTA_URL ?>/socio" class="nav-link">
                 <img id="imgHome" src="<?php echo RUTA_Icon ?>inicio.png"><span class="tHome">INICIO</span>                                                 
             </a>                                     
             <a href="<?php echo RUTA_URL ?>/entrenador/grupos" class="nav-link">
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>grupos.png"><span class="tMenu">GRUPOS</span>
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>escuela.png"><span class="tMenu">ESCUELA</span>
             </a>                          
             <a href="<?php echo RUTA_URL ?>/entrenador/test" class="nav-link" >
-                <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">TEST</span>
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>inscripciones.png"><span class="tMenu">TEST</span>
             </a>      
             <a href="<?php echo RUTA_URL ?>/entrenador/eventos" class="nav-link" >
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>eventos.png"><span class="tMenu">EVENTOS</span>
-            </a>                      
+            </a>    
+            <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link">                           
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>cronometro.png"><span class="tMenu">MIS MARCAS</span>                                                          
+            </a>     
+            <a href="<?php echo RUTA_URL ?>/entrenador/equipacion" class="nav-link">                           
+                <img class="imgMenu" src="<?php echo RUTA_Icon ?>carrito.png"><span class="tMenu">EQUIPACION</span>                                                          
+            </a>                       
             <a href="<?php echo RUTA_URL ?>/entrenador/mensajeria" class="nav-link">                           
                 <img class="imgMenu" src="<?php echo RUTA_Icon ?>mensajeria.png"><span class="tMenu">MENSAJERIA</span>                                                          
             </a>                            

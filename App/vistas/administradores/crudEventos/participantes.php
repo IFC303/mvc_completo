@@ -4,15 +4,14 @@
         <!------------------------------ CABECERA -------------------------------->
         <header>
             <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
+                <div class="col-10 d-flex align-items-center justify-content-center ">
                     <span id="textoHead">Participantes - <?php echo $datos['datos_evento']->nombre ?></span>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                <div class="col-2 mt-1">
+                    <a href="<?php echo RUTA_URL ?>/login/logout">
+                        <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
                     </a>
-                </div>
+                </div>            
             </div>                                   
         </header>
     <!----------------------------------------------------------------------->
@@ -30,8 +29,7 @@
                             <th>APELLIDOS</th>
                             <th>TELEFONO</th>
                             <th>EMAIL</th>
-                            <th>DORSAL</th>
-                            <th>MARCA</th>
+                            <th>PAGO</th>
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 <th>OPCIONES</th>
                             <?php endif ?>
@@ -49,8 +47,32 @@
                             <td><?php echo $pEventos->apellidos?></td>
                             <td><?php echo $pEventos->telefono?></td>
                             <td><?php echo $pEventos->email?></td>
-                            <td><?php echo $pEventos->dorsal?></td>
-                            <td><?php echo $pEventos->marca?></td>
+                            <td><?php if ($pEventos->foto_pago==''){echo '-';
+                                 }else {?> 
+                                    <a data-bs-toggle="modal" data-bs-target="#foto<?php echo $pEventos->id_participante?>">
+                                        <img class="icono" src="<?php echo RUTA_Icon ?>foto.svg"></img>
+                                    </a>
+                                    <div class="modal" id="foto<?php echo $pEventos->id_participante?>">
+                                    <div class="modal-dialog modal-fullscreen">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header azul">
+                                            <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body info"> 
+                                            <div>
+                                            <img id="output" src="<?php echo RUTA_Justificante.$pEventos->id_participante.'.jpg'?>">
+                                            </div> 
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                    </div>
+                                <?php } ?>
+                            </td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                             <td>
@@ -61,8 +83,9 @@
                             <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                             </a>
 
+                            
                                     <!-- Ventana -->
-                                    <div class="modal" id="editar_<?php echo $pEventos->id_participante?>">
+                                    <div class="modal fade" id="editar_<?php echo $pEventos->id_participante?>">
                                     <div class="modal-dialog  modal-dialog-centered modal-xl">
                                     <div class="modal-content">
 
@@ -76,7 +99,7 @@
                                             <div class="modal-body info ">                         
                                             <div class="row ms-1 me-1"> 
 
-                                            <form method="post" action="<?php echo RUTA_URL?>/adminEventos/editar_participante/<?php echo $pEventos->id_participante?>">
+                                            <form method="post" enctype="multipart/form-data" action="<?php echo RUTA_URL?>/adminEventos/editar_participante/<?php echo $pEventos->id_participante?>">
                                                   
                                                 <div class="row mt-4 mb-4">
                                                     <div class="col-6">
@@ -105,7 +128,7 @@
                                                     <div class="col-6">
                                                         <div class="input-group">
                                                             <label for="dni" class="input-group-text">DNI</label>
-                                                            <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $pEventos->DNI?>" >
+                                                            <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $pEventos->dni?>" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,7 +141,7 @@
                                                 </div>
 
 
-                                                <div class="row mb-4">
+                                                <div class="row mb-5">
                                                     <div class="col-6">
                                                         <div class="input-group">
                                                             <label for="telefono" class="input-group-text">Telefono <sup>*</sup></label>
@@ -132,6 +155,14 @@
                                                             <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $pEventos->email?>" >
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="row mt-4 text-start">
+                                                    <p style="font-weight:bold;color:#0070c6;text-decoration:underline">Adjuntar justificante de pago (formato .jpg)</p>
+                                                </div>
+                                                <div class="mt-2 text-start">
+                                                    <input  accept="image/*" type="file"  onchange="loadFile(event)" id="editar_foto" name="editar_foto">
+                                                    <input type="hidden" id="foto_anterior" name="foto_anterior" value=<?php echo $pEventos->foto_pago?>>
                                                 </div>
 
 
@@ -182,61 +213,7 @@
                                     </div>
                                     </div>
 
-
-                                <!-- ANOTAR MARCA Y DORSAL -->
-                                <a data-bs-toggle="modal" data-bs-target="#anotar_<?php echo $pEventos->id_participante?>">
-                                  <img class="icono" src="<?php echo RUTA_Icon?>cronometro.svg"></img>
-                                </a>
-
-                                    <!-- Ventana -->
-                                    <div class="modal" id="anotar_<?php echo $pEventos->id_participante?>">
-                                    <div class="modal-dialog  modal-dialog-centered modal-md">
-                                    <div class="modal-content">
-
-                                            <!-- Header -->
-                                            <div class="modal-header azul">
-                                                <p class="modal-title ms-3">Dorsal y marca</p> 
-                                                <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
-                                            </div>
-  
-                                            <!-- Body -->
-                                            <div class="modal-body info ">                         
-                                            <div class="row ms-1 me-1"> 
-
-                                            <form method="post" action="<?php echo RUTA_URL?>/adminEventos/anotar_marca/<?php echo $pEventos->id_participante?>">
-                                                  
-                                                <div class="row mt-3 mb-3">
-                                                    <div class="col-5">
-                                                        <div class="input-group">
-                                                            <label for="dorsal" class="input-group-text">Dorsal <sup>*</sup></label>
-                                                            <input type="text" class="form-control form-control-md" id="dorsal" name="dorsal" value="<?php echo $pEventos->dorsal?>" required>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-7">
-                                                        <div class="input-group">
-                                                            <label for="marca" class="input-group-text">Marca <sup>*</sup></label>
-                                                            <input type="time" step="0.001" class="form-control form-control-md" id="marca" name="marca" value="<?php echo $pEventos->marca?>" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class=" d-flex justify-content-end">
-                                                    <input type="hidden" name="id_evento" id="id_evento" value="<?php echo $datos['id_evento'][0]?>">
-                                                    <input type="submit" class="btn mt-4 mb-2 " name="aceptar" id="confirmar" value="Confirmar">        
-                                                </div> 
-                  
-
-                                            </form>
-
-                                            </div>
-                                            </div>
-
-                                    </div>
-                                    </div>
-                                    </div>
-
-                               
+                              
                             </td>
                             <?php endif ?>
                         </tr>
@@ -250,13 +227,13 @@
              <!-- AÑADIR PARTICIPANTE -->
             <div class="col text-center mt-5">
                 <a data-bs-toggle="modal" data-bs-target="#nuevo">
-                    <input type="button" id="anadir" class="btn me-2" value="AÑADIR">
+                    <input type="button" id="anadir" class="btn me-2" value="Nuevo participante">
                 </a>
                 <a class="btn" id="botonVolver" href="<?php echo RUTA_URL?>/adminEventos">VOLVER</a>
             </div>
 
 
-            <div class="modal" id="nuevo">
+            <div class="modal fade" id="nuevo">
             <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
 
@@ -270,7 +247,7 @@
                 <div class="modal-body info">                         
                 <div class="row ms-1 me-1">                                                                                                           
                                                     
-                        <form action="<?php echo RUTA_URL?>/adminEventos/nuevo_participante" method="post">
+                        <form action="<?php echo RUTA_URL?>/adminEventos/nuevo_participante"  enctype="multipart/form-data" method="post">
 
                                 <div class="row mt-4 mb-4">
                                     <div class="col-6">
@@ -312,7 +289,7 @@
                                 </div>
 
 
-                                <div class="row mb-4">
+                                <div class="row mb-5">
                                     <div class="col-6">
                                         <div class="input-group">
                                             <label for="telefono" class="input-group-text">Telefono <sup>*</sup></label>
@@ -328,7 +305,16 @@
                                     </div>
                                 </div>
 
+                              
+                                <div class="row mt-4">
+                                    <p style="font-weight:bold;color:#0070c6;text-decoration:underline">Adjuntar justificante de pago (formato .jpg)</p>
+                                </div>
+                                <div class="mt-2">
+                                    <input  accept="image/*" type="file"  onchange="loadFile(event)" id="subirFoto" name="subirFoto">
+                                </div>
 
+
+                                
                                 <div class="d-flex justify-content-end">
                                     <input type="hidden" id="id_evento" name="id_evento" value="<?php echo $datos['id_evento'][0]?>">
                                     <input type="submit" class="btn mt-4 mb-4" name="aceptar" id="confirmar" value="Confirmar"> 
@@ -343,9 +329,21 @@
             </div>
             </div>
 
-
-
-
     </article>
 
-     
+
+
+
+
+<script>
+
+    var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+    URL.revokeObjectURL(output.src)
+    }
+    };
+
+
+</script>

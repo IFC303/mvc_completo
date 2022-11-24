@@ -12,15 +12,17 @@ class AdminLicencias extends Controlador{
 
         $this->licenciaModelo = $this->modelo('Licencia');
         $this->adminModelo = $this->modelo('AdminModelo');
+        $this->temporadaModelo = $this->modelo('Temporada');
     }
     
 
     //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
     public function notificaciones(){
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
         $notific[0] = $this->adminModelo->notSocio();
         $notific[1] = $this->adminModelo->notGrupo();
         $notific[2] = $this->adminModelo->notEventos();
-        $notific[3] = $this->adminModelo->contar_pedidos();
+        $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
         return $notific;
     }
 
@@ -28,11 +30,13 @@ class AdminLicencias extends Controlador{
 
     //*********** INDEX *********************/
     public function index(){
-         $notific = $this->notificaciones();
-         $this->datos['notificaciones'] = $notific;
+         $this->datos['notificaciones'] =$this->notificaciones();    
+
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
          
-        $this->datos['licencia'] = $this->licenciaModelo->obtenerSocioLicencia();
+        $this->datos['licencia'] = $this->licenciaModelo->obtenerSocioLicencia($this->datos['temp_actual']);
         $this->datos['lice_socio'] = $this->licenciaModelo->obtenerNombreSocio();
+        $this->datos['categorias'] = $this->licenciaModelo->obtener_categorias();
         
         $this->vista('administradores/licencia',$this->datos);
     }
@@ -63,13 +67,13 @@ class AdminLicencias extends Controlador{
 
             $nuevo = [
                 'usuario' => trim($_POST['usuario']),
-                'tipo' => trim($_POST['tipo']),
+                'categoria' => trim($_POST['categoria']),
                 'gir' => trim($_POST['gir']),
                 'num_lic' => trim($_POST['num_lic']),
                 'aut_nac' => trim($_POST['aut_nac']),
                 'fecha' => $fecha,
                 'dorsal' => trim($_POST['dorsal']),
-                'foto'=>$foto           
+                'foto'=>$foto
             ];
             if($this->licenciaModelo->agregarLicencia($nuevo)){
                 redireccionar('/AdminLicencias');
@@ -103,18 +107,17 @@ class AdminLicencias extends Controlador{
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                if ($_FILES['subirFoto']['name']!=''){
-                    $foto=$_FILES['subirFoto']['name'];
-                    $foto=$id.'.jpg';
+                if (($_FILES['editarFoto']['name'])==''){
+                    $foto=$_POST['foto_ant'];
                 }else{
-                    $foto="";
+                    $foto=$_FILES['editarFoto']['name'];
+                    $foto=$id.'.jpg';
                 }
-            
-        
+
                 $editar = [
                     'id_usuario' => trim($_POST['id_usuario']),
                     'foto'=>$foto,
-                    'tipo' => trim($_POST['tipo']),
+                    'categoria' => trim($_POST['categoria']),
                     'dorsal' => trim($_POST['dorsal']),
                     'num_licencia' => trim($_POST['num_licencia']),
                     'fecha_cad' => trim($_POST['fecha_cad']),
@@ -122,11 +125,12 @@ class AdminLicencias extends Controlador{
                     'gir' => trim($_POST['gir'])
                 ];
    
+
                 if ($this->licenciaModelo->editarLicencia($editar, $id)) {
                     //$directorio="/var/www/html/tragamillas/public/img/licencias/";
-                    $directorio="C:/xampp/htdocs/tragamillas/app/resources/licencias/";       
-                    copy($_FILES['subirFoto']['tmp_name'], $directorio.$id.'.jpg');
-                    chmod($directorio.$id.'.jpg',0777);
+                    $directorio="C:/xampp/htdocs/tragamillas/public/img/licencias/";       
+                    copy($_FILES['editarFoto']['tmp_name'], $directorio.$foto);
+                    chmod($directorio.$foto.'.jpg',0777);
                     redireccionar('/AdminLicencias');
                 }else{
                     die('Algo ha fallado!!!');
@@ -169,20 +173,21 @@ class AdminLicencias extends Controlador{
 
         $notific = $this->notificaciones();
         $this->datos['notificaciones'] = $notific;
+        
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
 
-
-        $licencias = $this->licenciaModelo->obtenerSocioLicencia();      
+        $licencias = $this->licenciaModelo->obtenerSocioLicencia( $this->datos['temp_actual']);      
         //creamos delimitador y archivo
         $delimitador = ";";
         $archivo = "licencias" . ".csv";   
         //create a file pointer
         $f = fopen('php://memory', 'w');    
        //creamos las columnas
-        $columnas = array('DNI', 'NOMBRE', 'APELLIDOS', 'EMAIL', 'NUM LICENCIA', 'FECHA CADUCIDAD','TIPO', 'DORSAL','GIR','REGIONAL/NACIONAL' );
+        $columnas = array('DNI', 'NOMBRE', 'APELLIDOS', 'EMAIL', 'NUM LICENCIA', 'FECHA CADUCIDAD','CATEGORIA', 'DORSAL','GIR','REGIONAL/NACIONAL' );
         fputcsv($f, $columnas, $delimitador);   
         // creamos filas con el array $licencias
         foreach ($licencias as $licen) {
-        $fila = array($licen->dni, $licen->nombre, $licen->apellidos, $licen->email, $licen->num_licencia, $licen->fecha_cad,$licen->tipo,$licen->dorsal,$licen->gir,$licen->regional_nacional);
+        $fila = array($licen->dni, $licen->nombre, $licen->apellidos, $licen->email, $licen->num_licencia, $licen->fecha_cad, $licen->nombre_categoria, $licen->dorsal, $licen->gir, $licen->regional_nacional);
         fputcsv($f, $fila, $delimitador);
         }
      

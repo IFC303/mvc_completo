@@ -2,18 +2,17 @@
 
 
 
-        <!------------------------------ CABECERA -------------------------------->
-        <header>
+     <!------------------------------ CABECERA -------------------------------->
+     <header>
             <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
-                    <span id="textoHead">Mis marcas</span>
+                <div class="col-10 d-flex align-items-center justify-content-center ">
+                    <span id="textoHead">Mis marcas personales</span>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                <div class="col-2 mt-1">
+                    <a href="<?php echo RUTA_URL ?>/login/logout">
+                        <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
                     </a>
-                </div>
+                </div>            
             </div>                                   
         </header>
     <!----------------------------------------------------------------------->
@@ -29,8 +28,8 @@
                 <th>FECHA REALIZACION</th>
                 <th>DISTANCIA</th>  
                 <th>TIEMPO</th>
-                <th>VELOCIDAD (km/h)</th> 
-                <th>RITMO MED (min/km)</th> 
+                <th>VELOCIDAD</th> 
+                <th>RITMO MED</th> 
                 <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[3])):?>
                     <th>OPCIONES</th>
                 <?php endif ?>
@@ -42,12 +41,12 @@
         <tbody>
         <?php foreach ($datos['usuarios'] as $marcas) :?>
 
-                <tr>
-                    <td><?php echo $marcas->fecha?></td>
-                    <td><?php echo $marcas->kilometros.'km '.$marcas->metros.'m'?></td>
-                    <td><?php echo $marcas->tiempo?></td>
-                    <td><?php echo $marcas->velocidad?></td>
-                    <td><?php echo $marcas->ritmo?></td>
+                <tr id="manita">
+                    <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $marcas->id_seguimiento?>"><?php  echo date("d/m/Y", strtotime($marcas->fecha))?></td>
+                    <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $marcas->id_seguimiento?>"><?php echo $marcas->kilometros.'km '.$marcas->metros.'m'?></td>
+                    <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $marcas->id_seguimiento?>"><?php echo $marcas->tiempo?></td>
+                    <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $marcas->id_seguimiento?>"><?php echo $marcas->velocidad?> km/h</td>
+                    <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $marcas->id_seguimiento?>"><?php echo $marcas->ritmo?> min/km</td>
                 
 
             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[3])):?>
@@ -85,7 +84,66 @@
                 </div>
                 </div>
 
-                
+
+
+
+        <!-- VER MARCAS -->
+
+        <div class="modal fade" id="ver<?php echo $marcas->id_seguimiento?>">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header azul">
+                        <p class="modal-title ms-3"><?php echo date("d/m/Y", strtotime($marcas->fecha))?></p> 
+                        <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body info">                         
+                <div class="row ms-1 me-1">                                                                                                           
+
+                        <div class="row mt-4 mb-4">
+                            <div class="input-group">
+                                <label for="km" class="input-group-text">Recorrido</label>
+                                <input type="text" class="form-control form-control-md" value="<?php echo $marcas->kilometros.'km '.$marcas->metros.'m'?>"  readonly >
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="input-group">
+                                <label for="tiempo" class="input-group-text">Tiempo</label>
+                                <input type="time" step="0.001" class="form-control form-control-md" id="tiempo" name="tiempo"  value="<?php echo $marcas->tiempo?>"  readonly >
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="input-group">
+                                <label for="km" class="input-group-text">Velcidad</label>
+                                <input type="text" class="form-control form-control-md"  value="<?php echo $marcas->velocidad?>"  readonly >
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="input-group">
+                                <label for="metros" class="input-group-text">Ritmo medio</label>
+                                <input type="text" class="form-control form-control-md" id="metros" name="metros"  value="<?php echo $marcas->ritmo?>"  readonly >
+                            </div>
+                        </div>
+
+                        <div class="row mb-5">
+                            <div class="input-group">
+                                <textarea  type="text" style="height:150px" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones" readonly >
+                                <?php echo $marcas->observaciones?> 
+                                </textarea>
+                            </div> 
+                        </div>
+
+                </div>
+                </div>
+
+        </div>
+        </div>
+        </div>
+
+
                     </td>
                 <?php endif ?>
             </tr>
@@ -94,11 +152,14 @@
     </table>
 
 
+         
+
+
 
         <!-- AÑADIR NUEVA MARCA-->
         <div class="col text-center mt-5">
             <a data-bs-toggle="modal" data-bs-target="#nueva_marca">
-                <input type="button" id="anadir" class="btn" value="Nueva Marca">
+                <input type="button" id="anadir" class="btn me-3" value="Nueva Marca">
             </a>
             <a id="botonVolver" data-bs-toggle="modal" data-bs-target="#grafico" class="btn" href="<?php echo RUTA_URL?>/socio/exportarLicencias" >Mi evolucion</a>
         </div>
@@ -169,6 +230,8 @@
         </div>
 
 </article>
+
+
 
 
 <div class="modal fade" id="grafico">

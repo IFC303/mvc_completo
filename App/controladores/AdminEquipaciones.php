@@ -14,36 +14,42 @@ class AdminEquipaciones extends Controlador{
 
         $this->equipacionModelo = $this->modelo('Equipacion');
         $this->adminModelo = $this->modelo('AdminModelo');
+        $this->temporadaModelo = $this->modelo('Temporada');
     }
 
 
 
 //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
 public function notificaciones(){
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
     $notific[0] = $this->adminModelo->notSocio();
     $notific[1] = $this->adminModelo->notGrupo();
     $notific[2] = $this->adminModelo->notEventos();
-    $notific[3] = $this->adminModelo->contar_pedidos();
+    $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
     return $notific;
 }
 
 
 
-//*********** INDEX *********************/
+    
+//******************************* INDEX *********************************/
 public function index(){
     $notific = $this->notificaciones();
     $this->datos['notificaciones'] = $notific;
+  //  $this->datos['temp_actual']=$this->temporadaModelo->obtener_num_registros();
+   // $id_temporada=$this->datos['temp_actual'][0]->id_temp;
 }
 
 
 
-//****************************************** GESTION EQUIPACIONES ************************************************/
+//***************************** GESTION EQUIPACIONES **************************/
 
 public function gestion(){
-    $notific = $this->notificaciones();
-    $this->datos['notificaciones'] = $notific;
+    $this->datos['notificaciones'] = $this->notificaciones();
 
-    $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones();
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+    $id_temporada=$this->datos['temp_actual']->id_temp;
+    $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones($id_temporada);
  
     $this->vista('administradores/equiG',$this->datos);
 }
@@ -55,6 +61,10 @@ public function nuevaEquipacion(){
     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
         redireccionar('/usuarios');
     }
+
+    
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+    $id_temporada=$this->datos['temp_actual']->id_temp;
  
     if($_SERVER['REQUEST_METHOD'] =='POST'){
         
@@ -62,7 +72,7 @@ public function nuevaEquipacion(){
             'nombre' => trim($_POST['nombre']),
             'descripcion' => trim($_POST['descripcion']),
             'precio' => trim($_POST['precio']),
-            'temporada' => trim($_POST['temporada']),
+            'temporada' => $id_temporada,
             'foto'=>$_FILES['subirFoto']['name']
         ];
 
@@ -80,11 +90,12 @@ public function nuevaEquipacion(){
             'temporada' => '',
             'foto'=>''
          ];
-
+         $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones($id_temporada);
          $this->vista('administradores/equiG',$this->datos);
     }
     
 }
+
 
 
 public function borrarEquipacion($id){
@@ -103,7 +114,7 @@ public function borrarEquipacion($id){
              die('Algo ha fallado!!!');
          }
      }else{
-        $this->datos['equipacion'] = $this->equipacionModelo->obtenerEquipacionId($id);
+        $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones($id_temporada);
         $this->vista('administradores/equiG',$this->datos);
      }
 }
@@ -116,7 +127,6 @@ public function editarEquipacion($id){
     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
         redireccionar('/usuarios');
     }
-
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -135,8 +145,7 @@ public function editarEquipacion($id){
                  'nombre' => (trim($_POST['nombre'])),
                  'foto'=>$foto,
                  'descripcion' => trim($_POST['descripcion']),
-                 'precio' => trim($_POST['precio']),
-                 'temporada' => trim($_POST['temporada'])                               
+                 'precio' => trim($_POST['precio'])                           
              ];
 
             if ($this->equipacionModelo->editarEquipacion($equipacionModificada,$id)){
@@ -149,6 +158,7 @@ public function editarEquipacion($id){
             }
 
      } else {
+        $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones($id_temporada);
         $this->vista('administradores/equiG',$this->datos);
     }
 }
@@ -160,12 +170,17 @@ public function editarEquipacion($id){
 
 
 public function pedidos(){    
-    $notific = $this->notificaciones();
-    $this->datos['notificaciones'] = $notific;   
+    $this->datos['notificaciones'] =  $this->notificaciones();
 
     $this->datos['usus']=$this->equipacionModelo->obtener_usuarios();
-    $this->datos['equip']=$this->equipacionModelo->obtener_equipaciones();
-    $this->datos['pedidos']=$this->equipacionModelo->obtener_pedidos(); 
+
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+    if($this->datos['temp_actual']==true){
+        $id_temporada=$this->datos['temp_actual']->id_temp;
+        $this->datos['equip'] = $this->equipacionModelo->obtener_equipaciones($id_temporada);
+        $this->datos['pedidos']=$this->equipacionModelo->obtener_pedidos( $this->datos['temp_actual']); 
+    }
+    
     $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
     $this->vista('administradores/equiP',$this->datos);
 }
@@ -201,28 +216,6 @@ public function nuevo_pedido(){
     }
 }
 
-
-
-// public function editar_pedido($id_soli_equi){
-//     $this->datos['rolesPermitidos'] = [1];         
-//     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-//         redireccionar('/usuarios');
-//     }
-
-//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//         $equipacion_modificada = [
-//             'cantidad'=> trim($_POST['cantidad']),
-//             'talla' => trim($_POST['talla']),
-//         ];
-//         if ($this->equipacionModelo->editar_pedido($id_soli_equi,$equipacion_modificada)) {
-//             redireccionar('/adminEquipaciones/pedidos');
-//         }else{
-//             die('Algo ha fallado!!!');
-//         }
-//     } else {
-//         $this->vista('adminEquipaciones/equiP', $this->datos);
-//     }
-// }
 
 
 
@@ -265,9 +258,6 @@ public function cambiar_estado($id){
 }
 
 
-
-
-  
 
   
 }

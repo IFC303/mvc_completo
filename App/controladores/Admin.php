@@ -11,7 +11,7 @@ class Admin extends Controlador{
             redireccionar('/');
         }
 
-        
+        $this->temporadaModelo = $this->modelo('Temporada');
         $this->adminModelo = $this->modelo('AdminModelo');
         $this->externoModelo = $this->modelo('ExternoModelo');
     }
@@ -19,10 +19,11 @@ class Admin extends Controlador{
     
     //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
     public function notificaciones(){
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
         $notific[0] = $this->adminModelo->notSocio();
         $notific[1] = $this->adminModelo->notGrupo();
         $notific[2] = $this->adminModelo->notEventos();
-        $notific[3] = $this->adminModelo->contar_pedidos();
+        $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
         return $notific;
     }
 

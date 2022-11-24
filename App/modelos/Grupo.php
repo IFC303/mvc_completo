@@ -176,8 +176,9 @@ class Grupo
 
 
 
-///ENTRENADOR
+//**************************************** ENTRENADOR ************************************************/
     
+   
     public function obtenerTestPruebas(){
         $this->db->query("SELECT v2test_prueba.id_test, v2test_prueba.id_prueba, v2test.nombreTest, v2prueba.nombrePrueba, v2prueba.tipo 
         from v2test, v2prueba ,v2test_prueba where v2test_prueba.id_test = v2test.id_test and v2test_prueba.id_prueba = v2prueba.id_prueba");
@@ -185,33 +186,63 @@ class Grupo
         return $this->db->registros();
     }
 
-
-    //todos los socios de los grupos de un UNICO ENTRENADOR
-    public function todosSociosGrupos($id_entrenador){
-        $this->db->query("SELECT v2categoria.id_categoria, v2categoria.nombre as nombre_categoria, v2usuario.id_usuario, v2usuario.nombre, v2usuario.apellidos,
-        v2grupo.id_grupo, v2grupo.nombre as nombre_grupo,
-        v2entrenador_grupo.id_usuario as id_entrenador
-        from v2usuario, v2categoria, v2categoria_socio, v2grupo, v2socio_grupo, v2entrenador_grupo
-        where v2categoria_socio.id_categoria = v2categoria.id_categoria and v2categoria_socio.id_usuario=v2usuario.id_usuario 
-        and v2socio_grupo.id_grupo=v2grupo.id_grupo and v2usuario.id_usuario=v2socio_grupo.id_usuario
-        and v2entrenador_grupo.id_usuario=:id_entrenador and v2entrenador_grupo.id_grupo=v2grupo.id_grupo");
+    public function info_grupos($id_entrenador){
+        $this->db->query("SELECT * FROM v2grupo, v2entrenador_grupo where v2grupo.id_grupo=v2entrenador_grupo.id_grupo and id_usuario=:id_entrenador;");
         $this->db->bind(':id_entrenador',$id_entrenador);
-        $this->db->execute();
         return $this->db->registros();
     }
+
+    public function horarios_grupos(){
+        $this->db->query("SELECT * FROM v2horario, v2horario_grupo where v2horario.id_horario=v2horario_grupo.id_horario;");
+        return $this->db->registros();
+    }
+
+
+    // TODOS LOS GRUPOS que tiene un entrenador
+    public function grupos_por_entrenador($id_entrenador){
+        $this->db->query("SELECT * from v2grupo 
+        left join  v2horario_grupo on v2grupo.id_grupo=v2horario_grupo.id_grupo
+        left join v2horario on v2horario.id_horario=v2horario_grupo.id_horario
+        left join v2entrenador_grupo on  v2entrenador_grupo.id_grupo=v2grupo.id_grupo
+        where id_usuario=:id_entrenador");
+        $this->db->bind(':id_entrenador',$id_entrenador);
+        return $this->db->registros();
+    }
+
+    // info de UN GRUPO CONCRETO que tiene un entrenador
+    public function grupo_concreto($id_entrenador,$id_grupo){
+        $this->db->query("SELECT * from v2grupo 
+        left join  v2horario_grupo on v2grupo.id_grupo=v2horario_grupo.id_grupo
+        left join v2horario on v2horario.id_horario=v2horario_grupo.id_horario
+        left join v2entrenador_grupo on  v2entrenador_grupo.id_grupo=v2grupo.id_grupo
+        where id_usuario=:id_entrenador and v2grupo.id_grupo=:id_grupo;");
+
+        $this->db->bind(':id_entrenador',$id_entrenador);
+        $this->db->bind(':id_grupo',$id_grupo);
+        return $this->db->registros();
+    }
+    
+
+     //  TODOS LOS ALUMOS que hay EN UN GRUPO y por entrenador
+    public function ver_alus_grupo($id_entrenador,$id_grupo){
+        $this->db->query("SELECT v2socio_grupo.id_grupo, v2usuario.foto, v2usuario.id_usuario, v2usuario.nombre, apellidos, telefono, direccion, email,fecha_nacimiento,
+        v2socio_grupo.id_categoria,v2categoria.nombre as categoria, v2socio_grupo.id_grupo, v2grupo.nombre as grupo
+         from v2usuario, v2socio_grupo, v2grupo, v2categoria, v2entrenador_grupo
+         where v2socio_grupo.id_usuario=v2usuario.id_usuario
+         and v2categoria.id_categoria=v2socio_grupo.id_categoria
+         and v2grupo.id_grupo=v2socio_grupo.id_grupo 
+         and v2entrenador_grupo.id_grupo=v2grupo.id_grupo
+         and v2socio_grupo.id_grupo=:id_grupo and v2entrenador_grupo.id_usuario=:id_entrenador");
+
+        $this->db->bind(':id_entrenador',$id_entrenador);
+        $this->db->bind(':id_grupo',$id_grupo);
+        return $this->db->registros();
+
+    }
+
+
 
     
-    //todos los grupos de un UNICO ENTRENADOR
-    public function todosEntrenadoresGrupos($id_entrenador){
-        $this->db->query("SELECT v2grupo.id_grupo, v2grupo.nombre as nombre_grupo, v2usuario.id_usuario, v2usuario.nombre, v2usuario.apellidos
-            from v2usuario, v2grupo, v2entrenador_grupo
-            where v2entrenador_grupo.id_grupo=v2grupo.id_grupo and v2entrenador_grupo.id_usuario=v2usuario.id_usuario
-            and v2entrenador_grupo.id_usuario=$id_entrenador");
-        $this->db->execute();
-        return $this->db->registros();
-    }
-
-
 
     
     

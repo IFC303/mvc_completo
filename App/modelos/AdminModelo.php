@@ -26,9 +26,15 @@ class AdminModelo{
         return $this->db->rowCount();
     }
 
-    public function contar_pedidos(){
-        $this->db->query("SELECT * FROM v2soli_equipacion WHERE estado=0");
+    public function contar_pedidos($temporada_actual){
+        if($temporada_actual==true){
+            $this->db->query("SELECT * FROM v2soli_equipacion WHERE estado=0 and fecha_peticion between :inicio and :fin");
+        $this->db->bind(':inicio', $temporada_actual->fecha_inicio);
+        $this->db->bind(':fin', $temporada_actual->fecha_fin);
         return $this->db->rowCount();
+
+        }
+        
     }
 
     

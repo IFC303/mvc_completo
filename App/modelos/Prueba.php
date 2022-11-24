@@ -31,20 +31,19 @@ class Prueba{
     //   }
 
 
-//----------------------------- ANOTAR MARCAS (entrenador) ----------------------//
-     public function agregarMarca($nuevaMarca){
-        var_dump($nuevaMarca);
-       
-          $this->db->query("INSERT INTO v2prueba_socio (id_usuario, id_prueba, id_test, fecha, marca, observaciones) 
-          VALUES (:idUsuario, :idPrueba, :idTest, :fecha,:marca, :observaciones)");
 
+
+/******************************************* ENTRENADOR *****************************************************/
+
+     public function agregar_marca_alumno($nuevaMarca){
+          $this->db->query("INSERT INTO v2prueba_socio (id_prueba, id_socio,  id_test, fecha, marca, observaciones) 
+          VALUES (:idPrueba, :idUsuario,  :idTest, :fecha,:marca, :observaciones)");
           $this->db->bind(':idUsuario', $nuevaMarca['id_usuario']);
           $this->db->bind(':idPrueba', $nuevaMarca['id_prueba']);
           $this->db->bind(':idTest',$nuevaMarca['id_test']);
           $this->db->bind(':fecha',$nuevaMarca['fecha']);
           $this->db->bind(':marca',$nuevaMarca['marca']);          
-          $this->db->bind(':observaciones',$nuevaMarca['observaciones']);
-          
+          $this->db->bind(':observaciones',$nuevaMarca['observaciones']);        
          if ($this->db->execute()){
              return $this->db->ultimoIndice();
          }else{
@@ -52,26 +51,24 @@ class Prueba{
          }
      }
 
-//----------------------------- OBTENER MARCAS UN ALUMNO CONCRETO (entrenador) ----------------------//
-     public function obtenerMarcasAlumno($alumno){
-        $this->db->query("SELECT v2usuario.nombre, v2usuario.apellidos, v2test.nombreTest,
-        v2prueba.tipo, v2prueba.nombrePrueba, v2prueba_socio.id, v2prueba_socio.id_prueba, v2prueba_socio.id_usuario, fecha, marca, v2prueba_socio.id_test, v2prueba_socio.observaciones
-        from v2prueba, v2test, v2prueba_socio, v2usuario 
-        WHERE v2usuario.id_usuario=v2prueba_socio.id_usuario 
+
+     public function ver_marcas_alus($id_grupo){
+        $this->db->query("SELECT v2usuario.nombre, v2usuario.apellidos, v2test.nombreTest, v2prueba.tipo, v2prueba.nombrePrueba, 
+        v2prueba_socio.id, v2prueba_socio.id_prueba, v2prueba_socio.id_socio, fecha, marca, v2prueba_socio.id_test, v2prueba_socio.observaciones
+        from v2prueba, v2test, v2prueba_socio, v2usuario,v2socio_grupo
+        WHERE v2usuario.id_usuario=v2prueba_socio.id_socio
         and v2prueba.id_prueba=v2prueba_socio.id_prueba 
         and v2test.id_test=v2prueba_socio.id_test 
-        and v2prueba_socio.id_usuario=:alumno");
-
-        $this->db->bind(':alumno',$alumno);
-
+        and v2socio_grupo.id_usuario=v2usuario.id_usuario and v2socio_grupo.id_grupo=:id_grupo");
+        $this->db->bind(':id_grupo',$id_grupo);
         return $this->db->registros();
      }
 
-//----------------------------- BORRAR MARCA DE UN ALUMNO (entrenador) ----------------------//
-    public function borrarMarcaUsuario($id){
+
+
+    public function borrar_marca_alu($id){
          $this->db->query("DELETE FROM v2prueba_socio WHERE id = :id");
          $this->db->bind(':id', $id);
-
          if ($this->db->execute()) {
              return true;
          } else {
@@ -79,15 +76,6 @@ class Prueba{
          }
     }
 
-
-
-
-
-
-
-
-
- 
 
 
 

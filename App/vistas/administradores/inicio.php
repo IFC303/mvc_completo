@@ -233,7 +233,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3"  onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center" id="dibu" style="background-color:#1e81b0"><img src="<?php echo RUTA_Icon ?>escuela.png"></div>
-                            <div class="col-8"><p class="nombre">ESCUELA</p><p class="descripcion">Forma grupos y organiza sus alumnos</p></div>
+                            <div class="col-8"><p class="nombre">ESCUELA</p><p class="descripcion">Forma grupos y organiza a los atletas</p></div>
                         </div>                              
                     </div> 
                 </a>
@@ -312,7 +312,7 @@
                 <div id="colorFact" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);"data-bs-toggle="offcanvas" data-bs-target="#menuFac">
                     <div class="row">
                         <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#264475"><img src="<?php echo RUTA_Icon ?>euro.png"></div>
-                        <div class="col-8"><p class="nombre">FACTURACION</p><p class="descripcion">Visualiza y registra tus marcas</p></div>
+                        <div class="col-8"><p class="nombre">FACTURACION</p><p class="descripcion">Contabiliza todos los ingresos y gastos del club</p></div>
                     </div>                              
                 </div>     
             </div>
@@ -321,7 +321,7 @@
                     <div id="colorMarcas" class="shadow-lg p-3 mb-3" onmouseover="colorear(this);" onmouseleave="decolorear(this);">
                         <div class="row">
                             <div class="col-3 mt-2 ms-3 d-flex justify-content-center align-items-center " id="dibu" style="background-color:#0070c6"><img src="<?php echo RUTA_Icon ?>mensajeria.png"></div>
-                            <div class="col-8"><p class="nombre">MENSAJERIA</p><p class="descripcion">Manda mensajes o comunicados generales</p></div>
+                            <div class="col-8"><p class="nombre">MENSAJERIA</p><p class="descripcion">Envia mensajes individuales o comunicados generales</p></div>
                         </div>                              
                     </div> 
                 </a>

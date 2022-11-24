@@ -4,15 +4,14 @@
     <!------------------------------ CABECERA -------------------------------->
         <header>
             <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
+                <div class="col-10 d-flex align-items-center justify-content-center ">
                     <span id="textoHead">Gestion de entidades</span>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                <div class="col-2 mt-1">
+                    <a href="<?php echo RUTA_URL ?>/login/logout">
+                        <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
                     </a>
-                </div>
+                </div>            
             </div>                                   
         </header>
     <!----------------------------------------------------------------------->
@@ -42,24 +41,20 @@
 
                         <?php
                         foreach($datos['entidad'] as $entidad): ?>
-                        <tr>
+                        <tr id="manita">
 
-                            <td><?php echo $entidad->cif?></td>
-                            <td><?php echo $entidad->nombre?></td>
-                            <td><?php echo $entidad->telefono?></td>
-                            <td><?php echo $entidad->email?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $entidad->id_entidad?>"><?php echo $entidad->cif?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $entidad->id_entidad?>"><?php echo $entidad->nombre?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $entidad->id_entidad?>"><?php echo $entidad->telefono?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $entidad->id_entidad?>"><?php echo $entidad->email?></td>
      
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 
                             <td>
 
-                                <!-- MODAL VER-->                 
-                                <a data-bs-toggle="modal" data-bs-target="#ver<?php echo $entidad->id_entidad?>">
-                                    <img class="icono" src="<?php echo RUTA_Icon ?>ojo.svg"></img>
-                                </a>
-
-                                <div class="modal" id="ver<?php echo $entidad->id_entidad?>">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                <!-- MODAL VER-->                
+                                <div class="modal fade" id="ver<?php echo $entidad->id_entidad?>">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
 
                                         <!-- Modal Header -->
@@ -67,66 +62,59 @@
                                             <p class="modal-title ms-3">Informacion</p> 
                                             <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                         </div>
-                            
 
                                         <!-- Modal body -->
-                                        <div class="modal-body info mb-3">    
-                                        <div class="row ms-1">                      
-                       
-                                                <div class="row mt-4">
-                                                    <div class="col-5">
-                                                        <div class="input-group mb-4">
-                                                            <label for="cif" class="input-group-text">CIF </label>
-                                                            <input type="text" class="form-control form-control-md" id="cif" name="cif" value="<?php echo $entidad->cif?>"readonly>    
-                                                        </div> 
-                                                    </div>
-                                                    <div class="col-7">
-                                                        <div class="input-group mb-4">
-                                                            <label for="nombre" class="input-group-text">Nombre </label>
-                                                            <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $entidad->nombre?>"readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>  
-
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="input-group mb-4">
-                                                            <label for="direccion" class="input-group-text">Direccion </label>
-                                                            <input type="text" class="form-control form-control-md"  id="direccion" name="direccion" value="<?php echo $entidad->direccion?>"readonly>
-                                                        </div> 
+                                        <div class="modal-body info">    
+                                            <div class="row mt-3">                      
+                                                <div class="col-5">
+                                                    <div class="input-group mb-4">
+                                                        <label for="cif" class="input-group-text">CIF </label>
+                                                        <input type="text" class="form-control form-control-md" id="cif" name="cif" value="<?php echo $entidad->cif?>"readonly>    
                                                     </div> 
                                                 </div>
-
-
-                                                <div class="row">
-                                                    <div class="col-5">
-                                                        <div class="input-group mb-4">
-                                                            <label for="telefono" class="input-group-text">Telefono </label>
-                                                            <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $entidad->telefono?>"readonly>
-                                                        </div>
+                                                <div class="col-7">
+                                                    <div class="input-group mb-4">
+                                                        <label for="nombre" class="input-group-text">Nombre </label>
+                                                        <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $entidad->nombre?>"readonly>
                                                     </div>
-
-                                                    <div class="col-7">
-                                                        <div class="input-group mb-4">
-                                                            <label for="email" class="input-group-text">Email </label>
-                                                            <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $entidad->email?>"readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="input-group mb-5">
-                                                            <textarea  type="text" style="height:150px" class="form-control" id="observaciones" name="observaciones" readonly> <?php echo $entidad->observaciones?></textarea>
-                                                        </div> 
-                                                    </div> 
                                                 </div>
                                             </div>
-                                        </div>
-                                    
 
-                
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="input-group mb-4">
+                                                        <label for="direccion" class="input-group-text">Direccion </label>
+                                                        <input type="text" class="form-control form-control-md"  id="direccion" name="direccion" value="<?php echo $entidad->direccion?>"readonly>
+                                                    </div> 
+                                                </div> 
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="input-group mb-4">
+                                                        <label for="telefono" class="input-group-text">Telefono </label>
+                                                        <input type="text" class="form-control form-control-md" id="telefono" name="telefono" value="<?php echo $entidad->telefono?>"readonly>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-7">
+                                                    <div class="input-group mb-4">
+                                                        <label for="email" class="input-group-text">Email </label>
+                                                        <input type="text" class="form-control form-control-md" id="email" name="email" value="<?php echo $entidad->email?>"readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="input-group mb-5">
+                                                        <textarea  type="text" style="height:150px" class="form-control" id="observaciones" name="observaciones" readonly> <?php echo $entidad->observaciones?></textarea>
+                                                    </div> 
+                                                </div> 
+                                            </div>
+
+                                        </div>
+
                                 </div>
                                 </div>
                                 </div>
@@ -138,8 +126,8 @@
                                 </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="editar_<?php echo $entidad->id_entidad?>">
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal fade" id="editar_<?php echo $entidad->id_entidad?>">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
 
                                             <!-- Modal Header -->
@@ -211,7 +199,6 @@
                                                     <input type="submit" class="btn mt-3 mb-4 " name="aceptar" id="confirmar" value="Confirmar">        
                                                 </div> 
                   
-
                                             </form>
 
                                             </div>
@@ -245,7 +232,7 @@
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <form action="<?php echo RUTA_URL?>/adminEntidades/inscripciones/<?php echo $evento->id_entidad?>" method="post">
+                                                <form action="<?php echo RUTA_URL?>/adminEntidades/borrar/<?php echo $entidad->id_entidad?>" method="post">
                                                     <input type="submit" class="btn" name="borrar" id="borrar" value="Borrar">
                                                 </form>
                                             </div>
@@ -253,8 +240,6 @@
                                     </div>
                                     </div>
                                     </div>
-
-                                    
 
 
                             </td>
@@ -275,8 +260,8 @@
         </div>
 
 
-        <div class="modal" id="nuevo">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal fade" id="nuevo">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
                 <!-- Modal Header -->

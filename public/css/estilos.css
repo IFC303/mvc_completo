@@ -1,34 +1,74 @@
 /*------------------ ESTILO LOGIN-----------------*/
 
 #ventanaLogin{
-width:530px;
-height:350px; 
+    width:530px;
+    height:350px; 
 }
 
 #corredorLogin{
-width:175px; 
-height:80px;
+    width:175px; 
+    height:80px;
 }
 
 #letrasLogin{
-width:250px;
-height:70px;
+    width:250px;
+    height:70px;
 }
 
 h3{ 
-color:white;
+    color:white;
 }
 
 #bodyLogin{
-background-image: url("http://localhost/tragamillas/public/img/icons/pista2.jpg");
-background-size:cover;
-background-repeat:no-repeat;
-background-position:center center;
+    background-image: url("http://localhost/tragamillas/public/img/icons/pista2.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
 }
 
 .boton{
-background-color:#023ef9;
-color:white;
+    background-color:#023ef9;
+    color:white;
+}
+
+
+
+/*----------------------------------------- ESTILO HEADER -------------------------------*/
+
+header{
+    height: 110px;
+    padding: 20px;
+}
+
+ #textoHead{
+    font-family: 'Anton',sans-serif; 
+    color: #0b2a85;
+    font-size: 40px; 
+    letter-spacing: 7px; 
+    margin-left:100px;
+} 
+
+
+#btn_logout img{
+    width:35px;
+    height:35px;
+}
+
+#btn_logout {
+    background-color:#0b2a85 ;
+    color: white;
+    padding: 12px 16px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+
+
+/*------------------ MOVIMIENTO BOTONES INICIO -----------------*/
+
+.licen:active, .marcas:active, .equi:active, 
+.escu:active, .even:active, .test:active, .mensajeria:active{
+transform: translateY(5px);
 }
 
 
@@ -74,7 +114,7 @@ color:white;
 #home{   
     border-bottom:solid white 5px;
     background-color: #0b2a85;
-    padding-bottom:20px
+    padding-bottom:20px;
 }
 
 
@@ -120,34 +160,7 @@ color:white;
     margin-left:100px;
 }
 
-/*----------------------------------------- ESTILO HEADER -------------------------------*/
 
-header{
-    height: 110px;
-    padding: 20px;
-}
-
- #textoHead{
-    font-family: 'Anton',sans-serif; 
-    color: #0b2a85;
-    font-size: 40px; 
-    letter-spacing: 7px; 
-    margin-left:100px;
-} 
-
-#botonLogout{
-    background-color:#0b2a85;
-}
-
-#botonLogout span{
-    font-size:25px;
-    color:white;
-}
-
-#botonLogout img{
-    width:35px;
-    height:35px;
-}
 
 
 /*------------------ ESTILOS TABLA -----------------*/
@@ -157,7 +170,7 @@ article{
     float:left
 }
 
- #tabla{
+#tabla{
     margin:auto;
     width: 1100px;
     margin-top:100px;
@@ -192,6 +205,7 @@ thead tr{
 } 
 
 
+
 /*------------------ ESTILOS VENTANAS MODALES -----------------*/
 
 .modal-title{
@@ -224,61 +238,14 @@ thead tr{
     font-weight: bold;
   }
 
-/*------------------ ESTIO BOTON MODIFICACION DATOS -----------------*/
+
+
+/*------------------ ESTILO BOTON MODIFICACION DATOS -----------------*/
 
 .modDatos{
   background-color: #0b2a85;
   text-decoration:none; 
 }
-
-
-
-
-/*ESTILOS VENTANAS MODALES */
-
-
-/* label{
-   color:#023ef9;
-}
-
-a{
-    color:black;
-    text-decoration: none;
-}
-
-.modalVer{  
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding: 100px 100px 0px 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.modalBorrar{  
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding: 100px 100px 0px 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4); 
-}
-
-
-#headerVer h2{
-    padding: 30px;
-    color:#023ef9;
-} */
 
 
 
@@ -314,12 +281,6 @@ a{
 }
 
 
-
-
-
-label,h2{
-    color:#023ef9;
-}
 
 #ventana{
     margin: auto;

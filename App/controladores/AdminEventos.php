@@ -10,27 +10,29 @@ class AdminEventos extends Controlador{
             redireccionar('/');
         }
 
+        $this->temporadaModelo = $this->modelo('Temporada');
         $this->eventoModelo = $this->modelo('Evento');
         $this->adminModelo = $this->modelo('AdminModelo');
     }
 
     
  //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
-public function notificaciones(){
+ public function notificaciones(){
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
     $notific[0] = $this->adminModelo->notSocio();
     $notific[1] = $this->adminModelo->notGrupo();
     $notific[2] = $this->adminModelo->notEventos();
-    $notific[3] = $this->adminModelo->contar_pedidos();
+    $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
     return $notific;
 }
- 
+
 
 //*********** INDEX *********************/
 public function index(){
-    $notific = $this->notificaciones();
-    $this->datos['notificaciones'] = $notific;
-
-    $this->datos['evento'] = $this->eventoModelo->obtenerEventos();
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+    $this->datos['notificaciones'] = $this->notificaciones();
+   
+    $this->datos['evento'] = $this->eventoModelo->obtener_eventos($this->datos['temp_actual']);
     $this->vista('administradores/crudEventos/inicio',$this->datos);
 }
 
@@ -163,6 +165,12 @@ public function index(){
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+                if ($_FILES['subirFoto']['name']!=''){
+                    $foto=$_FILES['subirFoto']['name'];
+                }else{
+                    $foto="";
+                }
+
                 $id=trim($_POST['id_evento']);
 
                 $nuevo = [
@@ -173,7 +181,8 @@ public function index(){
                     'dni'=> trim($_POST['dni']),
                     'direccion' => trim($_POST['direccion']),
                     'telefono'=> trim($_POST['telefono']),
-                    'email' => trim($_POST['email'])
+                    'email' => trim($_POST['email']),
+                    'foto'=>$foto
                 ];
 
                 if ($this->eventoModelo->nuevo_participante($nuevo)) {
@@ -190,11 +199,14 @@ public function index(){
                     'dni'=>'',
                     'direccion'=>'',
                     'telefono'=>'',
-                    'email'=>''
+                    'email'=>'',
+                    'foto'=>''
                 ];
                  $this->vista('administradores/crudEventos/participantes'.$id, $this->datos);
             }       
         }
+
+
 
 
         public function borrar_participante($id){
@@ -207,6 +219,10 @@ public function index(){
     
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($this->eventoModelo->borrar_participante($id)) {
+                    //$directorio="/var/www/html/tragamillas/public/img/fotosPerfil/";
+                    $directorio="C:/xampp/htdocs/tragamillas/public/img/eventos/"; 
+                    unlink($directorio.$id.'.jpg');
+
                     $id_evento=$_POST['id_evento'];
                     redireccionar('/adminEventos/participantes/'.$id_evento);
                 }else{
@@ -219,6 +235,8 @@ public function index(){
         }
 
 
+
+
         public function editar_participante($id){
             $this->datos['rolesPermitidos'] = [1];          
             if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
@@ -227,7 +245,15 @@ public function index(){
 
             $id_evento=(trim($_POST['id_evento']));
 
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                if (($_FILES['editar_foto']['name'])==''){
+                    $foto=$_POST['foto_anterior'];
+                }else{
+                    $foto=$_FILES['editar_foto']['name'];
+                    $foto=$id.'.jpg';
+                }
 
                 $nuevo = [
                     'nombre' => trim($_POST['nombre']),
@@ -236,10 +262,16 @@ public function index(){
                     'dni'=> trim($_POST['dni']),
                     'direccion' => trim($_POST['direccion']),
                     'telefono'=> trim($_POST['telefono']),
-                    'email' => trim($_POST['email'])
+                    'email' => trim($_POST['email']),
+                    'foto'=>$foto
                 ];
 
                 if ($this->eventoModelo->editar_participante($nuevo,$id)) {
+                    //$directorio="/var/www/html/tragamillas/public/img/licencias/";
+                    $directorio="C:/xampp/htdocs/tragamillas/public/img/eventos/";       
+                    copy($_FILES['editar_foto']['tmp_name'], $directorio.$foto);
+                    chmod($directorio.$foto.'.jpg',0777);
+
                     redireccionar('/adminEventos/participantes/'.$id_evento);
                 }else{
                     die('Algo ha fallado!!!');
@@ -249,68 +281,6 @@ public function index(){
             }
                 
         }
-
-
-        public function anotar_marca($id){
-            $this->datos['rolesPermitidos'] = [1];          
-            if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
-                redireccionar('/usuarios');
-            }
-
-            $id_evento=(trim($_POST['id_evento']));
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-                $marca = [
-                    'dorsal' => trim($_POST['dorsal']),
-                    'marca'=> trim($_POST['marca'])
-                ];
-
-                if ($this->eventoModelo->anotar_marca($marca,$id)) {
-                    redireccionar('/adminEventos/participantes/'.$id_evento);
-                }else{
-                    die('Algo ha fallado!!!');
-                }
-             }else{
-                 $this->vista('administradores/crudEventos/participantes/'.$id_evento, $this->datos);
-            }
-                
-        }
-
-
-        
-
-        
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

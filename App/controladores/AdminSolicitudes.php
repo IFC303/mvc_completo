@@ -198,7 +198,7 @@ public function eventos(){
     $this->datos['notificaciones'] = $this->notificaciones();
 
     $this->datos['soliEvento'] = $this->solicitudModelo->solicitudes_eventos();
-    $this->datos['eventos']=$this->eventoModelo->obtenerEventos();
+    $this->datos['eventos']=$this->eventoModelo->obtener_eventos();
     $this->vista('administradores/solicitudes/eventos', $this->datos);
 }
 

@@ -4,15 +4,14 @@
     <!------------------------------ CABECERA -------------------------------->
         <header>
             <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
+                <div class="col-10 d-flex align-items-center justify-content-center ">
                     <span id="textoHead">Gestion de Licencias</span>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                <div class="col-2 mt-1">
+                    <a href="<?php echo RUTA_URL ?>/login/logout">
+                        <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
                     </a>
-                </div>
+                </div>            
             </div>                                   
         </header>
     <!----------------------------------------------------------------------->
@@ -22,15 +21,12 @@
 
         <table id="tabla" class="table">
 
-
-
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr>
                             <th>USUARIO</th>
-                            <th>TIPO</th>
+                            <th>CATEGORIA</th>
                             <th>REGIONAL/NACIONAL</th>
-                            <th>FECHA CADUCIDAD</th>       
                             <th>IMÁGEN</th>
                    
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
@@ -45,14 +41,13 @@
 
                         <?php
                         foreach($datos['licencia'] as $licencia): ?>
-                        <tr>
+                        <tr id="manita">
 
-                            <td><?php echo $licencia->nombre." ".$licencia->apellidos?></td>
-                            <td><?php echo $licencia->tipo?></td>
-                            <td><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
-                            <td><?php if ($licencia->fecha_cad==''){echo '-';}else {echo $licencia->fecha_cad;}?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $licencia->id_licencia?>"><?php echo $licencia->nombre." ".$licencia->apellidos?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $licencia->id_licencia?>"><?php echo $licencia->nombre_categoria?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $licencia->id_licencia?>"><?php if ($licencia->regional_nacional==''){echo '-';}else {echo $licencia->regional_nacional;}?></td>
 
-                            <td><?php if ($licencia->imagen==''){echo '-';
+                            <td><?php if ($licencia->imagen_licen==''){echo '-';
                                  }else {?> 
                                     <a data-bs-toggle="modal" data-bs-target="#foto<?php echo $licencia->id_licencia?>">
                                         <img class="icono" src="<?php echo RUTA_Icon ?>foto.svg"></img>
@@ -80,8 +75,6 @@
                             </td>
                                 
                                                
-                                
-
 
                         <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[1])):?>
                                 
@@ -89,17 +82,13 @@
                             <td>
 
                             <!-- MODAL VER -->
-                            <a data-bs-toggle="modal" data-bs-target="#ver<?php echo $licencia->id_licencia?>">
-                                <img class="icono" src="<?php echo RUTA_Icon ?>ojo.svg"></img>
-                            </a>
-
-                                <div class="modal" id="ver<?php echo $licencia->id_licencia?>">
-                                    <div class="modal-dialog modal-dialog-centered modal-md">
-                                        <div class="modal-content">
+                                <div class="modal fade" id="ver<?php echo $licencia->id_licencia?>">
+                                <div class="modal-dialog modal-dialog-centered modal-md">
+                                <div class="modal-content">
 
                                         <!-- Modal Header -->
                                         <div class="modal-header azul">
-                                            <p class="modal-title ms-3">Informacion</p> 
+                                            <p class="modal-title ms-3">Info.Licencia</p> 
                                             <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                         </div>      
 
@@ -116,15 +105,15 @@
                                                         </div>
                                                         <div class="row"> 
                                                             <div class="input-group mb-4">
-                                                                <label for="tipo" class="input-group-text">Tipo</label>
-                                                                <input type="text" class="form-control form-control-md" name="tipo" id="tipo" value="<?php echo $licencia->tipo?>" readonly> 
+                                                                <label for="tipo" class="input-group-text">Categoria</label>
+                                                                <input type="text" class="form-control form-control-md" name="tipo" id="tipo" value="<?php echo $licencia->nombre_categoria?>" readonly> 
                                                             </div>
                                                         </div>
 
 
                                                 <?php 
                                             
-                                                if ($licencia->tipo=="Adulto") {?>
+                                                if ($licencia->id_categoria==4) {?>
 
                                                     <div class="row"> 
                                                         <div class="input-group mb-4">
@@ -157,10 +146,10 @@
                                                     </div>
 
 
-                                                <?php }elseif($licencia->tipo=="Escolar"){ ?> 
+                                                <?php }elseif($licencia->id_categoria<4){ ?> 
 
                                                     <div class="row mb-4"> 
-                                                        <div class="input-group mb-4">
+                                                        <div class="input-group">
                                                             <label for="dorsal" class="input-group-text">Dorsal</label>
                                                             <input type="text" class="form-control form-control-md" name="dorsal" id="dorsal" value="<?php echo $licencia->dorsal?>" readonly> 
                                                         </div>
@@ -193,7 +182,7 @@
                                 </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="editar_<?php echo $licencia->id_licencia?>">
+                                    <div class="modal fade" id="editar_<?php echo $licencia->id_licencia?>">
                                     <div class="modal-dialog modal-md modal-dialog-centered">
                                         <div class="modal-content" id="modalEditar">
 
@@ -216,22 +205,25 @@
                                                                 <input type="text" class="form-control form-control-md" id="nombre" name="nombre" value="<?php echo $licencia->nombre.' '.$licencia->apellidos?>" readonly>
                                                             </div>
                                                         </div>
-                                                        <div class="row"> 
+
+                                                        <div id="categoria" class="row">
                                                             <div class="input-group mb-4">
-                                                                <label for="tipo" class="input-group-text">Tipo</label>
-                                                                <input type="text" class="form-control form-control-md" name="tipo" id="tipo" value="<?php echo $licencia->tipo?>" readonly> 
+                                                                <label for="categoria" class="input-group-text">Categoria</label>
+                                                                <input type="text" class="form-control form-control-md" id="categoria" name="categoria"
+                                                                 value="<?php echo $licencia->nombre_categoria?>" readonly>
                                                             </div>
                                                         </div>
+                                                
                                                         <div class="row">  
                                                             <div class="input-group mb-4">
-                                                                <label for="dorsal" class="input-group-text">Dorsal</label>
+                                                                <label for="dorsal" class="input-group-text">Dorsal<sup>*</sup></label>
                                                                 <input type="text" class="form-control form-control-md" name="dorsal" id="dorsal" value="<?php echo $licencia->dorsal?>" required> 
                                                             </div>
                                                         </div>
 
 
                                                     <!-- CAMPOS ADULTO-->
-                                                    <div    <?php if ($licencia->tipo=='Adulto'){
+                                                    <div    <?php if ($licencia->id_categoria==4){
                                                             ?> style="display:block"<?php ;
                                                             }else {?> style="display:none"<?php } ?>                                                                                                                     
                                                         >
@@ -262,7 +254,7 @@
                                                     </div>
 
                                                     <!-- CAMPO ESCOLAR-->
-                                                    <div    <?php if ($licencia->tipo=='Escolar'){
+                                                    <div    <?php if ($licencia->id_categoria<4){
                                                             ?> style="display:block"<?php ;
                                                             }else {?> style="display:none"<?php } ?>                                                                                                                     
                                                         >
@@ -277,10 +269,11 @@
                                             </div>
 
                                                     <div id="foto" class="row">
-                                                        <input  accept="image/*" type="file" id="" name="subirFoto" >
+                                                        <input  accept="image/*" type="file" id="" name="editarFoto" >
                                                     </div>
 
                                                     <input type="hidden" name="id_usuario" value="<?php echo $licencia->id_usuario?>">
+                                                    <input type="hidden" name="foto_ant" value="<?php echo $licencia->imagen_licen?>">
 
                                                     <div class="row"> 
                                                         <div class="d-flex justify-content-end">
@@ -349,7 +342,7 @@
 
 
 
-        <div class="modal" id="nuevo">
+        <div class="modal fade" id="nuevo">
         <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
 
@@ -378,13 +371,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div id="categoria" class="row">
                                             <div class="input-group mb-4">
-                                                <label for="tipo" class="input-group-text">Tipo<sup>*</sup></label>
-                                                <select class="form-select" name="tipo" id="tipo_select" onchange="opcion();" required>
-                                                    <option value="">-- Selecciona un tipo --</option>
-                                                    <option value="Escolar">Escolar</option>
-                                                    <option value="Adulto">Adulto</option>
+                                                <label for="categoria" class="input-group-text">Categoria<sup>*</sup></label>
+                                                <select class="form-select" name="categoria" id="tipo_select" onchange="opcion()" required>
+                                                    <option value="">-- Selecciona una categoria --</option>
+                                                    <?php foreach ($datos['categorias'] as $cat) : ?>
+                                                    <option value="<?php echo $cat->id_categoria?>"> <?php echo $cat->nombre_categoria?></option>
+                                                    <?php endforeach ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -395,7 +389,7 @@
                                  
                                         <div id="gDorsal" class="row" style="display:none">
                                             <div class="input-group mb-4">
-                                                <label for="dorsal" class="input-group-text">Dorsal</label>
+                                                <label for="dorsal" class="input-group-text">Dorsal<sup>*</sup></label>
                                                 <input type="text" class="form-control form-control-md" id="dorsal" name="dorsal">
                                             </div>
                                         </div>
@@ -485,7 +479,7 @@
      function opcion() {
         var opcion=document.getElementById("tipo_select").value;
         console.log(opcion);
-        if(opcion=="Escolar"){
+        if(opcion<4){
             document.getElementById("gGir").style.display ="block";
             document.getElementById("gDorsal").style.display ="block";
             document.getElementById("gLice").style.display ="none";

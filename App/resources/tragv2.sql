@@ -73,7 +73,7 @@ CREATE TABLE v2usuario(
 
 INSERT INTO v2usuario (`id_usuario`,`fecha_acep`, `dni`,`nombre`,`apellidos`,`email`,`direccion`,`fecha_nacimiento`,`telefono`,
 `cuenta`,`passw`,`talla`,`foto`,`gir`,`ha_sido`,`activado`,`id_rol`,`nom_pa`,`ape_pa`,`dni_pa`) VALUES 
-(11,CURDATE(),'11','admin','admin','admin@admin.com','dire','2000-1-1',11,'12345678989','21232f297a57a5a743894a0e4a801fc3','xl','foto','gir',1,1,1,'sssss','ddddd','87');
+(11,CURDATE(),'11','admin','admin','admin@admin.com','dire','2000-1-1',11,'12345678989','21232f297a57a5a743894a0e4a801fc3','xl','foto','gir',1,1,1,'sssss','ddddd','87'),
 (22,CURDATE(),'22','entrenador','entrenador','entrenador@entrenador.com','dire','2000-1-1',22,'','a990ba8861d2b344810851e7e6b49104','m','','',0,1,2,'wwwwwww','wwww','77777'),
 (33,CURDATE(),'33','socio','socio','socio@socio.com','dire','2000-1-1',33,'','1b1844daa452df42c6f9123857ca686c','s','','',0,1,3,'wwwwwww','wwww','77777');
 
@@ -85,17 +85,18 @@ CREATE TABLE v2temporada(
     nombre varchar (100) not null,
     fecha_inicio date not null,
     fecha_fin date not null,
+    estado tinyint,
     observaciones varchar (500)
   );
 
 
-CREATE TABLE v2usuario_temporada(
-    id_temp int,
-    id_usuario int,
-    primary key (id_temp, id_usuario),
-    constraint FK_id_temp_usu_temp foreign key (id_temp) references v2temporada (id_temp) on delete cascade on update cascade,
-    constraint FK_id_usuario_usu_temp foreign key (id_usuario) references v2usuario (id_usuario) on delete cascade on update cascade
-  );
+-- CREATE TABLE v2usuario_temporada(
+--     id_temp int,
+--     id_usuario int,
+--     primary key (id_temp, id_usuario),
+--     constraint FK_id_temp_usu_temp foreign key (id_temp) references v2temporada (id_temp) on delete cascade on update cascade,
+--     constraint FK_id_usuario_usu_temp foreign key (id_usuario) references v2usuario (id_usuario) on delete cascade on update cascade
+--   );
   
 
 /**********TABLA ENTRENADOR ********/
@@ -170,20 +171,6 @@ CREATE TABLE v2socio(
   INSERT INTO v2socio (id_socio,familiar) values ('11',null),('22',null),('33',null);
 
 
-CREATE TABLE v2licencia(
-    id_licencia int primary key AUTO_INCREMENT,
-    id_usuario int not null,
-    imagen varchar(800),
-    num_licencia varchar(50),
-    fecha_cad date,
-    tipo varchar (30) not null,
-    dorsal int,
-    regional_nacional varchar (10),
-    constraint FK_id_usuario_licencia foreign key (id_usuario) references v2socio (id_socio) on delete cascade on update cascade
-  );
-
-
-
 
 /***** TABLAS TEST Y PRUEBAS *****/
 
@@ -243,13 +230,13 @@ CREATE TABLE v2prueba_socio(
 
 CREATE TABLE v2categoria(
     id_categoria int primary key,
-    nombre varchar (40) not null,
+    nombre_categoria varchar (40) not null,
     edad_min int not null,
     edad_max int not null
   );
 
-INSERT INTO v2categoria (`id_categoria`,`nombre`,`edad_min`,`edad_max`)
-VALUES  ('1', 'BENJAMIN', '8', '9'),('2', 'ALEVIN', '10', '11'),('3', 'INFANTILES', '12', '13'),('4', 'ADULTO', '14', '99');
+INSERT INTO v2categoria (`id_categoria`,`nombre_categoria`,`edad_min`,`edad_max`)
+VALUES  ('1', 'Benjamin', '8', '9'),('2', 'Alevin', '10', '11'),('3', 'Infantil', '12', '13'),('4', 'Adulto', '14', '99');
 
 
 CREATE TABLE v2categoria_socio(
@@ -259,6 +246,21 @@ CREATE TABLE v2categoria_socio(
     primary key (id_categoria, id_usuario, fecha),
     constraint FK_id_categoria_categoria_socio foreign key (id_categoria) references v2categoria (id_categoria) on delete cascade on update cascade,
     constraint FK_id_usuario_categoria_socio foreign key (id_usuario) references v2socio (id_socio) on delete cascade on update cascade
+  );
+
+  
+CREATE TABLE v2licencia(
+    id_licencia int primary key AUTO_INCREMENT,
+    id_usuario int not null,
+    imagen_licen varchar(800),
+    fecha_alta date,
+    num_licencia varchar(50),
+    fecha_cad date,
+    id_categoria int not null,
+    dorsal int,
+    regional_nacional varchar (10),
+    constraint FK_id_usuario_licencia foreign key (id_usuario) references v2socio (id_socio) on delete cascade on update cascade,
+    constraint FK_id_categoria_licencia foreign key (id_categoria) references v2categoria (id_categoria) on delete cascade on update cascade
   );
 
 
@@ -286,6 +288,7 @@ create table v2soli_grupo(
     dni_pa varchar (11),
     pago varchar(100),
     foto varchar(100),
+    estado varchar (5),
     constraint FK_id_categoria_solicitud_grupo foreign key (id_categoria) references v2categoria (id_categoria) on delete cascade on update cascade,
     constraint FK_id_grupo_solicitud_grupo foreign key (id_grupo) references v2grupo (id_grupo) on delete cascade on update cascade
 );
@@ -349,24 +352,25 @@ CREATE TABLE v2evento(
 CREATE TABLE v2participante(
     id_participante int primary key AUTO_INCREMENT,
     id_evento int,
+    fecha_aceptacion date,
     nombre varchar (50) not null,
     apellidos varchar (100) not null,
-    DNI varchar (11),
+    dni varchar (11),
     fecha_nacimiento date not null,
     direccion varchar (200),
     email varchar (100) not null,
     telefono int (15) not null,
     dorsal int,
     marca varchar (50),
-    foto varchar (200),
+    foto_pago varchar (200),
     constraint FK_id_evento_participante foreign key (id_evento) references v2evento (id_evento) on delete cascade on update cascade
   );
 
--- INSERT INTO `PARTICIPANTE` (`id_participante`, `id_evento`, `nombre`, `apellidos`, `DNI`, `fecha_nacimiento`,`direccion` , `email`, `telefono`, `dorsal`, `marca`,`foto`) VALUES
+-- INSERT INTO v2participante (`id_participante`, `id_evento`, `nombre`, `apellidos`, `dni`, `fecha_nacimiento`,`direccion` , `email`, `telefono`, `dorsal`, `marca`,`foto`) VALUES
 -- (1, 1, 'Maria', 'Gracia', '73386618N', '1995-07-14','', 'MariaGracia@gamil.com', 457215485, NULL, NULL,''),
--- (2, 2, 'Jose', 'Rodriguez', '99922045V', '1997-08-14','', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL,''),
--- (3, 3, 'Daniel', 'Perez', '07063289N', '2000-07-08','', 'DanielPerez@gamil.com', 640685678, NULL, NULL,''),
--- (4, 4, 'Carmen', 'Martin', '03081415J', '2001-08-11','', 'CarmenMartin@gmail.com', 640297865, NULL, NULL,'');
+-- (2, 1, 'Jose', 'Rodriguez', '99922045V', '1997-08-14','', 'JoseRodriguez@gamil.com', 640685678, NULL, NULL,''),
+-- (3, 1, 'Daniel', 'Perez', '07063289N', '2000-07-08','', 'DanielPerez@gamil.com', 640685678, NULL, NULL,''),
+-- (4, 1, 'Carmen', 'Martin', '03081415J', '2001-08-11','', 'CarmenMartin@gmail.com', 640297865, NULL, NULL,'');
 
 
  CREATE TABLE v2soli_evento(

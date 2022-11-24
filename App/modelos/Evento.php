@@ -14,16 +14,24 @@ class Evento{
 
 //*********************************** VER ****************************************/
 
-    public function obtener_eventos(){
-        $this->db->query("SELECT * FROM v2evento");
+    public function obtener_eventos($temporada){
+        $this->db->query("SELECT * FROM v2evento where fecha_ini between :inicio and :fin");
+        $this->db->bind(':inicio',$temporada->fecha_inicio);
+        $this->db->bind(':fin',$temporada->fecha_fin);
         return $this->db->registros();
     }
 
     public function obtenerEventoId($id){
-        $this->db->query("SELECT * FROM v2eventoWHERE id_evento = :idEvento");
+        $this->db->query("SELECT * FROM v2evento WHERE id_evento = :idEvento");
         $this->db->bind(':idEvento', $id);
         return $this->db->registro();
     }
+
+    public function obtener_resul_eventos(){
+        $this->db->query("SELECT * FROM v2participante order by marca");
+        return $this->db->registros();
+    }
+
 
 
 //*********************************** NUEVO ****************************************/
@@ -101,9 +109,10 @@ public function borrar($id){
 
 
 
+
     public function nuevo_participante($nuevo){       
-        $this->db->query("INSERT INTO v2participante (id_evento,nombre,apellidos,DNI,fecha_nacimiento,direccion,email,telefono) 
-        VALUES (:id,:nombre,:apellidos,:dni,:fecha_nacimiento,:direccion,:email,:telefono)");
+        $this->db->query("INSERT INTO v2participante (id_evento,fecha_aceptacion,nombre,apellidos,dni,fecha_nacimiento,direccion,email,telefono, foto_pago) 
+        VALUES (:id, CURDATE(), :nombre,:apellidos,:dni,:fecha_nacimiento,:direccion,:email,:telefono, :foto)");
 
         $this->db->bind(':id',$nuevo['id_evento']);
         $this->db->bind(':nombre', $nuevo['nombre']);
@@ -114,11 +123,38 @@ public function borrar($id){
         $this->db->bind(':email',$nuevo['email']);
         $this->db->bind(':telefono',$nuevo['telefono']);
 
-        if ($this->db->execute()){
-            return $this->db->ultimoIndice();
-        }else{
-            return false;
+        if ($nuevo['foto']=="") {
+            $this->db->bind(':foto', null);    
+        }else {
+            $this->db->bind(':foto', $nuevo['foto']);
         }
+
+        $this->db->execute();
+        $id_parti = $this->db->ultimoIndice();
+
+
+        
+        if($nuevo['foto']!=''){
+    //     //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
+    //     //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+            $directorio="C:/xampp/htdocs/tragamillas/public/img/eventos/";   
+            copy($_FILES['subirFoto']['tmp_name'], $directorio.$id_parti.'.jpg');
+            chmod($directorio.$id_parti.'.jpg',0777);
+
+            $foto=$id_parti.'.jpg';
+            $this->db->query("UPDATE v2participante SET foto_pago=:foto where id_participante=:id_parti;");
+            $this->db->bind(':foto', $foto);
+            $this->db->bind(':id_parti', $id_parti);
+
+            if($this->db->execute()){
+                return true;
+           }else{
+               return false;
+           }
+
+        } 
+
+        return true;
     }
 
 
@@ -137,8 +173,9 @@ public function borrar($id){
 
 
     public function editar_participante($nuevo,$id){       
-        $this->db->query("UPDATE v2participante SET nombre=:nombre,apellidos=:apellidos,DNI=:dni,fecha_nacimiento=:fecha_nacimiento,
-        direccion=:direccion,email=:email,telefono=:telefono where id_participante=:id");
+
+        $this->db->query("UPDATE v2participante SET nombre=:nombre,apellidos=:apellidos,dni=:dni,fecha_nacimiento=:fecha_nacimiento,
+        direccion=:direccion,email=:email,telefono=:telefono, foto_pago=:foto where id_participante=:id");
 
         $this->db->bind(':nombre', $nuevo['nombre']);
         $this->db->bind(':apellidos',$nuevo['apellidos']);
@@ -147,6 +184,8 @@ public function borrar($id){
         $this->db->bind(':fecha_nacimiento',$nuevo['fecha_naci']);
         $this->db->bind(':email',$nuevo['email']);
         $this->db->bind(':telefono',$nuevo['telefono']);
+        $this->db->bind(':foto',$nuevo['foto']);
+
 
         $this->db->bind(':id',$id);
         if ($this->db->execute()){
@@ -158,29 +197,30 @@ public function borrar($id){
 
 
 
-    public function anotar_marca($marca,$id){       
-        $this->db->query("UPDATE v2participante SET dorsal=:dorsal,marca=:marca WHERE id_participante = :id");
-        $this->db->bind(':dorsal', $marca['dorsal']);
-        $this->db->bind(':marca', $marca['marca']);
-        $this->db->bind(':id',$id);
+    public function anotar_marca($marca,$id_evento){    
 
-        if ($this->db->execute()){
-            return true;
-        }else{
-            return false;
-        }
-                        
+        foreach($marca as $datos){
+
+            $this->db->query("UPDATE v2participante SET dorsal=:dorsal, marca=:marca WHERE id_participante=:id_participante");
+            
+            if($datos['dorsal']!=''){
+                $this->db->bind(':dorsal', $datos['dorsal']);
+            }else{
+                $this->db->bind(':dorsal', null);
+            }
+
+            if($datos['marca']!=''){
+                $this->db->bind(':marca', $datos['marca']);
+            }else{
+                $this->db->bind(':marca', null);
+            }
+
+            $this->db->bind(':id_participante',$datos['parti']);
+
+            $this->db->execute();
+        }        
+        return true;
     }
-
-
-   
-
-
-    
-
-
-
-
 
 
 

@@ -157,7 +157,7 @@
                                                         <div class="col-5">
                                                         <div class="input-group">
                                                                 <label for="dni" class="input-group-text">DNI</label>
-                                                                <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $usuarios->DNI?>">    
+                                                                <input type="text" class="form-control form-control-md" id="dni" name="dni" value="<?php echo $usuarios->dni?>">    
                                                         </div> 
                                                         </div>
 

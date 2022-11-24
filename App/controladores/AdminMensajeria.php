@@ -9,9 +9,8 @@ require_once RUTA_APP.'/librerias/PHPMailer/PHPMailer.php';
 require_once RUTA_APP.'/librerias/PHPMailer/SMTP.php';
 
 
+
 class AdminMensajeria extends Controlador{
-
-
 
     public function __construct(){
         Sesion::iniciarSesion($this->datos);
@@ -20,29 +19,28 @@ class AdminMensajeria extends Controlador{
             redireccionar('/');
         }
         $this->mensajeModelo = $this->modelo('Mensaje');
+        $this->temporadaModelo = $this->modelo('Temporada');
         $this->adminModelo = $this->modelo('AdminModelo');
     }
 
 
 
-    //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
-    public function notificaciones(){
-        $notific[0] = $this->adminModelo->notSocio();
-        $notific[1] = $this->adminModelo->notGrupo();
-        $notific[2] = $this->adminModelo->notEventos();
-        $notific[3] = $this->adminModelo->contar_pedidos();
-        return $notific;
-    }
+   //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+   public function notificaciones(){
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+    $notific[0] = $this->adminModelo->notSocio();
+    $notific[1] = $this->adminModelo->notGrupo();
+    $notific[2] = $this->adminModelo->notEventos();
+    $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
+    return $notific;
+}
 
 
 
     //*********** INDEX *********************/
     public function index(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
+        $this->datos['notificaciones'] =  $this->notificaciones();
         $this->datos['email_todos']=$this->mensajeModelo->obtener_email_todos();
-
         $this->vista('administradores/mensajeria',$this->datos);
     }
 

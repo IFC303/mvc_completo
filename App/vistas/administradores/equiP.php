@@ -4,15 +4,14 @@
         <!------------------------------ CABECERA -------------------------------->
         <header>
             <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
-                    <span id="textoHead">Gestion de pedidos</span>
+                <div class="col-10 d-flex align-items-center justify-content-center ">
+                    <span id="textoHead">Pedidos de equipaciones</span>
                 </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
+                <div class="col-2 mt-1">
+                    <a href="<?php echo RUTA_URL ?>/login/logout">
+                        <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
                     </a>
-                </div>
+                </div>            
             </div>                                   
         </header>
     <!----------------------------------------------------------------------->
@@ -35,11 +34,9 @@
             <!--CABECERA TABLA-->
             <thead>
                 <tr>
-                    <th>N PEDIDO</th>
-                    <th>NOMBRE</th>
-                    <th>APELLIDOS</th>
-                    <th>FECHA PEDIDO</th>
-                    <th>TIPO</th>
+                    <th>FECHA PETICION</th>
+                    <th>ARTICULO</th>
+                    <th>SOCIO</th>
                     <th>TALLA</th>
                     <th>CANTIDAD</th>
                     <th>ESTADO</th>
@@ -54,11 +51,9 @@
             <?php
             foreach($datos['pedidos'] as $pedido): ?>
             <tr id="manita">
-                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->id_soli_equi?></td>
-                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->nombre?></td>
-                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->apellidos?></td>
-                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->fecha_peticion?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo date("d/m/Y", strtotime($pedido->fecha_peticion)) ?></td>
                 <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->tipo?></td>
+                <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->nombre.' '.$pedido->apellidos?></td>
                 <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->talla_nombre?></td>
                 <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $pedido->id_soli_equi?>"><?php echo $pedido->cantidad?></td>
                 <td>
@@ -94,7 +89,7 @@
                                   <img class="icono" src="<?php echo RUTA_Icon?>editar.svg"></img>
                                 </a> 
 
-                                <div class="modal" id="editar_<?php echo $pedido->id_soli_equi?>">
+                                <div class="modal fade" id="editar_<?php echo $pedido->id_soli_equi?>">
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
 
@@ -134,7 +129,7 @@
 
                                 <!-- MODAL VER-->
                                 <!-- Ventana -->
-                                <div class="modal" id="ver<?php echo $pedido->id_soli_equi?>">
+                                <div class="modal fade" id="ver<?php echo $pedido->id_soli_equi?>">
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
 
@@ -150,7 +145,7 @@
 
                                                     <div class="col-12 mt-3 mb-4">
                                                         <div>
-                                                        <img id="outputVer" width="250px" height="250px" 
+                                                        <img id="outputVer" width="400px" height="350px" 
                                                         <?php if ($pedido->imagen==''){?> src='<?php echo RUTA_Equipacion?>noFoto.jpg'<?php
                                                                 }else {?> src='<?php echo RUTA_Equipacion.$pedido->id_equipacion.'.jpg';} ?>'                                                                                            
                                                         >
@@ -158,13 +153,13 @@
                                                     </div>
 
                                                     <div class="row mb-4">   
-                                                        <div class="col-6">   
+                                                        <div class="col-7">   
                                                             <div class="input-group ">
                                                                 <label for="fecha" class="input-group-text">Pedido</label>
-                                                                <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $pedido->fecha_peticion?>"  readonly> 
+                                                                <input type="date" class="form-control" id="fecha" name="fecha" value="<?php  echo $pedido->fecha_peticion?>"  readonly> 
                                                             </div>    
                                                         </div>   
-                                                        <div class="col-6">   
+                                                        <div class="col-5">   
                                                             <div class="input-group ">
                                                                 <label for="fecha" class="input-group-text">Socio Nº</label>
                                                                 <input type="text" class="form-control" id="fecha" name="fecha" value="<?php echo $pedido->id_usuario?>"  readonly> 
@@ -212,8 +207,8 @@
                                 </div>
 
 
-                              <!-- MODAL BORRAR -->
-                              <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $pedido->id_soli_equi?>">
+                                <!-- MODAL BORRAR -->
+                                <a data-bs-toggle="modal" data-bs-target="#ModalBorrar_<?php echo $pedido->id_soli_equi?>">
                                     <img class="icono" src="<?php echo RUTA_Icon?>papelera.svg"></img>
                                 </a>
 
@@ -240,7 +235,6 @@
                                         </div>
                                     </div>
                                 </div>           
-
                     </td>
 
                     <?php endif ?>
@@ -259,7 +253,7 @@
         </div>
 
 
-        <div class="modal" id="nuevo">
+        <div class="modal fade" id="nuevo">
         <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content">
 
@@ -336,46 +330,6 @@
 </article>
 
 <?php require_once RUTA_APP . '/vistas/inc/footer.php' ?>
-
-
-    <script>
-
-
-// function filtrar(){
-//     var campo=document.getElementById("filtro");
-//     var valor=(campo.value).toUpperCase().trim();
-//     //console.log(valor););
-
-//     var filas=document.getElementById("tabla").getElementsByTagName("tbody")[0].rows;
-//     //console.log(filas);
-
-//        for(var i=0; i<filas.length; i++){
-//            console.log(filas[i]);
-//            //console.log(filas[i].innerText.toLocaleUpperCase())
-//            //console.log(filas[i].cells.namedItem("nombreUsu").innerText.toLocaleUpperCase())
-//            if(filas[i].innerText.toLocaleUpperCase().indexOf(valor) !== -1 ){
-//                    filas[i].style.display = null;
-//                  }else{
-//                    filas[i].style.display = 'none';
-//                 }
-
-
-
-
-//         //
-
-//     }
-// }
-
-
-// window.onload=function(){
-//     var filtro=document.getElementById("filtro");
-//     filtro.onkeyup=function(){
-//         filtrar();
-//     }
-//}
-
-    </script>
 
 
 

@@ -31,4 +31,4 @@ define('RUTA_Foto', RUTA_URL . '/public/img/fotos/');
 define('RUTA_ImgDatos', RUTA_URL . '/public/img/fotosPerfil/');
 define('RUTA_Equipacion', RUTA_URL . '/public/img/fotos_equipacion/');
 define('RUTA_Licencia', RUTA_URL . '/public/img/licencias/');
-define('RUTA_Justificante', RUTA_URL . '/public/img/justificantes/');
+define('RUTA_Justificante', RUTA_URL . '/public/img/eventos/');

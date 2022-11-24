@@ -1,27 +1,27 @@
 <?php require_once RUTA_APP . '/vistas/inc/navE.php' ?>
 
 
+
     <!------------------------------ CABECERA -------------------------------->
-        <header>
-            <div class="row mb-5">
-                <div class="col-10 d-flex align-items-center justify-content-center">
-                    <span id="textoHead">Gestion de test</span>
-                </div>
-                <div class="col-2 mt-2">
-                    <a type="button" id="botonLogout" class="btn" href="<?php echo RUTA_URL ?>/login/logout">
-                        <span>Logout</span>
-                        <img class="ms-2" src="<?php echo RUTA_Icon ?>logout.png">
-                    </a>
-                </div>
-            </div>                                   
-        </header>
+    <header>
+        <div class="row mb-5">
+            <div class="col-10 d-flex align-items-center justify-content-center ">
+                <span id="textoHead">Gestion de test y pruebas</span>
+            </div>
+            <div class="col-2 mt-1">
+                <a href="<?php echo RUTA_URL ?>/login/logout">
+                    <button class="btn" id="btn_logout"><img class="me-2" src="<?php echo RUTA_Icon ?>logout.png">Logout</button>
+                </a>
+            </div>            
+        </div>                                   
+    </header>
     <!----------------------------------------------------------------------->
 
 
 
-    <article>
+    <article class="pt-4">
 
-                <table id="tabla" class="table">
+                <table id="tabla" class="table w-50">
                     <!--CABECERA TABLA-->
                     <thead>
                         <tr>
@@ -37,89 +37,79 @@
                     <!--BODY TABLA-->
                     <tbody>
                         <?php foreach($datos['test'] as $test): ?>
-                        <tr>
-                            <td><?php echo $test->nombreTest?></td>
-                            <td><?php echo $test->fecha_alta?></td>
+                        <tr id="manita">
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $test->id_test?>"><?php echo $test->nombreTest?></td>
+                            <td data-bs-toggle="modal" data-bs-target="#ver<?php echo $test->id_test?>"><?php echo date("d/m/Y", strtotime($test->fecha_alta))?></td>
 
                             <?php if (tienePrivilegios($datos['usuarioSesion']->id_rol,[2])):?>
                             <td> 
 
-
-
-                               <!-- MODAL VER-->        
-                               <a data-bs-toggle="modal" data-bs-target="#ver<?php echo $test->id_test?>">
-                                <img class="icono" src="<?php echo RUTA_Icon ?>ojo.svg"></img>
-                                </a>         
-                       
+                                    <!-- MODAL VER-->        
                                     <!-- Ventana -->
-                                    <div class="modal" id="ver<?php echo $test->id_test?>">
+                                    <div class="modal fade" id="ver<?php echo $test->id_test?>">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-
+                                    <div class="modal-content ">
 
                                         <!-- Modal Header -->
                                         <div class="modal-header azul">
-                                            <p class="modal-title ms-3">Informacion</p> 
+                                            <p class="modal-title ms-3">Test: <?php echo $test->nombreTest?></p> 
                                             <button type="button" class="btn-close me-4" data-bs-dismiss="modal"></button>
                                         </div>
                             
-
                                         <!-- Modal body -->
                                         <div class="modal-body info mb-4">                         
-                                        <div class="container mt-4">
 
-
-                                                <div class="row mt-4 mb-4">
-                                                    <div class="col-7">
-                                                        <div class="input-group">
-                                                            <label for="nombreTest" class="input-group-text"><span class="info">Nombre</span></label>
-                                                            <input type="text" name="nombreTest" id="nombreTest" class="form-control form-control-md" value="<?php echo $test->nombreTest?>" readonly>
-                                                        </div> 
-                                                    </div>
-                                                    <div class="col-5">
-                                                        <div class="input-group">
-                                                            <label for="fecha" class="input-group-text">Fecha alta</label>
-                                                            <input type="date" class="form-control form-control-md" id="fecha" name="fecha" value="<?php echo $test->fecha_alta?>"readonly>
-                                                        </div>
-                                                    </div>
-                                                </div> 
-
-                                                <div class="row mb-4">                         
+                                            <div class="row mt-4 mb-4">
+                                                <div class="col-7">
                                                     <div class="input-group">
-                                                        <textarea  type="text" style="height:100px" class="form-control" placeholder ="Observaciones" id="descripcion" name="descripcion" readonly><?php echo $test->descripcion?></textarea>
-                                                    </div>                           
-                                                </div> 
+                                                        <label for="nombreTest" class="input-group-text"><span class="info">Nombre</span></label>
+                                                        <input type="text" name="nombreTest" id="nombreTest" class="form-control" value="<?php echo $test->nombreTest?>" readonly>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-5">
+                                                    <div class="input-group">
+                                                        <label for="fecha" class="input-group-text">Fecha alta</label>
+                                                        <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $test->fecha_alta?>"readonly>
+                                                    </div>
+                                                </div>
+                                            </div> 
+
+                                            <div class="row mb-4">                         
+                                                <div class="input-group">
+                                                    <textarea  type="text" style="height:100px" class="form-control" placeholder ="Observaciones" id="descripcion" name="descripcion" readonly><?php echo $test->descripcion?></textarea>
+                                                </div>                           
+                                            </div> 
                               
 
-                                            <div class="titulito"><span>Pruebas incluidas en el test</span></div>   
-                                            
-                                                    <?php $tipo="";
-                                                        $tipo="";
-                                                        foreach($datos['pruebas'] as $prueba):
-                                                            if ($tipo!=$prueba->tipo){
-                                                                $tipo=$prueba->tipo;
-                                                                echo '<br>';?>
-                                                               <span class="me-2 d-flex justify-content-start"><?php echo $tipo.':';?></span> 
-                                                           <?php } 
+                                            <div class="titulito ms-3"><span>Pruebas incluidas</span></div>   
+   
+                                            <div class="ms-3" style="text-align:left">
+                                                    <?php 
+                                                    $tipo="";
+                                                    foreach($datos['pruebas'] as $prueba):
+                                                        if ($tipo!=$prueba->tipo){
+                                                            $tipo=$prueba->tipo;
+                                                            echo '<br>';?>
+                                                            <span style="text-decoration:underline" class="me-3"><?php echo $tipo.':';?></span>
+                                                        <?php } 
 
-                                                            $seleccionado="";
-                                                            foreach($test->pruebas as $pruebaTest):
-                                                                if ($pruebaTest->id_prueba==$prueba->id_prueba){
-                                                                    $seleccionado = "checked";
-                                                                }
-                                                            endforeach;?>
-                                                           
-                                                            <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled> 
-                                                            <?php echo $prueba->nombrePrueba;?>   
-                                                            <?php 
+                                                        $seleccionado="";
+                                                        foreach($test->pruebas as $pruebaTest):
+                                                            if ($pruebaTest->id_prueba==$prueba->id_prueba){
+                                                                $seleccionado = "checked";
+                                                            }endforeach;?>
+                                                        
+                                                        <input class="mt-2 mb-4" type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> disabled> 
+                                                        <?php echo $prueba->nombrePrueba;?> 
 
-                                                        endforeach;?>                                                             
+                                                    <?php endforeach;?>   
+                                            </div>                                                          
                                          
                                         </div>
-                                        </div>  
-                                </div>
-                                </div>
-                                </div>
+                                       
+                                    </div>
+                                    </div>
+                                    </div>
                                     
 
 
@@ -129,7 +119,7 @@
                                 </a>
 
                                     <!-- Ventana -->
-                                    <div class="modal" id="editar_<?php echo $test->id_test ?>">
+                                    <div class="modal fade" id="editar_<?php echo $test->id_test ?>">
                                     <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content" id="modalEditar">
 
@@ -157,22 +147,23 @@
                                                     </div>
                                                 </div>  
 
-                                                <div class="row mb-5">                         
+                                                <div class="row mb-3">                         
                                                     <div class="input-group">
                                                         <textarea  type="text" style="height:100px" class="form-control" placeholder ="Observaciones" id="descripcion" name="descripcion"><?php echo $test->descripcion?></textarea>
                                                     </div>                           
                                                 </div> 
                                     
                                               
-                                                <div class="titulito"><span>Selecciona las pruebas que quieres incluir en el test</span></div>                                         
-                                                 
-                                                    <?php $tipo="";
+                                                <div class="titulito"><span>Selecciona las pruebas que quieres incluir en el test</span></div>    
+
+                                                <div style="text-align:left">
+                                                    <?php 
                                                           $tipo="";
                                                             foreach($datos['pruebas'] as $prueba):
                                                                 if ($tipo!=$prueba->tipo){
                                                                     $tipo=$prueba->tipo;
                                                                     echo '<br>';
-                                                                   ?> <div><?php echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';?></div>
+                                                                   ?> <span style="text-decoration:underline" class="me-3"><?php echo $tipo.':';?></span>
                                                                 <?php } 
                                                                 $seleccionado="";
                                                                 foreach($test->pruebas as $pruebaTest):
@@ -181,15 +172,16 @@
                                                                     }
                                                                 endforeach;
                                                             ?>
-                                                        <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> >    
+                                                        <input class="mt-2 mb-4"  type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>" <?php echo $seleccionado?> >    
                                                         <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
                                                     endforeach; ?> 
+                                                </div> 
                                            
 
                                                 <input type="hidden" name="id_test" value="<?php echo $test->id_test?>">  
 
                                                 <div class=" d-flex justify-content-end">
-                                                    <input type="submit" class="btn mt-4 mb-4 " name="aceptar" id="confirmar" value="Confirmar">        
+                                                    <input type="submit" class="btn mt-4 mb-3 " name="aceptar" id="confirmar" value="Confirmar">        
                                                 </div> 
                   
 
@@ -207,7 +199,7 @@
                                 </a>
 
                                     <!-- VENTANA -->
-                                    <div class="modal" id="borrar_<?php echo $test->id_test?>">
+                                    <div class="modal fade" id="borrar_<?php echo $test->id_test?>">
                                     <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
 
@@ -233,15 +225,11 @@
                                     </div>
                                     </div>
 
-
-
                     </td>
                     <?php endif ?>
                     </tr>
                     <?php endforeach ?>
                     </tbody>
-
-
 
             </table>
                                           
@@ -252,12 +240,12 @@
         <!-- AÑADIR NUEVO TEST-->
         <div class="col text-center mt-5">
             <a data-bs-toggle="modal" data-bs-target="#nuevo">
-                <input type="button" id="anadir" class="btn" value="Nueva Test">
+                <input type="button" id="anadir" class="btn" value="Nuevo Test">
             </a>
         </div>
 
 
-        <div class="modal" id="nuevo">
+        <div class="modal fade" id="nuevo">
         <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
@@ -290,15 +278,15 @@
                                 foreach($datos['pruebas'] as $prueba):
                                     if ($tipo!=$prueba->tipo){
                                         $tipo=$prueba->tipo;
-                                        echo '<br>';
-                                        echo $tipo.':'.'&nbsp;&nbsp;&nbsp;';
-                                    } ?>
-                                    <input type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>">  
+                                        echo '<br>'; ?>
+                                        <span style="text-decoration:underline" class="me-3"><?php echo $tipo.':';?></span>
+                                    <?php } ?>
+                                    <input class="mt-2 mb-4"  type="checkbox" name="id_prueba[]" value="<?php echo $prueba->id_prueba ?>">  
                                     <?php echo $prueba->nombrePrueba.'&nbsp;&nbsp;&nbsp;';
                             endforeach ?>      
 
 
-                                <div class="mt-3 mb-4 d-flex justify-content-end">
+                                <div class="mt-4 mb-4 d-flex justify-content-end">
                                     <input type="submit" class="btn " name="aceptar" id="confirmar" value="Confirmar"> 
                                </div> 
 

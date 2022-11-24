@@ -52,13 +52,33 @@ class SocioModelo{
         return $this->db->registros();
     }
         
+    public function obtener_soli_grupo_id($id_usuario){
+        $this->db->query("SELECT * FROM v2soli_grupo where usuario=:id");
+        $this->db->bind(':id', $id_usuario);
+        return $this->db->registros();
+    }
+
+    public function obtener_marcas_grupo($id_usuario){
+        $this->db->query("SELECT * from v2prueba_socio
+            left join v2prueba on v2prueba_socio.id_prueba=v2prueba.id_prueba
+            left join v2test on v2test.id_test=v2prueba_socio.id_test
+            where id_socio=:id_socio order by fecha desc");
+        $this->db->bind(':id_socio', $id_usuario);
+        return $this->db->registros();
+    }
+        
+
+
+
+    
+
+
 
     public function inscripcion($ins,$datos_usu){
 
-
         if($ins['tipo']=="evento"){
-            $this->db->query("INSERT INTO v2soli_evento (id_evento, fecha, nombre, apellidos, dni, fecha_nacimiento, direccion, email, telefono,estado) 
-            VALUES (:id_evento, CURDATE(),:nombre, :apellidos,:dni,:fecha_naci, :direccion, :email, :telefono, 1);");
+            $this->db->query("INSERT INTO v2soli_evento (id_evento, fecha, nombre, apellidos, dni, fecha_nacimiento, direccion, email, telefono, foto, estado) 
+            VALUES (:id_evento, CURDATE(),:nombre, :apellidos,:dni,:fecha_naci, :direccion, :email, :telefono, :pago, 0);");
             $this->db->bind(':id_evento', $ins["evento"]);
             $this->db->bind(':nombre', $datos_usu[0]->nombre);
             $this->db->bind(':apellidos', $datos_usu[0]->apellidos);  
@@ -67,14 +87,34 @@ class SocioModelo{
             $this->db->bind(':direccion', $datos_usu[0]->direccion);
             $this->db->bind(':email', $datos_usu[0]->email);
             $this->db->bind(':telefono', $datos_usu[0]->telefono);  
+            $this->db->bind(':pago', $ins['pago']);  
             $this->db->execute();
+
+            $id = $this->db->ultimoIndice();
+
+            //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
+            //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+            $directorio="C:/xampp/htdocs/tragamillas/public/img/eventos/";  
+            copy($_FILES['pago']['tmp_name'], $directorio.$id.'.jpg');
+            chmod($directorio.$id.'.jpg',0777);
+   
+           $foto=$id.'.jpg';
+           $this->db->query("UPDATE v2soli_evento SET foto=:pago where id_solicitud=:id_soli;");
+           $this->db->bind(':pago', $foto);
+           $this->db->bind(':id_soli', $id);
+           if ($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+ 
 
         }else{
 
             $this->db->query("INSERT INTO v2soli_grupo (fecha_soli, dni, nombre, apellidos, cuenta, fecha_nacimiento, email, telefono, direccion,gir,id_categoria,id_grupo,
-            es_socio, usuario, nom_pa, ape_pa, dni_pa, pago, foto) 
+            es_socio, usuario, nom_pa, ape_pa, dni_pa, pago, foto, estado) 
             VALUES (CURDATE(), :dni, :nombre, :apellidos, :cuenta, :fecha_naci, :email, :telefono, :direccion, :gir, :categoria, :grupo,
-            1, :usuario, :nom_pa, :ape_pa, :dni_pa, '', :foto);");
+            1, :usuario, :nom_pa, :ape_pa, :dni_pa, :pago, :foto, 0);");
 
             $this->db->bind(':dni', $datos_usu[0]->dni);  
             $this->db->bind(':nombre', $datos_usu[0]->nombre);
@@ -85,14 +125,34 @@ class SocioModelo{
             $this->db->bind(':telefono', $datos_usu[0]->telefono);        
             $this->db->bind(':direccion', $datos_usu[0]->direccion);
             $this->db->bind(':gir', $datos_usu[0]->gir);
-            $this->db->bind(':categoria', $ins["categoria"]);
+            $this->db->bind(':categoria', $ins["cat"]);
             $this->db->bind(':grupo', $ins["grupo"]);
-            $this->db->bind(':usuario', $datos_usu[0]->id_usuario);  
+            $this->db->bind(':usuario', $ins['id_usu']);  
             $this->db->bind(':nom_pa', $datos_usu[0]->nom_pa);  
             $this->db->bind(':ape_pa', $datos_usu[0]->ape_pa);  
             $this->db->bind(':dni_pa', $datos_usu[0]->dni_pa);
+            $this->db->bind(':pago', $ins['pago']);  
             $this->db->bind(':foto', $datos_usu[0]->foto);
             $this->db->execute();
+
+            $id = $this->db->ultimoIndice();
+
+            //COPIO LA FOTO EN EL DIRECTORIO Y CAMBIO NOMBRE EN LA BBDD  
+            //$directorio = "/var/www/html/tragamillas/public/img/fotos_equipacion/";
+            $directorio="C:/xampp/htdocs/tragamillas/public/img/eventos/";  
+            copy($_FILES['pago']['tmp_name'], $directorio.$id.'.jpg');
+            chmod($directorio.$id.'.jpg',0777);
+   
+           $foto=$id.'.jpg';
+           $this->db->query("UPDATE v2soli_grupo SET pago=:pago where id_soli_grupo=:id_soli;");
+           $this->db->bind(':pago', $foto);
+           $this->db->bind(':id_soli', $id);
+           if ($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+ 
         }
             return true;
     }
@@ -195,16 +255,6 @@ class SocioModelo{
             return false;
         }
     }
-
-
-    // public function obtenerMarcas(){
-    //     $this->db->query("SELECT * FROM v2prueba, v2prueba_socio, v2test, v2test_prueba
-    //     where v2prueba.id_prueba = v2prueba_socio.id_prueba 
-    //     AND v2prueba.id_prueba = v2test_prueba.id_prueba 
-    //     AND v2test_prueba.id_test = v2test.id_test 
-    //     ORDER BY v2prueba.id_prueba");
-    //     return $this->db->registros();
-    // }
 
 
     public function obtener_marcas_usuario($id_usuario){

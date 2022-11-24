@@ -20,6 +20,7 @@ class Socio extends Controlador{
         $this->equipacionModelo = $this->modelo('Equipacion');     
         $this->eventoModelo = $this->modelo('Evento');   
         $this->grupoModelo = $this->modelo('Grupo');   
+        $this->temporadaModelo = $this->modelo('Temporada');   
     }
 
 
@@ -28,6 +29,9 @@ class Socio extends Controlador{
 
 // *********** PAGINA PRINCIPAL SOCIO ***********  
     public function index(){
+
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+
         $id_usuario=$this->datos['usuarioSesion']->id_usuario;
         $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
         $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
@@ -40,14 +44,26 @@ class Socio extends Controlador{
 
 
 
-    //************* EVENTOS *****************/
-    public function eventos(){ 
-        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
-        $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
-        $this->datos['eventos'] = $this->eventoModelo->obtener_eventos();
-        $this->vista('socios/evento', $this->datos);
-    }
+
+ //************* VER FOTO LICENCIA *****************/
+ public function ver_lice($id_licencia){
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+    $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+    $this->datos['usu_licen'] = $this->socioModelo->ver_licen_id($id_usuario,$id_licencia);
+    $this->vista('socios/ver', $this->datos);
+}
+
+
+
+//************* EVENTOS *****************/
+public function eventos(){ 
+    $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+    $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+    $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
+    $this->datos['eventos'] = $this->eventoModelo->obtener_eventos();
+    $this->datos['resul_eventos'] = $this->eventoModelo->obtener_resul_eventos();
+    $this->vista('socios/evento', $this->datos);
+}
 
 
     public function ins_evento($id_evento){
@@ -62,12 +78,12 @@ class Socio extends Controlador{
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
            
             $ins = [
+                'pago'=>$_FILES['pago']['name'],
                 'id_usu' =>$id_usuario,
                 'tipo' =>'evento',
-                'evento' => $id_evento
-                // 'fotoCarnet' => $nomFoto,
+                'evento' => $id_evento            
             ];
-          
+
             if ($this->socioModelo->inscripcion($ins, $this->datos['datos_user'])) {
                 redireccionar('/socio/eventos');
             } else {
@@ -78,18 +94,7 @@ class Socio extends Controlador{
 
 
 
-    //************* VER FOTO LICENCIA *****************/
-    public function ver_lice($id_licencia){
-        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
-        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
-        $this->datos['usu_licen'] = $this->socioModelo->ver_licen_id($id_usuario,$id_licencia);
-        $this->vista('socios/ver', $this->datos);
-    }
-
-
-
-
-    //************* ESCUELA ARREGLAR *****************/
+    //************* ESCUELA *****************/
     public function escuela(){
     
         $id_usuario=$this->datos['usuarioSesion']->id_usuario;
@@ -98,10 +103,49 @@ class Socio extends Controlador{
         $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
 
         $this->datos['grupos'] = $this->grupoModelo->obtener_grupos();
+        $this->datos['soli_grupo']=$this->socioModelo->obtener_soli_grupo_id($id_usuario);
+        $this->datos['cantidad']=count( $this->datos['soli_grupo']);
+        $this->datos['horarios_grupos'] = $this->grupoModelo->horarios_grupos();
+        foreach ($this->datos['grupos'] as $info) {
+            $id = $info->id_grupo;
+            $this->datos['horario'] = $this->grupoModelo->obtenerHorarioId($id);
+        }
+        $this->datos['categorias'] = $this->socioModelo->obtener_categorias();
+        $this->datos['marcas_grupo']=$this->socioModelo->obtener_marcas_grupo($id_usuario);
+
 
         $this->vista('socios/escuela', $this->datos);
     }
 
+
+
+    public function ins_grupo($id_grupo){
+        $id_usuario=$this->datos['usuarioSesion']->id_usuario;
+        $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
+    
+        $this->datos['rolesPermitidos'] = [3];          
+        if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+            redireccionar('/usuarios');
+        }
+       
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+           
+            $ins = [
+                'pago'=>$_FILES['pago']['name'],
+                'id_usu' =>$id_usuario,
+                'cat' =>$_POST['cat'],
+                'grupo' => $id_grupo,
+                'tipo' =>'grupo',         
+            ];
+
+
+            if ($this->socioModelo->inscripcion($ins, $this->datos['datos_user'])) {
+                redireccionar('/socio/escuela');
+            } else {
+                die('Algo ha fallado!!!');
+            }
+        }
+    }
 
 
 
@@ -271,7 +315,13 @@ public function equipacion(){
     $id_usuario=$this->datos['usuarioSesion']->id_usuario;
     $this->datos['datos_user'] = $this->socioModelo->obtener_datos($id_usuario);
     $this->datos['usu_licencia'] = $this->socioModelo->obtener_licencias($id_usuario);
-    $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones();
+
+   
+    $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
+    $id_temporada=$this->datos['temp_actual']->id_temp;
+    //$this->datos['temp_actual']=$this->temporadaModelo->obtener_num_registros();
+    $this->datos['equipacion'] = $this->equipacionModelo->obtener_equipaciones($id_temporada);
+
     $this->datos['talla'] = $this->equipacionModelo->obtener_tallas();
     $this->datos['equi'] = $this->socioModelo->obtener_pedidos($id_usuario);
     $this->vista('socios/equipacion', $this->datos);

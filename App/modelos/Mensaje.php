@@ -13,7 +13,7 @@ class Mensaje{
 //**********************MENSAJERIA ADMIN*********************************/
 
 public function obtener_email_todos(){
-    $this->db->query("SELECT v2usuario.id_usuario as id, rol.nombre as tipo, v2usuario.nombre, apellidos, email FROM v2usuario, rol where v2usuario.id_rol=rol.id_rol
+    $this->db->query("SELECT v2usuario.id_usuario as id, v2rol.nombre as tipo, v2usuario.nombre, apellidos, email FROM v2usuario, v2rol where v2usuario.id_rol=v2rol.id_rol
     union all
     select id_participante as id, 'Participantes' as tipo, nombre, apellidos, email from v2participante
     union all

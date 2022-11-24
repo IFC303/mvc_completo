@@ -10,28 +10,27 @@ class AdminEntidades extends Controlador{
             redireccionar('/'); 
         }
             $this->entidadModelo = $this->modelo('Entidad');
+            $this->temporadaModelo = $this->modelo('Temporada');
             $this->adminModelo = $this->modelo('AdminModelo');
     }
 
 
     //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
     public function notificaciones(){
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
         $notific[0] = $this->adminModelo->notSocio();
         $notific[1] = $this->adminModelo->notGrupo();
         $notific[2] = $this->adminModelo->notEventos();
-        $notific[3] = $this->adminModelo->contar_pedidos();
+        $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
         return $notific;
     }
 
     //*********** INDEX *********************/
     public function index(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
+        $this->datos['notificaciones'] =  $this->notificaciones();
         $this->datos['entidad']=$this->entidadModelo->obtener_entidades();
         $this->vista('administradores/entidad',$this->datos);
     }
-
 
 
     //*********************************** NUEVO ****************************************/
@@ -55,7 +54,7 @@ class AdminEntidades extends Controlador{
             if($this->entidadModelo->nuevo($nuevo)){
                 redireccionar('/adminEntidades');
             }else{
-                die('Añgo ha fallado!!');
+                die('Algo ha fallado!!');
             }
         }else{
             $this->datos['entidad'] = (object)[

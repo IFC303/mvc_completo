@@ -15,23 +15,24 @@ class AdminTemporadas extends Controlador{
     }
 
 
-    //*********** NOTIFICACIONES EN EL MENU LATERAL *********************/
+    
+    //***************** NOTIFICACIONES EN EL MENU LATERAL *********************/
     public function notificaciones(){
+        $this->datos['temp_actual']=$this->temporadaModelo->obtener_actual();
         $notific[0] = $this->adminModelo->notSocio();
         $notific[1] = $this->adminModelo->notGrupo();
         $notific[2] = $this->adminModelo->notEventos();
-        $notific[3] = $this->adminModelo->contar_pedidos();
+        $notific[3] = $this->adminModelo->contar_pedidos($this->datos['temp_actual']);
         return $notific;
     }
 
 
     
-    //*********** INDEX *********************/
+    //******************************* INDEX *********************************/
     public function index(){
-        $notific = $this->notificaciones();
-        $this->datos['notificaciones'] = $notific;
-
+        $this->datos['notificaciones'] = $this->notificaciones();
         $this->datos['temporada']=$this->temporadaModelo->obtener_temporadas();
+        $this->datos['activo']=$this->temporadaModelo->obtener_actual();
         $this->vista('administradores/temporada',$this->datos);
     }
 
@@ -57,7 +58,7 @@ class AdminTemporadas extends Controlador{
             if($this->temporadaModelo->nuevo($nuevo)){
                 redireccionar('/adminTemporadas');
             }else{
-                die('Añgo ha fallado!!');
+                die('Algo ha fallado!!');
             }
         }else{
             $this->datos['temporada'] = (object)[
@@ -66,7 +67,7 @@ class AdminTemporadas extends Controlador{
                 'fecha_fin' => '',
                 'observaciones' => ''
             ];
-
+            $this->datos['temporada']=$this->temporadaModelo->obtener_temporadas();
             $this->vista('administradores/temporada',$this->datos);
         }
     }
@@ -95,8 +96,8 @@ class AdminTemporadas extends Controlador{
             } else {
                 die('Algo ha fallado!!!');
             }
-    
          } else {    
+            $this->datos['temporada']=$this->temporadaModelo->obtener_temporadas();
             $this->vista('administradores/temporada',$this->datos);
         }
     }
@@ -105,12 +106,10 @@ class AdminTemporadas extends Controlador{
 //*********************************** BORRAR ****************************************/
 
 public function borrar($id){
-
     $this->datos['rolesPermitidos'] = [1];         
     if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
         redireccionar('/usuarios');
     }
-
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($this->temporadaModelo->borrar($id)) {
             redireccionar('/adminTemporadas');
@@ -118,9 +117,34 @@ public function borrar($id){
             die('Algo ha fallado!!!');
         }
     }else{
+        $this->datos['temporada']=$this->temporadaModelo->obtener_temporadas();
         $this->vista('administradores/temporada', $this->datos);
     }
 }
+
+
+//*********************************** CAMBIAR ESTADO ****************************************/
+public function estado($id_temporada){
+
+    $this->datos['rolesPermitidos'] = [1];         
+    if (!tienePrivilegios($this->datos['usuarioSesion']->id_rol, $this->datos['rolesPermitidos'])) {
+        redireccionar('/usuarios');
+    }
+
+    $estado=$_POST['estado'];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->temporadaModelo->estado($id_temporada,$estado)) {
+            redireccionar('/adminTemporadas');
+        }else{
+            die('Algo ha fallado!!!');
+        }
+    }else{
+        $this->datos['temporada']=$this->temporadaModelo->obtener_temporadas();
+        $this->vista('administradores/temporada', $this->datos);
+    }
+}
+
 
 
 }
